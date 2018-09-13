@@ -158,7 +158,7 @@ a {
     background-image: radial-gradient(#7D4E57, #aa6d78);
     z-index: 1000;
     box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.3);
-    transition: all 1s; }
+    transition: all .5s; }
   .navigation__checkbox-on:checked ~ .navigation__background {
     transform: scale(100); }
   .navigation__checkbox-on:checked ~ .navigation__nav .navigation__list-2 {
@@ -318,6 +318,36 @@ a {
     font-size: 2rem; }
   .main {
     width: 35rem; }
+  .navigation__background {
+    top: 4rem;
+    right: 4rem; }
+  .navigation__icon-on {
+    top: -.5rem;
+    right: -.5rem; }
+  .navigation__button-on {
+    top: 4rem;
+    right: 4rem; }
+  .navigation__button-off {
+    top: 4rem;
+    right: 4rem; } }
+
+@media (max-width: 350px) {
+  .short {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
+    height: auto; }
+    .short h1 {
+      font-size: 3rem;
+      width: 100%;
+      margin: 0;
+      padding: 0; }
+    .short p {
+      font-size: 2rem; }
+  .main {
+    width: 25rem; }
   .navigation__background {
     top: 4rem;
     right: 4rem; }
