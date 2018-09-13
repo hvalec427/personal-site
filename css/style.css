@@ -39,10 +39,13 @@ html {
 body {
   padding: 0;
   margin: 0;
-  border-bottom: 3rem solid #7D4E57; }
+  border-bottom: 1.5rem solid #7D4E57; }
 
 a {
   color: #7D4E57; }
+
+.all {
+  position: relative; }
 
 body {
   font-family: "Lato", sans-serif;
@@ -95,8 +98,10 @@ body {
   height: 100vh;
   box-sizing: border-box;
   width: 98.7vw;
-  border: 2rem solid #7D4E57;
-  background-color: #212D40; }
+  border: 1.8rem solid #7D4E57;
+  background-color: #212D40;
+  z-index: 100;
+  position: relative; }
 
 .navigation {
   padding: 1rem;
@@ -114,7 +119,7 @@ body {
     padding: 1.8rem;
     float: right;
     height: 6rem;
-    width: 70%;
+    width: 80%;
     position: relative;
     margin-top: -1rem; }
   .navigation__list {
@@ -126,13 +131,11 @@ body {
     padding: 1rem; }
   .navigation__item {
     width: 20rem;
-    float: left;
-    margin: 0.5rem 2rem; }
+    float: left; }
   .navigation__link {
     display: inline-block;
     font-size: 2.2rem;
     color: white;
-    text-decoration: none;
     text-transform: uppercase; }
     .navigation__link:hover, .navigation__link:active {
       color: white;
@@ -142,23 +145,27 @@ body {
   .navigation__checkbox-off {
     display: none; }
 
+.line {
+  z-index: 10;
+  height: 1.5rem;
+  width: 100%;
+  background-color: #7D4E57;
+  position: fixed;
+  top: 0;
+  left: 0; }
+
 .short {
   color: white;
   width: 50%;
   height: 50%;
-  margin: 0 auto;
+  margin: 4rem auto 0;
   padding: 6rem; }
   .short h1 {
     font-size: 5rem; }
   .short p {
     font-size: 2rem; }
-  .short .portfolio {
-    opacity: 1; }
-  .short .contact {
-    opacity: 0;
-    display: none; }
 
-@media (max-width: 1400px) {
+@media (max-width: 100rem) {
   .navigation__nav {
     position: fixed;
     z-index: 1500;
@@ -262,8 +269,23 @@ body {
   margin: 0 auto;
   font-size: 2rem;
   text-align: justify; }
+  @media (max-width: 100em) {
+    .main {
+      margin: 5rem auto; } }
+  @media (max-width: 70em) {
+    .main {
+      width: 50rem; } }
+  @media (max-width: 60em) {
+    .main {
+      width: 40rem; } }
+  @media (max-width: 40em) {
+    .main {
+      width: 20rem; } }
 
 .portfolio__image {
   width: 40%;
   float: left;
   margin: 2rem; }
+
+.contact {
+  margin-bottom: 5rem; }
