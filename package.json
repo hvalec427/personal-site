@@ -12,6 +12,7 @@
     "node-sass": "^4.9.3"
   },
   "dependencies": {
+    "debug": "^4.0.1",
     "live-server": "^1.2.0"
   }
 }

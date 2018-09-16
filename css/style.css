@@ -88,6 +88,15 @@ body {
   margin: 0;
   border-bottom: 1.5rem solid #7D4E57; }
 
+::-moz-selection {
+  /* Code for Firefox */
+  color: white;
+  background: #212D40; }
+
+::selection {
+  color: white;
+  background: #212D40; }
+
 a {
   color: #7D4E57; }
 
@@ -97,7 +106,7 @@ a {
 .header {
   height: 100vh;
   box-sizing: border-box;
-  width: 100vw;
+  width: 98.7vw;
   border: 1.8rem solid #7D4E57;
   background-color: #212D40;
   z-index: 100;
@@ -113,9 +122,9 @@ a {
     float: left;
     margin: 2rem; }
   .navigation__logo {
-    height: 8rem;
+    height: 6rem;
     border-radius: 50%;
-    border: 1rem solid #7D4E57; }
+    border: .2rem solid white; }
   .navigation__button-on {
     display: none;
     height: 7rem;
@@ -200,7 +209,7 @@ a {
     height: 6rem;
     width: 80%;
     position: relative;
-    margin-top: 1.3rem; }
+    margin-top: 2.8rem; }
   .navigation__list-1 {
     width: 100%;
     padding: 0;
@@ -253,8 +262,9 @@ a {
 
 .short {
   color: white;
-  width: 50%;
-  margin: 25rem auto 0; }
+  width: 70%;
+  margin: 15rem auto 0;
+  text-align: center; }
   .short h1 {
     font-size: 6rem; }
   .short p {
@@ -268,7 +278,6 @@ a {
 
 .portfolio__image {
   width: 40%;
-  float: left;
   margin: 2rem; }
 
 .contact {
@@ -295,8 +304,18 @@ a {
       font-size: 3rem; } }
 
 @media (max-width: 750px) {
+  .header {
+    border: 1.3rem solid #7D4E57; }
   .main {
-    width: 50rem; }
+    width: 45rem; }
+  .navigation__logo-box {
+    width: 10%;
+    float: left;
+    margin: 1.2rem; }
+  .navigation__logo {
+    height: 6rem;
+    border-radius: 50%;
+    border: 0.8rem solid #7D4E57; }
   .navigation__background {
     top: 4rem;
     right: 4rem; }
@@ -318,6 +337,16 @@ a {
     font-size: 2rem; }
   .main {
     width: 35rem; }
+  .navigation__logo-box {
+    width: 10%;
+    float: left;
+    margin: 1rem; }
+  .navigation__logo {
+    height: 6rem;
+    border-radius: 50%;
+    border: 0.7rem solid #7D4E57; }
+  .navigation__nav {
+    margin-top: -2rem; }
   .navigation__background {
     top: 4rem;
     right: 4rem; }
@@ -329,7 +358,9 @@ a {
     right: 4rem; }
   .navigation__button-off {
     top: 4rem;
-    right: 4rem; } }
+    right: 4rem; }
+  .navigation__nav .navigation__list-2__link {
+    font-size: 4rem; } }
 
 @media (max-width: 350px) {
   .short {
@@ -348,6 +379,9 @@ a {
       font-size: 2rem; }
   .main {
     width: 25rem; }
+  .navigation__nav {
+    margin-top: -3rem;
+    margin-left: -5rem; }
   .navigation__background {
     top: 4rem;
     right: 4rem; }
