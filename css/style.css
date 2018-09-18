@@ -111,7 +111,7 @@ a {
   position: relative;
   height: 100vh;
   z-index: 100;
-  overflow: scroll; }
+  overflow: hidden; }
 
 .navigation {
   height: 6rem;
