@@ -16,7 +16,11 @@
 
 <body>
     <div class="all">
+        <input type="radio" class="navigation__checkbox-lang-on" id="nav-lang-toggle-on" name="nav-lang-toggle">
+        <input type="radio" class="navigation__checkbox-lang-off" id="nav-lang-toggle-off" name="nav-lang-toggle" checked>
+
         <header class="header">
+
             <div class="navigation">
                 <div class="navigation__logo-box">
                     <img src="./images/logo.JPG" alt="Logo" class="navigation__logo" />
@@ -74,6 +78,20 @@
                             </div>
                         </div>
                     </nav>
+                    <div class="navigation__nav-lang">
+                        <div class="navigation__list">
+                            <div class="navigation__list__item">
+                                <label for="nav-lang-toggle-on" class="navigation__list__button-link-on">
+                                    <span class="navigation__icon-lang-on">ang/</span>
+                                </label>
+                            </div>
+                            <div class="navigation__list__item">
+                                <label for="nav-lang-toggle-off" class="navigation__list__button-link-off">
+                                    <span class="navigation__icon-lang-off"> slo</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -87,7 +105,46 @@
         <div class="line"></div>
 
         <main class="main">
-            <div class="about" id="about">
+            <div id="about"></div>
+            <div class="about eng">
+                <h2>About me</h2>
+                <p>
+                    accusamus cum unde minus sunt debitis, voluptatum molestiae eos quisquam officiis nemo iste!
+                    Accusamus,
+                    fugiat aliquam.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid eaque eveniet dignissimos,
+                    voluptas
+                    quo
+                    accusamus cum unde minus sunt debitis, voluptatum molestiae eos quisquam officiis nemo iste!
+                    Accusamus,
+                    fugiat aliquam.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid eaque eveniet dignissimos,
+                    voluptas
+                    quo
+                    accusamus cum unde minus sunt debitis, voluptatum molestiae eos quisquam officiis nemo iste!
+                    Accusamus,
+                    fugiat aliquam.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid eaque eveniet dignissimos,
+                    voluptas
+                    quo
+                    accusamus cum unde minus sunt debitis, voluptatum molestiae eos quisquam officiis nemo iste!
+                    Accusamus,
+                    fugiat aliquam.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid eaque eveniet dignissimos,
+                    voluptas
+                    quo
+                    accusamus cum unde minus sunt debitis, voluptatum molestiae eos quisquam officiis nemo iste!
+                    Accusamus,
+                    fugiat aliquam.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid eaque eveniet dignissimos,
+                    voluptas
+                    quo
+                    accusamus cum unde minus sunt debitis, voluptatum molestiae eos quisquam officiis nemo iste!
+                    Accusamus,
+                    fugiat aliquam.
+                </p>
+            </div>
+            <div class="about slo" id="about">
                 <h2>O meni</h2>
                 <p>
                     accusamus cum unde minus sunt debitis, voluptatum molestiae eos quisquam officiis nemo iste!
@@ -125,28 +182,63 @@
                     fugiat aliquam.
                 </p>
             </div>
-            <div class="portfolio" id="portfolio">
-                <h2>Portfolio</h2>
+            <div id="portfolio"></div>
+            <div class="portfolio eng">
+                <h2>Portfolio eng</h2>
                 <a href="https://github.com/zigahvalec/Natours" target="_blank"><img src="images/natours.jpg" alt="news"
                         class="portfolio__image"></a>
                 <p>
-                    <strong>Natours</strong> je spletna stran narejena za izmišljeno podjetje, ki se ukvarja s pohodi v naravi. Napisana
+                    <strong>Natours</strong> je spletna stran narejena za izmišljeno podjetje, ki se ukvarja s pohodi v
+                    naravi. Napisana
                     je samo v HTML in CSS.
                 </p>
                 <a href="https://github.com/zigahvalec/news" target="_blank"><img src="images/news-web.png" alt="Natours"
                         class="portfolio__image"></a>
                 <p>
-                    <strong>News</strong> je react aplikacija, ki za backend uporablja firebase. Uporablja tudi firebase autentikacijo.
+                    <strong>News</strong> je react aplikacija, ki za backend uporablja firebase. Uporablja tudi
+                    firebase autentikacijo.
                     Uporabnik se lahko prijavi v sistem s email naslovom in geslo. Prijavljeni uporabniki lahko pišejo
                     nove članke, ki pa jih lahko vsi uporabniki berejo.
                 </p>
-                <a href="https://github.com/zigahvalec/zigahvalec.github.io" target="_blank"><img src="images/osebanStran.png" alt="oseban stran"
-                    class="portfolio__image"></a>
+                <a href="https://github.com/zigahvalec/zigahvalec.github.io" target="_blank"><img src="images/osebanStran.png"
+                        alt="oseban stran" class="portfolio__image"></a>
                 <p>
-                    <strong>Zigahvalec.github.io</strong> je moja osebna spletna stran. 
+                    <strong>Zigahvalec.github.io</strong> je moja osebna spletna stran.
                 </p>
             </div>
-            <div class="contact" id="contact">
+            <div class="portfolio slo" id="portfolio">
+                <h2>Portfolio</h2>
+                <a href="https://github.com/zigahvalec/Natours" target="_blank"><img src="images/natours.jpg" alt="news"
+                        class="portfolio__image"></a>
+                <p>
+                    <strong>Natours</strong> je spletna stran narejena za izmišljeno podjetje, ki se ukvarja s pohodi v
+                    naravi. Napisana
+                    je samo v HTML in CSS.
+                </p>
+                <a href="https://github.com/zigahvalec/news" target="_blank"><img src="images/news-web.png" alt="Natours"
+                        class="portfolio__image"></a>
+                <p>
+                    <strong>News</strong> je react aplikacija, ki za backend uporablja firebase. Uporablja tudi
+                    firebase autentikacijo.
+                    Uporabnik se lahko prijavi v sistem s email naslovom in geslo. Prijavljeni uporabniki lahko pišejo
+                    nove članke, ki pa jih lahko vsi uporabniki berejo.
+                </p>
+                <a href="https://github.com/zigahvalec/zigahvalec.github.io" target="_blank"><img src="images/osebanStran.png"
+                        alt="oseban stran" class="portfolio__image"></a>
+                <p>
+                    <strong>Zigahvalec.github.io</strong> je moja osebna spletna stran.
+                </p>
+            </div>
+            <div id="contact"></div>
+            <div class="contact eng" id="contact">
+                <h2>Contact</h2>
+                <ul>
+                    <li><a href="https://github.com/zigahvalec">Github</a></li>
+                    <li><a href="https://linkedin.com/in/hvalec">Linkedin</a></li>
+                    <li><a href="mailto:zigahvalec@gmail.com">E-mail</a></li>
+                </ul>
+            </div>
+            <div class="contact slo" id="contact">
                 <h2>Kontakt</h2>
                 <ul>
                     <li><a href="https://github.com/zigahvalec">Github</a></li>

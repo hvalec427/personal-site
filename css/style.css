@@ -84,6 +84,7 @@ html {
   font-size: 60%; }
 
 body {
+  border-bottom: 1.5rem solid #7D4E57;
   margin: 0;
   padding: 0; }
 
@@ -109,7 +110,8 @@ a {
   height: 100vh;
   position: relative;
   height: 100vh;
-  z-index: 100; }
+  z-index: 100;
+  overflow: scroll; }
 
 .navigation {
   height: 6rem;
@@ -203,12 +205,17 @@ a {
     display: none; }
   .navigation__checkbox-off {
     display: none; }
+  .navigation__checkbox-lang-on {
+    display: none; }
+  .navigation__checkbox-lang-off {
+    display: none; }
   .navigation__nav {
-    float: right;
+    float: left;
     height: 6rem;
-    width: 80%;
+    width: 60%;
     position: relative;
-    margin-top: 2.8rem; }
+    margin-top: 2.8rem;
+    margin-left: 5rem; }
   .navigation__list-1 {
     width: 100%;
     padding: 0;
@@ -248,6 +255,44 @@ a {
       color: white;
       text-transform: uppercase;
       border-bottom: .8rem solid transparent; }
+  .navigation__nav-lang {
+    float: right;
+    margin-right: 5rem;
+    height: 2rem;
+    width: auto;
+    position: relative;
+    top: -2rem;
+    right: -13rem; }
+  .navigation__list {
+    width: auto;
+    padding: 0;
+    margin: 1rem 0;
+    list-style: none;
+    text-align: right;
+    padding: 1rem; }
+    .navigation__list__item {
+      width: auto;
+      float: left; }
+    .navigation__list__link {
+      float: right;
+      font-size: 2.2rem;
+      color: white;
+      text-transform: uppercase; }
+      .navigation__list__link:hover, .navigation__list__link:active {
+        color: white;
+        border-bottom: 0.8rem solid #7D4E57; }
+  .navigation__icon-lang-on, .navigation__icon-lang-off {
+    display: inline-block;
+    font-size: 2.2rem;
+    color: white;
+    text-transform: uppercase; }
+    .navigation__icon-lang-on:hover, .navigation__icon-lang-on:active, .navigation__icon-lang-off:hover, .navigation__icon-lang-off:active {
+      color: white;
+      border-bottom: 0.8rem solid #7D4E57; }
+  .navigation__checkbox-lang-on:checked ~ .main .eng {
+    display: block; }
+  .navigation__checkbox-lang-on:checked ~ .main .slo {
+    display: none; }
 
 .line {
   z-index: 10;
@@ -282,6 +327,12 @@ a {
 .contact {
   margin-bottom: 5rem; }
 
+.eng {
+  display: none; }
+
+.slo {
+  display: block; }
+
 @media (max-width: 70em) {
   html {
     font-size: 60%; }
@@ -300,6 +351,8 @@ a {
     top: 3rem;
     right: 4rem; }
   .navigation__list-1 {
+    display: none; }
+  .navigation__nav-lang {
     display: none; }
   .short {
     margin: auto; } }
