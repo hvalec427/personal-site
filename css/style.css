@@ -257,7 +257,6 @@ a {
       border-bottom: .8rem solid transparent; }
   .navigation__nav-lang {
     float: right;
-    margin-right: 5rem;
     height: 2rem;
     width: auto;
     position: relative;
@@ -289,10 +288,18 @@ a {
     .navigation__icon-lang-on:hover, .navigation__icon-lang-on:active, .navigation__icon-lang-off:hover, .navigation__icon-lang-off:active {
       color: white;
       border-bottom: 0.8rem solid #7D4E57; }
+  .navigation__icon-lang-off {
+    border-bottom: 0.8rem solid #7D4E57; }
   .navigation__checkbox-lang-on:checked ~ .main .eng {
     display: block; }
   .navigation__checkbox-lang-on:checked ~ .main .slo {
     display: none; }
+
+.navigation__checkbox-lang-on:checked ~ .header .navigation__icon-lang-on {
+  border-bottom: 0.8rem solid #7D4E57; }
+
+.navigation__checkbox-lang-on:checked ~ .header .navigation__icon-lang-off {
+  border-bottom: .8rem solid transparent; }
 
 .line {
   z-index: 10;
