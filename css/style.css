@@ -109,8 +109,7 @@ a {
   height: 100vh;
   position: relative;
   height: 100vh;
-  z-index: 100;
-  overflow: hidden; }
+  z-index: 100; }
 
 .navigation {
   height: 6rem;
@@ -133,7 +132,7 @@ a {
     top: 6rem;
     right: 6rem;
     border-radius: 50%;
-    z-index: 900;
+    z-index: 2100;
     text-align: center;
     cursor: pointer; }
   .navigation__button-off {
@@ -144,7 +143,7 @@ a {
     top: 6rem;
     right: 6rem;
     border-radius: 50%;
-    z-index: 900;
+    z-index: 2000;
     text-align: center;
     cursor: pointer; }
   .navigation__button-link-off {
@@ -153,7 +152,7 @@ a {
     top: 6rem;
     right: 6rem;
     border-radius: 50%;
-    z-index: 900;
+    z-index: 2000;
     text-align: center;
     cursor: pointer; }
   .navigation__background {
@@ -273,7 +272,8 @@ a {
   width: 50%;
   margin: 0 auto;
   font-size: 2rem;
-  text-align: justify; }
+  text-align: justify;
+  z-index: 0; }
 
 .portfolio__image {
   width: 40%;
