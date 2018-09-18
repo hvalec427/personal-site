@@ -76,22 +76,22 @@ body {
 *,
 *::after,
 *::befor {
+  box-sizing: border-box !important;
   margin: 0;
-  padding: 0;
-  box-sizing: border-box; }
+  padding: 0; }
 
 html {
-  font-size: 62.5%; }
+  font-size: 60%; }
 
 body {
-  padding: 0;
+  border-bottom: 1.5rem solid #7D4E57;
   margin: 0;
-  border-bottom: 1.5rem solid #7D4E57; }
+  padding: 0; }
 
 ::-moz-selection {
   /* Code for Firefox */
-  color: white;
-  background: #212D40; }
+  background: #212D40;
+  color: white; }
 
 ::selection {
   color: white;
@@ -104,25 +104,26 @@ a {
   position: relative; }
 
 .header {
-  height: 100vh;
-  box-sizing: border-box;
-  width: 98.7vw;
-  border: 1.8rem solid #7D4E57;
   background-color: #212D40;
+  border: 1.8rem solid #7D4E57;
+  box-sizing: border-box;
+  height: 100vh;
+  position: relative;
+  width: 98.7vw;
   z-index: 100;
-  position: relative; }
+  overflow: hidden; }
 
 .navigation {
-  padding: 1rem;
   height: 6rem;
-  width: 90%;
-  position: relative; }
+  padding: 1rem;
+  position: relative;
+  width: 90%; }
   .navigation__logo-box {
     width: 10%;
     float: left;
     margin: 2rem; }
   .navigation__logo {
-    height: 6rem;
+    height: 8rem;
     border-radius: 50%;
     border: .2rem solid white; }
   .navigation__button-on {
@@ -213,7 +214,7 @@ a {
   .navigation__list-1 {
     width: 100%;
     padding: 0;
-    margin: -.4rem 0;
+    margin: 1rem 0;
     list-style: none;
     text-align: center;
     padding: 1rem; }
@@ -243,7 +244,6 @@ a {
       height: auto; }
     .navigation__list-2__link {
       opacity: 1;
-      width: 100%;
       font-size: 6rem;
       padding: 1rem 2rem;
       font-weight: 300;
@@ -254,7 +254,7 @@ a {
 .line {
   z-index: 10;
   height: 1.5rem;
-  width: 100vw;
+  width: 98.7vw;
   background-color: #7D4E57;
   position: fixed;
   top: 0;
@@ -271,7 +271,7 @@ a {
     font-size: 3rem; }
 
 .main {
-  width: 70rem;
+  width: 50%;
   margin: 0 auto;
   font-size: 2rem;
   text-align: justify; }
@@ -283,68 +283,49 @@ a {
 .contact {
   margin-bottom: 5rem; }
 
-@media (max-width: 1000px) {
+@media (max-width: 70em) {
+  html {
+    font-size: 60%; }
   .navigation__background {
-    display: block; }
+    display: block;
+    top: 3.5rem;
+    right: 4.5rem; }
   .navigation__icon-on {
     opacity: 1; }
   .navigation__button-on {
-    display: block; }
+    display: block;
+    top: 3rem;
+    right: 4rem; }
   .navigation__button-off {
-    display: block; }
+    display: block;
+    top: 3rem;
+    right: 4rem; }
   .navigation__list-1 {
     display: none; }
   .short {
-    width: 80%;
-    margin: 10rem auto; }
-    .short h1 {
-      font-size: 5rem;
-      width: 100%; }
-    .short p {
-      font-size: 3rem; } }
+    margin: auto; } }
 
-@media (max-width: 750px) {
-  .header {
-    border: 1.3rem solid #7D4E57; }
+@media (max-width: 40em) {
+  html {
+    font-size: 45%; }
   .main {
-    width: 45rem; }
-  .navigation__logo-box {
-    width: 10%;
-    float: left;
-    margin: 1.2rem; }
-  .navigation__logo {
-    height: 6rem;
-    border-radius: 50%;
-    border: 0.8rem solid #7D4E57; }
-  .navigation__background {
-    top: 4rem;
-    right: 4rem; }
-  .navigation__icon-on {
-    top: -.5rem;
-    right: -.5rem; }
-  .navigation__button-on {
-    top: 4rem;
-    right: 4rem; }
-  .navigation__button-off {
-    top: 4rem;
-    right: 4rem; } }
+    width: 70%; } }
 
-@media (max-width: 500px) {
+@media (max-width: 30em) {
+  .main {
+    width: 80%; }
   .short h1 {
     font-size: 4rem;
     width: 100%; }
   .short p {
     font-size: 2rem; }
-  .main {
-    width: 35rem; }
   .navigation__logo-box {
     width: 10%;
     float: left;
     margin: 1rem; }
   .navigation__logo {
     height: 6rem;
-    border-radius: 50%;
-    border: 0.7rem solid #7D4E57; }
+    border-radius: 50%; }
   .navigation__nav {
     margin-top: -2rem; }
   .navigation__background {
@@ -362,7 +343,7 @@ a {
   .navigation__nav .navigation__list-2__link {
     font-size: 4rem; } }
 
-@media (max-width: 350px) {
+@media (max-width: 25em) {
   .short {
     position: absolute;
     top: 60%;
@@ -378,7 +359,7 @@ a {
     .short p {
       font-size: 2rem; }
   .main {
-    width: 25rem; }
+    width: 90%; }
   .navigation__nav {
     margin-top: -3rem;
     margin-left: -5rem; }
