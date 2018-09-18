@@ -84,7 +84,6 @@ html {
   font-size: 60%; }
 
 body {
-  border-bottom: 1.5rem solid #7D4E57;
   margin: 0;
   padding: 0; }
 
@@ -109,7 +108,7 @@ a {
   box-sizing: border-box;
   height: 100vh;
   position: relative;
-  width: 98.7vw;
+  height: 100vh;
   z-index: 100;
   overflow: hidden; }
 
@@ -312,13 +311,10 @@ a {
     width: 70%; } }
 
 @media (max-width: 30em) {
+  html {
+    font-size: 45%; }
   .main {
     width: 80%; }
-  .short h1 {
-    font-size: 4rem;
-    width: 100%; }
-  .short p {
-    font-size: 2rem; }
   .navigation__logo-box {
     width: 10%;
     float: left;
@@ -344,25 +340,10 @@ a {
     font-size: 4rem; } }
 
 @media (max-width: 25em) {
-  .short {
-    position: absolute;
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin: 0 auto;
-    height: auto; }
-    .short h1 {
-      font-size: 3rem;
-      width: 100%;
-      margin: 0;
-      padding: 0; }
-    .short p {
-      font-size: 2rem; }
+  html {
+    font-size: 40%; }
   .main {
     width: 90%; }
-  .navigation__nav {
-    margin-top: -3rem;
-    margin-left: -5rem; }
   .navigation__background {
     top: 4rem;
     right: 4rem; }
@@ -374,4 +355,6 @@ a {
     right: 4rem; }
   .navigation__button-off {
     top: 4rem;
-    right: 4rem; } }
+    right: 4rem; }
+  .navigation__list-2 {
+    margin-top: 30rem; } }
