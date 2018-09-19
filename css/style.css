@@ -290,10 +290,18 @@ a {
       border-bottom: 0.8rem solid #7D4E57; }
   .navigation__icon-lang-off {
     border-bottom: 0.8rem solid #7D4E57; }
-  .navigation__checkbox-lang-on:checked ~ .main .eng {
-    display: block; }
-  .navigation__checkbox-lang-on:checked ~ .main .slo {
-    display: none; }
+
+.navigation__checkbox-lang-on:checked ~ .main .slo {
+  display: none; }
+
+.navigation__checkbox-lang-on:checked ~ .main .eng {
+  display: block; }
+
+.navigation__checkbox-lang-on:checked ~ .header .slo {
+  display: none; }
+
+.navigation__checkbox-lang-on:checked ~ .header .eng {
+  display: block; }
 
 .navigation__checkbox-lang-on:checked ~ .header .navigation__icon-lang-on {
   border-bottom: 0.8rem solid #7D4E57; }
