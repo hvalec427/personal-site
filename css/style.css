@@ -283,10 +283,12 @@ a {
     display: inline-block;
     font-size: 2.2rem;
     color: white;
-    text-transform: uppercase; }
+    text-transform: uppercase;
+    margin-right: 20px; }
     .navigation__icon-lang-on:hover, .navigation__icon-lang-on:active, .navigation__icon-lang-off:hover, .navigation__icon-lang-off:active {
       color: white;
-      border-bottom: 0.8rem solid #7D4E57; }
+      transform: scale(1.1);
+      border-bottom: 0.8rem solid #7D4E57 !important; }
   .navigation__icon-lang-off {
     border-bottom: 0.8rem solid #7D4E57; }
 
@@ -300,7 +302,7 @@ a {
   display: none; }
 
 .navigation__checkbox-lang-on:checked ~ .header .eng {
-  display: block; }
+  display: initial; }
 
 .navigation__checkbox-lang-on:checked ~ .header .navigation__icon-lang-on {
   border-bottom: 0.8rem solid #7D4E57; }
@@ -323,9 +325,13 @@ a {
   margin: 15rem auto 0;
   text-align: center; }
   .short h1 {
-    font-size: 6rem; }
+    font-size: 6rem;
+    animation-name: moveInLeft;
+    animation-duration: 1s; }
   .short p {
-    font-size: 3rem; }
+    font-size: 3rem;
+    animation-name: moveInRight;
+    animation-duration: 1s; }
 
 .main {
   width: 50%;
@@ -345,7 +351,7 @@ a {
   display: none; }
 
 .slo {
-  display: block; }
+  display: initial; }
 
 .work {
   margin-bottom: 1rem; }
