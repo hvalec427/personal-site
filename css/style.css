@@ -111,6 +111,13 @@ a {
   overflow: hidden;
   position: relative;
   z-index: 100; }
+  .header__background {
+    width: 50vw;
+    height: 50vh;
+    background-image: url("../images/background.jpg");
+    background-size: cover;
+    opacity: 0.1;
+    z-index: 1000; }
 
 .navigation {
   height: 6rem;
@@ -302,7 +309,7 @@ a {
   display: none; }
 
 .navigation__checkbox-lang-on:checked ~ .header .eng {
-  display: initial; }
+  display: inline; }
 
 .navigation__checkbox-lang-on:checked ~ .header .navigation__icon-lang-on {
   border-bottom: 0.8rem solid #7D4E57; }
@@ -351,7 +358,7 @@ a {
   display: none; }
 
 .slo {
-  display: initial; }
+  display: inline; }
 
 .work {
   margin-bottom: 1rem; }
