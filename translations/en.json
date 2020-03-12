@@ -1,0 +1,49 @@
+{
+    "header": "Hi, I'm Ziga Hvalec",
+    "subheader": "Front end developer, React.js, html, css, javascript, from Maribora",
+    "aboutme": "About me",
+    "aboutmeP": "My name is Žiga Hvalec and I am from Maribor. I am a student of the Faculty of electrical engineering, computer science, and informatics. The joy of programming and computers has grown from a hobby to a serious study where I acquire new knowledge and practical experience. In my spare time, I like to do sports, running, skiing, snowboarding and going to fitness. \nI am interested in everything related to computers, modern technologies and technical innovations in this area. \nBecause I wanted to use my knowledge in practice, I got summer work at a computer company. The experience is unique, I performed work related to databases and making windows applications in C#.\nIn the future, I want to try out the best in practice, so I am open to cooperation and new opportunities. \n",
+    "skills": "Skills",
+    "skillsP": "- Languages: Java, html, css, javascript, c#, react.js, python\n- Databases: mysql, mongoDB",
+    "education": "Education",
+    "educationP": [
+        {
+            "type": "Gymnasium",
+            "time": "2011-2015",
+            "name": "First Gymnasium Maribor"
+        },
+        {
+            "type": "Faculty",
+            "time": "2015-",
+            "name": "Faculty of electrical engineering, computer science and informatics"
+        }
+    ],
+    "experience": "Experience",
+    "experienceP": [
+        {
+            "type": "Programing",
+            "time": "Jul 2018 – Aug 2018",
+            "name": "MARGENTO R&D D.O.O., Maribor (Slovenia)"
+        },
+        {
+            "type": "Labour work",
+            "time": "Aug 2017",
+            "name": "Post of Slovenia D.O.O., Maribor (Slovenia)"
+        },
+        {
+            "type": "Labour work",
+            "time": "Aug 2017",
+            "name": "Post of Slovenia D.O.O., Maribor (Slovenia)"
+        },
+        {
+            "type": "Labour work",
+            "time": "Jul 2016",
+            "name": "Post of Slovenia D.O.O., Maribor (Slovenia)"
+        }
+    ],
+    "contact": "Contact",
+    "github": "Github",
+    "linkedin": "Linkedin",
+    "email": "E-mail",
+    "phonenumber": "+386 40 690 780"
+}

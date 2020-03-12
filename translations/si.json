@@ -1,0 +1,49 @@
+{
+    "header": "Zdravo, sem Ziga Hvalec",
+    "subheader": "Front end developer, React.js, html, css, javascript, iz Maribora",
+    "aboutme": "O meni",
+    "aboutmeP": "Moje ime je Žiga Hvalec in prihajam iz Maribora. Sem študent fakultete za elektrotehniko, računalništvo in informatiko, smer informatika in tehonologije komuniciranja. Veselje do računalništva je iz hobija prerastlo v resni študij pri katerem pridobivam nova znanja in praktične izkušnje. V prostem času se rad ukvarjam s športom, tečem, smučam, deskam in hodim v fitnes. V osnovni šoli sem treniral atletiko in v letu 2010 zastopal Slovenijo na mednarodnih športnih igrah v Bahrainu.\nZanimam me vse kar je povezano z računalništvom, modernimi tehnologijami in tehničnimi novostmi na tem področju.\nAktivno govorim angleško, pasivno nemško. Znanje angleškega jezika sem dodatno utrjeval v letih 2013 in 2014 v poletnih tečajih v Londonu.\nSvoje znanje iz računalništva želim nadgraditi tudi v praksi, zato sem v letošnjem letu upravjal počitniško delo v računalniškem podjetju. Izkušnje so enkratne, opravljal sem delo povezano s podatkovnimi bazami in izdelavo windows aplikacije v C#.\n Tudi v prihodnjem se želim čim bolj preizkusiti v praksi, zato sem odprt za sodelovanje in nove priložnosti.\n",
+    "skills": "Znanja",
+    "skillsP": "- Programski jeziki: Java, html, css, javascript, c#, react.js, python\n- Podatkovne baze: mysql, mongoDB \n- Tuji jeziki: angleščina aktivno, nemščina pasivno",
+    "education": "Izobrazba",
+    "educationP": [
+        {
+            "type": "Gimnazija",
+            "time": "2011-2015",
+            "name": "Prva Gimnazija Maribor"
+        },
+        {
+            "type": "Fakluteta",
+            "time": "2015-",
+            "name": "Fakulteta za elektrotehniko, računalnistvo in informatiko"
+        }
+    ],
+    "experience": "Izkušnje",
+    "experienceP": [
+        {
+            "type": "Programiranje",
+            "time": "jul 2018 – aug 2018",
+            "name": "MARGENTO R&D D.O.O., Maribor (Slovenija)"
+        },
+        {
+            "type": "Ročno delo",
+            "time": "aug 2017",
+            "name": "POŠTA SLOVENIJE D.O.O., Maribor (Slovenija)"
+        },
+        {
+            "type": "Ročno delo",
+            "time": "aug 2017",
+            "name": "POŠTA SLOVENIJE D.O.O., Maribor (Slovenija)"
+        },
+        {
+            "type": "Ročno delo",
+            "time": "jul 2016",
+            "name": "POŠTA SLOVENIJE D.O.O., Maribor (Slovenija)"
+        }
+    ],
+    "contact": "Kontakt",
+    "github": "Github",
+    "linkedin": "Linkedin",
+    "email": "E-mail",
+    "phonenumber": "+386 40 690 780"
+}
