@@ -1,4 +1,7 @@
 {
+    "@metadata": {
+        "authors": ["Ziga Hvalec"]
+    },
     "header": "Zdravo, sem Ziga Hvalec",
     "subheader": "Front end developer, React.js, html, css, javascript, iz Maribora",
     "aboutme": "O meni",
@@ -6,44 +9,33 @@
     "skills": "Znanja",
     "skillsP": "- Programski jeziki: Java, html, css, javascript, c#, react.js, python\n- Podatkovne baze: mysql, mongoDB \n- Tuji jeziki: angleščina aktivno, nemščina pasivno",
     "education": "Izobrazba",
-    "educationP": [
-        {
-            "type": "Gimnazija",
-            "time": "2011-2015",
-            "name": "Prva Gimnazija Maribor"
-        },
-        {
-            "type": "Fakluteta",
-            "time": "2015-",
-            "name": "Fakulteta za elektrotehniko, računalnistvo in informatiko"
-        }
-    ],
+    "educationP-gymnasium-type": "Gimnazija",
+    "educationP-gymnasium-time": "2011-2015",
+    "educationP-gymnasium-name": "Prva Gimnazija Maribor",
+    "educationP-faculty-type": "Fakluteta",
+    "educationP-faculty-time": "2015-",
+    "educationP-faculty-name": "Fakulteta za elektrotehniko, računalnistvo in informatiko",
     "experience": "Izkušnje",
-    "experienceP": [
-        {
-            "type": "Programiranje",
-            "time": "jul 2018 – aug 2018",
-            "name": "MARGENTO R&D D.O.O., Maribor (Slovenija)"
-        },
-        {
-            "type": "Ročno delo",
-            "time": "aug 2017",
-            "name": "POŠTA SLOVENIJE D.O.O., Maribor (Slovenija)"
-        },
-        {
-            "type": "Ročno delo",
-            "time": "aug 2017",
-            "name": "POŠTA SLOVENIJE D.O.O., Maribor (Slovenija)"
-        },
-        {
-            "type": "Ročno delo",
-            "time": "jul 2016",
-            "name": "POŠTA SLOVENIJE D.O.O., Maribor (Slovenija)"
-        }
-    ],
+    "experienceP-fifth-type": "Programiranje",
+    "experienceP-fifth-time": "apr 2019 - ",
+    "experienceP-fifth-name": "Inova IT D.O.O., Maribor (Slovenija)",
+    "experienceP-fourth-type": "Programiranje",
+    "experienceP-fourth-time": "jul 2018 – aug 2018",
+    "experienceP-fourth-name": "MARGENTO R&D D.O.O., Maribor (Slovenija)",
+    "experienceP-third-type": "Ročno delo",
+    "experienceP-third-time": "aug 2017",
+    "experienceP-third-name": "POŠTA SLOVENIJE D.O.O., Maribor (Slovenija)",
+    "experienceP-second-type": "Ročno delo",
+    "experienceP-second-time": "aug 2017",
+    "experienceP-second-name": "POŠTA SLOVENIJE D.O.O., Maribor (Slovenija)",
+    "experienceP-first-type": "Ročno delo",
+    "experienceP-first-time": "jul 2016",
+    "experienceP-first-name": "POŠTA SLOVENIJE D.O.O., Maribor (Slovenija)",
     "contact": "Kontakt",
     "github": "Github",
     "linkedin": "Linkedin",
     "email": "E-mail",
-    "phonenumber": "+386 40 690 780"
+    "phonenumber": "040 690 780",
+    "languages-en": "en",
+    "languages-si": "si"
 }
