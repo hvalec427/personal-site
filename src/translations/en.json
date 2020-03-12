@@ -1,4 +1,7 @@
 {
+    "@metadata": {
+        "authors": ["Ziga Hvalec"]
+    },
     "header": "Hi, I'm Ziga Hvalec",
     "subheader": "Front end developer, React.js, html, css, javascript, from Maribora",
     "aboutme": "About me",
@@ -6,44 +9,33 @@
     "skills": "Skills",
     "skillsP": "- Languages: Java, html, css, javascript, c#, react.js, python\n- Databases: mysql, mongoDB",
     "education": "Education",
-    "educationP": [
-        {
-            "type": "Gymnasium",
-            "time": "2011-2015",
-            "name": "First Gymnasium Maribor"
-        },
-        {
-            "type": "Faculty",
-            "time": "2015-",
-            "name": "Faculty of electrical engineering, computer science and informatics"
-        }
-    ],
+    "educationP-gymnasium-type": "Gymnasium",
+    "educationP-gymnasium-time": "2011-2015",
+    "educationP-gymnasium-name": "First Gymnasium Maribor",
+    "educationP-faculty-type": "Faculty",
+    "educationP-faculty-time": "2015-",
+    "educationP-faculty-name": "Faculty of electrical engineering, computer science and informatics",
     "experience": "Experience",
-    "experienceP": [
-        {
-            "type": "Programing",
-            "time": "Jul 2018 – Aug 2018",
-            "name": "MARGENTO R&D D.O.O., Maribor (Slovenia)"
-        },
-        {
-            "type": "Labour work",
-            "time": "Aug 2017",
-            "name": "Post of Slovenia D.O.O., Maribor (Slovenia)"
-        },
-        {
-            "type": "Labour work",
-            "time": "Aug 2017",
-            "name": "Post of Slovenia D.O.O., Maribor (Slovenia)"
-        },
-        {
-            "type": "Labour work",
-            "time": "Jul 2016",
-            "name": "Post of Slovenia D.O.O., Maribor (Slovenia)"
-        }
-    ],
+    "experienceP-fifth-type": "Programing",
+    "experienceP-fifth-time": "Apr 2019 - ",
+    "experienceP-fifth-name": "Inova IT D.O.O., Maribor (Slovenia)",
+    "experienceP-fourth-type": "Programing",
+    "experienceP-fourth-time": "Jul 2018 – Aug 2018",
+    "experienceP-fourth-name": "MARGENTO R&D D.O.O., Maribor (Slovenia)",
+    "experienceP-third-type": "Labour work",
+    "experienceP-third-time": "Aug 2017",
+    "experienceP-third-name": "Post of Slovenia D.O.O., Maribor (Slovenia)",
+    "experienceP-second-type": "Labour work",
+    "experienceP-second-time": "Aug 2017",
+    "experienceP-second-name": "Post of Slovenia D.O.O., Maribor (Slovenia)",
+    "experienceP-first-type": "Labour work",
+    "experienceP-first-time": "Jul 2016",
+    "experienceP-first-name": "Post of Slovenia D.O.O., Maribor (Slovenia)",
     "contact": "Contact",
     "github": "Github",
     "linkedin": "Linkedin",
     "email": "E-mail",
-    "phonenumber": "+386 40 690 780"
+    "phonenumber": "+386 40 690 780",
+    "languages-en": "en",
+    "languages-si": "si"
 }

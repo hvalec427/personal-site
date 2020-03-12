@@ -358,23 +358,20 @@ a {
     color: white;
     text-transform: uppercase;
 }
-.navigation__icon-lang-on,
-.navigation__icon-lang-off {
+.lan-toggle {
     display: inline-block;
     font-size: 2.2rem;
     color: white;
     text-transform: uppercase;
     margin-right: 20px;
 }
-.navigation__icon-lang-on:hover,
-.navigation__icon-lang-on:active,
-.navigation__icon-lang-off:hover,
-.navigation__icon-lang-off:active {
+.lan-toggle:hover,
+.lan-toggle:active {
     color: white;
     transform: scale(1.1);
     border-bottom: 0.8rem solid #7d4e57 !important;
 }
-.navigation__icon-lang-off {
+.lan-toggle-selected {
     border-bottom: 0.8rem solid #7d4e57;
 }
 

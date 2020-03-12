@@ -13,9 +13,6 @@
 
 <body>
     <div class="all">
-        <input type="radio" class="navigation__checkbox-lang-on" id="nav-lang-toggle-on" name="nav-lang-toggle">
-        <input type="radio" class="navigation__checkbox-lang-off" id="nav-lang-toggle-off" name="nav-lang-toggle"
-            checked>
         <header class="header">
             <div class="navigation">
                 <div class="navigation__logo-box">
@@ -26,7 +23,6 @@
                     <span class="navigation__icon-on"></span>
                 </label>
                 <label for="nav-toggle-off" class="navigation__button-off">
-                    <!-- <span class="navigation__icon-off"></span> -->
                 </label>
                 <div class="navigation__background"></div>
 
@@ -35,22 +31,13 @@
                         <div class="navigation__list-1__item">
                             <label onclick="javascript:window.location.href='#about'; return true;" for="nav-toggle-off"
                                 class="navigation__list-1__button-link-off">
-                                <div class="navigation__list-1__link slo">O meni</div>
-                                <div class="navigation__list-1__link eng">About me</div>
-                            </label>
-                        </div>
-                        <div class="navigation__list-1__item">
-                            <label onclick="javascript:window.location.href='#portfolio'; return true;" for="nav-toggle-off"
-                                class="navigation__list-1__button-link-off">
-                                <div class="navigation__list-1__link slo">Portfolio</div>
-                                <div class="navigation__list-1__link eng">Portfolio</div>
+                                <div class="navigation__list-1__link" data-i18n="aboutme"></div>
                             </label>
                         </div>
                         <div class="navigation__list-1__item">
                             <label onclick="javascript:window.location.href='#contact'; return true;" for="nav-toggle-off"
                                 class="navigation__list-1__button-link-off">
-                                <div class="navigation__list-1__link slo">Kontakt</div>
-                                <div class="navigation__list-1__link eng">Contact</div>
+                                <div class="navigation__list-1__link" data-i18n="contact"></div>
                             </label>
                         </div>
                     </div>
@@ -58,22 +45,13 @@
                         <div class="navigation__list-2__item">
                             <label onclick="javascript:window.location.href='#about'; return true;" for="nav-toggle-off"
                                 class="navigation__list-2__button-link-off">
-                                <div class="navigation__list-2__link slo">O meni</div>
-                                <div class="navigation__list-2__link eng">About me</div>
-                            </label>
-                        </div>
-                        <div class="navigation__list-2__item">
-                            <label onclick="javascript:window.location.href='#portfolio'; return true;" for="nav-toggle-off"
-                                class="navigation__list-2__button-link-off">
-                                <div class="navigation__list-2__link slo">Portfolio</div>
-                                <div class="navigation__list-2__link eng">Portfolio</div>
+                                <div class="navigation__list-2__link" data-i18n="aboutme"></div>
                             </label>
                         </div>
                         <div class="navigation__list-2__item">
                             <label onclick="javascript:window.location.href='#contact'; return true;" for="nav-toggle-off"
                                 class="navigation__list-2__button-link-off">
-                                <div class="navigation__list-2__link slo">Kontakt</div>
-                                <div class="navigation__list-2__link eng">Contact</div>
+                                <div class="navigation__list-2__link" data-i18n="portfolio"></div>
                             </label>
                         </div>
                     </div>
@@ -81,13 +59,13 @@
                 <div class="navigation__nav-lang">
                     <div class="navigation__list">
                         <div class="navigation__list__item">
-                            <label for="nav-lang-toggle-on" class="navigation__list__button-link-on">
-                                <span class="navigation__icon-lang-on">ang</span>
+                            <label>
+                                <span class="lan-toggle en-toggle" data-i18n="languages-en"></span>
                             </label>
                         </div>
                         <div class="navigation__list__item">
-                            <label for="nav-lang-toggle-off" class="navigation__list__button-link-off">
-                                <span class="navigation__icon-lang-off"> slo</span>
+                            <label>
+                                <span class="lan-toggle si-toggle" data-i18n="languages-si"></span>
                             </label>
                         </div>
                     </div>
@@ -95,13 +73,9 @@
             </div>
 
             <div class="short">
-                <div class="about slo">
-                    <h1>Zdravo, sem Ziga Hvalec</h1>
-                    <p class="short-skills">Front end developer, React.js, html, css, javascript, iz Maribora</p>
-                </div>
-                <div class="about eng">
-                    <h1>Hi, I'm Ziga Hvalec</h1>
-                    <p class="short-skills">Front end developer, React.js, html, css, javascript, from Maribora</p>
+                <div class="about">
+                    <h1 data-i18n="header"></h1>
+                    <p class="short-skills" data-i18n="subheader"></p>
                 </div>
             </div>
         </header>
@@ -109,171 +83,55 @@
         <div class="line"></div>
         <main class="main">
             <div id="about"></div>
-            <div class="about eng">
-                <h2>About me</h2>
+            <div class="about">
+                <h2 data-i18n="aboutme"></h2>
                 <p>
-                    My name is Žiga Hvalec and I am from Maribor. I am a student of the Faculty
-                    of electrical engineering, computer science, and informatics.
-                    The joy of programming and computers has grown from a hobby to a serious study where I acquire new
-                    knowledge and practical experience. In my spare time, I like to do sports,
-                    running, skiing, snowboarding and going to fitness. <br />
-                    I am interested in everything related to computers, modern technologies and technical innovations
-                    in this area. <br />
-                    Because I wanted to use my knowledge in practice, I got summer work at a computer company. The
-                    experience is unique, I performed work related to databases and making windows applications in C#.
-                    <br />
-                    In the future, I want to try out the best in practice, so I am open to cooperation and new
-                    opportunities. <br />
+                    <span data-i18n="aboutmeP"></span>
 
-                    <h3>Skills</h3>
-                    <p>- Languages: Java, html, css, javascript, c#, react.js, python <br />
-                        - Databases: mysql, mongoDB</p>
-                    <h3>Education</h3>
+                    <h3 data-i18n="skills"></h3>
+                    <p data-i18n="skillsP"></p>
+                    <h3 data-i18n="education"></h3>
                     <div class="work">
-                        <span class="title">Gymnasium</span> <span class="date">2011-2015</span><br />
-                        <span class="company">First Gymnasium Maribor</span><br />
+                        <span class="title" data-i18n="educationP-gymnasium-type"></span> <span class="date" data-i18n="educationP-gymnasium-time"></span><br />
+                        <span class="company" data-i18n="educationP-gymnasium-name"></span><br />
                     </div>
                     <div class="work">
-                        <span class="title">Faculty</span> <span class="date">2015– </span><br />
-                        <span class="company">Faculty
-                            of electrical engineering, computer science and informatics</span><br />
+                        <span class="title" data-i18n="educationP-faculty-type"></span> <span class="date" data-i18n="educationP-faculty-time"></span><br />
+                        <span class="company" data-i18n="educationP-faculty-name"></span><br />
                     </div>
-                    <h3>Experience</h3>
+                    <h3 data-i18n="experience"></h3>
                     <div class="work">
-                        <span class="title">Programing</span> <span class="date">Jul 2018– Aug 2018 </span><br />
-                        <span class="company">MARGENTO R&D D.O.O., Maribor (Slovenia)</span><br />
-                    </div>
-                    <div class="work">
-                        <span class="title">Labour work</span><span class="date">Aug 2017</span><br />
-                        <span class="company">Post of Slovenia D.O.O., Maribor (Slovenia)</span><br />
+                        <span class="title" data-i18n="experienceP-fifth-type"></span> <span class="date" data-i18n="experienceP-fifth-time"></span><br />
+                        <span class="company" data-i18n="experienceP-fifth-name"></span><br />
                     </div>
                     <div class="work">
-                        <span class="title">Labour work</span><span class="date">Aug 2017</span><br />
-                        <span class="company">Post of Slovenia D.O.O., Maribor (Slovenia)</span><br />
+                        <span class="title" data-i18n="experienceP-fourth-type"></span> <span class="date" data-i18n="experienceP-fourth-time"></span><br />
+                        <span class="company" data-i18n="experienceP-fourth-name"></span><br />
                     </div>
                     <div class="work">
-                        <span class="title"> Labour work </span><span class="date">Jul 2016</span><br />
-                        <span class="company"> Post of Slovenia D.O.O., Maribor (Slovenia)</span><br />
-                    </div>
-                </p>
-            </div>
-            <div class="about slo" id="about">
-                <h2>O meni</h2>
-                <p>
-                    Moje ime je Žiga Hvalec in prihajam iz Maribora. Sem študent fakultete za
-                    elektrotehniko, računalništvo in informatiko, smer informatika in tehonologije komuniciranja.
-                    Veselje do računalništva je iz hobija prerastlo v resni študij pri katerem pridobivam nova znanja
-                    in praktične izkušnje. V prostem času se rad ukvarjam s športom, tečem, smučam, deskam in hodim v
-                    fitnes. V osnovni šoli sem treniral atletiko in v letu 2010 zastopal Slovenijo na mednarodnih
-                    športnih igrah v Bahrainu. <br />
-                    Zanimam me vse kar je povezano z računalništvom, modernimi tehnologijami in tehničnimi novostmi na
-                    tem področju.<br />
-                    Aktivno govorim angleško, pasivno nemško. Znanje angleškega jezika sem dodatno utrjeval v letih
-                    2013 in 2014 v poletnih tečajih v Londonu. <br />
-                    Svoje znanje iz računalništva želim nadgraditi tudi v praksi, zato sem v letošnjem letu upravjal
-                    počitniško delo v
-                    računalniškem podjetju. Izkušnje so enkratne, opravljal sem delo povezano s podatkovnimi bazami in
-                    izdelavo windows aplikacije v C#.<br />
-                    Tudi v prihodnjem se želim čim bolj preizkusiti v praksi, zato sem odprt za sodelovanje in nove
-                    priložnosti.<br />
-
-                    <h3>Znanja</h3>
-                    <p>- Programski jeziki: Java, html, css, javascript, c#, react.js, python<br />
-                        - Podatkovne baze: mysql, mongoDB <br />
-                        - Tuji jeziki: angleščina aktivno, nemščina pasivno</p>
-                    <h3>Izobrazba</h3>
-                    <div class="work">
-                        <span class="title">Gimnazija</span> <span class="date">2011-2015</span><br />
-                        <span class="company">Prva Gimnazija Maribor</span><br />
+                        <span class="title" data-i18n="experienceP-third-type"></span> <span class="date" data-i18n="experienceP-third-time"></span><br />
+                        <span class="company" data-i18n="experienceP-third-name"></span><br />
                     </div>
                     <div class="work">
-                        <span class="title">Fakluteta</span> <span class="date">2015– </span><br />
-                        <span class="company">Fakulteta za elektrotehniko, računalnistvo in informatiko</span><br />
-                    </div>
-                    <h3>Izkusnje</h3>
-                    <div class="work">
-                        <span class="title">Programiranje</span> <span class="date">Jul 2018– Aug 2018 </span><br />
-                        <span class="company">MARGENTO R&D D.O.O., Maribor (Slovenija)</span><br />
+                        <span class="title" data-i18n="experienceP-second-type"></span> <span class="date" data-i18n="experienceP-second-time"></span><br />
+                        <span class="company" data-i18n="experienceP-second-name"></span><br />
                     </div>
                     <div class="work">
-                        <span class="title">Ročno delo</span><span class="date">Aug 2017</span><br />
-                        <span class="company">POŠTA SLOVENIJE D.O.O., Maribor (Slovenija)</span><br />
+                        <span class="title" data-i18n="experienceP-first-type"></span> <span class="date" data-i18n="experienceP-first-time"></span><br />
+                        <span class="company" data-i18n="experienceP-first-name"></span><br />
                     </div>
-                    <div class="work">
-                        <span class="title">Ročno delo</span><span class="date">Aug 2017</span><br />
-                        <span class="company">POŠTA SLOVENIJE D.O.O., Maribor (Slovenija)</span><br />
-                    </div>
-                    <div class="work">
-                        <span class="title"> Ročno delo </span><span class="date">Jul 2016</span><br />
-                        <span class="company"> POŠTA SLOVENIJE D.O.O., Maribor (Slovenija)</span><br />
-                    </div>
-                </p>
-            </div>
-            <div id="portfolio"></div>
-            <div class="portfolio eng">
-                <h2>Portfolio eng</h2>
-                <a href="https://github.com/zigahvalec/Natours" target="_blank"><img src="./images/natours.jpg" alt="news"
-                        class="portfolio__image"></a>
-                <p>
-                    <strong>Natours</strong> is a website for a made up company that organizes tours in nature. It si
-                    written in html and css (sass).
-                </p>
-                <a href="https://github.com/zigahvalec/news" target="_blank"><img src="./images/news-web.png" alt="Natours"
-                        class="portfolio__image"></a>
-                <p>
-                    <strong>News</strong> is a react application that uses firebase for it's backend. It also uses
-                    firebase's authentication. Logged in users can write new posts that all users can read.
-                </p>
-                <a href="https://github.com/zigahvalec/zigahvalec.github.io" target="_blank"><img src="./images/osebanStran.png"
-                        alt="personal website" class="portfolio__image"></a>
-                <p>
-                    <strong>Zigahvalec.github.io</strong> is my personal website
-                </p>
-            </div>
-            <div class="portfolio slo" id="portfolio">
-                <h2>Portfolio</h2>
-                <a href="https://github.com/zigahvalec/Natours" target="_blank"><img src="./images/natours.jpg" alt="news"
-                        class="portfolio__image"></a>
-                <p>
-                    <strong>Natours</strong> je spletna stran narejena za izmišljeno podjetje, ki se ukvarja s pohodi v
-                    naravi. Napisana
-                    je samo v HTML in CSS.
-                </p>
-                <a href="https://github.com/zigahvalec/news" target="_blank"><img src="./images/news-web.png" alt="Natours"
-                        class="portfolio__image"></a>
-                <p>
-                    <strong>News</strong> je react aplikacija, ki za backend uporablja firebase. Uporablja tudi
-                    firebase autentikacijo.
-                    Uporabnik se lahko prijavi v sistem s email naslovom in geslo. Prijavljeni uporabniki lahko pišejo
-                    nove članke, ki pa jih lahko vsi uporabniki berejo.
-                </p>
-                <a href="https://github.com/zigahvalec/zigahvalec.github.io" target="_blank"><img src="./images/osebanStran.png"
-                        alt="oseban stran" class="portfolio__image"></a>
-                <p>
-                    <strong>Zigahvalec.github.io</strong> je moja osebna spletna stran.
                 </p>
             </div>
             <div id="contact"></div>
-            <div class="contact eng" id="contact">
-                <h2>Contact</h2>
+            <div class="contact" id="contact">
+                <h2 data-i18n="contact"></h2>
                 <ul>
-                    <li><a href="https://github.com/zigahvalec">Github</a></li>
-                    <li><a href="https://linkedin.com/in/hvalec">Linkedin</a></li>
-                    <li><a href="mailto:zigahvalec@gmail.com">E-mail</a></li>
-                    <li><a href="tel:+38640690780">+386 40 690 780</a></li>
+                    <li><a href="https://github.com/zigahvalec" data-i18n="github"></a></li>
+                    <li><a href="https://linkedin.com/in/hvalec" data-i18n="linkedin"></a></li>
+                    <li><a href="mailto:zigahvalec@gmail.com" data-i18n="email"></a></li>
+                    <li><a href="tel:+38640690780" data-i18n="phonenumber"></a></li>
                 </ul>
             </div>
-            <div class="contact slo" id="contact">
-                <h2>Kontakt</h2>
-                <ul>
-                    <li><a href="https://github.com/zigahvalec">Github</a></li>
-                    <li><a href="https://linkedin.com/in/hvalec">Linkedin</a></li>
-                    <li><a href="mailto:zigahvalec@gmail.com">E-mail</a></li>
-                    <li><a href="tel:+38640690780">040 690 780</a></li>
-                </ul>
-
-            </div>
-
         </main>
     </div>
 </body>
