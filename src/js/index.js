@@ -29,10 +29,19 @@ if (lan == 'en') {
     siLan.classList.add('lan-toggle-selected');
 }
 
-enLan.addEventListener('click', event => {
+enLan.addEventListener('click', () => {
     window.location.href = '?lan=en';
 });
 
-siLan.addEventListener('click', event => {
+siLan.addEventListener('click', () => {
     window.location.href = '?lan=si';
+});
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth',
+        });
+    });
 });
