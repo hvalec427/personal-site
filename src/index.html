@@ -125,6 +125,21 @@
             <div id="contact"></div>
             <div class="contact" id="contact">
                 <h2 data-i18n="contact"></h2>
+
+                <form name="contact" method="POST" data-netlify="true" class="form">
+                    <p class='field name'>
+                        <span data-i18n="formName"></span><input type="text" name="name" />      
+                    </p>
+                    <p class='field email'>
+                        <span data-i18n="formEmail"></span><input type="email" name="email" />    
+                    </p>
+                    <p class='field message'>
+                        <span data-i18n="formMessage"></span><textarea name="message"></textarea> 
+                    </p>
+                    <p class='field submitButton'>
+                        <button type="submit" data-i18n="formSubmit"></button>
+                    </p>
+                </form>
                 <ul>
                     <li><a href="https://github.com/zigahvalec" data-i18n="github"></a></li>
                     <li><a href="https://linkedin.com/in/hvalec" data-i18n="linkedin"></a></li>

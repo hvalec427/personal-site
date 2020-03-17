@@ -2,7 +2,7 @@
     "@metadata": {
         "authors": ["Ziga Hvalec"]
     },
-    "header": "Hi, I'm Ziga Hvalec",
+    "header": "Hi, I'm Žiga Hvalec",
     "subheader": "Front end developer, React.js, html, css, javascript, from Maribora",
     "aboutme": "About me",
     "aboutmeP": "My name is Žiga Hvalec and I am from Maribor. I am a student of the Faculty of electrical engineering, computer science, and informatics. The joy of programming and computers has grown from a hobby to a serious study where I acquire new knowledge and practical experience. In my spare time, I like to do sports, running, skiing, snowboarding and going to fitness. \nI am interested in everything related to computers, modern technologies and technical innovations in this area. \nBecause I wanted to use my knowledge in practice, I got summer work at a computer company. The experience is unique, I performed work related to databases and making windows applications in C#.\nIn the future, I want to try out the best in practice, so I am open to cooperation and new opportunities. \n",
@@ -37,5 +37,9 @@
     "email": "E-mail",
     "phonenumber": "+386 40 690 780",
     "languages-en": "en",
-    "languages-si": "si"
+    "languages-si": "si",
+    "formName": "Name:",
+    "formEmail": "Email:",
+    "formMessage": "Message:",
+    "formSubmit": "Send"
 }
