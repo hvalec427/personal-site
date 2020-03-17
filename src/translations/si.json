@@ -2,7 +2,7 @@
     "@metadata": {
         "authors": ["Ziga Hvalec"]
     },
-    "header": "Zdravo, sem Ziga Hvalec",
+    "header": "Zdravo, sem Žiga Hvalec",
     "subheader": "Front end developer, React.js, html, css, javascript, iz Maribora",
     "aboutme": "O meni",
     "aboutmeP": "Moje ime je Žiga Hvalec in prihajam iz Maribora. Sem študent fakultete za elektrotehniko, računalništvo in informatiko, smer informatika in tehonologije komuniciranja. Veselje do računalništva je iz hobija prerastlo v resni študij pri katerem pridobivam nova znanja in praktične izkušnje. V prostem času se rad ukvarjam s športom, tečem, smučam, deskam in hodim v fitnes. V osnovni šoli sem treniral atletiko in v letu 2010 zastopal Slovenijo na mednarodnih športnih igrah v Bahrainu.\nZanimam me vse kar je povezano z računalništvom, modernimi tehnologijami in tehničnimi novostmi na tem področju.\nAktivno govorim angleško, pasivno nemško. Znanje angleškega jezika sem dodatno utrjeval v letih 2013 in 2014 v poletnih tečajih v Londonu.\nSvoje znanje iz računalništva želim nadgraditi tudi v praksi, zato sem v letošnjem letu upravjal počitniško delo v računalniškem podjetju. Izkušnje so enkratne, opravljal sem delo povezano s podatkovnimi bazami in izdelavo windows aplikacije v C#.\n Tudi v prihodnjem se želim čim bolj preizkusiti v praksi, zato sem odprt za sodelovanje in nove priložnosti.\n",
@@ -37,5 +37,9 @@
     "email": "E-mail",
     "phonenumber": "040 690 780",
     "languages-en": "en",
-    "languages-si": "si"
+    "languages-si": "si",
+    "formName": "Ime:",
+    "formEmail": "Email:",
+    "formMessage": "Sporočilo:",
+    "formSubmit": "Naprej"
 }
