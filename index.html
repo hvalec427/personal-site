@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Žiga Hvalec - Portfolio</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-links">
+          <a href="index.html" class="nav-link active">Home</a>
+          <a href="projects.html" class="nav-link">Projects</a>
+        </div>
+        <div class="language-switch">
+          <button
+            onclick="switchLanguage('en')"
+            class="lang-btn active"
+            id="en-btn"
+          >
+            EN
+          </button>
+          <button onclick="switchLanguage('sl')" class="lang-btn" id="sl-btn">
+            SL
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <section class="hero-section">
+        <div class="hero-content">
+          <h1 class="hero-title" data-sl="Žiga Hvalec">Žiga Hvalec</h1>
+          <p
+            class="hero-description"
+            data-sl="Zdravo. Sem React Native razvijalec, in ustvarjam izjemne večplatformne aplikacije. Ustvarjam intuitivne uporabniške izkušnje z modernim dizajnom in skalabilno arhitekturo."
+          >
+            Hi. I'm a mobile React Native developer crafting exceptional
+            cross-platform apps. I create intuitive user experiences with modern
+            design and scalable architecture.
+          </p>
+          <a href="projects.html" class="cta-button" data-sl="Moji projekti"
+            >My projects</a
+          >
+        </div>
+      </section>
+
+      <section class="contact-section">
+        <h2 class="contact-title" data-sl="Kontakt">Contact</h2>
+        <div class="contact-info">
+          <div class="contact-item">
+            <span class="contact-label" data-sl="E-pošta:">Email:</span>
+            <a href="mailto:ziga@hvalec.com" class="contact-link"
+              >ziga@hvalec.com</a
+            >
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">LinkedIn:</span>
+            <a
+              href="https://linkedin.com/in/hvalec"
+              class="contact-link"
+              target="_blank"
+              >linkedin.com/in/hvalec</a
+            >
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">GitHub:</span>
+            <a
+              href="https://github.com/hvalec427"
+              class="contact-link"
+              target="_blank"
+              >github.com/hvalec427</a
+            >
+          </div>
+          <!-- <div class="contact-item">
+                    <span class="contact-label" 
+                          data-sl="Google Play Store:">Google Play Store:</span>
+                    <a href="https://play.store.com/apps/by/hvalec" class="contact-link" target="_blank">play.store.com/apps/by/hvalec</a>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label" 
+                          data-sl="App Store:">App Store:</span>
+                    <a href="https://apps.store.com/developer/hvalec" class="contact-link" target="_blank">apps.store.com/developer/hvalec</a>
+                </div> -->
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
