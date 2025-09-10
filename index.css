@@ -65,37 +65,6 @@ body {
   flex-wrap: wrap;
   gap: 0.6rem;
 }
-.btn {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-weight: 500;
-  font-size: 0.85rem;
-  padding: 0.5rem 0.9rem;
-  border-radius: 0.4rem;
-  text-decoration: none;
-  cursor: pointer;
-}
-.btn .icon,
-.btn .material-symbols-outlined {
-  font-size: 1.1rem;
-}
-.btn.linkedin {
-  background: #f3f4f6;
-  color: #222;
-}
-.btn.github {
-  background: #222;
-  color: #fff;
-}
-.btn.projects {
-  background: #1173d4;
-  color: #fff;
-}
-.btn.download {
-  background: #22c55e;
-  color: #fff;
-}
 .company-link {
   color: inherit;
   text-decoration: underline;
@@ -167,16 +136,6 @@ body {
   margin-bottom: 0.2rem;
   display: inline-block;
 }
-.aboutme-download {
-  background: #222b3a;
-  color: #fff;
-  border: 1px solid #222b3a;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-}
-.aboutme-download svg {
-  margin-right: 0.5rem;
-  vertical-align: middle;
-}
 /* Projects card */
 .projects-card {
   background-color: white;
@@ -185,20 +144,6 @@ body {
   max-height: 75vh;
   overflow-y: scroll;
   display: none;
-}
-.projects-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 0.5rem;
-  padding: 0.7rem 2.2rem;
-  text-decoration: none;
-  border: 1px solid #e5e7eb;
-  background: #fff;
-  color: #222b3a;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
 }
 .projects-main {
   padding: 2rem 2rem 1rem 2rem;
@@ -210,7 +155,6 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   margin-bottom: 0.7rem;
 }
-/* Projects Card Custom Styles */
 .projects-header {
   text-align: center;
   margin-top: 0;
@@ -240,26 +184,6 @@ body {
   gap: 2rem;
   margin-bottom: 2.5rem;
 }
-.group.flex.flex-col {
-  background: none;
-  border-radius: 12px;
-  box-shadow: none;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  transition: box-shadow 0.2s;
-}
-.doprojects-image-wrapper {
-  width: 100%;
-  background: #f3f4f6;
-  border-radius: 12px;
-  overflow: hidden;
-  margin-bottom: 1.2rem;
-  min-height: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 .projects-project-title {
   font-size: 1.15rem;
   font-weight: 700;
@@ -271,22 +195,6 @@ body {
   font-size: 1rem;
   margin: 0 0 0.7rem 0;
   min-height: 2.5em;
-}
-.projects-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 0.7rem;
-}
-.projects-tag {
-  background: #f3f4f6;
-  color: #374151;
-  font-size: 0.95rem;
-  font-weight: 500;
-  border-radius: 1.2em;
-  padding: 0.25em 1em;
-  display: inline-block;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
 }
 .projects-links {
   display: flex;
@@ -302,9 +210,6 @@ body {
   align-items: center;
   gap: 0.3em;
   transition: color 0.2s;
-}
-.projects-link-visit:hover {
-  color: #0e5ca8;
 }
 /* common */
 .actions {
@@ -342,4 +247,20 @@ body {
   background: #222b3a;
   color: #fff;
   border: 1px solid #222b3a;
+}
+.btn.linkedin {
+  background: #f3f4f6;
+  color: #222;
+}
+.btn.github {
+  background: #222;
+  color: #fff;
+}
+.btn.projects {
+  background: #1173d4;
+  color: #fff;
+}
+.btn.download {
+  background: #22c55e;
+  color: #fff;
 }
