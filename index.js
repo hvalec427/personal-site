@@ -7,36 +7,53 @@ document.addEventListener('DOMContentLoaded', function () {
     const projectsButton = document.getElementById('projectsButton');
     const projectsGoBackButton = document.getElementById('projectsGoBackButton');
 
-    // Show main card, hide about me card by default
-    if (mainCard) mainCard.style.display = 'block';
-    if (aboutMeCard) aboutMeCard.style.display = 'none';
+    function showCard(card) {
+        if (mainCard) mainCard.style.display = 'none';
+        if (aboutMeCard) aboutMeCard.style.display = 'none';
+        if (projectsCard) projectsCard.style.display = 'none';
+        if (card) card.style.display = 'block';
+    }
 
-    if (aboutMeButton && mainCard && aboutMeCard) {
+    function updateCardFromHash() {
+        if (location.hash === '#about-me') {
+            showCard(aboutMeCard);
+        } else if (location.hash === '#projects') {
+            showCard(projectsCard);
+        } else {
+            showCard(mainCard);
+        }
+    }
+    updateCardFromHash();
+
+    if (aboutMeButton) {
         aboutMeButton.addEventListener('click', function (e) {
             e.preventDefault();
-            mainCard.style.display = 'none';
-            aboutMeCard.style.display = 'block';
+            history.pushState(null, '', '#about-me');
+            showCard(aboutMeCard);
         });
     }
-    if (aboutMeGoBackButton && mainCard && aboutMeCard) {
+    if (aboutMeGoBackButton) {
         aboutMeGoBackButton.addEventListener('click', function (e) {
             e.preventDefault();
-            mainCard.style.display = 'block';
-            aboutMeCard.style.display = 'none';
+            history.pushState(null, '', location.pathname);
+            showCard(mainCard);
         });
     }
-    if (projectsButton && mainCard && projectsCard) {
+    if (projectsButton) {
         projectsButton.addEventListener('click', function (e) {
             e.preventDefault();
-            mainCard.style.display = 'none';
-            projectsCard.style.display = 'block';
+            history.pushState(null, '', '#projects');
+            showCard(projectsCard);
         });
     }
-    if (projectsGoBackButton && mainCard && projectsCard) {
+    if (projectsGoBackButton) {
         projectsGoBackButton.addEventListener('click', function (e) {
             e.preventDefault();
-            mainCard.style.display = 'block';
-            projectsCard.style.display = 'none';
+            history.pushState(null, '', location.pathname);
+            showCard(mainCard);
         });
     }
+
+    window.addEventListener('popstate', updateCardFromHash);
+    window.addEventListener('hashchange', updateCardFromHash);
 });
