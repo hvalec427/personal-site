@@ -74,7 +74,7 @@ body {
   display: none;
   background-color: white;
   border-radius: 10px;
-  max-width: 70vw;
+  max-width: 60vw;
   max-height: 75vh;
   overflow-y: scroll;
 }
@@ -86,7 +86,7 @@ body {
 }
 .aboutme-header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 2rem;
 }
 .aboutme-info {
@@ -147,6 +147,19 @@ body {
 .projects-main {
   padding: 2rem 2rem 1rem 2rem;
 }
+.projects-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  row-gap: 2rem;
+  column-gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+.projects-showcase-card {
+  max-width: 260px;
+  justify-items: stretch;
+}
 .projects-image {
   width: 100%;
   aspect-ratio: 1;
@@ -177,12 +190,6 @@ body {
   font-weight: 700;
   color: #222b3a;
   text-align: center;
-  margin-bottom: 2.5rem;
-}
-.projects-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 2rem;
   margin-bottom: 2.5rem;
 }
 .projects-project-title {
@@ -223,6 +230,9 @@ body {
   background: #fff;
   z-index: 10;
   padding: 1rem 0 1rem 1rem;
+}
+.action-shadow {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .btn {
   display: flex;
@@ -270,6 +280,7 @@ body {
   .aboutme-header {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     text-align: center;
     gap: 1.5rem;
