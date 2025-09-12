@@ -163,7 +163,7 @@ body {
 .projects-image {
   width: 100%;
   aspect-ratio: 1;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   margin-bottom: 0.7rem;
