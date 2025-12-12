@@ -1,0 +1,46 @@
+.headline {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: 1.15;
+  max-width: 40ch;
+  margin-top: 2rem;
+}
+
+.body-text {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--secondary);
+  max-width: 70ch;
+  margin-top: 1rem;
+}
+
+.section-title {
+  margin-top: 56px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.nav-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.nav-link {
+  font-size: 18px;
+  color: var(--secondary);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  transition: color 150ms ease;
+}
+
+.nav-link:hover {
+  color: var(--highlight);
+}
+
+.nav-link:visited {
+  color: var(--highlight);
+}
