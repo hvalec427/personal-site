@@ -12,6 +12,7 @@ A modern, responsive portfolio website showcasing professional work experience, 
 ## Deployment
 
 ### Vercel
+
 This project is deployed using [Vercel](https://vercel.com), a platform for frontend frameworks and static sites. Vercel provides:
 
 - **Automatic Deployments**: Every push to the main branch triggers a new deployment
@@ -19,17 +20,19 @@ This project is deployed using [Vercel](https://vercel.com), a platform for fron
 - **Zero Configuration**: No build setup required for static HTML/CSS/JS projects
 
 ### Configuration
+
 - Domain routing and redirects are handled through Vercel's configuration
 - HTTPS is enabled by default
 
 ## Analytics
 
 ### Umami
+
 Website analytics are powered by [Umami](https://umami.is), a privacy-focused, open-source alternative to Google Analytics:
 
 - **Privacy-First**: No cookies, no personal data collection, GDPR compliant
 - **Lightweight**: Minimal impact on site performance
-- **Real-time Data**: Live visitor tracking and page view statistics  
+- **Real-time Data**: Live visitor tracking and page view statistics
 - **Simple Integration**: Single script tag provides comprehensive tracking
 
 ## Theme System

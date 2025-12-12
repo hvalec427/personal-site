@@ -1,0 +1,28 @@
+{
+  "name": "personal-site",
+  "version": "1.0.0",
+  "description": "Personal portfolio website",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write ."
+  },
+  "devDependencies": {
+    "@eslint/js": "9.0.0",
+    "eslint": "9.0.0",
+    "eslint-config-prettier": "9.0.0",
+    "husky": "9.0.0",
+    "lint-staged": "15.0.0",
+    "prettier": "3.0.0"
+  },
+  "lint-staged": {
+    "*.{html,css,md}": [
+      "prettier --write"
+    ],
+    "*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  }
+}
