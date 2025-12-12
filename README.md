@@ -35,6 +35,17 @@ Website analytics are powered by [Umami](https://umami.is), a privacy-focused, o
 - **Real-time Data**: Live visitor tracking and page view statistics
 - **Simple Integration**: Single script tag provides comprehensive tracking
 
+## Development
+
+### Code Quality Tools
+
+The project includes automated code quality tools to maintain consistent style and catch errors:
+
+- **ESLint**: JavaScript linting with automatic error detection and fixing
+- **Prettier**: Code formatting with consistent style across all files
+- **Husky**: Git hooks for automated quality checks on commit
+- **lint-staged**: Runs linters only on staged files for efficiency
+
 ## Theme System
 
 The website features a sophisticated theme system supporting:
