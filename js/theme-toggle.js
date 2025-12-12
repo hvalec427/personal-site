@@ -70,6 +70,41 @@ function applyTheme(colors) {
   });
 }
 
+function clearCustomTheme() {
+  const root = document.documentElement;
+  root.style.removeProperty('--background');
+  root.style.removeProperty('--surface');
+  root.style.removeProperty('--primary');
+  root.style.removeProperty('--secondary');
+  root.style.removeProperty('--highlight');
+  localStorage.removeItem('customTheme');
+}
+
+function toggleTheme() {
+  const root = document.documentElement;
+  const currentTheme = root.getAttribute('data-theme');
+  const button = document.querySelector('.theme-toggle');
+
+  if (button) {
+    clearCustomTheme();
+
+    if (currentTheme === 'dark') {
+      root.setAttribute('data-theme', 'light');
+      button.textContent = '🌙';
+      localStorage.setItem('theme', 'light');
+    } else {
+      root.setAttribute('data-theme', 'dark');
+      button.textContent = '☀️';
+      localStorage.setItem('theme', 'dark');
+    }
+
+    showRandomThemeButton();
+  }
+}
+
+// Make toggleTheme available globally
+window.toggleTheme = toggleTheme;
+
 function randomTheme() {
   const newTheme = generateNewTheme();
   const root = document.documentElement;
@@ -82,6 +117,9 @@ function randomTheme() {
     localStorage.removeItem('theme');
   }
 }
+
+// Make randomTheme available globally
+window.randomTheme = randomTheme;
 
 function showRandomThemeButton() {
   let randomThemeButton = document.querySelector('.random-theme-button');
