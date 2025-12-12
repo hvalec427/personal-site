@@ -1,0 +1,133 @@
+:root {
+  --background: #ffffff;
+  --primary: #1f2937;
+  --secondary: #6b7280;
+  --highlight: #3b82f6;
+  --surface: #f3f4f6;
+}
+
+:root[data-theme="dark"] {
+  --background: #1e293b;
+  --primary: #f1f5f9;
+  --secondary: #94a3b8;
+  --highlight: #60a5fa;
+  --surface: #334155;
+}
+
+.theme-toggle {
+  background: var(--surface);
+  border: 1px solid var(--secondary);
+  color: var(--primary);
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.theme-toggle:hover {
+  background: var(--highlight);
+  color: var(--background);
+  border-color: var(--highlight);
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+.random-theme-button {
+  position: relative;
+  transform: translateX(10px);
+  background: var(--highlight);
+  border: 1px solid var(--highlight);
+  color: var(--background);
+  padding: 6px 12px;
+  border-radius: 18px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  opacity: 0;
+  white-space: nowrap;
+  height: 36px;
+  display: flex;
+  align-items: center;
+}
+
+.random-theme-button.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.random-theme-button:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  transform: scale(1.05);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+  font-family: "Fira Code", monospace;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--primary);
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 48px;
+}
+
+.index-page main {
+  justify-content: center;
+}
+
+.other-pages {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.other-pages main {
+  justify-content: flex-start;
+}
+
+h1,
+h2,
+h3,
+p,
+span,
+a {
+  margin: 0;
+}
+
+::selection {
+  background-color: var(--surface);
+  color: var(--primary);
+}
+
+::-moz-selection {
+  background-color: var(--surface);
+  color: var(--primary);
+}
