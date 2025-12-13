@@ -1,5 +1,7 @@
 {
   "outputDirectory": ".",
+  "buildCommand": "yarn build",
+  "installCommand": "yarn install",
   "redirects": [
     {
       "source": "/:path(.+).html",
