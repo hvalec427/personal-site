@@ -121,10 +121,6 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
-
-  main {
-    margin-bottom: 32px;
-  }
 }
 
 @media (max-width: 480px) {
