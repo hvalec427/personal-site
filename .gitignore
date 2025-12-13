@@ -5,6 +5,4 @@ node_modules/
 settings.json
 
 # generated files - no need to be tracked
-/blog/
-/blog.html
-/assets/og/
+/build/
