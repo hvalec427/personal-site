@@ -23,8 +23,7 @@
     "lint-staged": "15.0.0",
     "marked": "12.0.0",
     "prettier": "3.0.0",
-    "satori": "0.10.9",
-    "sharp": "0.33.0"
+    "satori": "0.10.9"
   },
   "lint-staged": {
     "*.{html,css,md}": [
@@ -36,5 +35,8 @@
       "prettier --write",
       "git add"
     ]
+  },
+  "dependencies": {
+    "sharp": "0.34.5"
   }
 }
