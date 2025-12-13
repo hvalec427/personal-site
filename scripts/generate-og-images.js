@@ -4,11 +4,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import satori from 'satori';
 import sharp from 'sharp';
+import { pages, blogPosts } from './pages-config.js';
 
 const outDir = 'assets/og';
 fs.mkdirSync(outDir, { recursive: true });
 
-// Load Fira Code font
 const fontPath = 'assets/fonts/FiraCode-Regular.ttf';
 const fontBoldPath = 'assets/fonts/FiraCode-Bold.ttf';
 
@@ -23,57 +23,6 @@ try {
   console.error('Download from: https://github.com/tonsky/FiraCode/releases');
   process.exit(1);
 }
-
-// Define pages that need OG images
-const pages = [
-  {
-    slug: 'index',
-    title: 'Žiga Hvalec',
-    subtitle: 'Mobile Developer',
-    description:
-      'Mobile developer focused on crafting fast, reliable, and polished apps.',
-  },
-  {
-    slug: 'blog',
-    title: 'Blog',
-    subtitle: 'Žiga Hvalec',
-    description:
-      'My thoughts on games, development, and whatever else catches my attention.',
-  },
-  {
-    slug: 'work-history',
-    title: 'Work History',
-    subtitle: 'Žiga Hvalec',
-    description: 'Professional journey and experience in mobile development.',
-  },
-  {
-    slug: 'work-showcase',
-    title: 'Work Showcase',
-    subtitle: 'Žiga Hvalec',
-    description: 'Portfolio of mobile apps and development projects.',
-  },
-  {
-    slug: 'doggie',
-    title: 'My Dog',
-    subtitle: 'Žiga Hvalec',
-    description: 'Meet my furry coding companion.',
-  },
-  {
-    slug: 'changelog',
-    title: 'Changelog',
-    subtitle: 'Žiga Hvalec',
-    description: 'Development history and website updates.',
-  },
-];
-
-// Generate individual blog post images (you can expand this)
-const blogPosts = [
-  {
-    slug: 'ps5-exclusives-2025',
-    title: "Best PS5 Exclusives I've Played This Year",
-    subtitle: 'Blog • Žiga Hvalec',
-  },
-];
 
 const allPages = [
   ...pages,
@@ -98,7 +47,6 @@ for (const page of allPages) {
           position: 'relative',
         },
         children: [
-          // Main content
           {
             type: 'div',
             props: {
@@ -108,7 +56,6 @@ for (const page of allPages) {
                 gap: '24px',
               },
               children: [
-                // Title
                 {
                   type: 'div',
                   props: {
@@ -119,10 +66,10 @@ for (const page of allPages) {
                       color: '#ffffff',
                       letterSpacing: '-2px',
                     },
-                    children: page.title + (page.slug === 'index' ? '.' : ''),
+                    children: page.ogTitle + (page.slug === 'index' ? '.' : ''),
                   },
                 },
-                // Subtitle
+
                 {
                   type: 'div',
                   props: {
@@ -132,10 +79,10 @@ for (const page of allPages) {
                       fontWeight: 400,
                       letterSpacing: '0.5px',
                     },
-                    children: page.subtitle,
+                    children: page.ogSubtitle,
                   },
                 },
-                // Description (if exists)
+
                 ...(page.description
                   ? [
                       {
@@ -156,7 +103,7 @@ for (const page of allPages) {
               ],
             },
           },
-          // Footer with URL and code accent
+
           {
             type: 'div',
             props: {

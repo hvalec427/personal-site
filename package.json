@@ -4,7 +4,7 @@
   "type": "module",
   "description": "Personal portfolio website",
   "scripts": {
-    "build": "yarn build:og && yarn build:meta && yarn build:blog",
+    "build": "yarn build:blog && yarn build:og && yarn build:meta",
     "build:blog": "node scripts/build-blog.js",
     "build:meta": "node scripts/update-meta-tags.js",
     "build:og": "node scripts/generate-og-images.js",
@@ -23,8 +23,8 @@
     "lint-staged": "15.0.0",
     "marked": "12.0.0",
     "prettier": "3.0.0",
-    "satori": "^0.10.9",
-    "sharp": "^0.33.0"
+    "satori": "0.10.9",
+    "sharp": "0.33.0"
   },
   "lint-staged": {
     "*.{html,css,md}": [
