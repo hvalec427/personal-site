@@ -4,8 +4,10 @@
   "type": "module",
   "description": "Personal portfolio website",
   "scripts": {
-    "build": "yarn build:blog",
+    "build": "yarn build:og && yarn build:meta && yarn build:blog",
     "build:blog": "node scripts/build-blog.js",
+    "build:meta": "node scripts/update-meta-tags.js",
+    "build:og": "node scripts/generate-og-images.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --check .",
@@ -20,15 +22,19 @@
     "husky": "9.1.7",
     "lint-staged": "15.0.0",
     "marked": "12.0.0",
-    "prettier": "3.0.0"
+    "prettier": "3.0.0",
+    "satori": "^0.10.9",
+    "sharp": "^0.33.0"
   },
   "lint-staged": {
     "*.{html,css,md}": [
-      "prettier --write"
+      "prettier --write",
+      "git add"
     ],
     "*.js": [
       "eslint --fix",
-      "prettier --write"
+      "prettier --write",
+      "git add"
     ]
   }
 }

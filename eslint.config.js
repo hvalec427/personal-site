@@ -23,7 +23,7 @@ export default [
     },
     rules: {
       'no-unused-vars': 'warn',
-      'no-console': ['error', { allow: ['info', 'error'] }],
+      'no-console': ['error', { allow: ['info', 'error', 'warn'] }],
       'prefer-const': 'error',
       'no-var': 'error',
     },

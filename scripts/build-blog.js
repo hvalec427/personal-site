@@ -5,6 +5,7 @@ import path from 'node:path';
 import fg from 'fast-glob';
 import matter from 'gray-matter';
 import { marked } from 'marked';
+import { generateMetaTags } from './meta-utils.js';
 
 const INPUT_DIR = 'articles';
 const OUT_DIR = './blog';
@@ -51,13 +52,34 @@ async function ensureDir(p) {
   await fs.mkdir(p, { recursive: true });
 }
 
-function baseTemplate({ title, bodyHtml, isArticle = false }) {
+function baseTemplate({
+  title,
+  bodyHtml,
+  isArticle = false,
+  description = '',
+  slug = '',
+}) {
+  const pageTitle = `${title} - Hvalec`;
+  const pageDescription = description || `${title} by Žiga Hvalec`;
+  const pageUrl = `https://hvalec.com/${isArticle ? 'blog/' + slug : 'blog'}`;
+  const finalSlug = slug || 'blog';
+
+  const metaTags = generateMetaTags({
+    title: pageTitle,
+    description: pageDescription,
+    url: pageUrl,
+    slug: finalSlug,
+    type: isArticle ? 'article' : 'website',
+  });
+
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${title} - Hvalec</title>
+    <title>${pageTitle}</title>
+${metaTags}
+    
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&display=block" rel="stylesheet" />
     <link rel="stylesheet" href="../css/normalize.css">
     <link rel="stylesheet" href="../css/main.css">
@@ -96,7 +118,7 @@ function baseTemplate({ title, bodyHtml, isArticle = false }) {
 </html>`;
 }
 
-function articleTemplate({ title, contentHtml, date }) {
+function articleTemplate({ title, contentHtml, date, slug, excerpt }) {
   const dateHtml = date ? `<div class="article-date">${date}</div>` : '';
 
   const bodyHtml = `<div class="article-container">
@@ -114,7 +136,13 @@ function articleTemplate({ title, contentHtml, date }) {
     </article>
 </div>`;
 
-  return baseTemplate({ title, bodyHtml, isArticle: true });
+  return baseTemplate({
+    title,
+    bodyHtml,
+    isArticle: true,
+    description: excerpt,
+    slug,
+  });
 }
 
 function blogIndexTemplate({ items }) {
@@ -156,7 +184,13 @@ function blogIndexTemplate({ items }) {
     </section>
 </main>`;
 
-  return baseTemplate({ title: 'Blog', bodyHtml });
+  return baseTemplate({
+    title: 'Blog',
+    bodyHtml,
+    description:
+      'My thoughts on games, development, and whatever else catches my attention.',
+    slug: 'blog',
+  });
 }
 
 async function build() {
@@ -187,10 +221,17 @@ async function build() {
     const contentHtml = marked.parse(content);
     const outName = slugifyOutputHtml(rel);
     const outPath = path.join(OUT_DIR, outName);
+    const slug = getSlug(rel);
 
     await fs.writeFile(
       outPath,
-      articleTemplate({ title, contentHtml, date: data.date }),
+      articleTemplate({
+        title,
+        contentHtml,
+        date: data.date,
+        slug,
+        excerpt,
+      }),
       'utf8'
     );
 
