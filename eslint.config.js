@@ -1,4 +1,4 @@
-module.exports = [
+export default [
   {
     ignores: [
       'node_modules/**',
@@ -12,7 +12,6 @@ module.exports = [
     files: ['**/*.js'],
     languageOptions: {
       ecmaVersion: 2022,
-      sourceType: 'script',
       globals: {
         window: 'readonly',
         document: 'readonly',
@@ -24,7 +23,7 @@ module.exports = [
     },
     rules: {
       'no-unused-vars': 'warn',
-      'no-console': 'off',
+      'no-console': ['error', { allow: ['info', 'error'] }],
       'prefer-const': 'error',
       'no-var': 'error',
     },
