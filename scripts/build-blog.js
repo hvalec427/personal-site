@@ -5,7 +5,6 @@ import path from 'node:path';
 import fg from 'fast-glob';
 import matter from 'gray-matter';
 import { marked } from 'marked';
-import { generateMetaTags } from './meta-utils.js';
 
 const INPUT_DIR = 'articles';
 const OUT_DIR = './blog';
@@ -60,17 +59,6 @@ function baseTemplate({
   slug = '',
 }) {
   const pageTitle = `${title} - Hvalec`;
-  const pageDescription = description || `${title} by Žiga Hvalec`;
-  const pageUrl = `https://hvalec.com/${isArticle ? 'blog/' + slug : 'blog'}`;
-  const finalSlug = slug || 'blog';
-
-  const metaTags = generateMetaTags({
-    title: pageTitle,
-    description: pageDescription,
-    url: pageUrl,
-    slug: finalSlug,
-    type: isArticle ? 'article' : 'website',
-  });
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -78,7 +66,6 @@ function baseTemplate({
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${pageTitle}</title>
-${metaTags}
     
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&display=block" rel="stylesheet" />
     <link rel="stylesheet" href="../css/normalize.css">
