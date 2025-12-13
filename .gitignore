@@ -3,3 +3,7 @@
 node_modules/
 
 settings.json
+
+# both of these fiels are generated so no need to be tracked
+/blog/
+/blog.html
