@@ -7,11 +7,11 @@
    Theme variables (yours)
    ------------------------- */
 :root {
-  --background: #ffffff;
+  --background: #f5efe6;
   --primary: #1f2937;
   --secondary: #6b7280;
   --highlight: #3b82f6;
-  --surface: #f3f4f6;
+  --surface: #efe7db;
 }
 
 :root[data-theme='dark'] {
