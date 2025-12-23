@@ -12,7 +12,14 @@ const OUT_HTML_BUILD = path.join(BUILD_DIR, 'map.html');
 
 function buildXml(urls) {
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls
-    .map(u => `  <url>\n    <loc>${u.loc}</loc>\n  </url>`)
+    .map(
+      u =>
+        '  <url>\n    <loc>' +
+        u.loc +
+        '</loc>\n' +
+        (u.lastmod ? '    <lastmod>' + u.lastmod + '</lastmod>\n' : '') +
+        '  </url>'
+    )
     .join('\n')}\n</urlset>`;
 }
 
@@ -56,13 +63,21 @@ async function generate() {
     urlPath = urlPath.replace(/\/+/g, '/');
 
     const loc = `${SITE_URL}${urlPath}`;
-    urls.push({ loc });
+    // Try to read the file mtime to use as <lastmod> for sitemap entries.
+    const fullPath = path.join(BUILD_DIR, rel);
+    const stats = await fs.stat(fullPath).catch(() => null);
+    const lastmod = stats ? stats.mtime.toISOString().slice(0, 10) : undefined;
+    urls.push({ loc, lastmod });
   }
 
   const sitemapHtmlLoc = `${SITE_URL}/map`;
   const sitemapAltLoc = `${SITE_URL}/sitemap`;
-  urls = urls.filter(u => u.loc !== sitemapHtmlLoc && u.loc !== sitemapAltLoc);
-  urls.push({ loc: sitemapHtmlLoc });
+  const notIncluded = new Set([
+    sitemapHtmlLoc,
+    sitemapAltLoc,
+    `${SITE_URL}/404`,
+  ]);
+  urls = urls.filter(u => !notIncluded.has(u.loc));
 
   const xml = buildXml(urls);
 
