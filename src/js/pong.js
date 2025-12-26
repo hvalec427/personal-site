@@ -21,6 +21,35 @@ function _readGameColors() {
 
 const GAME_COLORS = _readGameColors();
 
+// Simple WebAudio SFX for paddle bounce only
+const audioCtx = (function () {
+  try {
+    return new (window.AudioContext || window.webkitAudioContext)();
+  } catch {
+    return null;
+  }
+})();
+function sfxHit({
+  freq = 900,
+  type = 'triangle',
+  dur = 0.06,
+  vol = 0.06,
+} = {}) {
+  if (!audioCtx) return;
+  const o = audioCtx.createOscillator();
+  const g = audioCtx.createGain();
+  o.type = type;
+  o.frequency.value = freq;
+  g.gain.value = vol;
+  o.connect(g);
+  g.connect(audioCtx.destination);
+  const now = audioCtx.currentTime;
+  o.start(now);
+  g.gain.setValueAtTime(vol, now);
+  g.gain.exponentialRampToValueAtTime(0.001, now + dur);
+  o.stop(now + dur + 0.02);
+}
+
 // Watch for theme changes (data-theme attribute) and refresh colors live
 const _themeObserver = new MutationObserver(() => {
   // recompute and copy values into GAME_COLORS so existing references update
@@ -275,12 +304,15 @@ function update(dt) {
       // flip the turn to the other player
       currentTurn = otherSide;
 
+      // Play hit SFX only
+      sfxHit();
+
       // Store the post-hit predicted contact point so the renderer can show it
       // compute and save the next hit info for rendering/debug
       // Recompute prediction immediately after the hit so CPU can react this frame
       // predicted contact angle for the ball's next hit
       lastPredictedHit = computeNextHitInfo();
-      if (lastPredictedHit.angle !== null) {
+      if (lastPredictedHit?.angle !== null) {
         // if prediction available
         if (currentTurn === 'cpu') {
           // cpu should aim for predicted angle
