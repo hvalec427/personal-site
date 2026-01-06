@@ -17,6 +17,9 @@ markdown: kramdown
 # Output directory
 destination: _site
 
+# Default permalink for pages
+permalink: /:title/
+
 # Collections for organized content
 collections:
   posts:
