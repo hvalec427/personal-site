@@ -1,0 +1,175 @@
+section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+section article {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  position: relative;
+  align-items: start;
+  margin-bottom: 2rem;
+  gap: 16px;
+}
+
+section article > div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+}
+
+section article > div:first-child time {
+  font-family: "Fira Code", monospace;
+  color: var(--highlight);
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+  margin-top: 2px;
+  display: block;
+}
+
+section article > div:first-child small {
+  font-size: 13px;
+  color: var(--secondary);
+  letter-spacing: 0.5px;
+}
+
+section article > div:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+}
+
+section article header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  margin-bottom: 0;
+}
+
+section article header h3 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--primary);
+  font-family: "Fira Code", monospace;
+}
+
+section article header span {
+  font-size: 16px;
+  color: var(--secondary);
+  font-style: italic;
+}
+
+section article p {
+  font-size: 16px;
+  line-height: 1.3;
+  color: var(--primary);
+  font-family: "Fira Code", monospace;
+}
+
+section a {
+  font-size: 14px;
+  color: var(--highlight);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+section a:hover {
+  text-decoration: underline;
+}
+
+section .gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+}
+
+section .gallery img {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+  display: block;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.link {
+  margin-bottom: 0.75rem;
+}
+
+ul li {
+  margin-top: 0;
+}
+
+@media (max-width: 700px) {
+  section {
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+  section article {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 1.25rem;
+  }
+
+  section article > div:first-child {
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+  }
+
+  section article > div:first-child time {
+    font-size: 13px;
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  section article > div:first-child small {
+    display: none;
+  }
+
+  section article header h3 {
+    font-size: 18px;
+  }
+
+  section article header span {
+    font-size: 14px;
+  }
+
+  section article p {
+    font-size: 15px;
+    line-height: 1.4;
+  }
+
+  section .gallery {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px;
+  }
+
+  section .gallery img {
+    border-radius: 10px;
+  }
+
+  .link {
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media (max-width: 420px) {
+  section article > div:first-child {
+    gap: 8px;
+  }
+
+  section article header h3 {
+    font-size: 16px;
+  }
+
+  section article p {
+    font-size: 14px;
+  }
+}

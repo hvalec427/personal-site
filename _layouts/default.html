@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}
+    </title>
+    {% seo %}
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="{{ '/assets/apple-touch-icon.png' | relative_url }}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="{{ '/assets/favicon-32x32.png' | relative_url }}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="{{ '/assets/favicon-16x16.png' | relative_url }}"
+    />
+    <link
+      rel="manifest"
+      href="{{ '/assets/site.webmanifest' | relative_url }}"
+    />
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
+    <script src="{{ '/assets/js/theme-toggle.js' | relative_url }}"></script>
+  </head>
+
+  <body>
+    <header>
+      <h1 class="header">
+        <a href="/" class="header-link"
+          >Hvalec<span class="header-dot">.</span></a
+        >
+      </h1>
+      <div class="header-buttons">
+        <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()">
+          🌙
+        </button>
+      </div>
+    </header>
+
+    <main class="markdown">{{ content }}</main>
+
+    <footer>
+      <span class="footer-copyright">© 2026, All rights reserved.</span>
+      <div class="footer-links">
+        <a
+          href="https://github.com/{{ site.github_username }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="footer-link"
+          >GitHub</a
+        >
+        <a
+          href="https://www.linkedin.com/in/{{ site.linkedin_username }}/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="footer-link"
+          >LinkedIn</a
+        >
+        <a
+          href="{{ '/assets/cv.pdf' | relative_url }}"
+          download
+          class="cv-button"
+          >Download CV</a
+        >
+      </div>
+    </footer>
+
+    {% if site.umami_id %}
+    <script
+      defer
+      src="https://cloud.umami.is/script.js"
+      data-website-id="{{ site.umami_id }}"
+    ></script>
+    {% endif %}
+  </body>
+</html>

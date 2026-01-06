@@ -1,18 +1,5 @@
 {
-  "outputDirectory": "build",
-  "buildCommand": "yarn build",
-  "installCommand": "yarn install",
-  "redirects": [
-    {
-      "source": "/:path(.+).html",
-      "destination": "/:path",
-      "permanent": true
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/:path*",
-      "destination": "/:path*.html"
-    }
-  ]
+  "outputDirectory": "_site",
+  "buildCommand": "bundle install && bundle exec jekyll build",
+  "installCommand": "gem install bundler"
 }

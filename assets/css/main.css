@@ -1,0 +1,450 @@
+/* =========================================================
+   SITE.CSS — single-file Markdown stylesheet
+   Uses your theme variables
+   ========================================================= */
+
+/* -------------------------
+   Theme variables (yours)
+   ------------------------- */
+:root {
+  --background: #f5efe6;
+  --primary: #1f2937;
+  --secondary: #5b616d;
+  --highlight: #3b82f6;
+  --surface: #efe7db;
+}
+
+:root[data-theme="dark"] {
+  --background: #1e293b;
+  --primary: #f1f5f9;
+  --secondary: #94a3b8;
+  --highlight: #60a5fa;
+  --surface: #334155;
+}
+
+/* -------------------------
+   Reset (safe)
+   ------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 90%;
+  scrollbar-gutter: stable;
+}
+
+html,
+body {
+  min-height: 100%;
+  font-family: "Fira Code", monospace;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--primary);
+  padding: 20px;
+  max-width: 800px;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.theme-toggle {
+  background: var(--surface);
+  border: 1px solid var(--secondary);
+  color: var(--primary);
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.theme-toggle:hover {
+  background: var(--highlight);
+  color: var(--background);
+  border-color: var(--highlight);
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+.random-theme-button {
+  position: relative;
+  transform: translateX(10px);
+  background: var(--highlight);
+  border: 1px solid var(--highlight);
+  color: var(--background);
+  padding: 6px 12px;
+  border-radius: 18px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  opacity: 0;
+  white-space: nowrap;
+  height: 36px;
+  display: flex;
+  align-items: center;
+}
+
+.random-theme-button.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.random-theme-button:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  transform: scale(1.05);
+}
+
+::selection {
+  background-color: var(--surface);
+  color: var(--primary);
+}
+
+::-moz-selection {
+  background-color: var(--surface);
+  color: var(--primary);
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.header-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-direction: row-reverse;
+}
+
+.header {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.header a {
+  color: var(--highlight);
+  text-decoration: none;
+}
+
+.header-dot {
+  color: var(--highlight);
+}
+
+.header-link {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+footer {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--surface);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-copyright {
+  font-size: 14px;
+  color: var(--secondary);
+}
+
+.footer-links {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.footer-link {
+  font-size: 14px;
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.cv-button {
+  font-size: 14px;
+  color: var(--background);
+  background: var(--primary);
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 150ms ease;
+}
+
+.cv-button:hover,
+.cv-button:focus {
+  background: var(--highlight);
+  color: var(--background);
+  border-color: transparent;
+  transform: translateY(-1px);
+}
+
+/* -------------------------
+   Markdown base
+   ------------------------- */
+.markdown {
+  font-family: "Fira Code", monospace;
+  font-size: 1rem;
+  line-height: 1.45;
+  flex: 1 0 auto;
+  padding-bottom: 3rem;
+}
+
+.markdown > * {
+  margin: 0;
+}
+
+.markdown > * + * {
+  margin-top: 1rem;
+}
+
+/* -------------------------
+   Headings
+   ------------------------- */
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4 {
+  line-height: 1.3;
+  font-weight: 600;
+  color: var(--primary-variant, var(--primary));
+}
+
+.markdown h1 {
+  font-size: 2.25rem;
+  margin-top: 2.5rem;
+}
+
+.markdown h2 {
+  font-size: 1.6rem;
+  margin-top: 2rem;
+}
+
+.markdown h3 {
+  font-size: 1.25rem;
+}
+
+.markdown h4 {
+  font-size: 1.05rem;
+}
+
+/* -------------------------
+   Text
+   ------------------------- */
+.markdown p {
+  /* max-width: 65ch; */
+  color: var(--secondary);
+}
+
+.markdown strong {
+  font-weight: 600;
+}
+
+.markdown em {
+  font-style: italic;
+}
+
+/* -------------------------
+   Meta / small labels
+   ------------------------- */
+.markdown .meta,
+.markdown time,
+.markdown .caption {
+  font-size: 0.85rem;
+  color: var(--secondary);
+}
+
+/* -------------------------
+   Links — global
+   ------------------------- */
+a {
+  color: var(--highlight);
+  text-decoration: none;
+  transition:
+    color 150ms ease,
+    opacity 150ms ease;
+}
+
+a:visited {
+  color: var(--secondary);
+}
+
+a:hover,
+a:focus {
+  color: var(--primary);
+  text-decoration: none;
+  outline: none;
+}
+
+a:active {
+  color: var(--primary);
+}
+
+/* -------------------------
+   Lists
+   ------------------------- */
+.markdown ul,
+.markdown ol {
+  padding-left: 0;
+  list-style: none;
+}
+
+.markdown li::before {
+  content: "•";
+  color: var(--highlight);
+  display: inline-block;
+  width: 1.25rem;
+  text-align: left;
+  margin-right: 0.5rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+.markdown ul.no-dots li::before,
+.markdown ol.no-dots li::before {
+  content: none;
+  display: none;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tags li {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--surface);
+  color: var(--primary);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  border: none;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04) inset;
+}
+
+:root[data-theme="dark"] .tags li {
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset;
+}
+
+.markdown ul.tags,
+.markdown ol.tags {
+  padding-left: 0;
+}
+
+.markdown ul.tags li,
+.markdown ol.tags li {
+  position: static;
+  margin: 0;
+}
+
+/* -------------------------
+   Blockquotes
+   ------------------------- */
+.markdown blockquote {
+  padding-left: 1rem;
+  border-left: 3px solid var(--surface);
+  color: var(--secondary);
+  font-style: italic;
+}
+
+/* -------------------------
+   Code
+   ------------------------- */
+.markdown code {
+  font-family: "Fira Code", monospace;
+  font-size: 0.9em;
+  background: var(--surface);
+  padding: 0.15em 0.35em;
+  border-radius: 4px;
+  color: var(--primary);
+}
+
+.markdown pre {
+  background: var(--surface);
+  color: var(--primary);
+  padding: 1rem;
+  overflow-x: auto;
+  border-radius: 8px;
+}
+
+.markdown pre code {
+  background: none;
+  padding: 0;
+}
+
+/* -------------------------
+   Tables
+   ------------------------- */
+.markdown table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.markdown th,
+.markdown td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--surface);
+  text-align: left;
+}
+
+.markdown th {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+/* -------------------------
+   Images
+   ------------------------- */
+.markdown img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+/* -------------------------
+   Horizontal rule
+   ------------------------- */
+.markdown hr {
+  border: none;
+  border-top: 1px solid var(--surface);
+}
+
+ul li + li {
+  margin-top: 0.5rem;
+}
