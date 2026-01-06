@@ -1,5 +1,5 @@
 {
   "outputDirectory": "_site",
-  "buildCommand": "bundle install && bundle exec jekyll build",
+  "buildCommand": "bundle install && bundle exec jekyll build $([ \"$JEKYLL_ENV\" = \"staging\" ] && echo '--config _config.yml,_config.staging.yml' || echo '')",
   "installCommand": "gem install bundler"
 }
