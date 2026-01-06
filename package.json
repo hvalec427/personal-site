@@ -1,16 +1,12 @@
 {
   "name": "personal-site",
-  "version": "1.0.0",
+  "version": "4.0.0",
   "type": "module",
-  "description": "Personal portfolio website",
+  "description": "Personal portfolio website built with Jekyll",
+  "license": "MIT",
   "scripts": {
-    "serve": "node src/scripts/serve-build.js",
-    "build:parse-only": "yarn build:pages && yarn build:blog && yarn build:sitemap",
-    "build": "yarn build:pages && yarn build:blog && yarn build:analytics && yarn build:sitemap",
-    "build:pages": "node src/scripts/build-pages.js",
-    "build:blog": "node src/scripts/build-blog.js",
-    "build:analytics": "node src/scripts/inject-analytics.js",
-    "build:sitemap": "node src/scripts/generate-sitemap.js",
+    "serve": "bundle exec jekyll serve",
+    "build": "bundle install && bundle exec jekyll build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --check .",
@@ -20,14 +16,9 @@
     "@eslint/js": "9.0.0",
     "eslint": "9.0.0",
     "eslint-config-prettier": "9.0.0",
-    "fast-glob": "3.3.0",
-    "gray-matter": "4.0.3",
     "husky": "9.1.7",
     "lint-staged": "15.0.0",
-    "marked": "12.0.0",
-    "mime-types": "^3.0.2",
-    "prettier": "3.0.0",
-    "satori": "0.10.9"
+    "prettier": "3.0.0"
   },
   "lint-staged": {
     "*.{html,css,md}": [
@@ -39,8 +30,5 @@
       "prettier --write",
       "git add"
     ]
-  },
-  "dependencies": {
-    "sharp": "0.34.5"
   }
 }

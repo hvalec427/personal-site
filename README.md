@@ -1,13 +1,20 @@
+---
+layout: default
+title: README
+---
+
 # Personal Portfolio Website
 
-A modern, responsive portfolio website showcasing professional work experience, personal projects, and interests. Built with vanilla HTML, CSS, and JavaScript with a focus on clean design, performance, and user experience.
+A modern, responsive portfolio website showcasing professional work experience, personal projects, and interests. Built with Jekyll, Markdown, HTML, CSS, and JavaScript with a focus on clean design, performance, and user experience.
 
 ## Features
 
+- **Jekyll-powered static site generation**: Fast, simple, and maintainable content structure
 - **Responsive Design**: Optimized for all device sizes from mobile to desktop
 - **Dynamic Theme System**: Light/dark theme toggle with random theme generator
-- **Analytics Integration**: Visitor tracking and usage statistics
-- **Clean Architecture**: Modular CSS structure for maintainability
+- **Analytics Integration**: Visitor tracking with Umami (privacy-focused)
+- **Markdown-first content**: Write pages and posts in Markdown with front matter
+- **Clean Architecture**: Modular CSS and reusable layouts
 
 ## Deployment
 
@@ -17,12 +24,32 @@ This project is deployed using [Vercel](https://vercel.com), a platform for fron
 
 - **Automatic Deployments**: Every push to the main branch triggers a new deployment
 - **Custom Domain Support**: Custom domain configuration with SSL certificates
-- **Zero Configuration**: No build setup required for static HTML/CSS/JS projects
 
 ### Configuration
 
-- Domain routing and redirects are handled through Vercel's configuration
 - HTTPS is enabled by default
+
+## Local Development
+
+### Prerequisites
+
+- Ruby 2.7 or higher
+- Bundler
+
+### Setup
+
+```bash
+# Install gems
+bundle install
+
+# Start Jekyll server
+bundle exec jekyll serve
+
+# Build for production
+bundle exec jekyll build
+```
+
+The site will be available at `http://localhost:4000`
 
 ## Analytics
 
@@ -35,44 +62,38 @@ Website analytics are powered by [Umami](https://umami.is), a privacy-focused, o
 - **Real-time Data**: Live visitor tracking and page view statistics
 - **Simple Integration**: Single script tag provides comprehensive tracking
 
-## Development
+## Project Structure
 
-### Code Quality Tools
+- `_layouts/` - Reusable HTML templates
+- `_posts/` - Blog posts in Markdown
+- `assets/` - CSS, JavaScript, fonts, and images
+- `***.md` - Individual pages (Jekyll converts to HTML)
+- `_config.yml` - Jekyll configuration
+- `Gemfile` - Ruby dependencies
 
-The project includes automated code quality tools to maintain consistent style and catch errors:
+## Code Quality Tools
+
+The project includes automated code quality tools:
 
 - **ESLint**: JavaScript linting with automatic error detection and fixing
 - **Prettier**: Code formatting with consistent style across all files
-- **Husky**: Git hooks for automated quality checks on commit
-- **lint-staged**: Runs linters only on staged files for efficiency
-
-## Page Generation
-
-The website includes an automated generation system that converts Markdown pages stored under `pages/` into static HTML pages with a consistent design and navigation structure.
-
-### Features
-
-- **Markdown to HTML Conversion**: Articles written in Markdown are automatically converted to styled HTML pages
-- **Front Matter Support**: YAML front matter for metadata like title, date, description, and tags
-- **Automatic Index Generation**: Dynamic blog index page with article listings and excerpts
-
-### Usage
-
-Generate the website using npm scripts:
-
-```bash
-npm run build
-```
-
-This creates:
-
-- Individual article pages in `blog/[article-name].html`
-- Main blog index at `blog.html`
-- All other pages from .md files
 
 ## Theme System
 
-The website features a sophisticated theme system supporting:
+The website features a theme system supporting:
 
-- Light and dark mode toggle
-- Random theme generator with color harmony algorithms
+- Light and dark mode toggle with persistence
+- Random theme generator
+- All theme colors defined as CSS custom properties
+
+## Building and Deploying
+
+```bash
+# Install dependencies
+bundle install
+
+# Build the site
+bundle exec jekyll build
+
+# Output is in _site/ directory
+```

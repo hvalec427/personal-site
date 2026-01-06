@@ -4,5 +4,9 @@ node_modules/
 
 settings.json
 
-# generated files - no need to be tracked
-/build/
+# Jekyll build output
+/_site/
+.jekyll-cache/
+.jekyll-metadata
+.bundle/
+vendor/

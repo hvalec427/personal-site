@@ -1,0 +1,33 @@
+title: Hvalec
+description: Mobile developer focused on crafting fast, reliable, and polished apps.
+baseurl: ""
+url: "https://hvalec.com"
+github_username: hvalec427
+linkedin_username: hvalec
+
+# Build settings
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Markdown
+markdown: kramdown
+
+# Output directory
+destination: _site
+
+# Collections for organized content
+collections:
+  posts:
+    output: true
+    permalink: /blog/:year-:month-:day-:title/
+  logs:
+    output: true
+    permalink: /logs/:title/
+
+# Incremental builds
+incremental: true
+
+# Analytics
+umami_id: e3adec61-3166-4f84-a957-b6852d70e64b
