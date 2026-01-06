@@ -9,6 +9,18 @@ Development history and major updates to this website.
 
 <br/>
 
+## v4.0.1 - Routing Fixes
+
+_January 6, 2026_
+
+### Patch: Fixed subpage routing on Vercel
+
+- Added default permalink configuration for all pages
+- Enhanced Vercel routing configuration for proper 404 handling
+- Fixed subpage accessibility (me, projects, uses, etc.)
+
+<br/>
+
 ## v4.0.0 - Jekyll Migration
 
 _January 5, 2026_
