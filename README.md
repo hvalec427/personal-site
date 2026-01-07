@@ -1,8 +1,3 @@
----
-layout: default
-title: README
----
-
 # Personal Portfolio Website
 
 A modern, responsive portfolio website showcasing professional work experience, personal projects, and interests. Built with Jekyll, Markdown, HTML, CSS, and JavaScript with a focus on clean design, performance, and user experience.
