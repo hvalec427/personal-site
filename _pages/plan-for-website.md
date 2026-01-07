@@ -22,7 +22,6 @@ This page is a small, living plan for features, experiments, and ideas for the s
 - Date-based changes (birthday mode, Friday theme)
 - /themes. add a way to customize each color on the site
 - /colophon about this page. why it exists. and a short history
-- /notes/0001.html etc.like in game where each note give you move info.
 - konami code that redirects to sitemap
 - fun search game. one idea is to have 3 words randomly highlighted on pages which use what3words to find
   somehthing
@@ -36,3 +35,4 @@ This page is a small, living plan for features, experiments, and ideas for the s
 
 - Typing dog anywhere opens /dog
 - /admin that says "You are not authorized. Neither am I."
+- /log/0001.html etc.like in game where each note give you move info.
