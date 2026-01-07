@@ -16,7 +16,7 @@ I'm Žiga Hvalec — I build small, fast websites and care about clean, readable
 
 - **Name:** Žiga Hvalec
 - **Role:** Software Engineer
-- **Interests:** Web performance, UX, tooling, and small open-source projects
+- **Interests:** Mobile development, gaming, and hiking
 - **Status:** Building, learning, and shipping
 
 </div>
