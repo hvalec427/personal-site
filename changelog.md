@@ -7,8 +7,6 @@ title: Changelog - Hvalec
 
 Development history and major updates to this website.
 
-<br/>
-
 ## v4.0.1 - Routing Fixes
 
 _January 6, 2026_
@@ -55,8 +53,6 @@ _December 13, 2025_
 - Enhanced meta tag generation with proper multi-line formatting
 - Eliminated hardcoded blog post configurations
 
-<br/>
-
 ## v3.1.0 - Social Media Optimization
 
 _December 13, 2025_
@@ -68,8 +64,6 @@ _December 13, 2025_
 - Added comprehensive meta tags for Facebook, Twitter/X and LinkedIn
 - Enhanced Twitter Cards with proper image metadata
 - Added multi-platform social sharing support
-
-<br/>
 
 ## v3.0.0 - Modern Architecture Rewrite
 
@@ -85,8 +79,6 @@ _December 12, 2025_
 - Added ESLint, Prettier, and modern development tooling
 - Enhanced SEO with structured meta tags for all content
 
-<br/>
-
 ## v2.3.0 - Content Expansion
 
 _August - September 2025_
@@ -99,8 +91,6 @@ _August - September 2025_
 - Added screenshot updates and visual assets
 - Fixed mobile height and layout issues
 
-<br/>
-
 ## v2.0.0 - Design Revolution
 
 _August 17, 2025_
@@ -112,8 +102,6 @@ _August 17, 2025_
 - Enhanced navigation and site structure
 - Improved content organization and layout
 - Added interactive contact forms and user engagement features
-
-<br/>
 
 ## v1.5.0 - Feature Development Era
 
@@ -128,8 +116,6 @@ _2019 - 2021_
 - Integrated Webpack build system
 - Optimized CSS compression and performance
 
-<br/>
-
 ## v1.2.0 - Professional Polish
 
 _September - October 2018_
@@ -143,8 +129,6 @@ _September - October 2018_
 - Improved mobile navigation and user experience
 - Enhanced portfolio content and professional text
 
-<br/>
-
 ## v1.0.0 - Foundation & Launch
 
 _September 13, 2018_
@@ -154,7 +138,5 @@ _September 13, 2018_
 - **Initial commit** - Website foundation created
 - Built responsive design system from scratch
 - Implemented CSS Grid and Flexbox layouts
-- Created mobile-first responsive breakpoints
-- Added custom favicon and branding elements
-- Established core CSS architecture and design patterns
+- Established core CSS architectureand design patterns
 - Set up GitHub Pages hosting and deployment
