@@ -6,8 +6,8 @@ title: Pages Index
 # Pages
 
 <ul>
-  <li>/<a href="/robots.txt">robots.txt</a></li>
-  <li>/<a href="/sitemap.xml">sitemap.xml</a></li>
+  <li><a href="/robots.txt">/robots.txt</a></li>
+  <li><a href="/sitemap.xml">/sitemap.xml</a></li>
   {% for page in site.pages %}
     <li><a href="{{ page.url }}">{{ page.url | remove: ".md" }}</a></li>
   {% endfor %}
