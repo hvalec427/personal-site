@@ -4,8 +4,8 @@ title: About Me - Žiga Hvalec
 ---
 
 <div class="row">
-<a href="/assets/me/portrait.jpg">
-  <img src="/assets/me/portrait.jpg" alt="Portrait of Žiga Hvalec" class="profile-photo" />
+<a href="/assets/images/me/portrait.jpg">
+  <img src="/assets/images/me/portrait.jpg" alt="Portrait of Žiga Hvalec" class="profile-photo" />
 </a>
 
 <div markdown="block">
