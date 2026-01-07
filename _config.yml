@@ -1,14 +1,12 @@
 title: Hvalec
 description: Mobile developer focused on crafting fast, reliable, and polished apps.
 baseurl: ""
-url: "https://hvalec.com"
+url: "http://localhost:4000"
 github_username: hvalec427
 linkedin_username: hvalec
 
 # Build settings
-theme: minima
 plugins:
-  - jekyll-feed
   - jekyll-sitemap
 
 # Markdown
@@ -16,9 +14,6 @@ markdown: kramdown
 
 # Output directory
 destination: _site
-
-# Default permalink for pages
-permalink: /:title/
 
 # Collections for organized content
 collections:
@@ -28,6 +23,9 @@ collections:
   logs:
     output: true
     permalink: /logs/:title/
+  pages:
+    output: true
+    permalink: /:title/
 
 # Incremental builds
 incremental: true

@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Hvalec
+permalink: /
 ---
 
 # Hi, I'm Žiga Hvalec, a mobile developer focused on crafting fast, reliable, and polished apps.

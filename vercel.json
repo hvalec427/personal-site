@@ -1,6 +1,6 @@
 {
   "outputDirectory": "_site",
-  "buildCommand": "bundle install && bundle exec jekyll build $([ \"$JEKYLL_ENV\" = \"staging\" ] && echo '--config _config.yml,_config.staging.yml' || echo '')",
+  "buildCommand": "bundle install && bundle exec jekyll build --config _config.yml,_config.${JEKYLL_ENV:-production}.yml",
   "installCommand": "gem install bundler",
   "routes": [
     {
