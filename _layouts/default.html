@@ -30,6 +30,12 @@
     />
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
     <script src="{{ '/assets/js/theme-toggle.js' | relative_url }}"></script>
+    <script>
+      // Prevent flash of wrong theme on page load
+      if (typeof restoreThemeFromStorage === "function") {
+        restoreThemeFromStorage();
+      }
+    </script>
   </head>
 
   <body>

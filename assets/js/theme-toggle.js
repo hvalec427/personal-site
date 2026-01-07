@@ -21,7 +21,7 @@ function generateNewTheme() {
     colors = {
       "--background": `hsl(${hue}, ${Math.min(
         baseSat * 0.4,
-        25,
+        25
       )}%, ${bgLightness}%)`,
       "--surface": `hsl(${hue}, ${baseSat * 0.8}%, ${surfaceLightness}%)`,
       "--primary": `hsl(${hue}, ${baseSat * 0.9}%, ${primaryLightness}%)`,
@@ -140,6 +140,30 @@ function randomTheme() {
 
 window.randomTheme = randomTheme;
 
+function restoreThemeFromStorage() {
+  const savedTheme = localStorage.getItem("theme");
+  const customTheme = localStorage.getItem("customTheme");
+  const root = document.documentElement;
+
+  if (customTheme) {
+    try {
+      const colors = JSON.parse(customTheme);
+      Object.entries(colors).forEach(([property, value]) => {
+        root.style.setProperty(property, value);
+      });
+    } catch (e) {
+      localStorage.removeItem("customTheme");
+    }
+  }
+
+  if (savedTheme === "dark") {
+    root.setAttribute("data-theme", "dark");
+  } else {
+    root.setAttribute("data-theme", "light");
+  }
+}
+window.restoreThemeFromStorage = restoreThemeFromStorage;
+
 function showRandomThemeButton() {
   let randomThemeButton = document.querySelector(".random-theme-button");
   if (!randomThemeButton) {
@@ -159,22 +183,13 @@ function showRandomThemeButton() {
 }
 
 function initializeTheme() {
-  const savedTheme = localStorage.getItem("theme");
-  const customTheme = localStorage.getItem("customTheme");
   const button = document.querySelector(".theme-toggle");
-  const root = document.documentElement;
+  const savedTheme = localStorage.getItem("theme");
 
   if (button) {
-    if (customTheme) {
-      const colors = JSON.parse(customTheme);
-      applyTheme(colors);
-    }
-
     if (savedTheme === "dark") {
-      root.setAttribute("data-theme", "dark");
       button.textContent = "☀️";
     } else {
-      root.setAttribute("data-theme", "light");
       button.textContent = "🌙";
     }
 
