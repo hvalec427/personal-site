@@ -20,7 +20,6 @@ This page is a small, living plan for features, experiments, and ideas for the s
 - on /secret add a random joke of a day
 - Konami code → unlock dark-dark mode
 - Date-based changes (birthday mode, Friday theme)
-- /admin that says "You are not authorized. Neither am I."
 - /themes. add a way to customize each color on the site
 - /colophon about this page. why it exists. and a short history
 - /notes/0001.html etc.like in game where each note give you move info.
@@ -36,3 +35,4 @@ This page is a small, living plan for features, experiments, and ideas for the s
 ## Done
 
 - Typing dog anywhere opens /dog
+- /admin that says "You are not authorized. Neither am I."
