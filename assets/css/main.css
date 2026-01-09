@@ -437,14 +437,14 @@ a:active {
   border-radius: 8px;
 }
 
-/* -------------------------
-   Horizontal rule
-   ------------------------- */
-.markdown hr {
-  border: none;
-  border-top: 1px solid var(--surface);
-}
-
 ul li + li {
   margin-top: 0.5rem;
+}
+
+.post-title {
+  margin-block-end: 0;
+}
+
+.post-date {
+  margin-block-start: 0.125rem;
 }
