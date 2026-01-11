@@ -26,6 +26,9 @@ collections:
   pages:
     output: true
     permalink: /:title/
+  photos:
+    output: true
+    permalink: /photos/:title/
 
 # Incremental builds
 incremental: true

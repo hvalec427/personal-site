@@ -7,6 +7,19 @@ title: Changelog - Hvalec
 
 Development history and major updates to this website.
 
+## v4.1.0 - Photos Gallery
+
+_January 11, 2026_
+
+### Minor: New photo and video gallery system
+
+- Built gallery management with `processing-gallery-items.js` script
+- Support for both images and videos with automatic processing
+- Slug-based URL structure for consistent, human-readable photo links
+- Automatic thumbnail generation for both photos and videos
+- Photos are processed to WebP format with EXIF metadata removal for privacy
+- YAML-based configuration for easy gallery management (`photos.yml`)
+
 ## v4.0.1 - Routing Fixes
 
 _January 6, 2026_

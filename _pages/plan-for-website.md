@@ -11,7 +11,6 @@ This page is a small, living plan for features, experiments, and ideas for the s
 
 - add a small game for 404 page
 - /configs for nvim...
-- /photos like an instagram
 - games-log with all games im playing/have played
 - other collections for records, books...
 
@@ -36,3 +35,4 @@ This page is a small, living plan for features, experiments, and ideas for the s
 - Typing dog anywhere opens /dog
 - /admin that says "You are not authorized. Neither am I."
 - /log/0001.html etc.like in game where each note give you move info.
+- /photos like an instagram

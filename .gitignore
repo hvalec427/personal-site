@@ -10,3 +10,10 @@ settings.json
 .jekyll-metadata
 .bundle/
 vendor/
+
+# Generated photos files (run npm run photos:process to regenerate)
+/assets/images/photos/
+/assets/images/videos/
+/_photos/
+/_data/photos.yml
+.photos-temp/
