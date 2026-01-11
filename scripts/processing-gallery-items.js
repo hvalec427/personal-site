@@ -2,9 +2,13 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import sharp from "sharp";
-import { execSync } from "child_process";
+import ffmpeg from "fluent-ffmpeg";
+import { path as ffmpegPath } from "@ffmpeg-installer/ffmpeg";
 import { exiftool } from "exiftool-vendored";
 import yaml from "js-yaml";
+
+// Set FFmpeg path
+ffmpeg.setFfmpegPath(ffmpegPath);
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.join(__dirname, "..");
@@ -76,36 +80,64 @@ async function createThumbnail(imagePath, id) {
 
 // Create video thumbnail (frame at 1 second)
 async function createVideoThumbnail(videoPath, id) {
+  const pngName = `${id}-thumb.png`;
+  const pngPath = path.join(VIDEO_THUMBNAILS_DIR, pngName);
   const thumbnailName = `${id}-thumb.webp`;
   const thumbnailPath = path.join(VIDEO_THUMBNAILS_DIR, thumbnailName);
 
-  try {
-    // Use ffmpeg to extract a frame from the video at 1 second
-    // Scale up and crop to fill 400x300 without black bars
-    execSync(
-      `ffmpeg -i "${videoPath}" -ss 1 -vframes 1 -vf "scale=400:300:force_original_aspect_ratio=increase,crop=400:300" -y "${thumbnailPath}" 2>/dev/null`,
-      { stdio: "pipe" }
-    );
-
-    // Convert to WebP if ffmpeg output was not webp
-    if (!thumbnailPath.endsWith(".webp")) {
-      await sharp(thumbnailPath).webp({ quality: 80 }).toFile(thumbnailPath);
-    }
-
-    // Use exiftool to completely strip any remaining metadata
+  return new Promise((resolve, reject) => {
     try {
-      await exiftool.deleteAllTags(thumbnailPath, { backupFile: false });
-    } catch (e) {
-      console.warn(
-        `Warning: Could not use exiftool on video thumbnail ${id}: ${e.message}`
-      );
-    }
+      ffmpeg(videoPath)
+        .on("error", (err) => {
+          console.error(`FFmpeg error for ${id}:`, err.message);
+          reject(err);
+        })
+        .on("end", async () => {
+          try {
+            // Convert PNG to WebP with Sharp
+            await sharp(pngPath)
+              .resize(400, 300, {
+                fit: "cover",
+                position: "center",
+              })
+              .webp({ quality: 80 })
+              .toFile(thumbnailPath);
 
-    return thumbnailName;
-  } catch (error) {
+            // Delete temporary PNG
+            fs.unlinkSync(pngPath);
+
+            // Use exiftool to completely strip any remaining metadata
+            try {
+              await exiftool.deleteAllTags(thumbnailPath, {
+                backupFile: false,
+              });
+            } catch (e) {
+              console.warn(
+                `Warning: Could not use exiftool on video thumbnail ${id}: ${e.message}`
+              );
+            }
+            resolve(thumbnailName);
+          } catch (error) {
+            console.error(
+              `Error converting video thumbnail for ${id}:`,
+              error.message
+            );
+            reject(error);
+          }
+        })
+        .screenshots({
+          timestamps: [1],
+          filename: pngName,
+          folder: VIDEO_THUMBNAILS_DIR,
+        });
+    } catch (error) {
+      console.error(`Error creating video thumbnail for ${id}:`, error.message);
+      reject(error);
+    }
+  }).catch((error) => {
     console.error(`Error creating video thumbnail for ${id}:`, error.message);
     return null;
-  }
+  });
 }
 
 // Create clean full-size image without EXIF
