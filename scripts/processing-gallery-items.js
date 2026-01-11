@@ -3,6 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import sharp from "sharp";
 import { execSync } from "child_process";
+import { exiftool } from "exiftool-vendored";
 import yaml from "js-yaml";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -59,9 +60,7 @@ async function createThumbnail(imagePath, id) {
 
     // Use exiftool to completely strip any remaining metadata
     try {
-      execSync(`exiftool -All= -overwrite_original "${thumbnailPath}"`, {
-        stdio: "pipe",
-      });
+      await exiftool.deleteAllTags(thumbnailPath, { backupFile: false });
     } catch (e) {
       console.warn(
         `Warning: Could not use exiftool on thumbnail ${id}: ${e.message}`
@@ -93,6 +92,15 @@ async function createVideoThumbnail(videoPath, id) {
       await sharp(thumbnailPath).webp({ quality: 80 }).toFile(thumbnailPath);
     }
 
+    // Use exiftool to completely strip any remaining metadata
+    try {
+      await exiftool.deleteAllTags(thumbnailPath, { backupFile: false });
+    } catch (e) {
+      console.warn(
+        `Warning: Could not use exiftool on video thumbnail ${id}: ${e.message}`
+      );
+    }
+
     return thumbnailName;
   } catch (error) {
     console.error(`Error creating video thumbnail for ${id}:`, error.message);
@@ -114,9 +122,7 @@ async function createCleanFullSize(imagePath, id) {
 
     // Use exiftool to completely strip all remaining metadata
     try {
-      execSync(`exiftool -All= -overwrite_original "${cleanFilePath}"`, {
-        stdio: "pipe",
-      });
+      await exiftool.deleteAllTags(cleanFilePath, { backupFile: false });
     } catch (e) {
       console.warn(
         `Warning: Could not use exiftool on full-size ${id}: ${e.message}`
@@ -143,6 +149,16 @@ async function copyVideo(videoPath, id) {
     // For now, just copy the video file
     // In production, you might want to optimize/re-encode for web
     fs.copyFileSync(videoPath, videoFilePath);
+
+    // Use exiftool to completely strip any metadata from video
+    try {
+      await exiftool.deleteAllTags(videoFilePath, { backupFile: false });
+    } catch (e) {
+      console.warn(
+        `Warning: Could not use exiftool on video ${id}: ${e.message}`
+      );
+    }
+
     return videoFileName;
   } catch (error) {
     console.error(`Error copying video for ${id}:`, error.message);
@@ -322,6 +338,7 @@ async function processGallery() {
   const config = loadGalleryConfig();
 
   if (!config.images || config.images.length === 0) {
+    await exiftool.end();
     return;
   }
 
@@ -331,6 +348,9 @@ async function processGallery() {
       generateMarkdownFile(processed);
     }
   }
+
+  // Cleanup exiftool process
+  await exiftool.end();
 }
 
 processGallery().catch(console.error);
