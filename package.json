@@ -6,7 +6,9 @@
   "license": "MIT",
   "scripts": {
     "serve": "bundle exec jekyll serve",
-    "build": "bundle install && bundle exec jekyll build",
+    "build:full": "rm -rf _site && bundle install && yarn gallery:process && bundle exec jekyll build",
+    "build": "bundle install && yarn gallery:process && bundle exec jekyll build",
+    "gallery:process": "node scripts/processing-gallery-items.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --check .",
@@ -17,8 +19,10 @@
     "eslint": "9.0.0",
     "eslint-config-prettier": "9.0.0",
     "husky": "9.1.7",
+    "js-yaml": "4.1.0",
     "lint-staged": "15.0.0",
-    "prettier": "3.0.0"
+    "prettier": "3.0.0",
+    "sharp": "0.33.5"
   },
   "lint-staged": {
     "*.{html,css,md}": [

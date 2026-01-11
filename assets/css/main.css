@@ -145,6 +145,14 @@ header {
   letter-spacing: -0.02em;
 }
 
+.back-link {
+  color: var(--secondary);
+}
+
+.back-link:hover {
+  color: var(--primary);
+}
+
 .header a {
   color: var(--highlight);
   text-decoration: none;

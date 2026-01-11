@@ -1,0 +1,47 @@
+---
+layout: default
+---
+
+<link
+  rel="stylesheet"
+  href="{{ '/assets/css/photos-details.css' | relative_url }}"
+/>
+
+<div class="photos-container">
+  <a href="/photos/" class="back-link">← Back to Photos</a>
+
+  <div class="photos">
+    {% if page.type == 'video' %}
+    <video
+      autoplay
+      controls
+      loop
+      class="photos-image"
+      poster="/assets/images/{{ page.thumbnail }}"
+    >
+      <source src="/assets/images/{{ page.filename }}" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    {% else %}
+    <img
+      src="/assets/images/{{ page.filename }}"
+      alt="Photo"
+      class="photos-image"
+    />
+    {% endif %}
+
+    <div class="photos-info">
+      {% if page.date %}
+      <div class="info-item">
+        <strong>Date:</strong>
+        <span>
+          <time datetime="{{ page.date }}">
+            {% assign date = page.date | date: "%B %d, %Y at %H:%M" %} {{ date
+            }}
+          </time>
+        </span>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
