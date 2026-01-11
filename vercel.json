@@ -1,7 +1,7 @@
 {
   "outputDirectory": "_site",
   "buildCommand": "yarn gallery:process && bundle exec jekyll build --config _config.yml,_config.${JEKYLL_ENV:-production}.yml",
-  "installCommand": "gem install bundler && yarn install",
+  "installCommand": "gem install bundler && bundle install && yarn install",
   "routes": [
     {
       "src": "/(.*)",
