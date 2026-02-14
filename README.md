@@ -17,12 +17,7 @@ A modern, responsive portfolio website showcasing professional work experience, 
 
 This project is deployed using [Vercel](https://vercel.com), a platform for frontend frameworks and static sites. Vercel provides:
 
-- **Automatic Deployments**: Every push to the main branch triggers a new deployment
-- **Custom Domain Support**: Custom domain configuration with SSL certificates
-
-### Configuration
-
-- HTTPS is enabled by default
+- **Automatic Deployments**: Every push to the main branch triggers a new deployment, every push to the development branch creats a new deployment to staging environment.
 
 ## Local Development
 
@@ -60,7 +55,6 @@ Website analytics are powered by [Umami](https://umami.is), a privacy-focused, o
 ## Project Structure
 
 - `_layouts/` - Reusable HTML templates
-- `_posts/` - Blog posts in Markdown
 - `assets/` - CSS, JavaScript, fonts, and images
 - `***.md` - Individual pages (Jekyll converts to HTML)
 - `_config.yml` - Jekyll configuration
@@ -80,15 +74,3 @@ The website features a theme system supporting:
 - Light and dark mode toggle with persistence
 - Random theme generator
 - All theme colors defined as CSS custom properties
-
-## Building and Deploying
-
-```bash
-# Install dependencies
-bundle install
-
-# Build the site
-bundle exec jekyll build
-
-# Output is in _site/ directory
-```
