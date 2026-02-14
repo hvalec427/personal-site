@@ -6,9 +6,7 @@
   "license": "MIT",
   "scripts": {
     "serve": "bundle exec jekyll serve",
-    "build:full": "rm -rf _site && bundle install && yarn gallery:process && bundle exec jekyll build",
-    "build": "bundle install && yarn gallery:process && bundle exec jekyll build",
-    "gallery:process": "node scripts/processing-gallery-items.js",
+    "build": "bundle install && bundle exec jekyll build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --check .",
