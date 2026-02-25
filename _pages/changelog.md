@@ -7,6 +7,20 @@ title: Changelog - Hvalec
 
 Development history and major updates to this website.
 
+## v4.2.0 - Site Improvements
+
+_February 25, 2026_
+
+### Minor: UI, content, and performance updates
+
+Recent changes:
+- Major cleanup: removed unused subpages (photos, logs, blog), layouts, scripts, and assets to simplify the site
+- Removed unused scripts and dependencies from package.json
+- Fixed missing title in logs
+- Renamed CV PDF file for clarity
+- Updated Vercel and gem configuration
+
+
 ## v4.1.0 - Photos Gallery
 
 _January 11, 2026_
