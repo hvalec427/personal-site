@@ -13,7 +13,7 @@ A chronological timeline of professional milestones, architectural decisions, an
   <article>
     <div>
       <time>OCT 2020 - PRESENT</time>
-      <small>5 yrs 2 mos</small>
+      <small>5+ yrs</small>
     </div>
     <div>
       <header>
