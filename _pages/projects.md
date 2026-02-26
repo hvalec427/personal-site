@@ -62,4 +62,31 @@ A showcase of my recent personal work and creative explorations.
       </ul>
     </div>
   </article>
+
+  <article>
+    <div>
+      <time>PORTFOLIO</time>
+      <small>Personal website</small>
+    </div>
+    <div>
+      <header>
+        <h3>hvalec.dev</h3>
+      </header>
+      <div>
+        <p>
+          Personal portfolio website built with Jekyll, Markdown, HTML, CSS, and JavaScript. Showcases work history, personal projects, and interests with a focus on performance, readability, and a clean themeable design.
+        </p>
+      </div>
+      <div class="link">
+        <a href="https://hvalec.com" target="_blank" rel="noopener noreferrer">Visit site →</a>
+      </div>
+      <ul class="tags no-dots">
+        <li>Jekyll</li>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>JavaScript</li>
+        <li>Portfolio</li>
+      </ul>
+    </div>
+  </article>
 </section>
