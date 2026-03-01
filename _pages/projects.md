@@ -89,4 +89,31 @@ A showcase of my recent personal work and creative explorations.
       </ul>
     </div>
   </article>
+
+  <article>
+    <div>
+      <time>DOTFILES</time>
+      <small>macOS/Linux config</small>
+    </div>
+    <div>
+      <header>
+        <h3>Personal Dotfiles</h3>
+      </header>
+      <div>
+        <p>
+          My personal dotfiles for macOS, including shell, editor, and tool configurations. Useful for quickly setting up a new development environment or sharing my preferred setup.
+        </p>
+      </div>
+      <div class="link">
+        <a href="https://github.com/hvalec427/dotfiles" target="_blank" rel="noopener noreferrer">View on GitHub →</a>
+      </div>
+      <ul class="tags no-dots">
+        <li>Dotfiles</li>
+        <li>Shell</li>
+        <li>macOS</li>
+        <li>Linux</li>
+        <li>Config</li>
+      </ul>
+    </div>
+  </article>
 </section>
