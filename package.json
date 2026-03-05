@@ -5,8 +5,9 @@
   "description": "Personal portfolio website built with Jekyll",
   "license": "MIT",
   "scripts": {
-    "serve": "bundle exec jekyll serve",
-    "build": "bundle install && bundle exec jekyll build",
+    "clean": "rm -rf _site",
+    "serve": "yarn clean && bundle exec jekyll serve",
+    "build": "yarn clean && bundle install && bundle exec jekyll build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --check .",

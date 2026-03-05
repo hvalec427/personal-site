@@ -8,9 +8,7 @@ slug: connect-android-wireless-adb
 
 ADB allows you to debug an Android device over Wi-Fi instead of USB.
 
----
-
-## 🟢 One-time setup (only once per device)
+## One-time setup (only once per device)
 
 ### Enable Developer Options
 
@@ -20,25 +18,24 @@ ADB allows you to debug an Android device over Wi-Fi instead of USB.
 
 ### Enable Wireless Debugging
 
-Settings → **Developer options** → enable **Wireless debugging**
+1. Settings
+2. **Developer options**
+3. enable **Wireless debugging**
 
----
-
-## 🔵 Steps you must do every time
+## Steps you must do every time
 
 ### 1. Start pairing on the phone
 
-Open:
 
-**Settings → Developer options → Wireless debugging → Pair device with pairing code**
+2. Developer options
+3. Wireless debugging
+3. Pair device with pairing code**
 
 You will see:
 
 * **IP address**
 * **Pairing port**
 * **Pairing code**
-
----
 
 ### 2. Pair from your computer
 
@@ -54,8 +51,6 @@ adb pair 192.168.1.12:37123
 
 Enter the **pairing code** shown on the phone.
 
----
-
 ### 3. Connect to the device
 
 ```bash
@@ -67,8 +62,6 @@ Example:
 ```bash
 adb connect 192.168.1.12:5555
 ```
-
----
 
 ### 4. Verify connection
 
@@ -82,6 +75,19 @@ Your device should appear as:
 192.168.1.12:5555 device
 ```
 
----
-
 ✅ You can now install apps, run logs, and debug **without a USB cable**.
+
+### 🔥 Script: Connect with one command
+
+Replace the variables with your values:
+
+```bash
+IP=ip \
+PAIR_PORT=port \
+DEBUG_PORT=debug_port \
+adb pair $IP:$PAIR_PORT && \
+adb connect $IP:$DEBUG_PORT && \
+adb devices
+```
+
+after that you'll be asked to enter the **pairing code** shown on the phone.
