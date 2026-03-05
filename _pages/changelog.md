@@ -11,14 +11,7 @@ Development history and major updates to this website.
 
 ## v4.3.0 - Logs Section Returns as Tips & Solutions
 
-### Minor: Logs section is back, now as a personal knowledge base
-
-- Reintroduced the logs section, but with a new focus: instead of just logs, it now collects tips, hacks, and solutions to issues I’ve encountered while working on projects.
-- Each log entry documents a problem I faced, how I fixed it, and why the solution was chosen—making it easier to find and reuse solutions for similar issues in the future.
-- This approach turns the logs into a searchable archive of practical fixes and developer notes, helping me (and maybe others) quickly resolve recurring problems.
-
 _Created: March 5, 2026_  
-**Last updated:** March 5, 2026_
 
 ### Minor: Logs section is back, now as a personal knowledge base
 
