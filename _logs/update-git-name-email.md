@@ -2,6 +2,8 @@
 layout: log
 title: Update git name and email
 slug: update-git-name-and-email
+created_at: 2026-03-05
+updated_at: 2026-03-05
 ---
 
 # How to check and update git name and email

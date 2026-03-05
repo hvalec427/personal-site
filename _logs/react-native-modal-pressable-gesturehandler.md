@@ -2,6 +2,8 @@
 layout: log
 title: React Native Pressable Not Working in Modal (Quick Fix)
 slug: react-native-modal-pressable-gesturehandler
+created_at: 2026-03-05
+updated_at: 2026-03-05
 ---
 
 # React Native: Pressable Not Working in Modal (Quick Fix)
