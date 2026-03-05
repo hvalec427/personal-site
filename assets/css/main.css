@@ -10,7 +10,7 @@
   --background: #f5efe6;
   --primary: #1f2937;
   --secondary: #5b616d;
-  --highlight: #eab308;
+  --highlight: #d4b44c;
   --surface: #efe7db;
 }
 
@@ -115,7 +115,7 @@ body {
 }
 
 ::selection {
-  background: var(--highlight);
+  background: color-mix(in srgb, var(--highlight) 60%, transparent);
   color: var(--primary);
 }
 
