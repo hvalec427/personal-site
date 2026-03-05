@@ -10,7 +10,7 @@
   --background: #f5efe6;
   --primary: #1f2937;
   --secondary: #5b616d;
-  --highlight: #3b82f6;
+  --highlight: #eab308;
   --surface: #efe7db;
 }
 
@@ -18,7 +18,7 @@
   --background: #1e293b;
   --primary: #f1f5f9;
   --secondary: #94a3b8;
-  --highlight: #60a5fa;
+  --highlight: #facc15;
   --surface: #334155;
 }
 
@@ -115,7 +115,7 @@ body {
 }
 
 ::selection {
-  background-color: var(--surface);
+  background: var(--highlight);
   color: var(--primary);
 }
 
@@ -236,14 +236,14 @@ footer {
    Headings
    ------------------------- */
 .markdown h1,
+.markdown h1,
 .markdown h2,
 .markdown h3,
 .markdown h4 {
   line-height: 1.3;
   font-weight: 600;
-  color: var(--primary-variant, var(--primary));
+  color: var(--primary);
 }
-
 .markdown h1 {
   font-size: 2.25rem;
   margin-top: 2.5rem;

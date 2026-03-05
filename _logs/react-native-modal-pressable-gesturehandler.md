@@ -27,6 +27,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 </Modal>
 ```
 {% endraw %}
+
 - {% raw %}`style={{ flex: 1 }}`{% endraw %} is required so gestures work everywhere in the modal.
 
 **Rule:**
