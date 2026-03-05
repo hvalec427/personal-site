@@ -21,7 +21,7 @@ function generateNewTheme() {
     colors = {
       "--background": `hsl(${hue}, ${Math.min(
         baseSat * 0.4,
-        25
+        25,
       )}%, ${bgLightness}%)`,
       "--surface": `hsl(${hue}, ${baseSat * 0.8}%, ${surfaceLightness}%)`,
       "--primary": `hsl(${hue}, ${baseSat * 0.9}%, ${primaryLightness}%)`,
@@ -43,26 +43,6 @@ function generateNewTheme() {
       "--highlight": `hsl(${complementaryHue}, ${highlightSat}%, ${highlightLightness}%)`,
     };
   }
-
-  (function addPrimaryVariant() {
-    const primary = colors["--primary"];
-    const m = primary.match(/hsl\((\d+),\s*(\d+)%?,\s*(\d+)%?\)/);
-    if (m) {
-      const h = Number(m[1]);
-      const s = Number(m[2]);
-      const l = Number(m[3]);
-
-      const hueShift = Math.floor(Math.random() * 17) - 8;
-      const satShift = Math.floor(Math.random() * 9) - 4;
-      const lightShift = Math.floor(Math.random() * 9) - 4;
-      const vh = (h + hueShift + 360) % 360;
-      const vs = Math.max(0, Math.min(100, s + satShift));
-      const vl = Math.max(0, Math.min(100, l + lightShift));
-      colors["--primary-variant"] = `hsl(${vh}, ${vs}%, ${vl}%)`;
-    } else {
-      colors["--primary-variant"] = colors["--primary"];
-    }
-  })();
 
   if (themeType === "vibrant") {
     colors["--highlight"] = `hsl(${complementaryHue}, ${
@@ -97,7 +77,6 @@ function clearCustomTheme() {
   root.style.removeProperty("--primary");
   root.style.removeProperty("--secondary");
   root.style.removeProperty("--highlight");
-  root.style.removeProperty("--primary-variant");
   localStorage.removeItem("customTheme");
 }
 
