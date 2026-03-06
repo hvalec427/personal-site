@@ -17,6 +17,6 @@ I specialize in building mobile experiences and enjoy working across platforms a
 - [/projects](/projects)
 - [/dog](/dog)
 - [/changelog](/changelog)
-- [/blog](/blog)
+- [/logs](/logs)
 
 </ul>
