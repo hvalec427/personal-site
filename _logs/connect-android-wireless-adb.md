@@ -76,9 +76,9 @@ Your device should appear as:
 192.168.1.12:5555 device
 ```
 
-✅ You can now install apps, run logs, and debug **without a USB cable**.
+You can now install apps, run logs, and debug **without a USB cable**.
 
-### 🔥 Script: Connect with one command
+### Script: Connect with one command
 
 Replace the variables with your values:
 
