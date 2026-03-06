@@ -28,16 +28,15 @@ ADB allows you to debug an Android device over Wi-Fi instead of USB.
 
 ### 1. Start pairing on the phone
 
-
 2. Developer options
 3. Wireless debugging
-3. Pair device with pairing code**
+4. Pair device with pairing code\*\*
 
 You will see:
 
-* **IP address**
-* **Pairing port**
-* **Pairing code**
+- **IP address**
+- **Pairing port**
+- **Pairing code**
 
 ### 2. Pair from your computer
 

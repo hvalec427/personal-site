@@ -6,6 +6,9 @@ export default [
       "build/**",
       "*.min.js",
       "eslint.config.js",
+      "package-lock.json",
+      "yarn.lock",
+      "_site/**",
     ],
   },
   {

@@ -132,6 +132,7 @@ function restoreThemeFromStorage() {
       });
     } catch (e) {
       localStorage.removeItem("customTheme");
+      console.error("Failed to parse custom theme from storage:", e);
     }
   }
 
