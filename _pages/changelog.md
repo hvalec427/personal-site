@@ -7,6 +7,15 @@ title: Changelog - Hvalec
 
 Development history and major updates to this website.
 
+## v4.4.0 - New Logs & 404 Game Improvements
+
+_Created: March 7, 2026_
+
+### Minor: New logs and 404 page enhancements
+
+- Added new logs: Android wireless ADB, React Native Modal Pressable fix, and Git name/email update
+- Improved 404 page: enhanced Snake game
+
 ## v4.3.0 - Logs Section Returns as Tips & Solutions
 
 _Created: March 5, 2026_
