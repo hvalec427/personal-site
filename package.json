@@ -8,6 +8,7 @@
     "clean": "rm -rf _site",
     "serve": "yarn clean && bundle exec jekyll serve",
     "build": "yarn clean && bundle install && bundle exec jekyll build",
+    "postbuild": "cp _site/404/index.html _site/404.html",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --check .",
