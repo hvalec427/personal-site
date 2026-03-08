@@ -1,16 +1,11 @@
 {
   "outputDirectory": "_site",
-  "buildCommand": "bundle exec jekyll build --config _config.yml,_config.${JEKYLL_ENV:-production}.yml",
+  "buildCommand": "bundle exec jekyll build --config _config.yml,_config.${JEKYLL_ENV:-production}.yml && cp _site/404/index.html _site/404.html",
   "installCommand": "gem install bundler && bundle install && yarn install",
   "routes": [
     {
       "src": "/(.*)",
       "dest": "/$1"
-    },
-    {
-      "status": 404,
-      "src": "/(.*)",
-      "dest": "/404.html"
     }
   ]
 }
