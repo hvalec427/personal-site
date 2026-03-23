@@ -77,18 +77,3 @@ Your device should appear as:
 ```
 
 You can now install apps, run logs, and debug **without a USB cable**.
-
-### Script: Connect with one command
-
-Replace the variables with your values:
-
-```bash
-IP=ip \
-PAIR_PORT=port \
-DEBUG_PORT=debug_port \
-adb pair $IP:$PAIR_PORT && \
-adb connect $IP:$DEBUG_PORT && \
-adb devices
-```
-
-after that you'll be asked to enter the **pairing code** shown on the phone.
