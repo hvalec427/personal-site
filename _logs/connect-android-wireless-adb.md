@@ -3,7 +3,7 @@ layout: log
 title: Connect Android Device with Wireless Debugging (ADB)
 slug: connect-android-wireless-adb
 created_at: 2026-03-05
-updated_at: 2026-03-05
+updated_at: 2026-03-29
 ---
 
 # Connect Android Device with Wireless Debugging (ADB)
