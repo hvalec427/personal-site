@@ -4,10 +4,6 @@ node_modules/
 
 settings.json
 
-# Jekyll build output
-/_site/
-.jekyll-cache/
-.jekyll-metadata
 .bundle/
 vendor/
 

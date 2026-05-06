@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Connect Android Device with Wireless Debugging (ADB) | Hvalec</title>
+
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/assets/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/assets/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/assets/site.webmanifest" />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <script src="/assets/js/theme-toggle.js"></script>
+    <script>
+      // Prevent flash of wrong theme on page load
+      if (typeof restoreThemeFromStorage === "function") {
+        restoreThemeFromStorage();
+      }
+    </script>
+    <script src="/assets/js/dog.js"></script>
+    <script src="/assets/js/copy-code.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <h1 class="header">
+        <a href="/" class="header-link"
+          >Hvalec<span class="header-dot">.</span></a
+        >
+      </h1>
+      <div class="header-buttons">
+        <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()">
+          🌙
+        </button>
+      </div>
+    </header>
+
+    <main class="content">
+      <link rel="stylesheet" href="/assets/css/log.css" />
+
+      <article class="log-entry">
+        <div class="log-content">
+          <h1 id="connect-android-device-with-wireless-debugging-adb">
+            Connect Android Device with Wireless Debugging (ADB)
+          </h1>
+
+          <p>
+            ADB allows you to debug an Android device over Wi-Fi instead of USB.
+          </p>
+
+          <h2 id="one-time-setup-only-once-per-device">
+            One-time setup (only once per device)
+          </h2>
+
+          <h3 id="enable-developer-options">Enable Developer Options</h3>
+
+          <ol>
+            <li>Open <strong>Settings</strong></li>
+            <li>Go to <strong>About phone</strong></li>
+            <li>Tap <strong>Build number</strong> <strong>7 times</strong></li>
+          </ol>
+
+          <h3 id="enable-wireless-debugging">Enable Wireless Debugging</h3>
+
+          <ol>
+            <li>Settings</li>
+            <li><strong>Developer options</strong></li>
+            <li>enable <strong>Wireless debugging</strong></li>
+          </ol>
+
+          <h2 id="steps-you-must-do-every-time">
+            Steps you must do every time
+          </h2>
+
+          <h3 id="1-start-pairing-on-the-phone">
+            1. Start pairing on the phone
+          </h3>
+
+          <ol>
+            <li>Developer options</li>
+            <li>Wireless debugging</li>
+            <li>Pair device with pairing code**</li>
+          </ol>
+
+          <p>You will see:</p>
+
+          <ul>
+            <li><strong>IP address</strong></li>
+            <li><strong>Pairing port</strong></li>
+            <li><strong>Pairing code</strong></li>
+          </ul>
+
+          <h3 id="2-pair-from-your-computer">2. Pair from your computer</h3>
+
+          <div class="code-block">
+            <pre><code>adb pair &lt;ip&gt;:&lt;pair-port&gt;
+</code></pre>
+          </div>
+
+          <p>Example:</p>
+
+          <div class="code-block">
+            <pre><code>adb pair 192.168.1.12:37123
+</code></pre>
+          </div>
+
+          <p>Enter the <strong>pairing code</strong> shown on the phone.</p>
+
+          <h3 id="3-connect-to-the-device">3. Connect to the device</h3>
+
+          <div class="code-block">
+            <pre><code>adb connect &lt;ip&gt;:&lt;debug-port&gt;
+</code></pre>
+          </div>
+
+          <p>Example:</p>
+
+          <div class="code-block">
+            <pre><code>adb connect 192.168.1.12:5555
+</code></pre>
+          </div>
+
+          <h3 id="4-verify-connection">4. Verify connection</h3>
+
+          <div class="code-block">
+            <pre><code>adb devices
+</code></pre>
+          </div>
+
+          <p>Your device should appear as:</p>
+
+          <div class="code-block">
+            <pre><code>192.168.1.12:5555 device
+</code></pre>
+          </div>
+
+          <p>
+            You can now install apps, run logs, and debug
+            <strong>without a USB cable</strong>.
+          </p>
+        </div>
+
+        <hr />
+        <div class="log-meta">
+          <span class="log-date-created">Created: 2026-03-05</span>
+
+          <span class="log-date-updated">Updated: 2026-03-29</span>
+        </div>
+      </article>
+    </main>
+
+    <footer>
+      <span class="footer-copyright">© 2026, All rights reserved.</span>
+      <div class="footer-links">
+        <a
+          href="https://github.com/hvalec427"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="footer-link"
+          >GitHub</a
+        >
+        <a
+          href="https://www.linkedin.com/in/hvalec/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="footer-link"
+          >LinkedIn</a
+        >
+        <a href="/assets/ziga-hvalec-cv.pdf" download class="cv-button"
+          >Download CV</a
+        >
+      </div>
+    </footer>
+
+    <script
+      defer
+      src="https://cloud.umami.is/script.js"
+      data-website-id="e3adec61-3166-4f84-a957-b6852d70e64b"
+    ></script>
+  </body>
+</html>

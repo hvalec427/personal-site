@@ -3,41 +3,36 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      {% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}
-    </title>
-    {% seo %}
+    <title>Ideas for future projects - Hvalec | Hvalec</title>
+
     <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="{{ '/assets/apple-touch-icon.png' | relative_url }}"
+      href="/assets/apple-touch-icon.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="{{ '/assets/favicon-32x32.png' | relative_url }}"
+      href="/assets/favicon-32x32.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="{{ '/assets/favicon-16x16.png' | relative_url }}"
+      href="/assets/favicon-16x16.png"
     />
-    <link
-      rel="manifest"
-      href="{{ '/assets/site.webmanifest' | relative_url }}"
-    />
-    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
-    <script src="{{ '/assets/js/theme-toggle.js' | relative_url }}"></script>
+    <link rel="manifest" href="/assets/site.webmanifest" />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <script src="/assets/js/theme-toggle.js"></script>
     <script>
       // Prevent flash of wrong theme on page load
       if (typeof restoreThemeFromStorage === "function") {
         restoreThemeFromStorage();
       }
     </script>
-    <script src="{{ '/assets/js/dog.js' | relative_url }}"></script>
-    <script src="{{ '/assets/js/copy-code.js' | relative_url }}"></script>
+    <script src="/assets/js/dog.js"></script>
+    <script src="/assets/js/copy-code.js"></script>
   </head>
 
   <body>
@@ -54,40 +49,51 @@
       </div>
     </header>
 
-    <main class="markdown">{{ content }}</main>
+    <main class="content">
+      <h1 id="project-ideas">Project ideas</h1>
+
+      <p>Just some ideas for my next project mobile or web or something else</p>
+
+      <h2 id="mobile">Mobile</h2>
+
+      <ul>
+        <li>
+          Widget game like tamagotchi. You only play inside a widget(not app).
+          Stats can be: happines, hunger, play. You have 3 buttons to pet them,
+          feed them or play with them. Stats depleat over time. once 2 reach 0
+          they die.
+        </li>
+        <li>CLI tool that prints logs in a nice way.</li>
+      </ul>
+    </main>
 
     <footer>
       <span class="footer-copyright">© 2026, All rights reserved.</span>
       <div class="footer-links">
         <a
-          href="https://github.com/{{ site.github_username }}"
+          href="https://github.com/hvalec427"
           target="_blank"
           rel="noopener noreferrer"
           class="footer-link"
           >GitHub</a
         >
         <a
-          href="https://www.linkedin.com/in/{{ site.linkedin_username }}/"
+          href="https://www.linkedin.com/in/hvalec/"
           target="_blank"
           rel="noopener noreferrer"
           class="footer-link"
           >LinkedIn</a
         >
-        <a
-          href="{{ '/assets/ziga-hvalec-cv.pdf' | relative_url }}"
-          download
-          class="cv-button"
+        <a href="/assets/ziga-hvalec-cv.pdf" download class="cv-button"
           >Download CV</a
         >
       </div>
     </footer>
 
-    {% if site.umami_id %}
     <script
       defer
       src="https://cloud.umami.is/script.js"
-      data-website-id="{{ site.umami_id }}"
+      data-website-id="e3adec61-3166-4f84-a957-b6852d70e64b"
     ></script>
-    {% endif %}
   </body>
 </html>

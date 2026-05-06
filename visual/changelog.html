@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Changelog - Hvalec | Hvalec</title>
+
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/assets/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/assets/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/assets/site.webmanifest" />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <script src="/assets/js/theme-toggle.js"></script>
+    <script>
+      // Prevent flash of wrong theme on page load
+      if (typeof restoreThemeFromStorage === "function") {
+        restoreThemeFromStorage();
+      }
+    </script>
+    <script src="/assets/js/dog.js"></script>
+    <script src="/assets/js/copy-code.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <h1 class="header">
+        <a href="/" class="header-link"
+          >Hvalec<span class="header-dot">.</span></a
+        >
+      </h1>
+      <div class="header-buttons">
+        <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()">
+          🌙
+        </button>
+      </div>
+    </header>
+
+    <main class="content">
+      <h1 id="changelog">Changelog</h1>
+
+      <p>Development history and major updates to this website.</p>
+
+      <h2 id="v5-0-0">v5.0.0 - Static Site Cleanup</h2>
+
+      <p><em>May 6, 2026</em></p>
+
+      <h3 id="v5-0-0-summary">
+        Major: Simplified the site structure and cleaned generated artifacts
+      </h3>
+
+      <ul>
+        <li>
+          Flattened page files from nested folders into top-level HTML files in
+          <code>visual/</code>
+        </li>
+        <li>
+          Updated internal navigation and log links to point to the new
+          <code>.html</code> pages
+        </li>
+        <li>
+          Refreshed <code>sitemap.xml</code> so it matches the current static
+          files
+        </li>
+        <li>Removed stale sitemap entries for pages that no longer exist</li>
+        <li>
+          Replaced generated-looking heading IDs with cleaner, intentional
+          anchors
+        </li>
+      </ul>
+
+      <h2 id="v4-4-0">v4.4.0 - New Logs &amp; 404 Game Improvements</h2>
+
+      <p><em>Created: March 7, 2026</em></p>
+
+      <h3 id="v4-4-0-summary">Minor: New logs and 404 page enhancements</h3>
+
+      <ul>
+        <li>
+          Added new logs: Android wireless ADB, React Native Modal Pressable
+          fix, and Git name/email update
+        </li>
+        <li>Improved 404 page: enhanced Snake game</li>
+      </ul>
+
+      <h2 id="v4-3-0">v4.3.0 - Logs Section Returns as Tips &amp; Solutions</h2>
+
+      <p><em>Created: March 5, 2026</em></p>
+
+      <h3 id="v4-3-0-summary">
+        Minor: Logs section is back, now as a personal knowledge base
+      </h3>
+
+      <ul>
+        <li>
+          Reintroduced the logs section, but with a new focus: instead of just
+          logs, it now collects tips, hacks, and solutions to issues I’ve
+          encountered while working on projects.
+        </li>
+        <li>
+          Each log entry documents a problem I faced, how I fixed it, and why
+          the solution was chosen—making it easier to find and reuse solutions
+          for similar issues in the future.
+        </li>
+        <li>
+          This approach turns the logs into a searchable archive of practical
+          fixes and developer notes, helping me (and maybe others) quickly
+          resolve recurring problems.
+        </li>
+      </ul>
+
+      <h2 id="v4-2-0">v4.2.0 - Site Improvements</h2>
+
+      <p><em>February 25, 2026</em></p>
+
+      <h3 id="v4-2-0-summary">Minor: UI, content, and performance updates</h3>
+
+      <p>Recent changes:</p>
+
+      <ul>
+        <li>
+          Major cleanup: removed unused subpages (photos, logs, blog), layouts,
+          scripts, and assets to simplify the site
+        </li>
+        <li>Removed unused scripts and dependencies from package.json</li>
+        <li>Fixed missing title in logs</li>
+        <li>Renamed CV PDF file for clarity</li>
+        <li>Updated Vercel and gem configuration</li>
+      </ul>
+
+      <h2 id="v4-1-0">v4.1.0 - Photos Gallery</h2>
+
+      <p><em>January 11, 2026</em></p>
+
+      <h3 id="v4-1-0-summary">Minor: New photo and video gallery system</h3>
+
+      <ul>
+        <li>
+          Built gallery management with
+          <code>processing-gallery-items.js</code> script
+        </li>
+        <li>Support for both images and videos with automatic processing</li>
+        <li>
+          Slug-based URL structure for consistent, human-readable photo links
+        </li>
+        <li>Automatic thumbnail generation for both photos and videos</li>
+        <li>
+          Photos are processed to WebP format with EXIF metadata removal for
+          privacy
+        </li>
+        <li>
+          YAML-based configuration for easy gallery management
+          (<code>photos.yml</code>)
+        </li>
+      </ul>
+
+      <h2 id="v4-0-1">v4.0.1 - Routing Fixes</h2>
+
+      <p><em>January 6, 2026</em></p>
+
+      <h3 id="v4-0-1-summary">Patch: Fixed subpage routing on Vercel</h3>
+
+      <ul>
+        <li>Added default permalink configuration for all pages</li>
+        <li>Enhanced Vercel routing configuration for proper 404 handling</li>
+        <li>Fixed subpage accessibility (me, projects, uses, etc.)</li>
+      </ul>
+
+      <h2 id="v4-0-0">v4.0.0 - Jekyll Migration</h2>
+
+      <p><em>January 5, 2026</em></p>
+
+      <h3 id="v4-0-0-summary">
+        Major: Complete migration from custom build system to Jekyll
+      </h3>
+
+      <ul>
+        <li>Migrated all pages and posts to Jekyll with front matter</li>
+        <li>
+          Created specialized layouts: <code>default.html</code>,
+          <code>post.html</code>, <code>profile.html</code>, and
+          <code>timeline.html</code>
+        </li>
+        <li>Maintained all existing designs and theme toggle functionality</li>
+      </ul>
+
+      <h2 id="v3-3-0">v3.3.0 - Content-first Migration</h2>
+
+      <p><em>December 22, 2025</em></p>
+
+      <h3 id="v3-3-0-summary">Major: Everything is now content-driven</h3>
+
+      <ul>
+        <li>Migrated all pages, posts, and logs to content sources.</li>
+        <li>
+          Simplified the build to a content-first pipeline that reads
+          frontmatter and applies shared templates.
+        </li>
+        <li>
+          Removed legacy HTML sources from the build input and unified page
+          rendering.
+        </li>
+        <li>
+          Improved frontmatter parsing and metadata consistency across pages.
+        </li>
+        <li>
+          Small fixes: link normalization, sitemap updates, and faster
+          incremental builds.
+        </li>
+      </ul>
+
+      <h2 id="v3-2-0">v3.2.0 - Build System Optimization</h2>
+
+      <p><em>December 13, 2025</em></p>
+
+      <h3 id="v3-2-0-summary">
+        Minor: Unified configuration system and optimized build pipeline
+      </h3>
+
+      <ul>
+        <li>Created shared page configuration system for DRY principle</li>
+        <li>Implemented dynamic blog post discovery from content files</li>
+        <li>Optimized build order: blog -&gt; OG images -&gt; meta tags</li>
+        <li>Removed duplicate meta tag generation from blog script</li>
+        <li>Fixed HTML formatting consistency without Prettier dependency</li>
+        <li>Enhanced meta tag generation with proper multi-line formatting</li>
+        <li>Eliminated hardcoded blog post configurations</li>
+      </ul>
+
+      <h2 id="v3-1-0">v3.1.0 - Social Media Optimization</h2>
+
+      <p><em>December 13, 2025</em></p>
+
+      <h3 id="v3-1-0-summary">
+        Minor: Complete social media integration with automated Open Graph image
+        generation
+      </h3>
+
+      <ul>
+        <li>Added automated OG image generation using Satori + Sharp</li>
+        <li>Implemented custom share images for all pages (1200x630px)</li>
+        <li>
+          Added comprehensive meta tags for Facebook, Twitter/X and LinkedIn
+        </li>
+        <li>Enhanced Twitter Cards with proper image metadata</li>
+        <li>Added multi-platform social sharing support</li>
+      </ul>
+
+      <h2 id="v3-0-0">v3.0.0 - Modern Architecture Rewrite</h2>
+
+      <p><em>December 12, 2025</em></p>
+
+      <h3 id="v3-0-0-summary">
+        Major: Complete website rewrite with modern tooling and blog system
+      </h3>
+
+      <ul>
+        <li>Complete rewrite from legacy codebase to modern architecture</li>
+        <li>Created automated blog build system with Markdown support</li>
+        <li>Added article templating with frontmatter parsing</li>
+        <li>Implemented automatic blog index generation</li>
+        <li>
+          Set up Vercel deployment with proper output directory configuration
+        </li>
+        <li>Added ESLint, Prettier, and modern development tooling</li>
+        <li>Enhanced SEO with structured meta tags for all content</li>
+      </ul>
+
+      <h2 id="v2-3-0">v2.3.0 - Content Expansion</h2>
+
+      <p><em>August - September 2025</em></p>
+
+      <h3 id="v2-3-0-summary">
+        Minor: Enhanced content and mobile optimizations
+      </h3>
+
+      <ul>
+        <li>Added mobile-responsive design improvements</li>
+        <li>Enhanced portfolio showcase with project cards</li>
+        <li>Implemented shadow effects and visual polish</li>
+        <li>Added screenshot updates and visual assets</li>
+        <li>Fixed mobile height and layout issues</li>
+      </ul>
+
+      <h2 id="v2-0-0">v2.0.0 - Design Revolution</h2>
+
+      <p><em>August 17, 2025</em></p>
+
+      <h3 id="v2-0-0-summary">
+        Major: Complete redesign with modern aesthetics and enhanced portfolio
+      </h3>
+
+      <ul>
+        <li>Complete visual redesign and user experience overhaul</li>
+        <li>Added comprehensive professional portfolio sections</li>
+        <li>Enhanced navigation and site structure</li>
+        <li>Improved content organization and layout</li>
+        <li>Added interactive contact forms and user engagement features</li>
+      </ul>
+
+      <h2 id="v1-5-0">v1.5.0 - Feature Development Era</h2>
+
+      <p><em>2019 - 2021</em></p>
+
+      <h3 id="v1-5-0-summary">
+        Minor: Incremental improvements and feature additions
+      </h3>
+
+      <ul>
+        <li>Added contact form functionality</li>
+        <li>Implemented Google site verification and SEO</li>
+        <li>Enhanced translations and multilingual support</li>
+        <li>Added smooth scrolling and navigation improvements</li>
+        <li>Integrated Webpack build system</li>
+        <li>Optimized CSS compression and performance</li>
+      </ul>
+
+      <h2 id="v1-2-0">v1.2.0 - Professional Polish</h2>
+
+      <p><em>September - October 2018</em></p>
+
+      <h3 id="v1-2-0-summary">
+        Major: Professional features and multilingual support
+      </h3>
+
+      <ul>
+        <li>Added comprehensive internationalization (English/Slovene)</li>
+        <li>Implemented language switching with banana-i18n</li>
+        <li>Enhanced responsive hamburger menu system</li>
+        <li>Added Google verification and SEO optimization</li>
+        <li>Improved mobile navigation and user experience</li>
+        <li>Enhanced portfolio content and professional text</li>
+      </ul>
+
+      <h2 id="v1-0-0">v1.0.0 - Foundation &amp; Launch</h2>
+
+      <p><em>September 13, 2018</em></p>
+
+      <h3 id="v1-0-0-summary">
+        Major: Initial website creation and responsive design system
+      </h3>
+
+      <ul>
+        <li><strong>Initial commit</strong> - Website foundation created</li>
+        <li>Built responsive design system from scratch</li>
+        <li>Implemented CSS Grid and Flexbox layouts</li>
+        <li>Established core CSS architectureand design patterns</li>
+        <li>Set up GitHub Pages hosting and deployment</li>
+      </ul>
+    </main>
+
+    <footer>
+      <span class="footer-copyright">© 2026, All rights reserved.</span>
+      <div class="footer-links">
+        <a
+          href="https://github.com/hvalec427"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="footer-link"
+          >GitHub</a
+        >
+        <a
+          href="https://www.linkedin.com/in/hvalec/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="footer-link"
+          >LinkedIn</a
+        >
+        <a href="/assets/ziga-hvalec-cv.pdf" download class="cv-button"
+          >Download CV</a
+        >
+      </div>
+    </footer>
+
+    <script
+      defer
+      src="https://cloud.umami.is/script.js"
+      data-website-id="e3adec61-3166-4f84-a957-b6852d70e64b"
+    ></script>
+  </body>
+</html>

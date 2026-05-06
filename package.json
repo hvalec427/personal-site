@@ -2,13 +2,9 @@
   "name": "personal-site",
   "version": "4.0.0",
   "type": "module",
-  "description": "Personal portfolio website built with Jekyll",
+  "description": "Static personal website",
   "license": "MIT",
   "scripts": {
-    "clean": "rm -rf _site",
-    "serve": "yarn clean && bundle exec jekyll serve",
-    "build": "yarn clean && bundle install && bundle exec jekyll build",
-    "postbuild": "cp _site/404/index.html _site/404.html",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --check .",
@@ -17,24 +13,19 @@
   },
   "devDependencies": {
     "@eslint/js": "9.0.0",
-    "@ffmpeg-installer/ffmpeg": "1.1.0",
     "eslint": "9.0.0",
     "eslint-config-prettier": "9.0.0",
-    "exiftool-vendored": "26.2.0",
-    "fluent-ffmpeg": "2.1.2",
     "husky": "9.1.7",
-    "js-yaml": "4.1.0",
     "lint-staged": "15.0.0",
-    "prettier": "3.0.0",
-    "sharp": "0.33.5"
+    "prettier": "3.0.0"
   },
   "lint-staged": {
     "*.{html,css,md}": [
-      "prettier --write"
+      "yarn format:fix"
     ],
     "*.js": [
-      "eslint --max-warnings=0 --fix",
-      "prettier --write"
+      "yarn lint:fix",
+      "yarn format:fix"
     ]
   }
 }

@@ -8,7 +8,6 @@ export default [
       "eslint.config.js",
       "package-lock.json",
       "yarn.lock",
-      "_site/**",
     ],
   },
   {
