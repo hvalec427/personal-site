@@ -5,6 +5,8 @@
   "description": "Static personal website",
   "license": "MIT",
   "scripts": {
+    "build": "yarn build:assets",
+    "build:assets": "bash buildScripts/build-sites.sh",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --check .",
