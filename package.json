@@ -5,6 +5,7 @@
   "description": "Static personal website",
   "license": "MIT",
   "scripts": {
+    "build": "rm -rf dist && mkdir -p dist && cp -R *.html logs assets robots.txt sitemap.xml dist/",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --check .",
