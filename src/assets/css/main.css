@@ -317,7 +317,9 @@ a:active {
    Lists
    ------------------------- */
 .content ul,
-.content ol {
+.content ol,
+.content ul.no-dots,
+.content ol.no-dots {
   padding-left: 0;
   list-style: none;
 }
