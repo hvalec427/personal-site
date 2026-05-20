@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "rm -rf dist && mkdir -p dist && cp -R src/. dist/ && cp -R public/. dist/",
+    "dev": "concurrently \"nodemon --watch src -e html,css,js --exec 'yarn build'\" \"serve dist\"",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --check .",
@@ -14,11 +15,14 @@
   },
   "devDependencies": {
     "@eslint/js": "9.0.0",
+    "concurrently": "9.2.1",
     "eslint": "9.0.0",
     "eslint-config-prettier": "9.0.0",
     "husky": "9.1.7",
     "lint-staged": "15.0.0",
-    "prettier": "3.0.0"
+    "nodemon": "3.1.14",
+    "prettier": "3.0.0",
+    "serve": "14.2.6"
   },
   "lint-staged": {
     "*.{html,css,md}": [

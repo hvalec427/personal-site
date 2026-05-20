@@ -3,9 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      React Native Pressable Not Working in Modal (Quick Fix) | Hvalec
-    </title>
+    <title>How to Target a Specific Device with ADB | Hvalec</title>
 
     <link
       rel="apple-touch-icon"
@@ -57,66 +55,39 @@
       <article class="log-entry">
         <div class="log-content">
           <a href="/logs" class="log-back">&larr; Logs</a>
-          <h1 id="react-native-pressable-not-working-in-modal-quick-fix">
-            React Native: Pressable Not Working in Modal (Quick Fix)
+          <h1 id="target-specific-device-with-adb">
+            How to Target a Specific Device with ADB
           </h1>
 
-          <p><strong>Problem:</strong></p>
-
-          <ul>
-            <li>
-              <code>Pressable</code> (or gesture components) inside a
-              <code>Modal</code> don’t respond to taps.
-            </li>
-            <li>Happens with <code>react-native-gesture-handler</code>.</li>
-          </ul>
-
-          <p><strong>Why:</strong></p>
-
-          <ul>
-            <li>
-              <code>Modal</code> renders outside the normal view tree, so
-              gestures break unless wrapped in
-              <code>GestureHandlerRootView</code>.
-            </li>
-          </ul>
-
-          <p><strong>Fix:</strong></p>
+          <p>List connected devices and emulators:</p>
 
           <div class="code-block">
-            <pre><code>import { GestureHandlerRootView } from "react-native-gesture-handler";
-
-&lt;Modal transparent&gt;
-  &lt;GestureHandlerRootView style={{ flex: 1 }}&gt;
-    &lt;Pressable onPress={onClose}&gt;
-      &lt;Text&gt;Close&lt;/Text&gt;
-    &lt;/Pressable&gt;
-  &lt;/GestureHandlerRootView&gt;
-&lt;/Modal&gt;;
+            <pre><code>adb devices
 </code></pre>
           </div>
 
-          <ul>
-            <li>
-              <code>style={{ flex: 1 }}</code> is required so gestures work
-              everywhere in the modal.
-            </li>
-          </ul>
+          <p>Target a specific device with <code>-s</code>:</p>
 
-          <p><strong>Rule:</strong></p>
+          <div class="code-block">
+            <pre><code>adb -s emulator-5554 install app.apk
+adb -s emulator-5554 uninstall com.example.app
+</code></pre>
+          </div>
 
-          <ul>
-            <li>
-              Always wrap modal content with
-              <code>GestureHandlerRootView</code> if using gesture components
-              inside a <code>Modal</code>.
-            </li>
-          </ul>
+          <p>Example with a physical device:</p>
+
+          <div class="code-block">
+            <pre><code>adb -s R58M123ABC install app.apk
+adb -s R58M123ABC uninstall com.example.app
+</code></pre>
+          </div>
         </div>
 
         <hr />
         <div class="log-meta">
-          <span class="log-date-created">Created: 2026-03-05</span>
+          <span class="log-date-created">Created: 2026-05-20</span>
+
+          <span class="log-date-updated">Updated: 2026-05-20</span>
         </div>
       </article>
     </main>

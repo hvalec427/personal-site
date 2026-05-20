@@ -2,6 +2,22 @@
    LOG.CSS — styles for log pages
    ============================= */
 
+.log-back {
+  display: inline-block;
+  margin-bottom: 0;
+  color: var(--secondary);
+  text-decoration: none;
+  font-size: 0.95em;
+}
+
+.log-back:hover {
+  color: var(--primary);
+}
+
+.log-back + h1 {
+  margin-top: 0;
+}
+
 .log-meta {
   display: flex;
   gap: 1.5em;
