@@ -54,6 +54,35 @@
 
       <p>Development history and major updates to this website.</p>
 
+      <h2 id="v5-1-0">v5.1.0 - Logs Markdown Pipeline</h2>
+
+      <p><em>May 20, 2026</em></p>
+
+      <h3 id="v5-1-0-summary">
+        Minor: Logs migrated to Markdown with a custom build script
+      </h3>
+
+      <ul>
+        <li>
+          Transformed all log entries from hand-written HTML to Markdown files
+          for easier writing and maintenance
+        </li>
+        <li>
+          Added <code>scripts/build-logs.js</code> — a zero-dependency Node.js
+          script that converts Markdown logs to HTML and outputs them to
+          <code>dist/logs/</code>
+        </li>
+        <li>
+          Log index page is now generated dynamically from the Markdown files,
+          sorted by creation date
+        </li>
+        <li>Added back button to log entries linking back to the logs list</li>
+        <li>
+          Added 2 new logs: Run React Native on a specific device/simulator, and
+          how to target a specific device with ADB
+        </li>
+      </ul>
+
       <h2 id="v5-0-0">v5.0.0 - Static Site Cleanup</h2>
 
       <p><em>May 6, 2026</em></p>
