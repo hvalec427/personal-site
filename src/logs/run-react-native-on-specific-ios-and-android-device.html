@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
-      React Native Pressable Not Working in Modal (Quick Fix) | Hvalec
+      Run React Native App on a Specific Device or Simulator | Hvalec
     </title>
 
     <link
@@ -57,66 +57,88 @@
       <article class="log-entry">
         <div class="log-content">
           <a href="/logs" class="log-back">&larr; Logs</a>
-          <h1 id="react-native-pressable-not-working-in-modal-quick-fix">
-            React Native: Pressable Not Working in Modal (Quick Fix)
+          <h1 id="run-react-native-device-simulator">
+            Run React Native App on a Specific Device or Simulator
           </h1>
 
-          <p><strong>Problem:</strong></p>
+          <h2 id="android">Android</h2>
 
-          <ul>
-            <li>
-              <code>Pressable</code> (or gesture components) inside a
-              <code>Modal</code> don’t respond to taps.
-            </li>
-            <li>Happens with <code>react-native-gesture-handler</code>.</li>
-          </ul>
-
-          <p><strong>Why:</strong></p>
-
-          <ul>
-            <li>
-              <code>Modal</code> renders outside the normal view tree, so
-              gestures break unless wrapped in
-              <code>GestureHandlerRootView</code>.
-            </li>
-          </ul>
-
-          <p><strong>Fix:</strong></p>
+          <p>Run on the default device or emulator:</p>
 
           <div class="code-block">
-            <pre><code>import { GestureHandlerRootView } from "react-native-gesture-handler";
-
-&lt;Modal transparent&gt;
-  &lt;GestureHandlerRootView style={{ flex: 1 }}&gt;
-    &lt;Pressable onPress={onClose}&gt;
-      &lt;Text&gt;Close&lt;/Text&gt;
-    &lt;/Pressable&gt;
-  &lt;/GestureHandlerRootView&gt;
-&lt;/Modal&gt;;
+            <pre><code>npx react-native run-android
 </code></pre>
           </div>
 
-          <ul>
-            <li>
-              <code>style={{ flex: 1 }}</code> is required so gestures work
-              everywhere in the modal.
-            </li>
-          </ul>
+          <p>Run on a specific emulator or device:</p>
 
-          <p><strong>Rule:</strong></p>
+          <div class="code-block">
+            <pre><code>npx react-native run-android --deviceId emulator-5554
+</code></pre>
+          </div>
 
-          <ul>
-            <li>
-              Always wrap modal content with
-              <code>GestureHandlerRootView</code> if using gesture components
-              inside a <code>Modal</code>.
-            </li>
-          </ul>
+          <div class="code-block">
+            <pre><code>npx react-native run-android --deviceId R58M123ABC
+</code></pre>
+          </div>
+
+          <h2 id="ios">iOS</h2>
+
+          <p>Run on the default simulator:</p>
+
+          <div class="code-block">
+            <pre><code>npx react-native run-ios
+</code></pre>
+          </div>
+
+          <p>Run on a specific simulator:</p>
+
+          <div class="code-block">
+            <pre><code>npx react-native run-ios --simulator="iPhone 16"
+</code></pre>
+          </div>
+
+          <p>Run on a simulator or physical device by UDID:</p>
+
+          <div class="code-block">
+            <pre><code>npx react-native run-ios --udid YOUR_UDID
+</code></pre>
+          </div>
+
+          <h2 id="tips">Tips</h2>
+
+          <p>Get connected Android device and emulator IDs:</p>
+
+          <div class="code-block">
+            <pre><code>adb devices
+</code></pre>
+          </div>
+
+          <p>Get connected iOS device and simulator UDIDs:</p>
+
+          <div class="code-block">
+            <pre><code>xcrun xctrace list devices
+</code></pre>
+          </div>
+
+          <p>
+            If you use a custom script like <code>yarn ios</code>, add
+            <code>--</code> before the flags:
+          </p>
+
+          <div class="code-block">
+            <pre><code>yarn ios -- --simulator="iPhone 16"
+yarn ios -- --udid YOUR_UDID
+yarn android -- --deviceId emulator-5554
+</code></pre>
+          </div>
         </div>
 
         <hr />
         <div class="log-meta">
-          <span class="log-date-created">Created: 2026-03-05</span>
+          <span class="log-date-created">Created: 2026-05-20</span>
+
+          <span class="log-date-updated">Updated: 2026-05-20</span>
         </div>
       </article>
     </main>
