@@ -4,8 +4,27 @@ import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
-const SRC_LOGS = join(ROOT, "src/logs");
-const DIST_LOGS = join(ROOT, "dist/logs");
+
+const SECTIONS = [
+  {
+    name: "logs",
+    src: join(ROOT, "src/logs"),
+    dist: join(ROOT, "dist/logs"),
+    title: "Logs",
+    description:
+      "Tips, hacks, and solutions to issues I've encountered while working on projects.",
+    backLabel: "Logs",
+  },
+  {
+    name: "blog",
+    src: join(ROOT, "src/blog"),
+    dist: join(ROOT, "dist/blog"),
+    title: "Blog",
+    description:
+      "Longer thoughts on development, tooling, and things I find interesting.",
+    backLabel: "Blog",
+  },
+];
 
 function escapeHtml(str) {
   return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -76,21 +95,11 @@ function markdownToHtml(markdown) {
       continue;
     }
 
-    if (line.startsWith("### ")) {
-      const text = line.slice(4);
-      out.push(`<h3 id="${toId(text)}">${inline(text)}</h3>`);
-      i++;
-      continue;
-    }
-    if (line.startsWith("## ")) {
-      const text = line.slice(3);
-      out.push(`<h2 id="${toId(text)}">${inline(text)}</h2>`);
-      i++;
-      continue;
-    }
-    if (line.startsWith("# ")) {
-      const text = line.slice(2);
-      out.push(`<h1 id="${toId(text)}">${inline(text)}</h1>`);
+    const headingMatch = line.match(/^(#{1,6}) (.+)/);
+    if (headingMatch) {
+      const level = headingMatch[1].length;
+      const text = headingMatch[2];
+      out.push(`<h${level} id="${toId(text)}">${inline(text)}</h${level}>`);
       i++;
       continue;
     }
@@ -134,7 +143,7 @@ function markdownToHtml(markdown) {
     while (
       i < lines.length &&
       lines[i].trim() !== "" &&
-      !lines[i].startsWith("#") &&
+      !/^#{1,6} /.test(lines[i]) &&
       !lines[i].startsWith("- ") &&
       !lines[i].startsWith("```") &&
       !/^\d+\. /.test(lines[i])
@@ -148,11 +157,11 @@ function markdownToHtml(markdown) {
   return out.join("\n");
 }
 
-function renderIndex(logs) {
-  const items = logs
+function renderIndex(section, entries) {
+  const items = entries
     .map(
       ({ slug, title }) =>
-        `<li><a href="/logs/${slug}">${escapeHtml(title)}</a></li>`,
+        `<li><a href="/${section.name}/${slug}">${escapeHtml(title)}</a></li>`,
     )
     .join("\n        ");
   return `<!doctype html>
@@ -160,7 +169,7 @@ function renderIndex(logs) {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Logs | Hvalec</title>
+    <title>${section.title} | Hvalec</title>
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
@@ -185,8 +194,8 @@ function renderIndex(logs) {
       </div>
     </header>
     <main class="content">
-      <h1 id="logs">Logs</h1>
-      <p>Welcome to the logs section. Here you will find a list of all logs.</p>
+      <h1 id="${section.name}">${section.title}</h1>
+      <p>${section.description}</p>
       <ul>
         ${items}
       </ul>
@@ -204,7 +213,7 @@ function renderIndex(logs) {
 </html>`;
 }
 
-function renderPage({ title, content, created, updated }) {
+function renderPage(section, { title, content, created, updated }) {
   return `<!doctype html>
 <html lang="en">
   <head>
@@ -238,7 +247,9 @@ function renderPage({ title, content, created, updated }) {
       <link rel="stylesheet" href="/assets/css/log.css" />
       <article class="log-entry">
         <div class="log-content">
-          <a href="/logs" class="log-back">&larr; Logs</a>
+          <a href="/${section.name}" class="log-back">&larr; ${
+            section.backLabel
+          }</a>
           ${content}
         </div>
         <hr />
@@ -265,28 +276,36 @@ function renderPage({ title, content, created, updated }) {
 </html>`;
 }
 
-mkdirSync(DIST_LOGS, { recursive: true });
+for (const section of SECTIONS) {
+  mkdirSync(section.dist, { recursive: true });
 
-const files = readdirSync(SRC_LOGS).filter((f) => f.endsWith(".md"));
+  const files = readdirSync(section.src).filter((f) => f.endsWith(".md"));
+  const entries = [];
+  let unnamedCount = 0;
 
-const logs = [];
+  for (const file of files) {
+    const raw = readFileSync(join(section.src, file), "utf8");
+    const { meta, body } = parseFrontmatter(raw);
+    const slug = basename(file, ".md");
+    const created = meta.created || meta.date;
+    const title = meta.title || `Log entry #${++unnamedCount}`;
+    const content = markdownToHtml(body);
+    const html = renderPage(section, {
+      title,
+      content,
+      created,
+      updated: meta.updated,
+    });
+    mkdirSync(join(section.dist, slug), { recursive: true });
+    writeFileSync(join(section.dist, slug, "index.html"), html);
+    console.info(`  built: ${section.name}/${slug}/index.html`);
+    entries.push({ slug, title, created });
+  }
 
-for (const file of files) {
-  const raw = readFileSync(join(SRC_LOGS, file), "utf8");
-  const { meta, body } = parseFrontmatter(raw);
-  const slug = basename(file, ".md");
-  const content = markdownToHtml(body);
-  const html = renderPage({
-    title: meta.title,
-    content,
-    created: meta.created,
-    updated: meta.updated,
-  });
-  writeFileSync(join(DIST_LOGS, `${slug}.html`), html);
-  console.info(`  built: logs/${slug}.html`);
-  logs.push({ slug, title: meta.title, created: meta.created });
+  entries.sort((a, b) => b.created.localeCompare(a.created));
+  writeFileSync(
+    join(section.dist, "index.html"),
+    renderIndex(section, entries),
+  );
+  console.info(`  built: ${section.name}/index.html`);
 }
-
-logs.sort((a, b) => b.created.localeCompare(a.created));
-writeFileSync(join(DIST_LOGS, "index.html"), renderIndex(logs));
-console.info(`  built: logs/index.html`);
