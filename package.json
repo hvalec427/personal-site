@@ -26,11 +26,11 @@
   },
   "lint-staged": {
     "*.{html,css,md}": [
-      "yarn format:fix"
+      "prettier --write"
     ],
     "*.js": [
-      "yarn lint:fix",
-      "yarn format:fix"
+      "eslint --fix",
+      "prettier --write"
     ]
   }
 }
