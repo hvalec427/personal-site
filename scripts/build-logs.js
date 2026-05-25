@@ -39,6 +39,11 @@ function inline(text) {
     .replace(/`([^`]+)`/g, (_, code) => `<code>${escapeHtml(code)}</code>`)
     .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
     .replace(
+      /!\[([^\]]*)\]\(([^)]+)\)/g,
+      (_, alt, src) =>
+        `<a href="${src}" target="_blank" rel="noopener noreferrer"><img src="${src}" alt="${alt}" class="log-image" /></a>`,
+    )
+    .replace(
       /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g,
       (_, label, url) =>
         `<a href="${url}" target="_blank" rel="noopener noreferrer">${label}</a>`,
@@ -85,6 +90,16 @@ function markdownToHtml(markdown) {
       const text = line.slice(2);
       out.push(`<h1 id="${toId(text)}">${inline(text)}</h1>`);
       i++;
+      continue;
+    }
+
+    if (line.startsWith("> ")) {
+      const items = [];
+      while (i < lines.length && lines[i].startsWith("> ")) {
+        items.push(inline(lines[i].slice(2)));
+        i++;
+      }
+      out.push(`<blockquote>${items.join(" ")}</blockquote>`);
       continue;
     }
 

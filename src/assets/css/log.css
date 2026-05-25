@@ -29,6 +29,42 @@
   font-family: inherit;
 }
 
+.log-image {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  border-radius: 12px;
+  display: block;
+  transition: transform 0.25s ease;
+}
+
+p:has(.log-image) {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 14px;
+  align-items: center;
+  margin: 1.2em 0;
+}
+
+p:has(.log-image) a {
+  flex-shrink: 0;
+  display: inline-block;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+p:has(.log-image) a:hover .log-image {
+  transform: scale(1.05);
+}
+
+blockquote {
+  border-left: 3px solid var(--highlight);
+  margin: 1.2em 0;
+  padding: 0.4em 1em;
+  color: var(--secondary);
+  font-style: italic;
+}
+
 .log-date-created,
 .log-date-updated {
   background: color-mix(in srgb, var(--surface) 70%, transparent);
