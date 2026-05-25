@@ -39,9 +39,11 @@ function inline(text) {
     .replace(/`([^`]+)`/g, (_, code) => `<code>${escapeHtml(code)}</code>`)
     .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
     .replace(
-      /!\[([^\]]*)\]\(([^)]+)\)/g,
-      (_, alt, src) =>
-        `<a href="${src}" target="_blank" rel="noopener noreferrer"><img src="${src}" alt="${alt}" class="log-image" /></a>`,
+      /!\[([^\]]*)\]\(([^)]+)\)(?:\{\.([^}]+)\})?/g,
+      (_, alt, src, cls) =>
+        `<a href="${src}" target="_blank" rel="noopener noreferrer"><img src="${src}" alt="${alt}" class="log-image${
+          cls ? " " + cls : ""
+        }" /></a>`,
     )
     .replace(
       /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g,
