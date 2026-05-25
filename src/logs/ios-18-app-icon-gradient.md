@@ -21,16 +21,16 @@ Apple describes the behavior as crafted "intelligently to preserve design intent
 
 ## Examples
 
-![Simple icon](/assets/images/logs/ios-18-icon-gradient/original.png)
+![Simple icon](/assets/images/logs/ios-18-icon-gradient/original.png){.very-small}
 Flat, single-color glyph. No decorative elements, outlines, or dark pixels, gradient applied automatically.
 
-![Complex — bow](/assets/images/logs/ios-18-icon-gradient/bow.png)
+![Complex — bow](/assets/images/logs/ios-18-icon-gradient/bow.png){.very-small}
 Has a bow/ribbon shape. The decorative curves prevent automatic treatment.
 
-![Complex — outlines](/assets/images/logs/ios-18-icon-gradient/outline.png)
+![Complex — outlines](/assets/images/logs/ios-18-icon-gradient/outline.png){.very-small}
 Built with visible outlines. Stroke heavy design breaks the tint pass. Click on icon to zoom in.
 
-![Complex — black pixels](/assets/images/logs/ios-18-icon-gradient/black-pixels.png)
+![Complex — black pixels](/assets/images/logs/ios-18-icon-gradient/black-pixels.png){.very-small}
 Contains black pixels. Dark areas conflict with the gradient's lightness model.
 
 ## Sources

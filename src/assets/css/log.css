@@ -38,6 +38,23 @@
   transition: transform 0.25s ease;
 }
 
+.log-image.very-small {
+  width: 100px;
+  height: auto;
+}
+.log-image.small {
+  width: 200px;
+  height: auto;
+}
+.log-image.medium {
+  width: 400px;
+  height: auto;
+}
+.log-image.large {
+  width: 800px;
+  height: auto;
+}
+
 p:has(.log-image) {
   display: flex;
   flex-wrap: nowrap;
