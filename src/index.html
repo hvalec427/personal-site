@@ -50,6 +50,7 @@
     <script src="/assets/js/weather.js" defer></script>
     <script src="/assets/js/site-stats.js" defer></script>
     <script src="/assets/js/location-map.js" defer></script>
+    <script src="/assets/js/latest-posts.js" defer></script>
     <script
       src="https://presence.hvalec.com/widget.js"
       data-room="hvalec.com"
@@ -108,9 +109,6 @@
           <li>
             <span><a href="/logs">/logs</a></span>
           </li>
-          <li>
-            <span><a href="/blog">/blog</a></span>
-          </li>
         </ul>
       </ul>
 
@@ -160,6 +158,36 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="posts-card">
+        <div class="posts-card-header">
+          <span>Latest Posts</span>
+          <a
+            href="/blog"
+            class="posts-card-link"
+            aria-label="View all blog posts"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6"
+              ></path>
+              <path d="M11 13l9 -9"></path>
+              <path d="M15 4h5v5"></path>
+            </svg>
+          </a>
+        </div>
+        <ul class="posts-list no-dots" id="latest-posts"></ul>
       </div>
     </main>
 

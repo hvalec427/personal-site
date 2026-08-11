@@ -308,4 +308,13 @@ for (const section of SECTIONS) {
     renderIndex(section, entries),
   );
   console.info(`  built: ${section.name}/index.html`);
+
+  if (section.name === "blog") {
+    writeFileSync(
+      join(ROOT, "dist/assets/latest-posts.json"),
+      JSON.stringify(
+        entries.slice(0, 3).map(({ slug, title }) => ({ slug, title })),
+      ),
+    );
+  }
 }

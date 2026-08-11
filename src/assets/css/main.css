@@ -176,6 +176,61 @@ body {
   font-weight: 600;
 }
 
+.posts-card {
+  background: var(--surface);
+  border: 1px solid var(--secondary);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.posts-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--secondary);
+  font-weight: 600;
+}
+
+.posts-card-link {
+  display: flex;
+  color: var(--secondary);
+}
+
+.posts-card-link:hover,
+.posts-card-link:focus {
+  color: var(--primary);
+}
+
+.posts-card ul.no-dots.posts-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 14px 12px;
+}
+
+.posts-list li {
+  border-top: 1px solid var(--background);
+}
+
+.posts-list li:first-child {
+  border-top: none;
+}
+
+.posts-list a {
+  display: block;
+  padding: 8px 0;
+  font-size: 13px;
+  color: var(--primary);
+}
+
+.posts-list a:hover,
+.posts-list a:focus {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
 .stats-panel {
   background: var(--surface);
   border: 1px solid var(--secondary);
