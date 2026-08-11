@@ -92,6 +92,7 @@ body {
 }
 
 .cards-row > .location-card,
+.cards-row > .weather-card,
 .cards-row > .stats-panel {
   flex: 1 1 240px;
   margin-bottom: 0;
@@ -101,9 +102,78 @@ body {
    row instead of staying pinned to the three-across card width. */
 @media (min-width: 800px) {
   .cards-row > .location-card,
+  .cards-row > .weather-card,
   .cards-row > .stats-panel {
     max-width: 280px;
   }
+}
+
+.weather-card {
+  background: var(--surface);
+  border: 1px solid var(--secondary);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.weather-now {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 14px 10px;
+  border-bottom: 1px solid var(--background);
+}
+
+.weather-now-icon {
+  font-size: 22px;
+}
+
+.weather-now-temp {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.weather-hours {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 14px 14px;
+}
+
+.weather-sun {
+  padding: 10px 14px 14px;
+  font-size: 12px;
+  color: var(--secondary);
+  border-top: 1px solid var(--background);
+}
+
+.weather-sun-labels {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 4px;
+  column-gap: 10px;
+}
+
+.weather-hour {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.weather-hour-time {
+  color: var(--secondary);
+}
+
+.weather-hour-icon {
+  font-size: 16px;
+}
+
+.weather-hour-temp {
+  color: var(--primary);
+  font-weight: 600;
 }
 
 .stats-panel {
