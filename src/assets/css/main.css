@@ -91,7 +91,8 @@ body {
   margin-bottom: 24px;
 }
 
-.cards-row > .location-card {
+.cards-row > .location-card,
+.cards-row > .stats-panel {
   flex: 1 1 240px;
   margin-bottom: 0;
 }
@@ -99,9 +100,51 @@ body {
 /* Below this, cards-row wraps to one card per line — let them fill the
    row instead of staying pinned to the three-across card width. */
 @media (min-width: 800px) {
-  .cards-row > .location-card {
+  .cards-row > .location-card,
+  .cards-row > .stats-panel {
     max-width: 280px;
   }
+}
+
+.stats-panel {
+  background: var(--surface);
+  border: 1px solid var(--secondary);
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 13px;
+}
+
+.stats-panel-body {
+  display: grid;
+  gap: 8px;
+  padding: 0 14px 14px;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.stat-label {
+  color: var(--secondary);
+  text-align: left;
+}
+
+.stat-value {
+  color: var(--primary);
+  font-weight: 600;
+  text-align: right;
+}
+
+.site-status-operational,
+.site-status-operational:visited {
+  color: #3fb950;
+}
+
+.site-status-degraded,
+.site-status-degraded:visited {
+  color: #d29922;
 }
 
 .location-card {

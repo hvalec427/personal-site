@@ -205,7 +205,6 @@ function renderIndex(section, entries) {
       <div class="footer-links">
         <a href="https://github.com/hvalec427" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
         <a href="https://www.linkedin.com/in/hvalec/" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
-        <a href="https://uptime.hvalec.com/status/all" target="_blank" rel="noopener noreferrer" class="footer-link">Server Status</a>
         <a href="/assets/ziga-hvalec-cv.pdf" download class="cv-button">Download CV</a>
       </div>
     </footer>
@@ -269,7 +268,6 @@ function renderPage(section, { title, content, created, updated }) {
       <div class="footer-links">
         <a href="https://github.com/hvalec427" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
         <a href="https://www.linkedin.com/in/hvalec/" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
-        <a href="https://uptime.hvalec.com/status/all" target="_blank" rel="noopener noreferrer" class="footer-link">Server Status</a>
         <a href="/assets/ziga-hvalec-cv.pdf" download class="cv-button">Download CV</a>
       </div>
     </footer>
