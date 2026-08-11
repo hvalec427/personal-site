@@ -26,7 +26,18 @@
       href="/assets/favicon-16x16.png"
     />
     <link rel="manifest" href="/assets/site.webmanifest" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
     <link rel="stylesheet" href="/assets/css/main.css" />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
     <script src="/assets/js/theme-toggle.js"></script>
     <script>
       // Prevent flash of wrong theme on page load
@@ -36,6 +47,7 @@
     </script>
     <script src="/assets/js/dog.js"></script>
     <script src="/assets/js/copy-code.js"></script>
+    <script src="/assets/js/location-map.js" defer></script>
   </head>
 
   <body>
@@ -93,6 +105,17 @@
           </li>
         </ul>
       </ul>
+
+      <div class="cards-row">
+        <div class="location-card">
+          <div class="location-card-title">Based in</div>
+          <div id="location-map" class="location-map"></div>
+          <div class="location-card-footer">
+            <span class="location-card-place">Maribor, SI</span>
+            <span class="location-card-time" id="location-time">--:--:--</span>
+          </div>
+        </div>
+      </div>
     </main>
 
     <footer>

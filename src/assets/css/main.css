@@ -84,6 +84,97 @@ body {
   transform: scale(0.95);
 }
 
+.cards-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.cards-row > .location-card {
+  flex: 1 1 240px;
+  margin-bottom: 0;
+}
+
+/* Below this, cards-row wraps to one card per line — let them fill the
+   row instead of staying pinned to the three-across card width. */
+@media (min-width: 800px) {
+  .cards-row > .location-card {
+    max-width: 280px;
+  }
+}
+
+.location-card {
+  background: var(--surface);
+  border: 1px solid var(--secondary);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.location-card-title {
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--secondary);
+  font-weight: 600;
+}
+
+.location-map {
+  position: relative;
+  height: 160px;
+  width: 100%;
+  background: #17181a;
+}
+
+.location-map img.leaflet-tile {
+  border-radius: 0;
+}
+
+.location-map-tint {
+  position: absolute;
+  inset: 0;
+  z-index: 450;
+  background: var(--highlight);
+  mix-blend-mode: color;
+  pointer-events: none;
+}
+
+.location-marker {
+  color: var(--highlight);
+  background: none;
+  border: none;
+}
+
+.location-map .leaflet-control-attribution {
+  background: rgba(0, 0, 0, 0.95);
+  color: rgba(255, 255, 255, 0.22);
+  font-family: "Fira Code", monospace;
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: 4px 0 0 0;
+}
+
+.location-map .leaflet-control-attribution a {
+  color: rgba(255, 255, 255, 0.32);
+}
+
+.location-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  font-size: 13px;
+}
+
+.location-card-place {
+  color: var(--secondary);
+}
+
+.location-card-time {
+  color: var(--primary);
+  font-weight: 600;
+}
+
 .random-theme-button {
   position: relative;
   transform: translateX(10px);
