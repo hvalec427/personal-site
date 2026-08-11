@@ -19,7 +19,7 @@ Za 3-4 osebe, cca. 20 min.
 
 Medaljone posolimo in popopramo, na vročem olju na hitro popečemo na obeh straneh. Znižamo temperaturo, dodamo maslo in pečemo še 5 min, da meso karamelizira.
 
-V isto ponev vlijemo jušno osnovo ali vodo in postrgamo karamelizirane koščke z dna, povišamo temperaturo, da se omaka rahlo zreducira. Prilijemo smetano in kuhamo 5-6 min, da se omaka zgosti.
+V isto ponev vlijemo jušno osnovo ali vodo in postrgamo karamelizirane koščke z dna, povišamo temperaturo, da se omaka rahlo zreducira. Prilijemo smetano in kuhamo 20-30 min, da se meso zmehča, omaka pa zreducira.
 
 Postrežemo s testeninami (spageti), njoki, pire krompirjem, polento ali kuhanim rižem.
 
