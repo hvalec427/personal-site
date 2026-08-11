@@ -1,18 +1,9 @@
-import { execSync } from "child_process";
 import { writeFileSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
-
-const git = (cmd) => {
-  try {
-    return execSync(cmd, { cwd: ROOT }).toString().trim();
-  } catch {
-    return null;
-  }
-};
 
 const fetchSiteStatus = async () => {
   try {
@@ -33,13 +24,15 @@ const fetchSiteStatus = async () => {
   }
 };
 
+// SOURCE_COMMIT is Coolify's own env var for the deployed commit hash
+// (requires "Include Source Commit in Build" enabled in the app's General
+// settings). Nothing else sets it, so locally this is always null.
 writeFileSync(
   join(ROOT, "dist/assets/deploy-time.json"),
   JSON.stringify({
     deployedAt: new Date().toISOString(),
     commit: {
-      hash: git("git rev-parse --short HEAD"),
-      message: git("git log -1 --pretty=%s"),
+      hash: process.env.SOURCE_COMMIT?.slice(0, 7) ?? null,
     },
     siteStatus: await fetchSiteStatus(),
   }),
