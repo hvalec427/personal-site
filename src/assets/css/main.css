@@ -448,6 +448,8 @@ footer {
 }
 
 .footer-link {
+  display: flex;
+  align-items: center;
   font-size: 14px;
   text-decoration: none;
   transition: color 150ms ease;
