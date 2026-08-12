@@ -62,6 +62,14 @@ const SECTIONS = [
       "Longer thoughts on development, tooling, and things I find interesting.",
     backLabel: "Blog",
   },
+  {
+    name: "recipes",
+    src: join(ROOT, "src/recipes"),
+    dist: join(ROOT, "dist/recipes"),
+    title: "Recipes",
+    description: "Recipes I actually cook and want to remember.",
+    backLabel: "Recipes",
+  },
 ];
 
 function escapeHtml(str) {
