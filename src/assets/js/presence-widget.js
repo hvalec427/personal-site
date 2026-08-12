@@ -17,7 +17,6 @@ function cssVarToHex(varName) {
 }
 
 const script = document.createElement("script");
-script.id = "presence-widget-script";
 script.src = "https://presence.hvalec.com/widget.js";
 script.async = true;
 script.dataset.room = "hvalec.com";
@@ -32,12 +31,8 @@ if (surface) script.dataset.surface = surface;
 document.head.appendChild(script);
 
 window.updatePresenceWidgetColors = function updatePresenceWidgetColors() {
-  const el = document.getElementById("presence-widget-script");
-  if (!el) return;
-
-  const accent = cssVarToHex("--highlight");
-  if (accent) el.dataset.accent = accent;
-
-  const surface = cssVarToHex("--surface");
-  if (surface) el.dataset.surface = surface;
+  window.PresenceWidget?.setColors(
+    cssVarToHex("--highlight"),
+    cssVarToHex("--surface"),
+  );
 };
