@@ -14,12 +14,15 @@ if (mapEl) {
     touchZoom: true,
   });
 
-  L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
-    attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    subdomains: "abcd",
-    maxZoom: 19,
-  }).addTo(map);
+  L.tileLayer(
+    "https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png",
+    {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      subdomains: "abcd",
+      maxZoom: 19,
+    },
+  ).addTo(map);
 
   map.attributionControl.setPrefix(false);
 
@@ -27,9 +30,18 @@ if (mapEl) {
   tint.className = "location-map-tint";
   mapEl.appendChild(tint);
 
-  // The card row's flex widths can still be settling (webfonts, sibling
-  // widget content) after Leaflet measures its container, leaving tiles
-  // sized for a stale, smaller box.
+  const labelsPane = map.createPane("labelsPane");
+  labelsPane.style.zIndex = 460;
+
+  L.tileLayer(
+    "https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png",
+    {
+      pane: "labelsPane",
+      subdomains: "abcd",
+      maxZoom: 19,
+    },
+  ).addTo(map);
+
   requestAnimationFrame(() => map.invalidateSize());
   window.addEventListener("load", () => map.invalidateSize());
 }
