@@ -99,6 +99,7 @@ function toggleTheme() {
     }
 
     showRandomThemeButton();
+    window.updatePresenceWidgetColors?.();
   }
 }
 
@@ -114,6 +115,7 @@ function randomTheme() {
 
     localStorage.setItem("customTheme", JSON.stringify(newTheme));
     localStorage.removeItem("theme");
+    window.updatePresenceWidgetColors?.();
   }
 }
 
