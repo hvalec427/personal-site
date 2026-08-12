@@ -290,8 +290,8 @@ body {
 .info-tooltip {
   position: absolute;
   bottom: calc(100% + 8px);
-  left: 0;
-  right: 0;
+  left: 10px;
+  right: 10px;
   background: var(--surface);
   border: 1px solid var(--secondary);
   border-radius: 6px;
@@ -315,13 +315,24 @@ body {
   top: 100%;
   left: 0;
   right: 0;
-  height: 20px;
+  height: 32px;
 }
 
 .info-icon:hover .info-tooltip,
 .info-icon:focus-visible .info-tooltip {
   opacity: 1;
   visibility: visible;
+}
+
+/* opens downward instead of upward, for icons near the top of a clipped card */
+.info-tooltip-below {
+  top: calc(100% + 8px);
+  bottom: auto;
+}
+
+.info-tooltip-below::before {
+  top: auto;
+  bottom: 100%;
 }
 
 .info-tooltip a {
@@ -353,6 +364,10 @@ body {
 }
 
 .location-card-title {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
   padding: 10px 14px;
   font-size: 13px;
   color: var(--secondary);

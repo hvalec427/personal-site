@@ -104,7 +104,38 @@
         </div>
 
         <div class="weather-card">
-          <div class="location-card-title">Weather</div>
+          <div class="location-card-title">
+            Weather
+            <span class="info-icon" tabindex="0">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+              <span class="info-tooltip info-tooltip-below">
+                Forecast by
+                <a href="https://open-meteo.com" target="_blank" rel="noopener"
+                  >Open-Meteo</a
+                >. Twilight by
+                <a
+                  href="https://sunrise-sunset.org"
+                  target="_blank"
+                  rel="noopener"
+                  >Sunrise-Sunset.org</a
+                >.
+              </span>
+            </span>
+          </div>
           <div class="weather-now" id="weather-now"></div>
           <div class="weather-hours" id="weather-hours"></div>
           <div class="weather-sun" id="weather-sun"></div>
