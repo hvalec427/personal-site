@@ -92,10 +92,14 @@ Promise.all([weatherFetch, twilightFetch])
 
     sunEl.innerHTML = `
       <div class="weather-sun-labels">
-        ${dawnLabel}
-        <span>Sunrise ${formatSunTime(daily.sunrise[0])}</span>
-        <span>Sunset ${formatSunTime(daily.sunset[0])}</span>
-        ${duskLabel}
+        <div class="weather-sun-group weather-sun-left">
+          ${dawnLabel}
+          <span>Sunrise ${formatSunTime(daily.sunrise[0])}</span>
+        </div>
+        <div class="weather-sun-group weather-sun-right">
+          <span>Sunset ${formatSunTime(daily.sunset[0])}</span>
+          ${duskLabel}
+        </div>
       </div>
     `;
   })
