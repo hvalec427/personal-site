@@ -394,12 +394,6 @@ body {
   pointer-events: none;
 }
 
-.location-marker {
-  color: var(--highlight);
-  background: none;
-  border: none;
-}
-
 .location-map .leaflet-control-attribution {
   background: rgba(0, 0, 0, 0.95);
   color: rgba(255, 255, 255, 0.22);
