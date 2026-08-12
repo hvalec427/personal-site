@@ -775,10 +775,20 @@ a:active {
 /* -------------------------
    Tables
    ------------------------- */
+.content .table-wrap {
+  overflow-x: auto;
+}
+
 .content table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.95rem;
+}
+
+.content table img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
 }
 
 .content th,
