@@ -447,12 +447,19 @@ footer {
   align-items: center;
 }
 
-.footer-link {
+.footer-link,
+.footer-link:visited {
   display: flex;
   align-items: center;
   font-size: 14px;
+  color: var(--secondary);
   text-decoration: none;
   transition: color 150ms ease;
+}
+
+.footer-link:hover,
+.footer-link:focus-visible {
+  color: var(--highlight);
 }
 
 .cv-button {
