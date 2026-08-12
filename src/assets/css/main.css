@@ -231,6 +231,10 @@ body {
   text-decoration: underline;
 }
 
+#latest-posts li + li {
+  margin-top: 0;
+}
+
 .stats-panel {
   background: var(--surface);
   border: 1px solid var(--secondary);
