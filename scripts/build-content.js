@@ -117,6 +117,30 @@ function inline(text) {
     );
 }
 
+function parseTableRow(line) {
+  return line
+    .trim()
+    .replace(/^\|/, "")
+    .replace(/\|$/, "")
+    .split("|")
+    .map((cell) => cell.trim());
+}
+
+function renderTable(tableLines) {
+  const header = parseTableRow(tableLines[0]);
+  const rows = tableLines.slice(2).map(parseTableRow);
+  const thead = `<tr>${header
+    .map((cell) => `<th>${inline(cell)}</th>`)
+    .join("")}</tr>`;
+  const tbody = rows
+    .map(
+      (row) =>
+        `<tr>${row.map((cell) => `<td>${inline(cell)}</td>`).join("")}</tr>`,
+    )
+    .join("\n");
+  return `<div class="table-wrap"><table>\n<thead>${thead}</thead>\n<tbody>\n${tbody}\n</tbody>\n</table></div>`;
+}
+
 function markdownToHtml(markdown) {
   const lines = markdown.split("\n");
   const out = [];
@@ -177,6 +201,16 @@ function markdownToHtml(markdown) {
         i++;
       }
       out.push(`<ol>\n${items.join("\n")}\n</ol>`);
+      continue;
+    }
+
+    if (line.startsWith("|")) {
+      const tableLines = [];
+      while (i < lines.length && lines[i].startsWith("|")) {
+        tableLines.push(lines[i]);
+        i++;
+      }
+      out.push(renderTable(tableLines));
       continue;
     }
 
@@ -292,6 +326,62 @@ function renderPage(section, { title, content, created, updated }) {
     <script defer src="https://cloud.umami.is/script.js" data-website-id="e3adec61-3166-4f84-a957-b6852d70e64b"></script>
   </body>
 </html>`;
+}
+
+function renderStandalonePage({ title, description, content }) {
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>${escapeHtml(title)} | Hvalec</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
+    <link rel="manifest" href="/assets/site.webmanifest" />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <script src="/assets/js/theme-toggle.js"></script>
+    <script>
+      if (typeof restoreThemeFromStorage === "function") {
+        restoreThemeFromStorage();
+      }
+    </script>
+    <script src="/assets/js/dog.js"></script>
+    <script src="/assets/js/copy-code.js"></script>
+  </head>
+  <body>
+    <!-- include:header -->
+    <main class="content">
+      <h1 id="${toId(title)}">${escapeHtml(title)}</h1>
+      ${description ? `<p>${escapeHtml(description)}</p>` : ""}
+      ${content}
+    </main>
+    <!-- include:footer -->
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="e3adec61-3166-4f84-a957-b6852d70e64b"></script>
+  </body>
+</html>`;
+}
+
+const PAGES = [
+  {
+    name: "music",
+    src: join(ROOT, "src/music.md"),
+    dist: join(ROOT, "dist/music"),
+  },
+];
+
+for (const page of PAGES) {
+  const raw = readFileSync(page.src, "utf8");
+  const { meta, body } = parseFrontmatter(raw);
+  const content = markdownToHtml(body);
+  const html = renderStandalonePage({
+    title: meta.title || page.name,
+    description: meta.description,
+    content,
+  });
+  mkdirSync(page.dist, { recursive: true });
+  writeFileSync(join(page.dist, "index.html"), html);
+  console.info(`  built: ${page.name}/index.html`);
 }
 
 for (const section of SECTIONS) {
