@@ -389,7 +389,7 @@ body {
   position: absolute;
   inset: 0;
   z-index: 450;
-  background: var(--highlight);
+  background: var(--surface);
   mix-blend-mode: color;
   pointer-events: none;
 }
@@ -397,8 +397,6 @@ body {
 .location-map .leaflet-control-attribution {
   background: rgba(0, 0, 0, 0.95);
   color: rgba(255, 255, 255, 0.22);
-  font-family: "Fira Code", monospace;
-  font-size: 9px;
   padding: 2px 6px;
   border-radius: 4px 0 0 0;
 }
