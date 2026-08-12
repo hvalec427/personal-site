@@ -11,7 +11,7 @@ setInterval(updateLocalTime, 1000);
 
 fetch("/assets/deploy-time.json")
   .then((res) => (res.ok ? res.json() : Promise.reject()))
-  .then(({ deployedAt, commit, siteStatus }) => {
+  .then(({ deployedAt, commit }) => {
     const uptimeEl = document.getElementById("uptime");
     if (uptimeEl) {
       const days = Math.floor((Date.now() - new Date(deployedAt)) / 86400000);
@@ -29,18 +29,30 @@ fetch("/assets/deploy-time.json")
       if (commit.message) link.title = commit.message;
       commitEl.replaceChildren(link);
     }
+  })
+  .catch(() => {});
 
+fetch("https://uptime.hvalec.com/api/status-page/heartbeat/all")
+  .then((res) => (res.ok ? res.json() : Promise.reject()))
+  .then(({ heartbeatList }) => {
     const statusEl = document.getElementById("site-status");
-    if (statusEl && siteStatus) {
-      const link = document.createElement("a");
-      link.href = "https://uptime.hvalec.com/status/all";
-      link.target = "_blank";
-      link.rel = "noopener";
-      link.textContent =
-        siteStatus === "operational" ? "Operational" : "Degraded";
-      link.className = `site-status-${siteStatus}`;
-      statusEl.replaceChildren(link);
-    }
+    if (!statusEl) return;
+    const latestStatuses = Object.values(heartbeatList).map(
+      (beats) => beats.at(-1)?.status,
+    );
+    if (latestStatuses.length === 0) return;
+    const siteStatus = latestStatuses.every((status) => status === 1)
+      ? "operational"
+      : "degraded";
+
+    const link = document.createElement("a");
+    link.href = "https://uptime.hvalec.com/status/all";
+    link.target = "_blank";
+    link.rel = "noopener";
+    link.textContent =
+      siteStatus === "operational" ? "Operational" : "Degraded";
+    link.className = `site-status-${siteStatus}`;
+    statusEl.replaceChildren(link);
   })
   .catch(() => {});
 
