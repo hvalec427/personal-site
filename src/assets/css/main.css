@@ -655,7 +655,7 @@ a {
 }
 
 a:visited {
-  color: var(--secondary);
+  color: color-mix(in srgb, var(--highlight) 55%, var(--secondary));
 }
 
 a:hover,

@@ -1,9 +1,24 @@
-import { readFileSync, writeFileSync, readdirSync, mkdirSync } from "fs";
+import {
+  readFileSync,
+  writeFileSync,
+  readdirSync,
+  mkdirSync,
+  existsSync,
+  unlinkSync,
+} from "fs";
 import { join, basename, dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
+
+// SOURCE_COMMIT is only set by Coolify during a real deploy (see
+// write-deploy-time.js), so its absence means this is a local build —
+// that's what gates draft: true content from appearing in production.
+const isLocalBuild = !process.env.SOURCE_COMMIT;
+
+const DRAFT_NOTICE =
+  '<p style="border:1px dashed var(--highlight);padding:0.75rem 1rem;border-radius:8px;color:var(--highlight);"><strong>Draft</strong> — only visible in local builds.</p>';
 
 const PARTIALS = {
   "<!-- include:header -->": readFileSync(
@@ -110,10 +125,10 @@ function inline(text) {
           cls ? " " + cls : ""
         }" /></a>`,
     )
-    .replace(
-      /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g,
-      (_, label, url) =>
-        `<a href="${url}" target="_blank" rel="noopener noreferrer">${label}</a>`,
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^)]+|\/[^)]+)\)/g, (_, label, url) =>
+      url.startsWith("/")
+        ? `<a href="${url}">${label}</a>`
+        : `<a href="${url}" target="_blank" rel="noopener noreferrer">${label}</a>`,
     );
 }
 
@@ -373,15 +388,24 @@ const PAGES = [
 for (const page of PAGES) {
   const raw = readFileSync(page.src, "utf8");
   const { meta, body } = parseFrontmatter(raw);
+  const isDraft = meta.draft === "true";
+
+  if (isDraft && !isLocalBuild) {
+    const rawCopy = join(ROOT, "dist", `${page.name}.md`);
+    if (existsSync(rawCopy)) unlinkSync(rawCopy);
+    console.info(`  skipped draft: ${page.name}`);
+    continue;
+  }
+
   const content = markdownToHtml(body);
   const html = renderStandalonePage({
     title: meta.title || page.name,
     description: meta.description,
-    content,
+    content: isDraft ? DRAFT_NOTICE + content : content,
   });
   mkdirSync(page.dist, { recursive: true });
   writeFileSync(join(page.dist, "index.html"), html);
-  console.info(`  built: ${page.name}/index.html`);
+  console.info(`  built: ${page.name}/index.html${isDraft ? " (draft)" : ""}`);
 }
 
 for (const section of SECTIONS) {
@@ -395,19 +419,34 @@ for (const section of SECTIONS) {
     const raw = readFileSync(join(section.src, file), "utf8");
     const { meta, body } = parseFrontmatter(raw);
     const slug = basename(file, ".md");
+    const isDraft = meta.draft === "true";
+
+    if (isDraft && !isLocalBuild) {
+      const rawCopy = join(section.dist, file);
+      if (existsSync(rawCopy)) unlinkSync(rawCopy);
+      console.info(`  skipped draft: ${section.name}/${slug}`);
+      continue;
+    }
+
     const created = meta.created || meta.date;
     const title = meta.title || `Log entry #${++unnamedCount}`;
     const content = markdownToHtml(body);
     const html = renderPage(section, {
       title,
-      content,
+      content: isDraft ? DRAFT_NOTICE + content : content,
       created,
       updated: meta.updated,
     });
     mkdirSync(join(section.dist, slug), { recursive: true });
     writeFileSync(join(section.dist, slug, "index.html"), html);
-    console.info(`  built: ${section.name}/${slug}/index.html`);
-    entries.push({ slug, title, created });
+    console.info(
+      `  built: ${section.name}/${slug}/index.html${isDraft ? " (draft)" : ""}`,
+    );
+    entries.push({
+      slug,
+      title: isDraft ? `[DRAFT] ${title}` : title,
+      created,
+    });
   }
 
   entries.sort((a, b) => b.created.localeCompare(a.created));
