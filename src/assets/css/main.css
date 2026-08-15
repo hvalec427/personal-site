@@ -462,7 +462,7 @@ body {
   color: var(--primary);
 }
 
-header {
+body > header {
   display: flex;
   justify-content: space-between;
   align-items: center;
