@@ -142,6 +142,12 @@
     return search;
   }
 
+  const VIEW_ICONS = {
+    cards:
+      '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>',
+    list: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>',
+  };
+
   function makeViewToggle(table, cardGrid) {
     const toggle = document.createElement("div");
     toggle.className = "view-toggle";
@@ -149,16 +155,18 @@
     toggle.setAttribute("aria-label", "View");
 
     const views = [
-      { key: "cards", label: "Cards", el: cardGrid },
-      { key: "list", label: "List", el: table.closest(".table-wrap") },
+      { key: "cards", label: "Card view", el: cardGrid },
+      { key: "list", label: "List view", el: table.closest(".table-wrap") },
     ];
 
     const buttons = views.map(({ key, label }) => {
       const button = document.createElement("button");
       button.type = "button";
       button.className = "view-toggle-btn";
-      button.textContent = label;
+      button.innerHTML = VIEW_ICONS[key];
       button.dataset.view = key;
+      button.title = label;
+      button.setAttribute("aria-label", label);
       toggle.appendChild(button);
       return button;
     });

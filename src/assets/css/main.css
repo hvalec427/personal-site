@@ -867,9 +867,12 @@ a:active {
 }
 
 .content .view-toggle-btn {
-  font-family: inherit;
-  font-size: 0.9rem;
-  padding: 0.4rem 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
   border: none;
   border-radius: 6px;
   background: transparent;
@@ -880,7 +883,6 @@ a:active {
 .content .view-toggle-btn[aria-pressed="true"] {
   background: var(--highlight);
   color: var(--background);
-  font-weight: 600;
 }
 
 /* -------------------------
