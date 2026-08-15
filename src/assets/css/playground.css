@@ -1,0 +1,92 @@
+.playground-notice {
+  border: 1px dashed var(--highlight);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  color: var(--highlight);
+}
+
+.scanner-controls {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+}
+
+.scanner-button {
+  background: var(--surface);
+  border: 1px solid var(--secondary);
+  color: var(--primary);
+  font-family: inherit;
+  font-size: 0.95rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.scanner-button:hover:not(:disabled) {
+  border-color: var(--highlight);
+}
+
+.scanner-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.scanner-status {
+  min-height: 1.2rem;
+  color: var(--secondary);
+}
+
+.scanner-status.scanner-status-error {
+  color: #dc2626;
+}
+
+.scanner-video-wrap {
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 4/3;
+  background: var(--surface);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scanner-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+}
+
+.scanner-video.scanner-video-active {
+  display: block;
+}
+
+.scanner-results {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0;
+  margin: 0.5rem 0 0;
+}
+
+.scanner-results li {
+  background: var(--surface);
+  border-radius: 6px;
+  padding: 0.6rem 0.9rem;
+  word-break: break-all;
+}
+
+.scanner-results-empty {
+  color: var(--secondary);
+  background: none !important;
+  padding: 0 !important;
+}
+
+.scanner-result-format {
+  color: var(--secondary);
+  font-size: 0.85rem;
+  margin-right: 0.5rem;
+}

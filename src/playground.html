@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Playground - Hvalec | Hvalec</title>
+
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/assets/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/assets/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/assets/site.webmanifest" />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <link rel="stylesheet" href="/assets/css/playground.css" />
+    <script src="/assets/js/theme-toggle.js"></script>
+    <script>
+      // Prevent flash of wrong theme on page load
+      if (typeof restoreThemeFromStorage === "function") {
+        restoreThemeFromStorage();
+      }
+    </script>
+    <script src="/assets/js/copy-code.js"></script>
+  </head>
+
+  <body>
+    <!-- include:header -->
+
+    <main class="content">
+      <article class="playground-container">
+        <p class="playground-notice">
+          <strong>Playground</strong> — a temporary scratch page for testing
+          things out. May disappear at any time.
+        </p>
+
+        <h2>Camera scanner</h2>
+        <p>
+          Scans QR codes and barcodes using your device's camera. Nothing leaves
+          the browser — the video feed and decoded results stay local.
+        </p>
+
+        <div class="scanner-controls">
+          <button id="scanner-start" class="scanner-button">
+            Start camera
+          </button>
+          <button id="scanner-stop" class="scanner-button" disabled>
+            Stop camera
+          </button>
+        </div>
+
+        <p id="scanner-status" class="scanner-status" role="status"></p>
+
+        <div class="scanner-video-wrap">
+          <video
+            id="scanner-video"
+            class="scanner-video"
+            autoplay
+            playsinline
+            muted
+          ></video>
+        </div>
+
+        <h3>Results</h3>
+        <ul id="scanner-results" class="scanner-results no-dots">
+          <li class="scanner-results-empty">No codes scanned yet.</li>
+        </ul>
+      </article>
+    </main>
+
+    <!-- include:footer -->
+
+    <script src="/assets/js/playground.js"></script>
+
+    <script
+      defer
+      src="https://cloud.umami.is/script.js"
+      data-website-id="e3adec61-3166-4f84-a957-b6852d70e64b"
+    ></script>
+  </body>
+</html>
