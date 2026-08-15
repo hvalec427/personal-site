@@ -803,6 +803,55 @@ a:active {
   color: var(--primary);
 }
 
+.content th.sortable {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  padding-right: 1.5rem;
+}
+
+.content th.sortable:hover {
+  color: var(--highlight);
+}
+
+.content th.sortable::after {
+  content: "\2195";
+  position: absolute;
+  right: 0.6rem;
+  opacity: 0.4;
+}
+
+.content th.sortable[aria-sort="asc"]::after {
+  content: "\2191";
+  opacity: 1;
+  color: var(--highlight);
+}
+
+.content th.sortable[aria-sort="desc"]::after {
+  content: "\2193";
+  opacity: 1;
+  color: var(--highlight);
+}
+
+.content .table-search {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  margin: 1.5rem 0 1rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: var(--primary);
+  background: var(--surface);
+  border: 1px solid var(--surface);
+  border-radius: 8px;
+}
+
+.content .table-search:focus {
+  outline: none;
+  border-color: var(--highlight);
+}
+
 /* -------------------------
    Images
    ------------------------- */
