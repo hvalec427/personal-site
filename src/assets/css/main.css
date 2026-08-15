@@ -833,11 +833,17 @@ a:active {
   color: var(--highlight);
 }
 
-.content .table-search {
-  display: block;
-  width: 100%;
-  max-width: 320px;
+.content .table-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
   margin: 1.5rem 0 1rem;
+}
+
+.content .table-search {
+  flex: 1 1 240px;
+  max-width: 320px;
   padding: 0.5rem 0.75rem;
   font-size: 0.95rem;
   font-family: inherit;
@@ -850,6 +856,108 @@ a:active {
 .content .table-search:focus {
   outline: none;
   border-color: var(--highlight);
+}
+
+.content .view-toggle {
+  display: inline-flex;
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 3px;
+  gap: 3px;
+}
+
+.content .view-toggle-btn {
+  font-family: inherit;
+  font-size: 0.9rem;
+  padding: 0.4rem 0.85rem;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.content .view-toggle-btn[aria-pressed="true"] {
+  background: var(--highlight);
+  color: var(--background);
+  font-weight: 600;
+}
+
+/* -------------------------
+   Table card view
+   ------------------------- */
+.content .table-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.content .table-cards[hidden] {
+  display: none;
+}
+
+.content .table-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.content .table-card[hidden] {
+  display: none;
+}
+
+.content .table-card-media {
+  aspect-ratio: 1 / 1;
+}
+
+.content .table-card-media a {
+  display: block;
+  height: 100%;
+}
+
+.content .table-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+  display: block;
+}
+
+.content .table-card-body {
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.content .table-card-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.content .table-card-subtitle {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--secondary);
+}
+
+.content .table-card-meta {
+  margin-top: 0.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--secondary);
+}
+
+.content .table-card-meta span:not(:last-child)::after {
+  content: "\00b7";
+  margin-left: 0.4rem;
 }
 
 /* -------------------------

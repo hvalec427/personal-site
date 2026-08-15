@@ -278,7 +278,7 @@ function renderIndex(section, entries) {
     </script>
     <script src="/assets/js/dog.js"></script>
     <script src="/assets/js/copy-code.js"></script>
-    <script src="/assets/js/sortable-table.js"></script>
+    <script src="/assets/js/table-view.js"></script>
   </head>
   <body>
     <!-- include:header -->
@@ -315,7 +315,7 @@ function renderPage(section, { title, content, created, updated }) {
     </script>
     <script src="/assets/js/dog.js"></script>
     <script src="/assets/js/copy-code.js"></script>
-    <script src="/assets/js/sortable-table.js"></script>
+    <script src="/assets/js/table-view.js"></script>
   </head>
   <body>
     <!-- include:header -->
@@ -365,7 +365,7 @@ function renderStandalonePage({ title, description, content }) {
     </script>
     <script src="/assets/js/dog.js"></script>
     <script src="/assets/js/copy-code.js"></script>
-    <script src="/assets/js/sortable-table.js"></script>
+    <script src="/assets/js/table-view.js"></script>
   </head>
   <body>
     <!-- include:header -->
