@@ -15,13 +15,16 @@
     );
   }
 
-  function buildCard(cells) {
+  function buildCard(cells, headers) {
     const card = document.createElement("div");
     card.className = "table-card";
 
     const imageIndex = cells.findIndex((cell) => cell.querySelector("img"));
     const textIndices = cells.map((_, i) => i).filter((i) => i !== imageIndex);
-    const [titleIndex, subtitleIndex, ...metaIndices] = textIndices;
+    const [titleIndex, subtitleIndex] = textIndices;
+    const metaIndices = textIndices
+      .slice(2)
+      .filter((i) => /year/i.test(headers[i] || ""));
 
     if (imageIndex !== -1) {
       const media = document.createElement("div");
@@ -65,12 +68,12 @@
     return card;
   }
 
-  function buildCardGrid(rows) {
+  function buildCardGrid(rows, headers) {
     const grid = document.createElement("div");
     grid.className = "table-cards";
     const rowCardMap = new Map();
     rows.forEach((row) => {
-      const card = buildCard(Array.from(row.children));
+      const card = buildCard(Array.from(row.children), headers);
       rowCardMap.set(row, card);
       grid.appendChild(card);
     });
@@ -199,7 +202,10 @@
       table.dataset.enhanced = "true";
 
       const rows = Array.from(tbody.querySelectorAll("tr"));
-      const { grid: cardGrid, rowCardMap } = buildCardGrid(rows);
+      const headers = Array.from(table.querySelectorAll("thead th")).map((th) =>
+        th.textContent.trim(),
+      );
+      const { grid: cardGrid, rowCardMap } = buildCardGrid(rows, headers);
 
       const controls = document.createElement("div");
       controls.className = "table-controls";

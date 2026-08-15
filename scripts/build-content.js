@@ -386,6 +386,11 @@ const PAGES = [
     src: join(ROOT, "src/music.md"),
     dist: join(ROOT, "dist/music"),
   },
+  {
+    name: "bookshelf",
+    src: join(ROOT, "src/bookshelf.md"),
+    dist: join(ROOT, "dist/bookshelf"),
+  },
 ];
 
 for (const page of PAGES) {
