@@ -399,6 +399,11 @@ const PAGES = [
     src: join(ROOT, "src/bookshelf.md"),
     dist: join(ROOT, "dist/bookshelf"),
   },
+  {
+    name: "games",
+    src: join(ROOT, "src/games.md"),
+    dist: join(ROOT, "dist/games"),
+  },
 ];
 
 for (const page of PAGES) {
