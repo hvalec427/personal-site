@@ -29,11 +29,11 @@ Za 5-6 oseb, pekač cca. 30×20 cm.
 
 **Postopek:**
 
-Bešamel: maslo stopimo, vmešamo moko, na hitro popražimo. Počasi dolivamo mleko in mešamo brez grudic. Solimo, popramo in kuhamo, da se zgosti. Če se preveč zgosti, jo lahko še malo kuhamo in dodamo malo mleka.
+Bešamel: 70 g masla stopimo, vmešamo 70 g moke, na hitro popražimo. Počasi dolivamo 700 ml mleka in mešamo brez grudic. Solimo, popramo in kuhamo, da se zgosti. Če se preveč zgosti, jo lahko še malo kuhamo in dodamo malo mleka.
 
-Bolognese: na olju prepražimo čebulo, dodamo meso. Zalijemo s pasiranim paradižnikom, dodamo moko, da se omaka zgosti, in počasi kuhamo.
+Bolognese: na olju prepražimo 1 čebulo, dodamo 500 g mešanega mletega mesa. Zalijemo s 700 ml pasiranega paradižnika, dodamo žlico moke, da se omaka zgosti, in počasi kuhamo.
 
-Sestavljanje: v pekač damo najprej bešamel, nato testenine, bešamel, bolognese in parmezan – ponovimo za 4-5 plasti. Na vrh testenine, bešamel in mozzarella.
+Sestavljanje: v pekač damo najprej bešamel, nato 300 g testenin za lazanjo, bešamel, bolognese in parmezan – ponovimo za 4-5 plasti. Na vrh testenine, bešamel in mozzarella.
 
 Pečemo 30 min na 180 °C, nato še 5-10 min na 200 °C, da se sir zapeče. Pred rezanjem naj nekaj minut počiva.
 

@@ -20,11 +20,11 @@ Za 4 osebe, cca. 50 min (10 min priprava, 40 min kuhanje). Vse-v-enem različica
 
 Če uporabimo surove kroglice, jih v širši ponvi ali plitvem loncu popečemo do konca po [osnovnem receptu](/recipes/osnovne-mesne-kroglice) (vključno s pokritim dokuhanjem) in jih odstavimo na krožnik. Če uporabimo že pečene kroglice (sveže ali odmrznjene), ta korak izpustimo. Posodo v vsakem primeru obdržimo na kuhalniku.
 
-V isto posodo prilijemo jušno osnovo. Če smo kroglice pravkar popekli, s kuhalnico postrgamo po dnu, da se odlepijo karamelizirani koščki. Zavremo.
+V isto posodo prilijemo 700 ml jušne osnove. Če smo kroglice pravkar popekli, s kuhalnico postrgamo po dnu, da se odlepijo karamelizirani koščki. Zavremo.
 
-Dodamo makarone in kuhamo na zmernem ognju nepokrito, občasno premešamo, da se ne primejo skupaj ali na dno. Kuhamo približno toliko časa, kot je navedeno na embalaži testenin (navadno 8-10 min). Če tekočina prehitro povre, prilijemo še malo jušne osnove ali vode – makaroni morajo biti ves čas dobro pokriti s tekočino.
+Dodamo 300 g makaronov in kuhamo na zmernem ognju nepokrito, občasno premešamo, da se ne primejo skupaj ali na dno. Kuhamo približno toliko časa, kot je navedeno na embalaži testenin (navadno 8-10 min). Če tekočina prehitro povre, prilijemo še malo jušne osnove ali vode – makaroni morajo biti ves čas dobro pokriti s tekočino.
 
-Ko so makaroni skoraj al dente, ogenj znižamo na najnižjo stopnjo in vmešamo smetano. Pomembno je, da omake po dodani smetani ne zavremo na močnem ognju, sicer se lahko sesiri. Po okusu solimo in popramo.
+Ko so makaroni skoraj al dente, ogenj znižamo na najnižjo stopnjo in vmešamo 200 ml smetane za kuhanje. Pomembno je, da omake po dodani smetani ne zavremo na močnem ognju, sicer se lahko sesiri. Po okusu solimo in popramo.
 
 Nazaj dodamo kroglice (skupaj s tekočino, ki se je med počitkom izločila iz njih, če je bila) in vse skupaj še 2-3 minute na nizkem ognju pogrejemo, da se okusi povežejo in kroglice dobro segrejejo.
 

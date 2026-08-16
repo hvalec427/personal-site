@@ -17,9 +17,9 @@ Za 3-4 osebe, cca. 20 min.
 
 **Postopek:**
 
-Medaljone posolimo in popopramo, na vročem olju na hitro popečemo na obeh straneh. Znižamo temperaturo, dodamo maslo in pečemo še 5 min, da meso karamelizira.
+Medaljone posolimo in popopramo, na 1.5 žlice vročega olja na hitro popečemo na obeh straneh. Znižamo temperaturo, dodamo 30 g masla in pečemo še 5 min, da meso karamelizira.
 
-V isto ponev vlijemo jušno osnovo ali vodo in postrgamo karamelizirane koščke z dna, povišamo temperaturo, da se omaka rahlo zreducira. Prilijemo smetano in kuhamo 20-30 min, da se meso zmehča, omaka pa zreducira.
+V isto ponev vlijemo 150 ml piščančje jušne osnove ali vode in postrgamo karamelizirane koščke z dna, povišamo temperaturo, da se omaka rahlo zreducira. Prilijemo 250 ml sladke smetane in kuhamo 20-30 min, da se meso zmehča, omaka pa zreducira.
 
 Postrežemo s testeninami (spageti), njoki, pire krompirjem, polento ali kuhanim rižem.
 

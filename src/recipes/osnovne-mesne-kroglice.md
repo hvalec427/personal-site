@@ -22,7 +22,7 @@ Za 4 osebe, cca. 30 min (10 min priprava, 20 min peka). Osnovni recept za mesne 
 
 **Postopek:**
 
-V veliki skledi zmešamo mleto goveje meso, drobtine, čebulo, česen, sol, mleti poper, jajce in mleko, da se dobro povežejo. Najbolje je, da vse pregnetemo s čistimi rokami ali pa jih dobro premešamo s kuhalnico oziroma lopatko.
+V veliki skledi zmešamo 500 g mletega govejega mesa, 2 žlici drobtin, 0.5 nasekljane čebule, 1 nasekljan strok česna, 0.5 žličke soli, 0.25 žličke mletega popra, 1 jajce in 1-2 žlici mleka, da se dobro povežejo. Najbolje je, da vse pregnetemo s čistimi rokami ali pa jih dobro premešamo s kuhalnico oziroma lopatko.
 
 Iz pripravljene mase oblikujemo za oreh velike kroglice, ki jih sproti odlagamo na večji krožnik ali pladenj. Ko so kroglice pripravljene, jih za 5 do 10 minut shranimo v hladilnik, da se povežejo in med peko ne razpadejo.
 

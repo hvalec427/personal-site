@@ -22,7 +22,7 @@ Za 3-4 ljudi, cca. 30 min (10 min priprava, 20 min cvrenje).
 
 **Postopek:**
 
-V skledi z električnim mešalnikom zmešamo jajce, rum, limonino lupinico in jogurt. Nato dodamo sladkor v prahu, moko, sol in pecilni prašek ter vse skupaj dobro premešamo, da dobimo gladko testo brez grudic. Če želimo, lahko testo pustimo počivati 30 minut.
+V skledi z električnim mešalnikom zmešamo 1 jajce, žličko ruma, žličko naribane limonine lupinice in 180 g jogurta. Nato dodamo 60 g sladkorja v prahu, 200 g moke, ščepec soli in 0.5 vrečke pecilnega praška ter vse skupaj dobro premešamo, da dobimo gladko testo brez grudic. Če želimo, lahko testo pustimo počivati 30 minut.
 
 V večjem loncu segrejemo olje na 180 °C.
 

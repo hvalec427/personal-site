@@ -19,9 +19,9 @@ Za 4 osebe, cca. 40 min (10 min priprava, 30 min kuhanje). Nadaljevanje recepta 
 
 Če uporabimo surove kroglice, jih v širši ponvi popečemo do konca po [osnovnem receptu](/recipes/osnovne-mesne-kroglice) (vključno s pokritim dokuhanjem) in jih odstavimo na krožnik. Če uporabimo že pečene kroglice (sveže ali odmrznjene), ta korak izpustimo. Ponev v vsakem primeru obdržimo na kuhalniku – v njej bomo naredili omako.
 
-V isto ponev prilijemo jušno osnovo. Če smo kroglice pravkar popekli, s kuhalnico dobro postrgamo po dnu, da odlepimo vse karamelizirane koščke.
+V isto ponev prilijemo 400 ml jušne osnove. Če smo kroglice pravkar popekli, s kuhalnico dobro postrgamo po dnu, da odlepimo vse karamelizirane koščke.
 
-V omako dodamo kroglice (skupaj s tekočino, ki se je med počitkom izločila iz njih, če je bila) in pustimo, da se kuhajo približno 10 minut – pri že pečenih kroglicah je ta korak dovolj, da se dobro pogrejejo. Omako zgostimo s smetano. Po okusu jo začinimo s soljo in mletim poprom. Vse skupaj na zmernem ognju kuhamo še 5-10 minut.
+V omako dodamo kroglice (skupaj s tekočino, ki se je med počitkom izločila iz njih, če je bila) in pustimo, da se kuhajo približno 10 minut – pri že pečenih kroglicah je ta korak dovolj, da se dobro pogrejejo. Omako zgostimo z 200 ml smetane za kuhanje. Po okusu jo začinimo s soljo in mletim poprom. Vse skupaj na zmernem ognju kuhamo še 5-10 minut.
 
 Pripravljene mesne kroglice serviramo skupaj z izbrano prilogo. Zraven se odlično prilegajo pire krompir, riž in njoki.
 
