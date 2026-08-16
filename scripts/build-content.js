@@ -144,6 +144,14 @@ function parseTableRow(line) {
 function renderTable(tableLines) {
   const header = parseTableRow(tableLines[0]);
   const rows = tableLines.slice(2).map(parseTableRow);
+  const coverIndex = header.findIndex((cell) => /^cover$/i.test(cell));
+  if (coverIndex !== -1) {
+    rows.forEach((row) => {
+      if (!row[coverIndex]) {
+        row[coverIndex] = "![No cover available](/assets/images/no-cover.svg)";
+      }
+    });
+  }
   const thead = `<tr>${header
     .map((cell) => `<th>${inline(cell)}</th>`)
     .join("")}</tr>`;
