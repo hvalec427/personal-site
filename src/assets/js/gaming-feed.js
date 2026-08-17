@@ -1,4 +1,7 @@
-const GAMING_FEED_URL = "https://staging-api.hvalec.com/gaming-feed";
+// API_BASE_URL is injected at build time (see scripts/write-api-config.js) so
+// this points at the correct per-environment API instead of a hardcoded
+// staging host reachable from production.
+const GAMING_FEED_URL = `${window.API_BASE_URL}/gaming-feed`;
 
 function formatGamingFeedDate(pubDate) {
   const date = new Date(pubDate);
