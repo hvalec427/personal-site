@@ -1,7 +1,6 @@
 ---
 title: Piščančji zrezek po dunajsko
 created: 2026-08-15
-draft: true
 ---
 
 # Piščančji zrezek po dunajsko
@@ -18,15 +17,19 @@ Za 4 osebe, cca. 21 min (15 min priprava, 6 min cvrenje). Pod hrustljavim ovojem
 - 2 dl olja za cvrenje
 - 2 žlici masla
 
-**Postopek:**
+**Priprava mesa:**
 
 Od piščančjega fileja brez kože odrežemo štiri zrezke (debeline približno 1,5 centimetra). Zrezke položimo med dva kosa papirja za peko in jih s kuhinjskim kladivom (ali valjarjem) potolčemo, da so debeli približno 1 centimeter. Zrezke na obeh straneh posolimo in popopramo.
 
 V globok krožnik ubijemo 2 jajci in ju blago stepemo. Pripravimo si dva plitka krožnika: na enega stresemo 100 g moke, na drugega pa 150 g drobtin.
 
+Začinjen zrezek najprej povaljamo v moki, nato ga potopimo v jajce in na koncu povaljamo še v drobtinah. Po enakem postopku paniramo vse štiri zrezke.
+
+**Cvrenje:**
+
 V globljo ponev vlijemo 2 dl olja in dodamo 2 žlici masla. Maščobo, ki mora segati vsaj 2-3 centimetre visoko, na nizki temperaturi počasi segrejemo.
 
-Začinjen zrezek najprej povaljamo v moki, nato ga potopimo v jajce in na koncu povaljamo še v drobtinah. Po enakem postopku paniramo vse štiri zrezke. Najbolje je, da v segreti maščobi cvremo po dva zrezka hkrati, če imamo veliko ponev, pa lahko hkrati ocvremo tudi vse štiri zrezke. Na vsaki strani jih cvremo po 2-3 minute, ocvrti pa so, ko dobijo lepo zlato rjavo barvo.
+Najbolje je, da v segreti maščobi cvremo po dva zrezka hkrati, če imamo veliko ponev, pa lahko hkrati ocvremo tudi vse štiri zrezke. Na vsaki strani jih cvremo po 2-3 minute, ocvrti pa so, ko dobijo lepo zlato rjavo barvo.
 
 Ocvrte zrezke položimo na krožnik, obložen s papirnatimi brisačkami, in počakamo, da se odteče odvečno olje.
 
