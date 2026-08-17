@@ -146,6 +146,12 @@ function restoreThemeFromStorage() {
 }
 window.restoreThemeFromStorage = restoreThemeFromStorage;
 
+// Runs synchronously as this script loads (it's not async/defer) so the
+// theme is set before first paint, same timing as the inline snippet this
+// replaces — kept as a real script file instead of an inline <script> block
+// so pages don't need 'unsafe-inline' in their Content-Security-Policy.
+restoreThemeFromStorage();
+
 function showRandomThemeButton() {
   let randomThemeButton = document.querySelector(".random-theme-button");
   if (!randomThemeButton) {
@@ -176,10 +182,9 @@ function initializeTheme() {
     }
 
     button.addEventListener("mouseenter", showRandomThemeButton);
+    button.addEventListener("click", toggleTheme);
   }
 }
-document.addEventListener("DOMContentLoaded", initializeTheme);
-
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", initializeTheme);
 } else {

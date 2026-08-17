@@ -272,6 +272,7 @@ function renderIndex(section, entries) {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://unpkg.com https://cloud.umami.is https://presence.hvalec.com; style-src 'self' https://unpkg.com; img-src 'self' data: https://*.basemaps.cartocdn.com; font-src 'self'; connect-src 'self' https://api.open-meteo.com https://api.sunrise-sunset.org https://abacus.jasoncameron.dev https://*.hvalec.com; base-uri 'self'; form-action 'self'; object-src 'none';" />
     <title>${section.title} | Hvalec</title>
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
@@ -279,11 +280,6 @@ function renderIndex(section, entries) {
     <link rel="manifest" href="/assets/site.webmanifest" />
     <link rel="stylesheet" href="/assets/css/main.css" />
     <script src="/assets/js/theme-toggle.js"></script>
-    <script>
-      if (typeof restoreThemeFromStorage === "function") {
-        restoreThemeFromStorage();
-      }
-    </script>
     <script src="/assets/js/dog.js"></script>
     <script src="/assets/js/copy-code.js"></script>
     <script src="/assets/js/table-view.js"></script>
@@ -309,6 +305,7 @@ function renderPage(section, { title, content, created, updated }) {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://unpkg.com https://cloud.umami.is https://presence.hvalec.com; style-src 'self' https://unpkg.com; img-src 'self' data: https://*.basemaps.cartocdn.com; font-src 'self'; connect-src 'self' https://api.open-meteo.com https://api.sunrise-sunset.org https://abacus.jasoncameron.dev https://*.hvalec.com; base-uri 'self'; form-action 'self'; object-src 'none';" />
     <title>${escapeHtml(title)} | Hvalec</title>
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
@@ -316,11 +313,6 @@ function renderPage(section, { title, content, created, updated }) {
     <link rel="manifest" href="/assets/site.webmanifest" />
     <link rel="stylesheet" href="/assets/css/main.css" />
     <script src="/assets/js/theme-toggle.js"></script>
-    <script>
-      if (typeof restoreThemeFromStorage === "function") {
-        restoreThemeFromStorage();
-      }
-    </script>
     <script src="/assets/js/dog.js"></script>
     <script src="/assets/js/copy-code.js"></script>
     <script src="/assets/js/table-view.js"></script>
@@ -359,6 +351,7 @@ function renderStandalonePage({ title, description, content }) {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://unpkg.com https://cloud.umami.is https://presence.hvalec.com; style-src 'self' https://unpkg.com; img-src 'self' data: https://*.basemaps.cartocdn.com; font-src 'self'; connect-src 'self' https://api.open-meteo.com https://api.sunrise-sunset.org https://abacus.jasoncameron.dev https://*.hvalec.com; base-uri 'self'; form-action 'self'; object-src 'none';" />
     <title>${escapeHtml(title)} | Hvalec</title>
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
@@ -366,11 +359,6 @@ function renderStandalonePage({ title, description, content }) {
     <link rel="manifest" href="/assets/site.webmanifest" />
     <link rel="stylesheet" href="/assets/css/main.css" />
     <script src="/assets/js/theme-toggle.js"></script>
-    <script>
-      if (typeof restoreThemeFromStorage === "function") {
-        restoreThemeFromStorage();
-      }
-    </script>
     <script src="/assets/js/dog.js"></script>
     <script src="/assets/js/copy-code.js"></script>
     <script src="/assets/js/table-view.js"></script>
