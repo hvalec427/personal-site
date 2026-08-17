@@ -65,6 +65,22 @@ fetch("https://abacus.jasoncameron.dev/hit/hvalec-com/homepage")
   })
   .catch(() => {});
 
+const hasVisitedKey = "hvalecHasVisited";
+const isReturningVisitor = localStorage.getItem(hasVisitedKey) === "1";
+fetch(
+  isReturningVisitor
+    ? "https://abacus.jasoncameron.dev/get/hvalec-com/unique-visitors"
+    : "https://abacus.jasoncameron.dev/hit/hvalec-com/unique-visitors",
+)
+  .then((res) => (res.ok ? res.json() : Promise.reject()))
+  .then(({ value }) => {
+    if (!isReturningVisitor) localStorage.setItem(hasVisitedKey, "1");
+    const el = document.getElementById("unique-visitor-count");
+    if (!el) return;
+    el.textContent = `#${String(value).padStart(6, "0")}`;
+  })
+  .catch(() => {});
+
 window.addEventListener("presence:update", (event) => {
   const el = document.getElementById("presence-count");
   if (!el || typeof event.detail.count !== "number") return;
