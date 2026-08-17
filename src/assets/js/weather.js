@@ -35,6 +35,13 @@ const twilightFetch = fetch(
   .then((data) => data.results)
   .catch(() => null);
 
+function span(className, text) {
+  const el = document.createElement("span");
+  if (className) el.className = className;
+  el.textContent = text;
+  return el;
+}
+
 Promise.all([weatherFetch, twilightFetch])
   .then(([{ current, hourly, daily }, twilight]) => {
     const nowEl = document.getElementById("weather-now");
@@ -42,14 +49,10 @@ Promise.all([weatherFetch, twilightFetch])
     const sunEl = document.getElementById("weather-sun");
     if (!nowEl || !hoursEl || !sunEl) return;
 
-    nowEl.innerHTML = `
-      <span class="weather-now-icon">${
-        WEATHER_ICONS[current.weather_code] ?? "🌡"
-      }</span>
-      <span class="weather-now-temp">${Math.round(
-        current.temperature_2m,
-      )}°C</span>
-    `;
+    nowEl.replaceChildren(
+      span("weather-now-icon", WEATHER_ICONS[current.weather_code] ?? "🌡"),
+      span("weather-now-temp", `${Math.round(current.temperature_2m)}°C`),
+    );
 
     const now = Date.now();
     const startIndex = hourly.time.findIndex(
@@ -57,9 +60,8 @@ Promise.all([weatherFetch, twilightFetch])
     );
     const from = startIndex === -1 ? 0 : startIndex;
 
-    hoursEl.innerHTML = hourly.time
-      .slice(from, from + HOURS_TO_SHOW)
-      .map((time, i) => {
+    hoursEl.replaceChildren(
+      ...hourly.time.slice(from, from + HOURS_TO_SHOW).map((time, i) => {
         const idx = from + i;
         const icon = WEATHER_ICONS[hourly.weather_code[idx]] ?? "🌡";
         const hour = new Date(time).toLocaleTimeString("en-GB", {
@@ -68,13 +70,17 @@ Promise.all([weatherFetch, twilightFetch])
           minute: "2-digit",
         });
         const temp = Math.round(hourly.temperature_2m[idx]);
-        return `<div class="weather-hour">
-          <span class="weather-hour-time">${hour}</span>
-          <span class="weather-hour-icon">${icon}</span>
-          <span class="weather-hour-temp">${temp}°</span>
-        </div>`;
-      })
-      .join("");
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "weather-hour";
+        wrapper.append(
+          span("weather-hour-time", hour),
+          span("weather-hour-icon", icon),
+          span("weather-hour-temp", `${temp}°`),
+        );
+        return wrapper;
+      }),
+    );
 
     const formatSunTime = (iso) =>
       new Date(iso).toLocaleTimeString("en-GB", {
@@ -83,24 +89,28 @@ Promise.all([weatherFetch, twilightFetch])
         minute: "2-digit",
       });
 
-    const dawnLabel = twilight
-      ? `<span>Dawn ${formatSunTime(twilight.civil_twilight_begin)}</span>`
-      : "";
-    const duskLabel = twilight
-      ? `<span>Dusk ${formatSunTime(twilight.civil_twilight_end)}</span>`
-      : "";
+    const left = document.createElement("div");
+    left.className = "weather-sun-group weather-sun-left";
+    if (twilight) {
+      left.appendChild(
+        span(null, `Dawn ${formatSunTime(twilight.civil_twilight_begin)}`),
+      );
+    }
+    left.appendChild(span(null, `Sunrise ${formatSunTime(daily.sunrise[0])}`));
 
-    sunEl.innerHTML = `
-      <div class="weather-sun-labels">
-        <div class="weather-sun-group weather-sun-left">
-          ${dawnLabel}
-          <span>Sunrise ${formatSunTime(daily.sunrise[0])}</span>
-        </div>
-        <div class="weather-sun-group weather-sun-right">
-          <span>Sunset ${formatSunTime(daily.sunset[0])}</span>
-          ${duskLabel}
-        </div>
-      </div>
-    `;
+    const right = document.createElement("div");
+    right.className = "weather-sun-group weather-sun-right";
+    right.appendChild(span(null, `Sunset ${formatSunTime(daily.sunset[0])}`));
+    if (twilight) {
+      right.appendChild(
+        span(null, `Dusk ${formatSunTime(twilight.civil_twilight_end)}`),
+      );
+    }
+
+    const labels = document.createElement("div");
+    labels.className = "weather-sun-labels";
+    labels.append(left, right);
+
+    sunEl.replaceChildren(labels);
   })
   .catch(() => {});

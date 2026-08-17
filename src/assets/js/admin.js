@@ -20,11 +20,23 @@
   };
 
   function renderSignedIn(email) {
-    container.innerHTML = `
-      <p>Signed in as <strong>${email}</strong></p>
-      <button type="button" class="cv-button" id="admin-logout">Log out</button>
-    `;
-    document.getElementById("admin-logout").addEventListener("click", () => {
+    container.replaceChildren();
+
+    const p = document.createElement("p");
+    p.append("Signed in as ");
+    const strong = document.createElement("strong");
+    strong.textContent = email;
+    p.appendChild(strong);
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "cv-button";
+    button.id = "admin-logout";
+    button.textContent = "Log out";
+
+    container.append(p, button);
+
+    button.addEventListener("click", () => {
       fetch(`${window.API_BASE_URL}/auth/logout`, {
         method: "POST",
         credentials: "include",
@@ -35,10 +47,17 @@
   function renderSignedOut(error) {
     const message =
       ERROR_MESSAGES[error] || "Nothing to see here unless you're me.";
-    container.innerHTML = `
-      <p>${message}</p>
-      <a href="${window.API_BASE_URL}/auth/google" class="cv-button">Login with Google</a>
-    `;
+    container.replaceChildren();
+
+    const p = document.createElement("p");
+    p.textContent = message;
+
+    const link = document.createElement("a");
+    link.href = `${window.API_BASE_URL}/auth/google`;
+    link.className = "cv-button";
+    link.textContent = "Login with Google";
+
+    container.append(p, link);
   }
 
   // The admin token lives in an httpOnly cookie the browser manages on its
