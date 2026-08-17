@@ -1,5 +1,14 @@
 import { spawnSync } from "child_process";
 
+// Picks up a local .env (from `npm run secrets`) so `npm run dev`/`build`
+// reflect it automatically. No-op if the file doesn't exist (e.g. Coolify).
+try {
+  process.loadEnvFile();
+} catch {
+  // no .env — fine locally before the first `npm run secrets`, and always
+  // the case in Coolify, where DOPPLER_TOKEN below is the real source.
+}
+
 // Coolify's Build Command is just the default `npm run build` — no config
 // change needed. DOPPLER_TOKEN is only ever set there (never locally), so
 // when it's present we fetch secrets and inject them before the real
