@@ -1054,3 +1054,59 @@ ul li + li {
   font-size: 12px;
   white-space: nowrap;
 }
+
+.xbox-section {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.xbox-status-line {
+  font-size: 14px;
+}
+
+.xbox-status-date {
+  color: var(--secondary);
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.xbox-status-badge {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface);
+  border: 1px solid var(--secondary);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  z-index: 500;
+}
+
+/* Needed because .xbox-status-badge's own `display: flex` above has equal
+   specificity to the browser's built-in `[hidden] { display: none }` rule —
+   author CSS beats the UA stylesheet at a tie, so without this the badge
+   would always render regardless of the hidden attribute. */
+.xbox-status-badge[hidden] {
+  display: none;
+}
+
+.xbox-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--secondary);
+  flex-shrink: 0;
+}
+
+.xbox-status-badge-active .xbox-status-dot {
+  background: #3fb950;
+}

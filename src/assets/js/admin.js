@@ -19,6 +19,68 @@
     auth_failed: "Login failed. Try again.",
   };
 
+  function formatXboxTimestamp(iso) {
+    const date = new Date(iso);
+    if (Number.isNaN(date.getTime())) return "";
+    return date.toLocaleString("en-GB", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  }
+
+  // Just connection health for the integration — no game data belongs here,
+  // that's what a public widget would be for.
+  function renderXboxStatus(section, data) {
+    section.replaceChildren();
+
+    const status = document.createElement("p");
+    status.className = "xbox-status-line";
+    status.append("Xbox: ");
+    const strong = document.createElement("strong");
+    strong.textContent = data.linked ? "Connected" : "Not connected";
+    status.appendChild(strong);
+
+    const fetched = document.createElement("p");
+    fetched.className = "xbox-status-date";
+    fetched.textContent = data.linkedAt
+      ? `Last fetched: ${formatXboxTimestamp(data.linkedAt)}`
+      : "Last fetched: never";
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "cv-button";
+    button.textContent = "Fetch now";
+
+    button.addEventListener("click", () => {
+      button.disabled = true;
+      button.textContent = "Fetching…";
+      fetch(`${window.API_BASE_URL}/auth/xbox`, {
+        method: "POST",
+        credentials: "include",
+      })
+        .then((res) => (res.ok ? res.json() : Promise.reject()))
+        .then((updated) => renderXboxStatus(section, updated))
+        .catch(() => {
+          button.disabled = false;
+          button.textContent = "Fetch failed, retry";
+        });
+    });
+
+    section.append(status, fetched, button);
+  }
+
+  function renderXboxSection(section) {
+    fetch(`${window.API_BASE_URL}/auth/xbox/status`, {
+      credentials: "include",
+    })
+      .then((res) => (res.ok ? res.json() : Promise.reject()))
+      .then((data) => renderXboxStatus(section, data))
+      .catch(() => {});
+  }
+
   function renderSignedIn(email) {
     container.replaceChildren();
 
@@ -34,7 +96,10 @@
     button.id = "admin-logout";
     button.textContent = "Log out";
 
-    container.append(p, button);
+    const xboxSection = document.createElement("div");
+    xboxSection.className = "xbox-section";
+
+    container.append(p, button, xboxSection);
 
     button.addEventListener("click", () => {
       fetch(`${window.API_BASE_URL}/auth/logout`, {
@@ -42,6 +107,8 @@
         credentials: "include",
       }).finally(() => renderSignedOut());
     });
+
+    renderXboxSection(xboxSection);
   }
 
   function renderSignedOut(error) {
