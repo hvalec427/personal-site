@@ -32,12 +32,6 @@ doppler run -- npm run build
 
 ## Deployment (Coolify)
 
-This is a static site build with no server process at runtime, so secrets have to be resolved at build time. Coolify's **Build Command** should be:
-
-```
-npm run deploy
-```
-
-instead of the plain `npm run build`. That script (`scripts/deploy.js`) uses `@dopplerhq/node-sdk` to fetch secrets straight from Doppler's API — no CLI, no `.env` on disk — and runs the build with them injected for that process only. The built `dist/` output just has the resolved value baked into `assets/js/api-config.js`.
+No Coolify config change needed — the Build Command stays the default `npm run build`/`yarn build`. `npm run build` (`scripts/build.js`) checks for a `DOPPLER_TOKEN` environment variable: if it's set (only true in Coolify, never locally), it fetches secrets from Doppler via `@dopplerhq/node-sdk` and injects them for the build only, then runs the real static build (`build:static`), which bakes the resolved value into `dist/assets/js/api-config.js`. If `DOPPLER_TOKEN` isn't set (local dev), it's a zero-overhead passthrough straight to `build:static`.
 
 For this to work, the Coolify app needs a `DOPPLER_TOKEN` environment variable set to a Doppler **service token** scoped to the `hvalec-site` project and the config you want deployed (e.g. staging/production, not `development_personal`). Generate one in the Doppler dashboard under the project → Access → Service Tokens.
