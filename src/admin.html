@@ -33,14 +33,20 @@
     </script>
     <script src="/assets/js/dog.js"></script>
     <script src="/assets/js/copy-code.js"></script>
+    <script src="/assets/js/api-config.js"></script>
   </head>
 
   <body>
     <!-- include:header -->
 
-    <main class="content"><p>“You are not authorized. Neither am I.”</p></main>
+    <main class="content">
+      <noscript><p>This page requires JavaScript.</p></noscript>
+      <div id="admin-panel"></div>
+    </main>
 
     <!-- include:footer -->
+
+    <script src="/assets/js/admin.js"></script>
 
     <script
       defer
