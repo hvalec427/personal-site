@@ -158,6 +158,33 @@ function steamCard(status, now) {
   return card;
 }
 
+function psnCard(status, now) {
+  const card = document.createElement("div");
+  card.className = "now-playing-card";
+
+  const header = document.createElement("div");
+  header.className = "now-playing-header";
+  header.textContent = `Now playing on ${status.platform || "PlayStation"}`;
+
+  const title = document.createElement("div");
+  title.className = "now-playing-title";
+  title.appendChild(
+    scrollingText(status.title, FONT_BOLD, CARD_CONTENT_WIDTH_PX, now),
+  );
+
+  card.append(header, title);
+
+  if (status.lastPlayedAt) {
+    const elapsedMs = now - new Date(status.lastPlayedAt).getTime();
+    const meta = document.createElement("div");
+    meta.className = "now-playing-meta";
+    meta.textContent = `Playing for ${formatElapsed(elapsedMs)}`;
+    card.appendChild(meta);
+  }
+
+  return card;
+}
+
 function spotifyCard(status, now) {
   const card = document.createElement("div");
   card.className = "now-playing-card";
@@ -206,6 +233,7 @@ function spotifyCard(status, now) {
 function renderStatus(status, now) {
   if (status.source === "xbox") return xboxCard(status, now);
   if (status.source === "steam") return steamCard(status, now);
+  if (status.source === "psn") return psnCard(status, now);
   if (status.source === "spotify") return spotifyCard(status, now);
   return idlePill(status.title || status.track || "Playing");
 }

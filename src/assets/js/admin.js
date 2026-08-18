@@ -208,6 +208,83 @@
       .catch(() => {});
   }
 
+  function renderPsnStatus(section, data) {
+    let actions;
+
+    if (data.linked) {
+      const fetchButton = document.createElement("button");
+      fetchButton.type = "button";
+      fetchButton.className = "cv-button";
+      fetchButton.textContent = "Check connection";
+
+      fetchButton.addEventListener("click", () => {
+        fetchButton.disabled = true;
+        fetchButton.textContent = "Fetching…";
+        fetch(`${window.API_BASE_URL}/auth/psn`, {
+          method: "POST",
+          credentials: "include",
+        })
+          .then((res) => (res.ok ? res.json() : Promise.reject()))
+          .then((updated) => renderPsnStatus(section, updated))
+          .catch(() => {
+            fetchButton.disabled = false;
+            fetchButton.textContent = "Fetch failed, retry";
+          });
+      });
+
+      actions = [
+        fetchButton,
+        disconnectButton("/auth/psn/disconnect", (updated) =>
+          renderPsnStatus(section, updated),
+        ),
+      ];
+    } else {
+      const input = document.createElement("input");
+      input.type = "text";
+      input.className = "cv-input";
+      input.placeholder = "NPSSO token";
+      input.setAttribute("aria-label", "NPSSO token");
+
+      const saveButton = document.createElement("button");
+      saveButton.type = "button";
+      saveButton.className = "cv-button";
+      saveButton.textContent = "Link";
+
+      saveButton.addEventListener("click", () => {
+        const npsso = input.value.trim();
+        if (!npsso) return;
+        saveButton.disabled = true;
+        saveButton.textContent = "Saving…";
+        fetch(`${window.API_BASE_URL}/auth/psn`, {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ npsso }),
+        })
+          .then((res) => (res.ok ? res.json() : Promise.reject()))
+          .then((updated) => renderPsnStatus(section, updated))
+          .catch(() => {
+            saveButton.disabled = false;
+            saveButton.textContent = "Save failed, retry";
+          });
+      });
+
+      actions = [input, saveButton];
+    }
+
+    const accountLine = data.onlineId || null;
+    renderConnectionStatus(section, "PSN", data, actions, accountLine);
+  }
+
+  function renderPsnSection(section) {
+    fetch(`${window.API_BASE_URL}/auth/psn/status`, {
+      credentials: "include",
+    })
+      .then((res) => (res.ok ? res.json() : Promise.reject()))
+      .then((data) => renderPsnStatus(section, data))
+      .catch(() => {});
+  }
+
   function renderSpotifyStatus(section, data) {
     const connectButton = document.createElement("button");
     connectButton.type = "button";
@@ -292,7 +369,17 @@
     const steamSection = document.createElement("div");
     steamSection.className = "connection-section";
 
-    container.append(p, button, xboxSection, spotifySection, steamSection);
+    const psnSection = document.createElement("div");
+    psnSection.className = "connection-section";
+
+    container.append(
+      p,
+      button,
+      xboxSection,
+      spotifySection,
+      steamSection,
+      psnSection,
+    );
 
     button.addEventListener("click", () => {
       fetch(`${window.API_BASE_URL}/auth/logout`, {
@@ -304,6 +391,7 @@
     renderXboxSection(xboxSection);
     renderSpotifySection(spotifySection);
     renderSteamSection(steamSection);
+    renderPsnSection(psnSection);
   }
 
   function renderSignedOut(error) {
