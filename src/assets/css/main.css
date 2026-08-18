@@ -1129,6 +1129,13 @@ ul li + li {
   padding: 10px 14px;
 }
 
+.device-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
 .device-info {
   min-width: 0;
 }
@@ -1211,19 +1218,25 @@ ul li + li {
   gap: 8px;
 }
 
+.now-playing-header--dot {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .now-playing-card {
   background: var(--surface);
   border: 1px solid var(--secondary);
   border-radius: 8px;
   padding: 12px 16px;
-  flex: 1 1 220px;
+  flex: 1 1 240px;
   min-width: 0;
   font-size: 13px;
 }
 
 @media (min-width: 800px) {
   .now-playing-card {
-    max-width: 240px;
+    flex: 0 0 var(--card-basis, calc((100% - 16px) / 3));
   }
 }
 

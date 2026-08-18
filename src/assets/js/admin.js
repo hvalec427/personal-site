@@ -443,7 +443,7 @@
     return category === "work" ? "Work" : "Personal";
   }
 
-  function renderDeviceItem(device, onRevoked) {
+  function renderDeviceItem(device, onUpdated) {
     const item = document.createElement("div");
     item.className = "device-item";
 
@@ -458,13 +458,48 @@
     badge.textContent = formatCategory(device.category);
     name.appendChild(badge);
 
+    const renameInput = document.createElement("input");
+    renameInput.type = "text";
+    renameInput.className = "cv-input";
+    renameInput.value = device.name;
+    renameInput.setAttribute("aria-label", "Device name");
+    renameInput.hidden = true;
+
     const meta = document.createElement("p");
     meta.className = "device-meta";
     meta.textContent = device.lastSeenAt
       ? `Last seen: ${formatTimestamp(device.lastSeenAt)}`
       : "Last seen: never";
 
-    info.append(name, meta);
+    info.append(name, renameInput, meta);
+
+    const renameButton = document.createElement("button");
+    renameButton.type = "button";
+    renameButton.className = "cv-button cv-button-secondary";
+    renameButton.textContent = "Rename";
+    renameButton.addEventListener("click", () => {
+      if (renameInput.hidden) {
+        name.hidden = true;
+        renameInput.hidden = false;
+        renameButton.textContent = "Save";
+        renameInput.focus();
+        return;
+      }
+
+      const newName = renameInput.value.trim();
+      if (!newName) return;
+      renameButton.disabled = true;
+      fetch(`${window.API_BASE_URL}/admin/pc-tokens/${device.id}`, {
+        method: "PATCH",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: newName }),
+      })
+        .then((res) => (res.ok ? onUpdated() : Promise.reject()))
+        .catch(() => {
+          renameButton.disabled = false;
+        });
+    });
 
     const revokeButton = document.createElement("button");
     revokeButton.type = "button";
@@ -476,13 +511,17 @@
         method: "DELETE",
         credentials: "include",
       })
-        .then((res) => (res.ok ? onRevoked() : Promise.reject()))
+        .then((res) => (res.ok ? onUpdated() : Promise.reject()))
         .catch(() => {
           revokeButton.disabled = false;
         });
     });
 
-    item.append(info, revokeButton);
+    const actions = document.createElement("div");
+    actions.className = "device-item-actions";
+    actions.append(renameButton, revokeButton);
+
+    item.append(info, actions);
     return item;
   }
 

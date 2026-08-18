@@ -238,8 +238,15 @@ function discordCard(status) {
   card.className = "now-playing-card";
 
   const header = document.createElement("div");
-  header.className = "now-playing-header";
-  header.textContent = "Online on Discord";
+  header.className = "now-playing-header now-playing-header--dot";
+
+  const dot = document.createElement("span");
+  dot.className = "status-badge-dot status-badge-dot--online";
+
+  const headerText = document.createElement("span");
+  headerText.textContent = "Online on Discord";
+
+  header.append(dot, headerText);
   card.appendChild(header);
 
   const row = document.createElement("div");
@@ -278,27 +285,8 @@ function renderStatus(status, now) {
   return idlePill(status.title || status.track || "Playing", true);
 }
 
-const PERSONAL_DEVICE_MESSAGES = [
-  "Deep in a YouTube rabbit hole",
-  "Doomscrolling with purpose",
-  "Mid side-quest, do not disturb",
-  "Googling something deeply embarrassing",
-  "Testing the couch's structural integrity",
-];
-
-const WORK_DEVICE_MESSAGE = "Unfortunately, at work";
-const WORK_DEVICE_MESSAGE_AFTER_HOURS = "Somehow still at work";
-
 const WORK_HOURS_START = 8;
 const WORK_HOURS_END = 16;
-
-function hashString(str) {
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    hash = (hash * 31 + str.charCodeAt(i)) >>> 0;
-  }
-  return hash;
-}
 
 function ljubljanaHour(now) {
   return Number(
@@ -335,17 +323,6 @@ function pickDevice(devices, now) {
   return mostRecent(workDevices.length > 0 ? workDevices : personalDevices);
 }
 
-function deviceMessage(device, now) {
-  if (device.category === "work") {
-    return isWorkHours(now)
-      ? WORK_DEVICE_MESSAGE
-      : WORK_DEVICE_MESSAGE_AFTER_HOURS;
-  }
-  const key = device.sessionId || device.deviceId;
-  const index = hashString(key) % PERSONAL_DEVICE_MESSAGES.length;
-  return PERSONAL_DEVICE_MESSAGES[index];
-}
-
 function formatGB(bytes) {
   return (bytes / 1024 ** 3).toFixed(1);
 }
@@ -374,7 +351,7 @@ function deviceStatRow(label, value) {
   return row;
 }
 
-function deviceCard(device, now) {
+function deviceCard(device) {
   const card = document.createElement("div");
   card.className = "now-playing-card";
 
@@ -384,12 +361,8 @@ function deviceCard(device, now) {
   const dot = document.createElement("span");
   dot.className = "status-badge-dot status-badge-dot--online";
 
-  const label = scrollingText(
-    deviceMessage(device, now),
-    FONT_BOLD,
-    CARD_CONTENT_WIDTH_PX - 16,
-    now,
-  );
+  const label = document.createElement("span");
+  label.textContent = `Online on ${device.deviceName}`;
 
   header.append(dot, label);
   card.appendChild(header);
@@ -469,13 +442,33 @@ function renderBadges() {
 
   const badges = [
     ...active.map((status) => renderStatus(status, now)),
-    ...(device ? [deviceCard(device, now)] : []),
+    ...(device ? [deviceCard(device)] : []),
   ];
 
-  reconcileBadges(
-    container,
-    badges.length > 0 ? badges : [idlePill("Currently offline")],
+  const rendered = badges.length > 0 ? badges : [idlePill("Currently offline")];
+
+  container.style.setProperty(
+    "--card-basis",
+    cardBasis(cardSlotsPerRow(rendered.length)),
   );
+
+  reconcileBadges(container, rendered);
+}
+
+const STATUS_BADGES_GAP_PX = 8;
+
+// 1 card sits at a third of the row (not full-width), 2 or 3 cards fill the
+// row evenly, and 4+ cards settle into a 2-per-row grid rather than getting
+// thin enough to be unreadable.
+function cardSlotsPerRow(count) {
+  if (count <= 1) return 3;
+  if (count === 2) return 2;
+  if (count === 3) return 3;
+  return 2;
+}
+
+function cardBasis(slots) {
+  return `calc((100% - ${STATUS_BADGES_GAP_PX * (slots - 1)}px) / ${slots})`;
 }
 
 // container.replaceChildren(...) unconditionally tears down and reinserts
