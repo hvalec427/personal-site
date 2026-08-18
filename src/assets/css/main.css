@@ -1073,6 +1073,64 @@ ul li + li {
   transform: translateY(-1px);
 }
 
+.device-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.device-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+.device-info {
+  min-width: 0;
+}
+
+.device-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.device-category-badge {
+  background: var(--background);
+  color: var(--secondary);
+  border-radius: 999px;
+  padding: 2px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.device-meta {
+  margin: 2px 0 0;
+  color: var(--secondary);
+  font-size: 12px;
+}
+
+.device-token-box {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--secondary);
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 13px;
+  color: var(--primary);
+  word-break: break-all;
+  margin: 4px 0;
+}
+
 .status-badges {
   display: flex;
   flex-direction: row;

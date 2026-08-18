@@ -376,6 +376,167 @@
       .catch(() => {});
   }
 
+  function formatCategory(category) {
+    return category === "work" ? "Work" : "Personal";
+  }
+
+  function renderDeviceItem(device, onRevoked) {
+    const item = document.createElement("div");
+    item.className = "device-item";
+
+    const info = document.createElement("div");
+    info.className = "device-info";
+
+    const name = document.createElement("p");
+    name.className = "device-name";
+    name.append(device.name, " ");
+    const badge = document.createElement("span");
+    badge.className = "device-category-badge";
+    badge.textContent = formatCategory(device.category);
+    name.appendChild(badge);
+
+    const meta = document.createElement("p");
+    meta.className = "device-meta";
+    meta.textContent = device.lastSeenAt
+      ? `Last seen: ${formatTimestamp(device.lastSeenAt)}`
+      : "Last seen: never";
+
+    info.append(name, meta);
+
+    const revokeButton = document.createElement("button");
+    revokeButton.type = "button";
+    revokeButton.className = "cv-button cv-button-secondary";
+    revokeButton.textContent = "Revoke";
+    revokeButton.addEventListener("click", () => {
+      revokeButton.disabled = true;
+      fetch(`${window.API_BASE_URL}/admin/pc-tokens/${device.id}`, {
+        method: "DELETE",
+        credentials: "include",
+      })
+        .then((res) => (res.ok ? onRevoked() : Promise.reject()))
+        .catch(() => {
+          revokeButton.disabled = false;
+        });
+    });
+
+    item.append(info, revokeButton);
+    return item;
+  }
+
+  function renderNewDeviceToken(container, result) {
+    container.replaceChildren();
+
+    const p = document.createElement("p");
+    p.className = "connection-account-line";
+    p.textContent = `Token for "${result.name}" — copy it now, it won't be shown again:`;
+
+    const tokenBox = document.createElement("code");
+    tokenBox.className = "device-token-box";
+    tokenBox.textContent = result.token;
+
+    const copyButton = document.createElement("button");
+    copyButton.type = "button";
+    copyButton.className = "cv-button";
+    copyButton.textContent = "Copy";
+    copyButton.addEventListener("click", () => {
+      navigator.clipboard.writeText(result.token).then(() => {
+        copyButton.textContent = "Copied!";
+      });
+    });
+
+    container.append(p, tokenBox, copyButton);
+  }
+
+  function renderDevicesSection(section) {
+    section.replaceChildren();
+
+    const heading = document.createElement("p");
+    heading.className = "connection-status-line";
+    heading.textContent = "Devices";
+
+    const list = document.createElement("div");
+    list.className = "device-list";
+
+    const tokenReveal = document.createElement("div");
+
+    const nameInput = document.createElement("input");
+    nameInput.type = "text";
+    nameInput.className = "cv-input";
+    nameInput.placeholder = "Device name";
+    nameInput.setAttribute("aria-label", "Device name");
+
+    const categorySelect = document.createElement("select");
+    categorySelect.className = "cv-input";
+    categorySelect.setAttribute("aria-label", "Device category");
+    [
+      ["personal", "Personal"],
+      ["work", "Work"],
+    ].forEach(([value, label]) => {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = label;
+      categorySelect.appendChild(option);
+    });
+
+    const addButton = document.createElement("button");
+    addButton.type = "button";
+    addButton.className = "cv-button";
+    addButton.textContent = "Add device";
+
+    function loadList() {
+      fetch(`${window.API_BASE_URL}/admin/pc-tokens`, {
+        credentials: "include",
+      })
+        .then((res) => (res.ok ? res.json() : Promise.reject()))
+        .then((devices) => {
+          list.replaceChildren();
+          if (devices.length === 0) {
+            const empty = document.createElement("p");
+            empty.className = "connection-account-line";
+            empty.textContent = "No devices yet.";
+            list.append(empty);
+            return;
+          }
+          devices.forEach((device) => {
+            list.append(renderDeviceItem(device, loadList));
+          });
+        })
+        .catch(() => {});
+    }
+
+    addButton.addEventListener("click", () => {
+      const name = nameInput.value.trim();
+      if (!name) return;
+      addButton.disabled = true;
+      addButton.textContent = "Adding…";
+      fetch(`${window.API_BASE_URL}/admin/pc-tokens`, {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, category: categorySelect.value }),
+      })
+        .then((res) => (res.ok ? res.json() : Promise.reject()))
+        .then((result) => {
+          nameInput.value = "";
+          addButton.disabled = false;
+          addButton.textContent = "Add device";
+          renderNewDeviceToken(tokenReveal, result);
+          loadList();
+        })
+        .catch(() => {
+          addButton.disabled = false;
+          addButton.textContent = "Add failed, retry";
+        });
+    });
+
+    const actionsRow = document.createElement("div");
+    actionsRow.className = "connection-actions";
+    actionsRow.append(nameInput, categorySelect, addButton);
+
+    section.append(heading, list, tokenReveal, actionsRow);
+    loadList();
+  }
+
   function renderSignedIn(email) {
     container.replaceChildren();
 
@@ -403,6 +564,9 @@
     const psnSection = document.createElement("div");
     psnSection.className = "connection-section";
 
+    const devicesSection = document.createElement("div");
+    devicesSection.className = "connection-section";
+
     container.append(
       p,
       button,
@@ -410,6 +574,7 @@
       spotifySection,
       steamSection,
       psnSection,
+      devicesSection,
     );
 
     button.addEventListener("click", () => {
@@ -423,6 +588,7 @@
     renderSpotifySection(spotifySection);
     renderSteamSection(steamSection);
     renderPsnSection(psnSection);
+    renderDevicesSection(devicesSection);
   }
 
   function renderSignedOut(error) {
