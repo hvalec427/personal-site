@@ -1,4 +1,5 @@
 const STATUS_URL = `${window.API_BASE_URL}/status`;
+const PC_STATUS_URL = `${window.API_BASE_URL}/pc-status`;
 
 const CARD_WIDTH_PX = 240;
 const CARD_PADDING_X_PX = 16;
@@ -238,10 +239,79 @@ function renderStatus(status, now) {
   return idlePill(status.title || status.track || "Playing");
 }
 
+const PERSONAL_DEVICE_MESSAGES = [
+  "Deep in a YouTube rabbit hole",
+  "Doomscrolling with purpose",
+  "Mid side-quest, do not disturb",
+  "Googling something deeply embarrassing",
+  "Testing the couch's structural integrity",
+];
+
+const WORK_DEVICE_MESSAGE = "Unfortunately, at work";
+const WORK_DEVICE_MESSAGE_AFTER_HOURS = "Somehow still at work";
+
+const WORK_HOURS_START = 8;
+const WORK_HOURS_END = 16;
+
+function hashString(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = (hash * 31 + str.charCodeAt(i)) >>> 0;
+  }
+  return hash;
+}
+
+function ljubljanaHour(now) {
+  return Number(
+    new Intl.DateTimeFormat("en-GB", {
+      timeZone: "Europe/Ljubljana",
+      hour: "numeric",
+      hourCycle: "h23",
+    }).format(now),
+  );
+}
+
+function isWorkHours(now) {
+  const hour = ljubljanaHour(now);
+  return hour >= WORK_HOURS_START && hour < WORK_HOURS_END;
+}
+
+function mostRecent(devices) {
+  return devices.reduce((latest, device) =>
+    !latest || new Date(device.receivedAt) > new Date(latest.receivedAt)
+      ? device
+      : latest,
+  );
+}
+
+function pickDevice(devices, now) {
+  const workDevices = devices.filter((d) => d.category === "work" && !d.stale);
+  const personalDevices = devices.filter(
+    (d) => d.category === "personal" && !d.stale,
+  );
+  if (workDevices.length === 0 && personalDevices.length === 0) return null;
+  if (workDevices.length > 0 && personalDevices.length > 0) {
+    return mostRecent(isWorkHours(now) ? workDevices : personalDevices);
+  }
+  return mostRecent(workDevices.length > 0 ? workDevices : personalDevices);
+}
+
+function deviceMessage(device, now) {
+  if (device.category === "work") {
+    return isWorkHours(now)
+      ? WORK_DEVICE_MESSAGE
+      : WORK_DEVICE_MESSAGE_AFTER_HOURS;
+  }
+  const key = device.sessionId || device.deviceId;
+  const index = hashString(key) % PERSONAL_DEVICE_MESSAGES.length;
+  return PERSONAL_DEVICE_MESSAGES[index];
+}
+
 const POLL_INTERVAL_MS = 5 * 1000;
 const TICK_INTERVAL_MS = 100;
 
 let latestStatuses = [];
+let latestDevices = [];
 
 function renderBadges() {
   const container = document.getElementById("status-badges");
@@ -249,10 +319,15 @@ function renderBadges() {
 
   const now = Date.now();
   const active = latestStatuses.filter((status) => status.playing);
+  const device = pickDevice(latestDevices, now);
+
+  const badges = [
+    ...active.map((status) => renderStatus(status, now)),
+    ...(device ? [idlePill(deviceMessage(device, now))] : []),
+  ];
+
   container.replaceChildren(
-    ...(active.length > 0
-      ? active.map((status) => renderStatus(status, now))
-      : [idlePill("Currently offline")]),
+    ...(badges.length > 0 ? badges : [idlePill("Currently offline")]),
   );
 }
 
@@ -266,6 +341,18 @@ function refreshStatusBadges() {
     .catch(() => {});
 }
 
+function refreshDeviceStatus() {
+  fetch(PC_STATUS_URL)
+    .then((res) => (res.ok ? res.json() : Promise.reject()))
+    .then((devices) => {
+      latestDevices = devices;
+      renderBadges();
+    })
+    .catch(() => {});
+}
+
 refreshStatusBadges();
+refreshDeviceStatus();
 setInterval(refreshStatusBadges, POLL_INTERVAL_MS);
+setInterval(refreshDeviceStatus, POLL_INTERVAL_MS);
 setInterval(renderBadges, TICK_INTERVAL_MS);
