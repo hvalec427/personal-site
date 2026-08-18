@@ -19,7 +19,7 @@
     auth_failed: "Login failed. Try again.",
   };
 
-  function formatXboxTimestamp(iso) {
+  function formatTimestamp(iso) {
     const date = new Date(iso);
     if (Number.isNaN(date.getTime())) return "";
     return date.toLocaleString("en-GB", {
@@ -31,32 +31,60 @@
     });
   }
 
-  // Just connection health for the integration — no game data belongs here,
-  // that's what a public widget would be for.
-  function renderXboxStatus(section, data) {
+  function renderConnectionStatus(section, label, data, actions) {
     section.replaceChildren();
 
     const status = document.createElement("p");
-    status.className = "xbox-status-line";
-    status.append("Xbox: ");
+    status.className = "connection-status-line";
+    status.append(`${label}: `);
     const strong = document.createElement("strong");
     strong.textContent = data.linked ? "Connected" : "Not connected";
     status.appendChild(strong);
 
     const fetched = document.createElement("p");
-    fetched.className = "xbox-status-date";
+    fetched.className = "connection-status-date";
     fetched.textContent = data.linkedAt
-      ? `Last fetched: ${formatXboxTimestamp(data.linkedAt)}`
+      ? `Last fetched: ${formatTimestamp(data.linkedAt)}`
       : "Last fetched: never";
 
+    const actionsRow = document.createElement("div");
+    actionsRow.className = "connection-actions";
+    actionsRow.append(...actions);
+
+    section.append(status, fetched, actionsRow);
+  }
+
+  function disconnectButton(endpoint, onDisconnected) {
     const button = document.createElement("button");
     button.type = "button";
-    button.className = "cv-button";
-    button.textContent = "Fetch now";
+    button.className = "cv-button cv-button-secondary";
+    button.textContent = "Disconnect";
 
     button.addEventListener("click", () => {
       button.disabled = true;
-      button.textContent = "Fetching…";
+      fetch(`${window.API_BASE_URL}${endpoint}`, {
+        method: "POST",
+        credentials: "include",
+      })
+        .then((res) => (res.ok ? res.json() : Promise.reject()))
+        .then(onDisconnected)
+        .catch(() => {
+          button.disabled = false;
+        });
+    });
+
+    return button;
+  }
+
+  function renderXboxStatus(section, data) {
+    const fetchButton = document.createElement("button");
+    fetchButton.type = "button";
+    fetchButton.className = "cv-button";
+    fetchButton.textContent = data.linked ? "Fetch now" : "Login with Xbox";
+
+    fetchButton.addEventListener("click", () => {
+      fetchButton.disabled = true;
+      fetchButton.textContent = "Fetching…";
       fetch(`${window.API_BASE_URL}/auth/xbox`, {
         method: "POST",
         credentials: "include",
@@ -64,12 +92,21 @@
         .then((res) => (res.ok ? res.json() : Promise.reject()))
         .then((updated) => renderXboxStatus(section, updated))
         .catch(() => {
-          button.disabled = false;
-          button.textContent = "Fetch failed, retry";
+          fetchButton.disabled = false;
+          fetchButton.textContent = "Fetch failed, retry";
         });
     });
 
-    section.append(status, fetched, button);
+    const actions = [fetchButton];
+    if (data.linked) {
+      actions.push(
+        disconnectButton("/auth/xbox/disconnect", (updated) =>
+          renderXboxStatus(section, updated),
+        ),
+      );
+    }
+
+    renderConnectionStatus(section, "Xbox", data, actions);
   }
 
   function renderXboxSection(section) {
@@ -78,6 +115,50 @@
     })
       .then((res) => (res.ok ? res.json() : Promise.reject()))
       .then((data) => renderXboxStatus(section, data))
+      .catch(() => {});
+  }
+
+  function renderSpotifyStatus(section, data) {
+    const connectButton = document.createElement("button");
+    connectButton.type = "button";
+    connectButton.className = "cv-button";
+    connectButton.textContent = data.linked
+      ? "Reconnect Spotify"
+      : "Login with Spotify";
+
+    connectButton.addEventListener("click", () => {
+      connectButton.disabled = true;
+      fetch(`${window.API_BASE_URL}/auth/spotify/handoff`, {
+        credentials: "include",
+      })
+        .then((res) => (res.ok ? res.json() : Promise.reject()))
+        .then(({ url }) => {
+          window.location.href = url;
+        })
+        .catch(() => {
+          connectButton.disabled = false;
+          connectButton.textContent = "Login with Spotify (failed, retry)";
+        });
+    });
+
+    const actions = [connectButton];
+    if (data.linked) {
+      actions.push(
+        disconnectButton("/auth/spotify/disconnect", (updated) =>
+          renderSpotifyStatus(section, updated),
+        ),
+      );
+    }
+
+    renderConnectionStatus(section, "Spotify", data, actions);
+  }
+
+  function renderSpotifySection(section) {
+    fetch(`${window.API_BASE_URL}/auth/spotify/status`, {
+      credentials: "include",
+    })
+      .then((res) => (res.ok ? res.json() : Promise.reject()))
+      .then((data) => renderSpotifyStatus(section, data))
       .catch(() => {});
   }
 
@@ -97,9 +178,12 @@
     button.textContent = "Log out";
 
     const xboxSection = document.createElement("div");
-    xboxSection.className = "xbox-section";
+    xboxSection.className = "connection-section";
 
-    container.append(p, button, xboxSection);
+    const spotifySection = document.createElement("div");
+    spotifySection.className = "connection-section";
+
+    container.append(p, button, xboxSection, spotifySection);
 
     button.addEventListener("click", () => {
       fetch(`${window.API_BASE_URL}/auth/logout`, {
@@ -109,6 +193,7 @@
     });
 
     renderXboxSection(xboxSection);
+    renderSpotifySection(spotifySection);
   }
 
   function renderSignedOut(error) {
@@ -127,8 +212,6 @@
     container.append(p, link);
   }
 
-  // The admin token lives in an httpOnly cookie the browser manages on its
-  // own — this is the only way to learn whether it's set and valid.
   fetch(`${window.API_BASE_URL}/auth/me`, { credentials: "include" })
     .then((res) => (res.ok ? res.json() : Promise.reject()))
     .then((data) => renderSignedIn(data.email))
