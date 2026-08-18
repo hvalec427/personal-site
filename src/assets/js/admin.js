@@ -195,9 +195,7 @@
       actions = [input, saveButton];
     }
 
-    const accountLine = data.personaName
-      ? `${data.personaName} (${data.steamId})`
-      : null;
+    const accountLine = data.personaName || null;
     renderConnectionStatus(section, "Steam", data, actions, accountLine);
   }
 
