@@ -80,7 +80,9 @@
     const fetchButton = document.createElement("button");
     fetchButton.type = "button";
     fetchButton.className = "cv-button";
-    fetchButton.textContent = data.linked ? "Fetch now" : "Login with Xbox";
+    fetchButton.textContent = data.linked
+      ? "Check connection"
+      : "Login with Xbox";
 
     fetchButton.addEventListener("click", () => {
       fetchButton.disabled = true;
@@ -118,12 +120,45 @@
       .catch(() => {});
   }
 
+  function renderSteamStatus(section, data) {
+    const fetchButton = document.createElement("button");
+    fetchButton.type = "button";
+    fetchButton.className = "cv-button";
+    fetchButton.textContent = "Check connection";
+
+    fetchButton.addEventListener("click", () => {
+      fetchButton.disabled = true;
+      fetchButton.textContent = "Fetching…";
+      fetch(`${window.API_BASE_URL}/auth/steam`, {
+        method: "POST",
+        credentials: "include",
+      })
+        .then((res) => (res.ok ? res.json() : Promise.reject()))
+        .then((updated) => renderSteamStatus(section, updated))
+        .catch(() => {
+          fetchButton.disabled = false;
+          fetchButton.textContent = "Fetch failed, retry";
+        });
+    });
+
+    renderConnectionStatus(section, "Steam", data, [fetchButton]);
+  }
+
+  function renderSteamSection(section) {
+    fetch(`${window.API_BASE_URL}/auth/steam/status`, {
+      credentials: "include",
+    })
+      .then((res) => (res.ok ? res.json() : Promise.reject()))
+      .then((data) => renderSteamStatus(section, data))
+      .catch(() => {});
+  }
+
   function renderSpotifyStatus(section, data) {
     const connectButton = document.createElement("button");
     connectButton.type = "button";
     connectButton.className = "cv-button";
     connectButton.textContent = data.linked
-      ? "Reconnect Spotify"
+      ? "Check connection"
       : "Login with Spotify";
 
     connectButton.addEventListener("click", () => {
@@ -183,7 +218,10 @@
     const spotifySection = document.createElement("div");
     spotifySection.className = "connection-section";
 
-    container.append(p, button, xboxSection, spotifySection);
+    const steamSection = document.createElement("div");
+    steamSection.className = "connection-section";
+
+    container.append(p, button, xboxSection, spotifySection, steamSection);
 
     button.addEventListener("click", () => {
       fetch(`${window.API_BASE_URL}/auth/logout`, {
@@ -194,6 +232,7 @@
 
     renderXboxSection(xboxSection);
     renderSpotifySection(spotifySection);
+    renderSteamSection(steamSection);
   }
 
   function renderSignedOut(error) {
