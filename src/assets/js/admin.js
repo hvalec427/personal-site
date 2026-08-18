@@ -87,6 +87,13 @@
     return button;
   }
 
+  function hintLine(...nodes) {
+    const p = document.createElement("p");
+    p.className = "connection-hint";
+    p.append(...nodes);
+    return p;
+  }
+
   function renderXboxStatus(section, data) {
     const fetchButton = document.createElement("button");
     fetchButton.type = "button";
@@ -197,6 +204,14 @@
 
     const accountLine = data.personaName || null;
     renderConnectionStatus(section, "Steam", data, actions, accountLine);
+
+    if (!data.linked) {
+      section.appendChild(
+        hintLine(
+          "Find your Steam ID by opening your Steam profile in a browser — it's the number in the page URL (steamcommunity.com/profiles/<id>).",
+        ),
+      );
+    }
   }
 
   function renderSteamSection(section) {
@@ -274,6 +289,22 @@
 
     const accountLine = data.onlineId || null;
     renderConnectionStatus(section, "PSN", data, actions, accountLine);
+
+    if (!data.linked) {
+      const link = document.createElement("a");
+      link.href = "https://ca.account.sony.com/api/v1/ssocookie";
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = "ca.account.sony.com/api/v1/ssocookie";
+
+      section.appendChild(
+        hintLine(
+          "Get an NPSSO token by logging into playstation.com, then visiting ",
+          link,
+          " in the same browser and copying the npsso value from the JSON response.",
+        ),
+      );
+    }
   }
 
   function renderPsnSection(section) {

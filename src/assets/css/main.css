@@ -1033,6 +1033,11 @@ ul li + li {
   font-size: 12px;
 }
 
+.connection-hint {
+  color: var(--secondary);
+  font-size: 12px;
+}
+
 .connection-actions {
   display: flex;
   flex-wrap: wrap;
