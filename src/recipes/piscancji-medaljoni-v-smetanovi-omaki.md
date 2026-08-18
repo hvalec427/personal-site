@@ -1,6 +1,7 @@
 ---
 title: Piščančji medaljoni v smetanovi omaki
 created: 2026-08-10
+category: kosilo
 ---
 
 # Piščančji medaljoni v smetanovi omaki

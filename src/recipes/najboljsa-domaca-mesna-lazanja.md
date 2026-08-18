@@ -1,6 +1,7 @@
 ---
 title: Najboljša domača mesna lazanja
 created: 2026-08-10
+category: kosilo
 ---
 
 # Najboljša domača mesna lazanja

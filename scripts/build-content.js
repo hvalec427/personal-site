@@ -84,6 +84,12 @@ const SECTIONS = [
     title: "Recipes",
     description: "Recipes I actually cook and want to remember.",
     backLabel: "Recipes",
+    categories: [
+      { key: "zajtrk", label: "Zajtrki" },
+      { key: "kosilo", label: "Kosila" },
+      { key: "priloga", label: "Priloge" },
+      { key: "sladica", label: "Sladice" },
+    ],
   },
 ];
 
@@ -260,13 +266,33 @@ function markdownToHtml(markdown) {
   return out.join("\n");
 }
 
-function renderIndex(section, entries) {
-  const items = entries
+function renderEntryList(section, entries) {
+  return entries
     .map(
       ({ slug, title }) =>
         `<li><a href="/${section.name}/${slug}">${escapeHtml(title)}</a></li>`,
     )
     .join("\n        ");
+}
+
+function renderIndex(section, entries) {
+  const body = section.categories
+    ? section.categories
+        .map(({ key, label }) => ({
+          label,
+          group: entries.filter((e) => e.category === key),
+        }))
+        .filter(({ group }) => group.length)
+        .map(
+          ({ label, group }) => `<h2 id="${toId(label)}">${label}</h2>
+      <ul>
+        ${renderEntryList(section, group)}
+      </ul>`,
+        )
+        .join("\n      ")
+    : `<ul>
+        ${renderEntryList(section, entries)}
+      </ul>`;
   return `<!doctype html>
 <html lang="en">
   <head>
@@ -289,9 +315,7 @@ function renderIndex(section, entries) {
     <main class="content">
       <h1 id="${section.name}">${section.title}</h1>
       <p>${section.description}</p>
-      <ul>
-        ${items}
-      </ul>
+      ${body}
     </main>
     <!-- include:footer -->
     <script defer src="https://cloud.umami.is/script.js" data-website-id="e3adec61-3166-4f84-a957-b6852d70e64b"></script>
@@ -455,6 +479,7 @@ for (const section of SECTIONS) {
       slug,
       title: isDraft ? `[DRAFT] ${title}` : title,
       created,
+      category: meta.category,
     });
   }
 

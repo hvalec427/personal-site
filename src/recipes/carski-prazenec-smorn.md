@@ -1,6 +1,7 @@
 ---
 title: Carski praženec (šmorn)
 created: 2026-08-17
+category: sladica
 ---
 
 # Carski praženec (šmorn)

@@ -1,6 +1,7 @@
 ---
 title: Osnovne mesne kroglice
 created: 2026-08-14
+category: kosilo
 draft: true
 ---
 

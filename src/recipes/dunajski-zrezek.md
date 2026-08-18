@@ -1,6 +1,7 @@
 ---
 title: Piščančji zrezek po dunajsko
 created: 2026-08-15
+category: kosilo
 ---
 
 # Piščančji zrezek po dunajsko
@@ -31,7 +32,7 @@ V globljo ponev vlijemo 2 dl olja in dodamo 2 žlici masla. Maščobo, ki mora s
 
 Najbolje je, da v segreti maščobi cvremo po dva zrezka hkrati, če imamo veliko ponev, pa lahko hkrati ocvremo tudi vse štiri zrezke. Na vsaki strani jih cvremo po 2-3 minute, ocvrti pa so, ko dobijo lepo zlato rjavo barvo.
 
-Ocvrte zrezke položimo na krožnik, obložen s papirnatimi brisačkami, in počakamo, da se odteče odvečno olje.
+Ocvrte zrezke položimo na rešetko ali na krožnik, obložen s papirnatimi brisačkami, in počakamo, da se odteče odvečno olje.
 
 Še tople serviramo skupaj s katero od krompirjevih prilog, na primer s [praženim krompirjem](/recipes/prazen-krompir), pire krompirjem, ocvrtim krompirjem ali krompirjevo solato, odlični pa so tudi s hrustljavo zeljno solato. Zraven postrežemo še krhelj limone.
 

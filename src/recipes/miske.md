@@ -1,6 +1,7 @@
 ---
 title: Miške
 created: 2026-08-10
+category: sladica
 ---
 
 # Miške

@@ -1,6 +1,7 @@
 ---
 title: Belgijski vaflji
 created: 2026-08-14
+category: sladica
 ---
 
 # Belgijski vaflji

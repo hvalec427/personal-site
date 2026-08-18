@@ -1,6 +1,7 @@
 ---
 title: Mesne kroglice v smetanovi omaki z makaroni
 created: 2026-08-14
+category: kosilo
 draft: true
 ---
 
