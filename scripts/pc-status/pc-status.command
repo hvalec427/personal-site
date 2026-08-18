@@ -96,6 +96,18 @@ JSON
 }
 
 install() {
+  if [[ -f "$SCRIPT_DEST" ]]; then
+    echo "hvalec PC status is already set up on this Mac."
+    read -rp "Update the script only and keep the existing server/token? [Y/n] " keep
+    if [[ ! "$keep" =~ ^[Nn] ]]; then
+      cp "${BASH_SOURCE[0]}" "$SCRIPT_DEST"
+      chmod +x "$SCRIPT_DEST"
+      echo "Updated. Your server and token are unchanged — launchd will use the new script on its next run."
+      return
+    fi
+    echo
+  fi
+
   echo "hvalec PC status — setup"
   echo "========================="
   echo
