@@ -91,12 +91,14 @@ function scrollingText(text, font, availableWidth, now) {
   return wrap;
 }
 
-function idlePill(text) {
+function idlePill(text, online = false) {
   const el = document.createElement("div");
   el.className = "status-badge";
 
   const dot = document.createElement("span");
-  dot.className = "status-badge-dot";
+  dot.className = online
+    ? "status-badge-dot status-badge-dot--online"
+    : "status-badge-dot";
 
   const label = document.createElement("span");
   label.textContent = text;
@@ -236,7 +238,7 @@ function renderStatus(status, now) {
   if (status.source === "steam") return steamCard(status, now);
   if (status.source === "psn") return psnCard(status, now);
   if (status.source === "spotify") return spotifyCard(status, now);
-  return idlePill(status.title || status.track || "Playing");
+  return idlePill(status.title || status.track || "Playing", true);
 }
 
 const PERSONAL_DEVICE_MESSAGES = [
@@ -307,6 +309,83 @@ function deviceMessage(device, now) {
   return PERSONAL_DEVICE_MESSAGES[index];
 }
 
+function formatGB(bytes) {
+  return (bytes / 1024 ** 3).toFixed(1);
+}
+
+function formatUptime(seconds) {
+  const days = Math.floor(seconds / 86400);
+  const hours = Math.floor((seconds % 86400) / 3600);
+  if (days > 0) return `${days}d ${hours}h`;
+  const minutes = Math.floor((seconds % 3600) / 60);
+  return `${hours}h ${minutes}m`;
+}
+
+function deviceStatRow(label, value) {
+  const row = document.createElement("div");
+  row.className = "stat-row";
+
+  const labelEl = document.createElement("span");
+  labelEl.className = "stat-label";
+  labelEl.textContent = label;
+
+  const valueEl = document.createElement("span");
+  valueEl.className = "stat-value";
+  valueEl.textContent = value;
+
+  row.append(labelEl, valueEl);
+  return row;
+}
+
+function deviceCard(device, now) {
+  const card = document.createElement("div");
+  card.className = "now-playing-card";
+
+  const header = document.createElement("div");
+  header.className = "now-playing-title device-card-header";
+
+  const dot = document.createElement("span");
+  dot.className = "status-badge-dot status-badge-dot--online";
+
+  const label = scrollingText(
+    deviceMessage(device, now),
+    FONT_BOLD,
+    CARD_CONTENT_WIDTH_PX - 16,
+    now,
+  );
+
+  header.append(dot, label);
+  card.appendChild(header);
+
+  if (device.cpu?.usagePercent != null) {
+    card.appendChild(
+      deviceStatRow("CPU", `${Math.round(device.cpu.usagePercent)}%`),
+    );
+  }
+  if (device.memory?.usedBytes != null && device.memory?.totalBytes != null) {
+    card.appendChild(
+      deviceStatRow(
+        "RAM",
+        `${formatGB(device.memory.usedBytes)} / ${Math.round(
+          device.memory.totalBytes / 1024 ** 3,
+        )} GB`,
+      ),
+    );
+  }
+  if (device.gpu?.usagePercent != null) {
+    card.appendChild(
+      deviceStatRow("GPU", `${Math.round(device.gpu.usagePercent)}%`),
+    );
+  }
+  if (device.uptimeSeconds != null) {
+    card.appendChild(
+      deviceStatRow("Uptime", formatUptime(device.uptimeSeconds)),
+    );
+  }
+
+  return card;
+}
+
 const POLL_INTERVAL_MS = 5 * 1000;
 const TICK_INTERVAL_MS = 100;
 
@@ -323,7 +402,7 @@ function renderBadges() {
 
   const badges = [
     ...active.map((status) => renderStatus(status, now)),
-    ...(device ? [idlePill(deviceMessage(device, now))] : []),
+    ...(device ? [deviceCard(device, now)] : []),
   ];
 
   container.replaceChildren(

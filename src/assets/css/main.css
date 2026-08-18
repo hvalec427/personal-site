@@ -1144,7 +1144,7 @@ ul li + li {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  align-self: stretch;
+  align-self: center;
   background: var(--surface);
   border: 1px solid var(--secondary);
   border-radius: 8px;
@@ -1160,6 +1160,16 @@ ul li + li {
   border-radius: 50%;
   background: var(--secondary);
   flex-shrink: 0;
+}
+
+.status-badge-dot--online {
+  background: #3fb950;
+}
+
+.device-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .now-playing-card {
