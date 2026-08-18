@@ -233,11 +233,48 @@ function spotifyCard(status, now) {
   return card;
 }
 
+function discordCard(status) {
+  const card = document.createElement("div");
+  card.className = "now-playing-card";
+
+  const header = document.createElement("div");
+  header.className = "now-playing-header";
+  header.textContent = "Online on Discord";
+  card.appendChild(header);
+
+  const row = document.createElement("div");
+  row.className = "discord-account-card";
+
+  const avatar = document.createElement("img");
+  avatar.className = "discord-avatar";
+  avatar.src = status.avatarUrl;
+  avatar.alt = "";
+
+  const info = document.createElement("div");
+  info.className = "discord-account-info";
+
+  const name = document.createElement("p");
+  name.className = "discord-account-name";
+  name.textContent = status.displayName || status.username;
+
+  const username = document.createElement("p");
+  username.className = "discord-account-username";
+  username.textContent = `@${status.username}`;
+
+  info.append(name, username);
+
+  row.append(avatar, info);
+  card.appendChild(row);
+
+  return card;
+}
+
 function renderStatus(status, now) {
   if (status.source === "xbox") return xboxCard(status, now);
   if (status.source === "steam") return steamCard(status, now);
   if (status.source === "psn") return psnCard(status, now);
   if (status.source === "spotify") return spotifyCard(status, now);
+  if (status.source === "discord") return discordCard(status);
   return idlePill(status.title || status.track || "Playing", true);
 }
 
@@ -392,9 +429,39 @@ const TICK_INTERVAL_MS = 100;
 let latestStatuses = [];
 let latestDevices = [];
 
+// The whole container gets torn down and rebuilt every tick to drive the
+// marquee scroll — fine normally, but it wipes any text selection inside it
+// out from under the user. Checking selection.isCollapsed alone isn't
+// enough: at the instant of mousedown, before any drag distance, the
+// selection is still collapsed, so a tick landing in that window replaces
+// the very node the user just pressed on and the drag never gets a chance
+// to start. Track mousedown/mouseup directly so rebuilding pauses for the
+// whole gesture, not just once a selection already exists.
+let statusBadgesMouseDown = false;
+document.addEventListener("mousedown", (event) => {
+  const container = document.getElementById("status-badges");
+  if (container && container.contains(event.target)) {
+    statusBadgesMouseDown = true;
+  }
+});
+document.addEventListener("mouseup", () => {
+  statusBadgesMouseDown = false;
+});
+
 function renderBadges() {
   const container = document.getElementById("status-badges");
   if (!container) return;
+
+  if (statusBadgesMouseDown) return;
+
+  const selection = window.getSelection();
+  if (
+    selection &&
+    !selection.isCollapsed &&
+    container.contains(selection.anchorNode)
+  ) {
+    return;
+  }
 
   const now = Date.now();
   const active = latestStatuses.filter((status) => status.playing);
@@ -405,9 +472,39 @@ function renderBadges() {
     ...(device ? [deviceCard(device, now)] : []),
   ];
 
-  container.replaceChildren(
-    ...(badges.length > 0 ? badges : [idlePill("Currently offline")]),
+  reconcileBadges(
+    container,
+    badges.length > 0 ? badges : [idlePill("Currently offline")],
   );
+}
+
+// container.replaceChildren(...) unconditionally tears down and reinserts
+// every card each tick, even ones whose markup didn't change — that
+// disconnect/reconnect is enough to collapse an expanded node in DevTools'
+// Elements panel. Only touch the slots whose rendered markup actually
+// differs from what's already there, so a static card (nothing to scroll)
+// never gets its DOM node replaced at all, and an animating card's neighbors
+// are left alone.
+function reconcileBadges(container, newElements) {
+  const current = Array.from(container.children);
+  const max = Math.max(current.length, newElements.length);
+
+  for (let i = 0; i < max; i++) {
+    const currentEl = current[i];
+    const newEl = newElements[i];
+
+    if (!newEl) {
+      currentEl?.remove();
+      continue;
+    }
+    if (!currentEl) {
+      container.appendChild(newEl);
+      continue;
+    }
+    if (currentEl.outerHTML !== newEl.outerHTML) {
+      currentEl.replaceWith(newEl);
+    }
+  }
 }
 
 function refreshStatusBadges() {

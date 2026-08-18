@@ -376,6 +376,69 @@
       .catch(() => {});
   }
 
+  function renderDiscordStatus(section, data) {
+    const connectButton = document.createElement("button");
+    connectButton.type = "button";
+    connectButton.className = "cv-button";
+    connectButton.textContent = data.linked
+      ? "Check connection"
+      : "Login with Discord";
+
+    connectButton.addEventListener("click", () => {
+      connectButton.disabled = true;
+
+      if (data.linked) {
+        connectButton.textContent = "Checking…";
+        fetch(`${window.API_BASE_URL}/auth/discord/refresh`, {
+          method: "POST",
+          credentials: "include",
+        })
+          .then((res) => (res.ok ? res.json() : Promise.reject()))
+          .then((updated) => renderDiscordStatus(section, updated))
+          .catch(() => {
+            connectButton.disabled = false;
+            connectButton.textContent = "Check failed, retry";
+          });
+        return;
+      }
+
+      fetch(`${window.API_BASE_URL}/auth/discord/handoff`, {
+        credentials: "include",
+      })
+        .then((res) => (res.ok ? res.json() : Promise.reject()))
+        .then(({ url }) => {
+          window.location.href = url;
+        })
+        .catch(() => {
+          connectButton.disabled = false;
+          connectButton.textContent = "Login with Discord (failed, retry)";
+        });
+    });
+
+    const actions = [connectButton];
+    if (data.linked) {
+      actions.push(
+        disconnectButton("/auth/discord/disconnect", (updated) =>
+          renderDiscordStatus(section, updated),
+        ),
+      );
+    }
+
+    const accountLine = data.username
+      ? `${data.displayName || data.username} (@${data.username})`
+      : null;
+    renderConnectionStatus(section, "Discord", data, actions, accountLine);
+  }
+
+  function renderDiscordSection(section) {
+    fetch(`${window.API_BASE_URL}/auth/discord/status`, {
+      credentials: "include",
+    })
+      .then((res) => (res.ok ? res.json() : Promise.reject()))
+      .then((data) => renderDiscordStatus(section, data))
+      .catch(() => {});
+  }
+
   function formatCategory(category) {
     return category === "work" ? "Work" : "Personal";
   }
@@ -564,6 +627,9 @@
     const psnSection = document.createElement("div");
     psnSection.className = "connection-section";
 
+    const discordSection = document.createElement("div");
+    discordSection.className = "connection-section";
+
     const devicesSection = document.createElement("div");
     devicesSection.className = "connection-section";
 
@@ -574,6 +640,7 @@
       spotifySection,
       steamSection,
       psnSection,
+      discordSection,
       devicesSection,
     );
 
@@ -588,6 +655,7 @@
     renderSpotifySection(spotifySection);
     renderSteamSection(steamSection);
     renderPsnSection(psnSection);
+    renderDiscordSection(discordSection);
     renderDevicesSection(devicesSection);
   }
 
