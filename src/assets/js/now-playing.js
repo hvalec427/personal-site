@@ -196,7 +196,7 @@ function renderBadges() {
   container.replaceChildren(
     ...(active.length > 0
       ? active.map((status) => renderStatus(status, now))
-      : [idlePill("Not playing anything")]),
+      : [idlePill("Currently offline")]),
   );
 }
 
