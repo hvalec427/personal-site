@@ -31,7 +31,7 @@
     });
   }
 
-  function renderConnectionStatus(section, label, data, actions) {
+  function renderConnectionStatus(section, label, data, actions, accountLine) {
     section.replaceChildren();
 
     const status = document.createElement("p");
@@ -41,17 +41,28 @@
     strong.textContent = data.linked ? "Connected" : "Not connected";
     status.appendChild(strong);
 
+    const children = [status];
+
+    if (data.linked && accountLine) {
+      const account = document.createElement("p");
+      account.className = "connection-account-line";
+      account.textContent = accountLine;
+      children.push(account);
+    }
+
     const fetched = document.createElement("p");
     fetched.className = "connection-status-date";
     fetched.textContent = data.linkedAt
       ? `Last fetched: ${formatTimestamp(data.linkedAt)}`
       : "Last fetched: never";
+    children.push(fetched);
 
     const actionsRow = document.createElement("div");
     actionsRow.className = "connection-actions";
     actionsRow.append(...actions);
+    children.push(actionsRow);
 
-    section.append(status, fetched, actionsRow);
+    section.append(...children);
   }
 
   function disconnectButton(endpoint, onDisconnected) {
@@ -108,7 +119,7 @@
       );
     }
 
-    renderConnectionStatus(section, "Xbox", data, actions);
+    renderConnectionStatus(section, "Xbox", data, actions, data.gamertag);
   }
 
   function renderXboxSection(section) {
@@ -121,27 +132,73 @@
   }
 
   function renderSteamStatus(section, data) {
-    const fetchButton = document.createElement("button");
-    fetchButton.type = "button";
-    fetchButton.className = "cv-button";
-    fetchButton.textContent = "Check connection";
+    let actions;
 
-    fetchButton.addEventListener("click", () => {
-      fetchButton.disabled = true;
-      fetchButton.textContent = "Fetching…";
-      fetch(`${window.API_BASE_URL}/auth/steam`, {
-        method: "POST",
-        credentials: "include",
-      })
-        .then((res) => (res.ok ? res.json() : Promise.reject()))
-        .then((updated) => renderSteamStatus(section, updated))
-        .catch(() => {
-          fetchButton.disabled = false;
-          fetchButton.textContent = "Fetch failed, retry";
-        });
-    });
+    if (data.linked) {
+      const fetchButton = document.createElement("button");
+      fetchButton.type = "button";
+      fetchButton.className = "cv-button";
+      fetchButton.textContent = "Check connection";
 
-    renderConnectionStatus(section, "Steam", data, [fetchButton]);
+      fetchButton.addEventListener("click", () => {
+        fetchButton.disabled = true;
+        fetchButton.textContent = "Fetching…";
+        fetch(`${window.API_BASE_URL}/auth/steam`, {
+          method: "POST",
+          credentials: "include",
+        })
+          .then((res) => (res.ok ? res.json() : Promise.reject()))
+          .then((updated) => renderSteamStatus(section, updated))
+          .catch(() => {
+            fetchButton.disabled = false;
+            fetchButton.textContent = "Fetch failed, retry";
+          });
+      });
+
+      actions = [
+        fetchButton,
+        disconnectButton("/auth/steam/disconnect", (updated) =>
+          renderSteamStatus(section, updated),
+        ),
+      ];
+    } else {
+      const input = document.createElement("input");
+      input.type = "text";
+      input.className = "cv-input";
+      input.placeholder = "Steam ID";
+      input.setAttribute("aria-label", "Steam ID");
+
+      const saveButton = document.createElement("button");
+      saveButton.type = "button";
+      saveButton.className = "cv-button";
+      saveButton.textContent = "Link";
+
+      saveButton.addEventListener("click", () => {
+        const steamId = input.value.trim();
+        if (!steamId) return;
+        saveButton.disabled = true;
+        saveButton.textContent = "Saving…";
+        fetch(`${window.API_BASE_URL}/auth/steam`, {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ steamId }),
+        })
+          .then((res) => (res.ok ? res.json() : Promise.reject()))
+          .then((updated) => renderSteamStatus(section, updated))
+          .catch(() => {
+            saveButton.disabled = false;
+            saveButton.textContent = "Save failed, retry";
+          });
+      });
+
+      actions = [input, saveButton];
+    }
+
+    const accountLine = data.personaName
+      ? `${data.personaName} (${data.steamId})`
+      : null;
+    renderConnectionStatus(section, "Steam", data, actions, accountLine);
   }
 
   function renderSteamSection(section) {
@@ -163,6 +220,22 @@
 
     connectButton.addEventListener("click", () => {
       connectButton.disabled = true;
+
+      if (data.linked) {
+        connectButton.textContent = "Checking…";
+        fetch(`${window.API_BASE_URL}/auth/spotify/refresh`, {
+          method: "POST",
+          credentials: "include",
+        })
+          .then((res) => (res.ok ? res.json() : Promise.reject()))
+          .then((updated) => renderSpotifyStatus(section, updated))
+          .catch(() => {
+            connectButton.disabled = false;
+            connectButton.textContent = "Check failed, retry";
+          });
+        return;
+      }
+
       fetch(`${window.API_BASE_URL}/auth/spotify/handoff`, {
         credentials: "include",
       })
@@ -185,7 +258,7 @@
       );
     }
 
-    renderConnectionStatus(section, "Spotify", data, actions);
+    renderConnectionStatus(section, "Spotify", data, actions, data.displayName);
   }
 
   function renderSpotifySection(section) {

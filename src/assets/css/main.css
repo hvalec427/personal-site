@@ -1006,6 +1006,10 @@ ul li + li {
   white-space: nowrap;
 }
 
+#admin-panel p {
+  margin: 0;
+}
+
 .connection-section {
   margin-top: 1rem;
   display: flex;
@@ -1018,15 +1022,35 @@ ul li + li {
   font-size: 14px;
 }
 
+.connection-account-line {
+  color: var(--secondary);
+  font-size: 13px;
+}
+
 .connection-status-date {
   color: var(--secondary);
   font-size: 12px;
-  margin-bottom: 4px;
 }
 
 .connection-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
+}
+
+.cv-input {
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--primary);
+  background: var(--surface);
+  border: 1px solid var(--secondary);
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+.cv-input:focus {
+  outline: none;
+  border-color: var(--highlight);
 }
 
 .cv-button-secondary {
