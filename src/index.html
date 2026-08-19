@@ -54,63 +54,230 @@
     <script src="/assets/js/now-playing.js" defer></script>
   </head>
 
-  <body>
+  <body class="has-status-column">
     <!-- include:header -->
 
-    <main class="content">
-      <h1
-        id="hi-im-žiga-hvalec-a-mobile-developer-focused-on-crafting-fast-reliable-and-polished-apps"
-      >
-        Hi, I’m Žiga Hvalec, a mobile developer focused on crafting fast,
-        reliable, and polished apps.
-      </h1>
+    <div class="page-layout">
+      <main class="content">
+        <h1
+          id="hi-im-žiga-hvalec-a-mobile-developer-focused-on-crafting-fast-reliable-and-polished-apps"
+        >
+          Hi, I’m Žiga Hvalec, a mobile developer focused on crafting fast,
+          reliable, and polished apps.
+        </h1>
 
-      <p>
-        I specialize in building mobile experiences and enjoy working across
-        platforms and technologies. This site is a simple collection of my
-        projects, ideas, and professional journey.
-      </p>
+        <p>
+          I specialize in building mobile experiences and enjoy working across
+          platforms and technologies. This site is a simple collection of my
+          projects, ideas, and professional journey.
+        </p>
 
-      <h2 id="navigation">Navigation</h2>
+        <h2 id="navigation">Navigation</h2>
 
-      <ul class="no-dots">
-        <ul>
-          <li>
-            <span><a href="/me">/me</a></span>
-          </li>
-          <li>
-            <span><a href="/work-history">/work-history</a></span>
-          </li>
-          <li>
-            <span><a href="/projects">/projects</a></span>
-          </li>
-          <li>
-            <span><a href="/dog">/dog</a></span>
-          </li>
-          <li>
-            <span><a href="/more">/more</a></span>
-          </li>
+        <ul class="no-dots">
+          <ul>
+            <li>
+              <span><a href="/me">/me</a></span>
+            </li>
+            <li>
+              <span><a href="/work-history">/work-history</a></span>
+            </li>
+            <li>
+              <span><a href="/projects">/projects</a></span>
+            </li>
+            <li>
+              <span><a href="/dog">/dog</a></span>
+            </li>
+            <li>
+              <span><a href="/more">/more</a></span>
+            </li>
+          </ul>
         </ul>
-      </ul>
 
-      <div class="cards-row">
-        <div class="location-card">
-          <div class="location-card-title">Based in</div>
-          <div id="location-map" class="location-map"></div>
-          <div class="location-card-footer">
-            <span class="location-card-place">Maribor, SI</span>
-            <span class="location-card-time" id="location-time">--:--:--</span>
+        <div class="cards-row">
+          <div class="location-card">
+            <div class="location-card-title">Based in</div>
+            <div id="location-map" class="location-map"></div>
+            <div class="location-card-footer">
+              <span class="location-card-place">Maribor, SI</span>
+              <span class="location-card-time" id="location-time"
+                >--:--:--</span
+              >
+            </div>
+          </div>
+
+          <div class="weather-card">
+            <div class="location-card-title">
+              Weather
+              <span class="info-icon" tabindex="0">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="16" x2="12" y2="12"></line>
+                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                <span class="info-tooltip info-tooltip-below">
+                  Forecast by
+                  <a
+                    href="https://open-meteo.com"
+                    target="_blank"
+                    rel="noopener"
+                    >Open-Meteo</a
+                  >. Twilight by
+                  <a
+                    href="https://sunrise-sunset.org"
+                    target="_blank"
+                    rel="noopener"
+                    >Sunrise-Sunset.org</a
+                  >.
+                </span>
+              </span>
+            </div>
+            <div class="weather-now" id="weather-now"></div>
+            <div class="weather-hours" id="weather-hours"></div>
+            <div class="weather-sun" id="weather-sun"></div>
+          </div>
+
+          <div class="stats-panel">
+            <div class="location-card-title">Site Stats</div>
+            <div class="stats-panel-body">
+              <div class="stat-row">
+                <span class="stat-label">Server time</span>
+                <span class="stat-value" id="local-time">--:--:--</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-label">Last deployed</span>
+                <span class="stat-value" id="uptime">--</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-label">Deploy commit</span>
+                <span class="stat-value" id="latest-commit">--</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-label">Website status</span>
+                <span class="stat-value" id="site-status">--</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-label">
+                  Unique visitors
+                  <span class="info-icon" tabindex="0">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="12" y1="16" x2="12" y2="12"></line>
+                      <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                    <span class="info-tooltip">
+                      Counted once per browser, powered by
+                      <a
+                        href="https://jasoncameron.dev/abacus/"
+                        target="_blank"
+                        rel="noopener"
+                        >Abacus</a
+                      >.
+                    </span>
+                  </span>
+                </span>
+                <span class="stat-value" id="unique-visitor-count">--</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-label">
+                  Reloads
+                  <span class="info-icon" tabindex="0">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="12" y1="16" x2="12" y2="12"></line>
+                      <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                    <span class="info-tooltip">
+                      Total page loads, powered by
+                      <a
+                        href="https://jasoncameron.dev/abacus/"
+                        target="_blank"
+                        rel="noopener"
+                        >Abacus</a
+                      >.
+                    </span>
+                  </span>
+                </span>
+                <span class="stat-value" id="visitor-count">--</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-label">
+                  Someone is here
+                  <span class="info-icon" tabindex="0">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="12" y1="16" x2="12" y2="12"></line>
+                      <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                    <span class="info-tooltip">
+                      Live visitor count, powered by
+                      <a
+                        href="https://presence.hvalec.com"
+                        target="_blank"
+                        rel="noopener"
+                        >Presence</a
+                      >.
+                    </span>
+                  </span>
+                </span>
+                <span class="stat-value" id="presence-count">--</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="weather-card">
-          <div class="location-card-title">
-            Weather
-            <span class="info-icon" tabindex="0">
+        <div class="posts-card">
+          <div class="posts-card-header">
+            <span>Latest Posts</span>
+            <a
+              href="/blog"
+              class="posts-card-link"
+              aria-label="View all blog posts"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="12"
-                height="12"
+                width="18"
+                height="18"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -118,180 +285,24 @@
                 stroke-linecap="round"
                 stroke-linejoin="round"
               >
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="12" y1="16" x2="12" y2="12"></line>
-                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                <path
+                  d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6"
+                ></path>
+                <path d="M11 13l9 -9"></path>
+                <path d="M15 4h5v5"></path>
               </svg>
-              <span class="info-tooltip info-tooltip-below">
-                Forecast by
-                <a href="https://open-meteo.com" target="_blank" rel="noopener"
-                  >Open-Meteo</a
-                >. Twilight by
-                <a
-                  href="https://sunrise-sunset.org"
-                  target="_blank"
-                  rel="noopener"
-                  >Sunrise-Sunset.org</a
-                >.
-              </span>
-            </span>
+            </a>
           </div>
-          <div class="weather-now" id="weather-now"></div>
-          <div class="weather-hours" id="weather-hours"></div>
-          <div class="weather-sun" id="weather-sun"></div>
+          <ul class="posts-list no-dots" id="latest-posts"></ul>
         </div>
+      </main>
 
-        <div class="stats-panel">
-          <div class="location-card-title">Site Stats</div>
-          <div class="stats-panel-body">
-            <div class="stat-row">
-              <span class="stat-label">Current time</span>
-              <span class="stat-value" id="local-time">--:--:--</span>
-            </div>
-            <div class="stat-row">
-              <span class="stat-label">Deployed</span>
-              <span class="stat-value" id="uptime">--</span>
-            </div>
-            <div class="stat-row">
-              <span class="stat-label">Latest commit</span>
-              <span class="stat-value" id="latest-commit">--</span>
-            </div>
-            <div class="stat-row">
-              <span class="stat-label">Status</span>
-              <span class="stat-value" id="site-status">--</span>
-            </div>
-            <div class="stat-row">
-              <span class="stat-label">
-                Unique visitors
-                <span class="info-icon" tabindex="0">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="12"
-                    height="12"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="12" y1="16" x2="12" y2="12"></line>
-                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                  </svg>
-                  <span class="info-tooltip">
-                    Counted once per browser, powered by
-                    <a
-                      href="https://jasoncameron.dev/abacus/"
-                      target="_blank"
-                      rel="noopener"
-                      >Abacus</a
-                    >.
-                  </span>
-                </span>
-              </span>
-              <span class="stat-value" id="unique-visitor-count">--</span>
-            </div>
-            <div class="stat-row">
-              <span class="stat-label">
-                Reloads
-                <span class="info-icon" tabindex="0">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="12"
-                    height="12"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="12" y1="16" x2="12" y2="12"></line>
-                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                  </svg>
-                  <span class="info-tooltip">
-                    Total page loads, powered by
-                    <a
-                      href="https://jasoncameron.dev/abacus/"
-                      target="_blank"
-                      rel="noopener"
-                      >Abacus</a
-                    >.
-                  </span>
-                </span>
-              </span>
-              <span class="stat-value" id="visitor-count">--</span>
-            </div>
-            <div class="stat-row">
-              <span class="stat-label">
-                Someone is here
-                <span class="info-icon" tabindex="0">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="12"
-                    height="12"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="12" y1="16" x2="12" y2="12"></line>
-                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                  </svg>
-                  <span class="info-tooltip">
-                    Live visitor count, powered by
-                    <a
-                      href="https://presence.hvalec.com"
-                      target="_blank"
-                      rel="noopener"
-                      >Presence</a
-                    >.
-                  </span>
-                </span>
-              </span>
-              <span class="stat-value" id="presence-count">--</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="posts-card">
-        <div class="posts-card-header">
-          <span>Latest Posts</span>
-          <a
-            href="/blog"
-            class="posts-card-link"
-            aria-label="View all blog posts"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path
-                d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6"
-              ></path>
-              <path d="M11 13l9 -9"></path>
-              <path d="M15 4h5v5"></path>
-            </svg>
-          </a>
-        </div>
-        <ul class="posts-list no-dots" id="latest-posts"></ul>
-      </div>
-
-      <div class="status-badges" id="status-badges"></div>
-    </main>
+      <aside
+        class="status-column"
+        id="status-badges"
+        aria-label="Live status"
+      ></aside>
+    </div>
 
     <!-- include:footer -->
 

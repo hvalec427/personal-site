@@ -1,7 +1,7 @@
 const STATUS_URL = `${window.API_BASE_URL}/status`;
 const PC_STATUS_URL = `${window.API_BASE_URL}/pc-status`;
 
-const CARD_WIDTH_PX = 240;
+const CARD_WIDTH_PX = 280;
 const CARD_PADDING_X_PX = 16;
 const CARD_CONTENT_WIDTH_PX = CARD_WIDTH_PX - CARD_PADDING_X_PX * 2;
 const TRACK_CONTENT_WIDTH_PX = CARD_CONTENT_WIDTH_PX - 1.3 * 13;
@@ -105,6 +105,37 @@ function idlePill(text, online = false) {
 
   el.append(dot, label);
   return el;
+}
+
+// Every known source gets a card in the status column at all times, so the
+// column reads as a fixed set of slots rather than a list that only shows up
+// when something happens to be active.
+const SOURCE_LABELS = {
+  discord: "Discord",
+  spotify: "Spotify",
+  xbox: "Xbox",
+  steam: "Steam",
+  psn: "PlayStation",
+};
+const SOURCE_ORDER = ["discord", "spotify", "xbox", "steam", "psn"];
+
+function emptyCard(label) {
+  const card = document.createElement("div");
+  card.className = "now-playing-card now-playing-card--empty";
+
+  const header = document.createElement("div");
+  header.className = "now-playing-header now-playing-header--dot";
+
+  const dot = document.createElement("span");
+  dot.className = "status-badge-dot";
+
+  const headerText = document.createElement("span");
+  headerText.textContent = label;
+
+  header.append(dot, headerText);
+  card.appendChild(header);
+
+  return card;
 }
 
 function xboxCard(status, now) {
@@ -437,38 +468,35 @@ function renderBadges() {
   }
 
   const now = Date.now();
-  const active = latestStatuses.filter((status) => status.playing);
+  const bySource = new Map(
+    latestStatuses.map((status) => [status.source, status]),
+  );
   const device = pickDevice(latestDevices, now);
 
-  const badges = [
-    ...active.map((status) => renderStatus(status, now)),
-    ...(device ? [deviceCard(device)] : []),
+  const slots = [
+    ...SOURCE_ORDER.map((source) => {
+      const status = bySource.get(source);
+      const online = Boolean(status?.playing);
+      return {
+        online,
+        element: online
+          ? renderStatus(status, now)
+          : emptyCard(SOURCE_LABELS[source]),
+      };
+    }),
+    {
+      online: Boolean(device),
+      element: device ? deviceCard(device) : emptyCard("PC"),
+    },
   ];
 
-  const rendered = badges.length > 0 ? badges : [idlePill("Currently offline")];
-
-  container.style.setProperty(
-    "--card-basis",
-    cardBasis(cardSlotsPerRow(rendered.length)),
-  );
+  // Stable sort: online cards float to the top, offline ones sink to the
+  // bottom, and relative order within each group stays as defined above.
+  const rendered = slots
+    .sort((a, b) => Number(b.online) - Number(a.online))
+    .map((slot) => slot.element);
 
   reconcileBadges(container, rendered);
-}
-
-const STATUS_BADGES_GAP_PX = 8;
-
-// 1 card sits at a third of the row (not full-width), 2 or 3 cards fill the
-// row evenly, and 4+ cards settle into a 2-per-row grid rather than getting
-// thin enough to be unreadable.
-function cardSlotsPerRow(count) {
-  if (count <= 1) return 3;
-  if (count === 2) return 2;
-  if (count === 3) return 3;
-  return 2;
-}
-
-function cardBasis(slots) {
-  return `calc((100% - ${STATUS_BADGES_GAP_PX * (slots - 1)}px) / ${slots})`;
 }
 
 // container.replaceChildren(...) unconditionally tears down and reinserts
