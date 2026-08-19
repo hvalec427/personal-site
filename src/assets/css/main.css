@@ -4,6 +4,7 @@
   --secondary: #5b616d;
   --highlight: #d4b44c;
   --surface: #efe7db;
+  --card-gap: 10px;
 }
 
 :root[data-theme="dark"] {
@@ -36,7 +37,6 @@ body {
   background: var(--background);
   color: var(--primary);
   padding: 20px;
-  max-width: 800px;
   margin-right: auto;
   margin-left: auto;
   display: flex;
@@ -45,25 +45,25 @@ body {
 }
 
 body.has-status-column {
-  max-width: 1440px;
 }
 
 .page-layout {
-  display: grid;
-  grid-template-columns: 280px minmax(0, 1fr) 280px;
-  column-gap: 24px;
-  align-items: start;
+  position: relative;
+  margin-bottom: 2rem;
 }
 
 .page-layout > .content {
-  grid-column: 2;
+  margin: 0 auto;
 }
 
 .status-column {
-  grid-column: 3;
+  position: absolute;
+  top: 0;
+  left: calc(50% + 350px + var(--card-gap));
+  width: 280px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--card-gap);
   margin-top: 2.5rem;
 }
 
@@ -71,10 +71,19 @@ body.has-status-column {
   .page-layout {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    gap: var(--card-gap);
+  }
+
+  .page-layout > .content {
+    max-width: 500px;
   }
 
   .status-column {
+    position: static;
     width: 100%;
+    max-width: 500px;
+    margin-top: 0;
   }
 }
 
@@ -110,8 +119,8 @@ body.has-status-column {
 .cards-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
-  margin-bottom: 24px;
+  gap: var(--card-gap);
+  margin-bottom: var(--card-gap);
 }
 
 .cards-row > .location-card,
@@ -121,20 +130,12 @@ body.has-status-column {
   margin-bottom: 0;
 }
 
-@media (min-width: 800px) {
-  .cards-row > .location-card,
-  .cards-row > .weather-card,
-  .cards-row > .stats-panel {
-    max-width: 280px;
-  }
-}
-
 .weather-card {
   background: var(--surface);
   border: 1px solid var(--secondary);
   border-radius: 8px;
   overflow: hidden;
-  margin-bottom: 24px;
+  margin-bottom: var(--card-gap);
 }
 
 .weather-now {
@@ -212,7 +213,7 @@ body.has-status-column {
   border: 1px solid var(--secondary);
   border-radius: 8px;
   overflow: hidden;
-  margin-bottom: 24px;
+  margin-bottom: var(--card-gap);
 }
 
 .posts-card-header {
@@ -379,7 +380,7 @@ body.has-status-column {
   border: 1px solid var(--secondary);
   border-radius: 8px;
   overflow: hidden;
-  margin-bottom: 24px;
+  margin-bottom: var(--card-gap);
 }
 
 .location-card-title {
@@ -594,8 +595,7 @@ footer {
   font-size: 1rem;
   line-height: 1.45;
   flex: 1 0 auto;
-  max-width: 800px;
-  padding-bottom: 3rem;
+  max-width: 700px;
 }
 
 .content > * {
@@ -604,6 +604,11 @@ footer {
 
 .content > * + * {
   margin-top: 1rem;
+}
+
+.content > .cards-row,
+.content > .posts-card {
+  margin-top: var(--card-gap);
 }
 
 .content h1,
@@ -838,7 +843,6 @@ a:active {
 
 .content .table-search {
   flex: 1 1 240px;
-  max-width: 320px;
   padding: 0.5rem 0.75rem;
   font-size: 0.95rem;
   font-family: inherit;
@@ -959,7 +963,6 @@ a:active {
 }
 
 .content img {
-  max-width: 100%;
   border-radius: 8px;
 }
 
@@ -997,7 +1000,6 @@ ul li + li {
 }
 
 .gaming-feed-item-main {
-  min-width: 0;
 }
 
 .gaming-feed-item-title {
@@ -1098,7 +1100,6 @@ ul li + li {
   flex-direction: column;
   gap: 2px;
   flex: 1;
-  min-width: 0;
 }
 
 .discord-account-name {
@@ -1109,7 +1110,6 @@ ul li + li {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  min-width: 0;
 }
 
 .discord-account-username {
@@ -1172,7 +1172,6 @@ ul li + li {
 }
 
 .device-info {
-  min-width: 0;
 }
 
 .device-name {
@@ -1217,7 +1216,6 @@ ul li + li {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  align-self: center;
   background: var(--surface);
   border: 1px solid var(--secondary);
   border-radius: 8px;
@@ -1256,7 +1254,6 @@ ul li + li {
   border: 1px solid var(--secondary);
   border-radius: 8px;
   padding: 12px 16px;
-  min-width: 0;
   font-size: 13px;
 }
 
@@ -1311,7 +1308,6 @@ ul li + li {
   display: inline-block;
   overflow: hidden;
   white-space: nowrap;
-  max-width: 100%;
   vertical-align: bottom;
 }
 
