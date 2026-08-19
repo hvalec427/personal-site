@@ -45,6 +45,7 @@ body {
 }
 
 body.has-status-column {
+  padding-top: 0;
 }
 
 .page-layout {
@@ -67,7 +68,7 @@ body.has-status-column {
   margin-top: 2.5rem;
 }
 
-@media (max-width: 1159px) {
+@media (max-width: 1400px) {
   .page-layout {
     display: flex;
     flex-direction: column;
@@ -76,14 +77,46 @@ body.has-status-column {
   }
 
   .page-layout > .content {
-    max-width: 500px;
+    max-width: 700px;
   }
 
   .status-column {
     position: static;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     width: 100%;
-    max-width: 500px;
+    max-width: 700px;
     margin-top: 0;
+  }
+
+  .status-column > .now-playing-card:not(.now-playing-card--empty) {
+    grid-column: 1 / -1;
+  }
+
+  .status-column:has(
+      .now-playing-card:not(.now-playing-card--empty)
+        ~ .now-playing-card:not(.now-playing-card--empty)
+    )
+    > .now-playing-card:not(.now-playing-card--empty) {
+    grid-column: auto;
+  }
+
+  .status-column
+    > .now-playing-card:not(.now-playing-card--empty):has(
+      ~ .now-playing-card:not(.now-playing-card--empty)
+        ~ .now-playing-card:not(.now-playing-card--empty)
+    ) {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 500px) {
+  .cards > * {
+    flex: 1 1 100%;
+  }
+
+  .status-column {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -116,18 +149,14 @@ body.has-status-column {
   transform: scale(0.95);
 }
 
-.cards-row {
+.cards {
   display: flex;
   flex-wrap: wrap;
   gap: var(--card-gap);
-  margin-bottom: var(--card-gap);
 }
 
-.cards-row > .location-card,
-.cards-row > .weather-card,
-.cards-row > .stats-panel {
+.cards > * {
   flex: 1 1 240px;
-  margin-bottom: 0;
 }
 
 .weather-card {
@@ -135,7 +164,6 @@ body.has-status-column {
   border: 1px solid var(--secondary);
   border-radius: 8px;
   overflow: hidden;
-  margin-bottom: var(--card-gap);
 }
 
 .weather-now {
@@ -213,7 +241,6 @@ body.has-status-column {
   border: 1px solid var(--secondary);
   border-radius: 8px;
   overflow: hidden;
-  margin-bottom: var(--card-gap);
 }
 
 .posts-card-header {
@@ -380,7 +407,6 @@ body.has-status-column {
   border: 1px solid var(--secondary);
   border-radius: 8px;
   overflow: hidden;
-  margin-bottom: var(--card-gap);
 }
 
 .location-card-title {
@@ -396,6 +422,7 @@ body.has-status-column {
 
 .location-map {
   position: relative;
+  z-index: 0;
   height: 160px;
   width: 100%;
   background: var(--surface);
@@ -486,17 +513,25 @@ body > header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 2rem;
   position: sticky;
   top: 0;
   z-index: 100;
-  padding: 12px 0 40px;
+  padding: 12px 0 80px;
   background: linear-gradient(
     to bottom,
     var(--background) 55%,
     transparent 100%
   );
   opacity: 1;
+}
+
+body.has-status-column > header {
+  padding-top: 24px;
 }
 
 .header-buttons {
@@ -536,7 +571,11 @@ body > header {
 }
 
 footer {
+  width: 100%;
+  max-width: 700px;
   margin-top: auto;
+  margin-left: auto;
+  margin-right: auto;
   padding-top: 12px;
   border-top: 1px solid var(--surface);
   display: flex;
@@ -606,9 +645,8 @@ footer {
   margin-top: 1rem;
 }
 
-.content > .cards-row,
-.content > .posts-card {
-  margin-top: var(--card-gap);
+.content > .cards {
+  margin-top: 2rem;
 }
 
 .content h1,
