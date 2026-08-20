@@ -48,6 +48,10 @@ body.has-status-column {
   padding-top: 0;
 }
 
+body.no-top-padding {
+  padding-top: 0;
+}
+
 .page-layout {
   position: relative;
   flex: 1 0 auto;
@@ -526,7 +530,8 @@ body > header {
   opacity: 1;
 }
 
-body.has-status-column > header {
+body.has-status-column > header,
+body.no-top-padding > header {
   padding-top: 24px;
 }
 
@@ -557,7 +562,41 @@ body.has-status-column > header {
 }
 
 .header-dot {
+  display: inline-block;
   color: var(--highlight);
+  cursor: pointer;
+}
+
+@keyframes header-dot-pulse {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.7);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.header-dot-pulse {
+  animation: header-dot-pulse 220ms ease-out;
+}
+
+@keyframes header-dot-unlock {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  60% {
+    transform: scale(2.2) rotate(180deg);
+  }
+  100% {
+    transform: scale(0) rotate(360deg);
+  }
+}
+
+.header-dot-unlocked {
+  animation: header-dot-unlock 400ms ease-in forwards;
 }
 
 .header-link {
