@@ -12,13 +12,10 @@ import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
 
-// SOURCE_COMMIT is only set by Coolify during a real deploy (see
-// write-deploy-time.js), so its absence means this is a local build —
-// that's what gates draft: true content from appearing in production.
-const isLocalBuild = !process.env.SOURCE_COMMIT;
+const isProduction = process.env.DEPLOY_ENV === "production";
 
 const DRAFT_NOTICE =
-  '<p style="border:1px dashed var(--highlight);padding:0.75rem 1rem;border-radius:8px;color:var(--highlight);"><strong>Draft</strong> — only visible in local builds.</p>';
+  '<p style="border:1px dashed var(--highlight);padding:0.75rem 1rem;border-radius:8px;color:var(--highlight);"><strong>Draft</strong> — hidden in production.</p>';
 
 const PARTIALS = {
   "<!-- include:header -->": readFileSync(
@@ -423,7 +420,7 @@ for (const page of PAGES) {
   const { meta, body } = parseFrontmatter(raw);
   const isDraft = meta.draft === "true";
 
-  if (isDraft && !isLocalBuild) {
+  if (isDraft && isProduction) {
     const rawCopy = join(ROOT, "dist", `${page.name}.md`);
     if (existsSync(rawCopy)) unlinkSync(rawCopy);
     console.info(`  skipped draft: ${page.name}`);
@@ -454,7 +451,7 @@ for (const section of SECTIONS) {
     const slug = basename(file, ".md");
     const isDraft = meta.draft === "true";
 
-    if (isDraft && !isLocalBuild) {
+    if (isDraft && isProduction) {
       const rawCopy = join(section.dist, file);
       if (existsSync(rawCopy)) unlinkSync(rawCopy);
       console.info(`  skipped draft: ${section.name}/${slug}`);
