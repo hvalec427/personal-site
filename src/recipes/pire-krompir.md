@@ -2,7 +2,6 @@
 title: Pire krompir
 created: 2026-08-19
 category: priloga
-draft: true
 ---
 
 # Pire krompir
