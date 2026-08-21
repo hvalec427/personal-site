@@ -2,7 +2,6 @@
 title: Tortelini s šunko in smetano
 created: 2026-08-18
 category: kosilo
-draft: true
 ---
 
 # Tortelini s šunko in smetano
@@ -13,9 +12,8 @@ Za 2 osebi, cca. 20 min (5 min priprava, 15 min kuhanje). Odličen recept za dne
 
 - 500 g poljubnih tortelinov
 - 50 g masla
-- 300 g kuhane šunke v kosu (lahko tudi kuhan pršut)
+- 200 g kuhane šunke v kosu (lahko tudi kuhan pršut)
 - 400 ml sladke smetane
-- 1 ščepec muškatnega oreščka
 - sol in mleti poper (po okusu)
 - 1 pest naribanega parmezana + dodatno za serviranje
 
@@ -25,7 +23,7 @@ Na kuhalnik pristavimo lonec z večjo količino vode za kuhanje testenin. Vodo p
 
 Šunko narežemo na približno centimeter široke palčke, ki jih narežemo na centimetrske kocke. V večji ponvi razpustimo maslo, na katerem popražimo narezano šunko.
 
-Ko se koščki šunke nežno rjavo obarvajo, v ponev vlijemo smetano. Dobro premešamo in rahlo začinimo s soljo, poprom ter mletim muškatnim oreščkom.
+Ko se koščki šunke nežno rjavo obarvajo, v ponev vlijemo smetano. Dobro premešamo in rahlo začinimo s soljo in poprom.
 
 V omako vmešamo pest naribanega parmezana. Na srednji temperaturi jo med mešanjem segrevamo še toliko časa, da se primerno zgosti. Po potrebi prilijemo malo vode, v kateri se kuhajo tortelini.
 
