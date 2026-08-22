@@ -1312,10 +1312,12 @@ ul li + li {
   background: #3fb950;
 }
 
-.device-card-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.status-badge-dot--idle {
+  background: #d29922;
+}
+
+.status-badge-dot--dnd {
+  background: #f85149;
 }
 
 .now-playing-header--dot {

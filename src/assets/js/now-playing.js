@@ -138,13 +138,32 @@ function emptyCard(label) {
   return card;
 }
 
+// Matches emptyCard/discordCard's dot + text header — the shared look
+// every now-playing card header uses.
+function dotHeader(text, dotClass = "") {
+  const header = document.createElement("div");
+  header.className = "now-playing-header now-playing-header--dot";
+
+  const dot = document.createElement("span");
+  dot.className = `status-badge-dot${
+    dotClass ? ` status-badge-dot--${dotClass}` : ""
+  }`;
+
+  const headerText = document.createElement("span");
+  headerText.textContent = text;
+
+  header.append(dot, headerText);
+  return header;
+}
+
 function xboxCard(status, now) {
   const card = document.createElement("div");
   card.className = "now-playing-card";
 
-  const header = document.createElement("div");
-  header.className = "now-playing-header";
-  header.textContent = `Now playing on ${status.console || "Xbox"}`;
+  const header = dotHeader(
+    `Now playing on ${status.console || "Xbox"}`,
+    "online",
+  );
 
   const title = document.createElement("div");
   title.className = "now-playing-title";
@@ -169,9 +188,7 @@ function steamCard(status, now) {
   const card = document.createElement("div");
   card.className = "now-playing-card";
 
-  const header = document.createElement("div");
-  header.className = "now-playing-header";
-  header.textContent = "Now playing on Steam";
+  const header = dotHeader("Now playing on Steam", "online");
 
   const title = document.createElement("div");
   title.className = "now-playing-title";
@@ -196,9 +213,10 @@ function psnCard(status, now) {
   const card = document.createElement("div");
   card.className = "now-playing-card";
 
-  const header = document.createElement("div");
-  header.className = "now-playing-header";
-  header.textContent = `Now playing on ${status.platform || "PlayStation"}`;
+  const header = dotHeader(
+    `Now playing on ${status.platform || "PlayStation"}`,
+    "online",
+  );
 
   const title = document.createElement("div");
   title.className = "now-playing-title";
@@ -223,9 +241,7 @@ function spotifyCard(status, now) {
   const card = document.createElement("div");
   card.className = "now-playing-card";
 
-  const header = document.createElement("div");
-  header.className = "now-playing-header";
-  header.textContent = "Now playing on Spotify";
+  const header = dotHeader("Now playing on Spotify", "online");
 
   const artist = document.createElement("div");
   artist.className = "now-playing-artist";
@@ -264,20 +280,27 @@ function spotifyCard(status, now) {
   return card;
 }
 
+// Shared active/idle/dnd/offline vocabulary across every presence source
+// (games, Spotify, Discord, PC status) — see hvalec-api/docs/presence-status.md.
+const PRESENCE_LABELS = {
+  active: "Online",
+  idle: "Idle",
+  dnd: "Do Not Disturb",
+};
+const PRESENCE_DOT_CLASS = {
+  active: "online",
+  idle: "idle",
+  dnd: "dnd",
+};
+
 function discordCard(status) {
   const card = document.createElement("div");
   card.className = "now-playing-card";
 
-  const header = document.createElement("div");
-  header.className = "now-playing-header now-playing-header--dot";
-
-  const dot = document.createElement("span");
-  dot.className = "status-badge-dot status-badge-dot--online";
-
-  const headerText = document.createElement("span");
-  headerText.textContent = "Online on Discord";
-
-  header.append(dot, headerText);
+  const header = dotHeader(
+    `${PRESENCE_LABELS[status.presence] || "Online"} on Discord`,
+    PRESENCE_DOT_CLASS[status.presence] || "online",
+  );
   card.appendChild(header);
 
   const row = document.createElement("div");
@@ -352,9 +375,11 @@ function mostRecent(devices) {
 }
 
 function pickDevice(devices, now) {
-  const workDevices = devices.filter((d) => d.category === "work" && !d.stale);
+  const workDevices = devices.filter(
+    (d) => d.category === "work" && d.presence !== "offline",
+  );
   const personalDevices = devices.filter(
-    (d) => d.category === "personal" && !d.stale,
+    (d) => d.category === "personal" && d.presence !== "offline",
   );
   if (workDevices.length === 0 && personalDevices.length === 0) return null;
   if (workDevices.length > 0 && personalDevices.length > 0) {
@@ -395,16 +420,10 @@ function deviceCard(device) {
   const card = document.createElement("div");
   card.className = "now-playing-card";
 
-  const header = document.createElement("div");
-  header.className = "now-playing-title device-card-header";
-
-  const dot = document.createElement("span");
-  dot.className = "status-badge-dot status-badge-dot--online";
-
-  const label = document.createElement("span");
-  label.textContent = `Online on ${device.deviceName}`;
-
-  header.append(dot, label);
+  const header = dotHeader(
+    `${PRESENCE_LABELS[device.presence] || "Online"} on ${device.deviceName}`,
+    PRESENCE_DOT_CLASS[device.presence] || "online",
+  );
   card.appendChild(header);
 
   if (device.cpu?.usagePercent != null) {
@@ -485,7 +504,7 @@ function renderBadges() {
   const slots = [
     ...SOURCE_ORDER.map((source) => {
       const status = bySource.get(source);
-      const online = Boolean(status?.playing);
+      const online = status?.presence && status.presence !== "offline";
       return {
         online,
         element: online

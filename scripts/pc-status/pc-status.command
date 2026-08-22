@@ -37,6 +37,21 @@ report() {
   boot_epoch=$(sysctl -n kern.boottime | sed -E 's/.*\{ sec = ([0-9]+).*/\1/')
   uptime_seconds=$(( $(date +%s) - boot_epoch ))
 
+  local idle_ns idle_seconds
+  idle_ns=$(ioreg -r -d 1 -c IOHIDSystem | awk -F'= ' '/HIDIdleTime/ { print $2 }')
+  idle_seconds=$(( ${idle_ns:-0} / 1000000000 ))
+
+  # Video apps (Safari/Chrome tabs, Netflix, QuickTime) hold the
+  # PreventUserIdleDisplaySleep assertion while playing to keep the screen
+  # awake — treat that as activity even when HIDIdleTime is high, since
+  # watching something doesn't touch the keyboard or mouse.
+  local assertions_output
+  assertions_output=$(pmset -g assertions 2>/dev/null || true)
+  if [[ "$assertions_output" =~ PreventUserIdleDisplaySleep[[:space:]]+([0-9]+) ]] \
+    && [[ "${BASH_REMATCH[1]}" != "0" ]]; then
+    idle_seconds=0
+  fi
+
   local cpu_line idle_percent cpu_usage_percent
   cpu_line=$(top -l 1 -n 0 | grep "CPU usage")
   idle_percent=$(echo "$cpu_line" | sed -E 's/.*, ([0-9.]+)% idle.*/\1/')
@@ -87,6 +102,7 @@ report() {
   "platform": "darwin",
   "osVersion": "$os_version",
   "uptimeSeconds": $uptime_seconds,
+  "idleSeconds": $idle_seconds,
   "cpu": { "usagePercent": $cpu_usage_percent, "loadAvg1": $load1, "loadAvg5": $load5, "loadAvg15": $load15 },
   "gpu": { "usagePercent": $gpu_usage_percent },
   "memory": { "usedBytes": $mem_used_bytes, "totalBytes": $mem_total_bytes },
@@ -122,7 +138,7 @@ install() {
   echo "Which server should this Mac report to?"
   echo "  1) production   (https://api.hvalec.com)"
   echo "  2) staging      (https://staging-api.hvalec.com)"
-  echo "  3) local dev    (http://localhost:3000)"
+  echo "  3) local dev    (http://localhost:3001)"
   echo "  4) custom URL"
   read -rp "Choice [1-4]: " choice
 
@@ -130,7 +146,7 @@ install() {
   case "$choice" in
     1) url="https://api.hvalec.com"; env_name="prod" ;;
     2) url="https://staging-api.hvalec.com"; env_name="staging" ;;
-    3) url="http://localhost:3000"; env_name="local" ;;
+    3) url="http://localhost:3001"; env_name="local" ;;
     4)
       read -rp "Server URL (e.g. https://api.example.com): " url
       env_name="custom"
