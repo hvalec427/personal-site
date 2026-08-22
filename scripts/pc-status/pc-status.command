@@ -5,6 +5,7 @@
 # terminal) to interactively configure this Mac: it asks which server to
 # report to and for a device token, then installs itself as a launchd
 # agent that pushes a stats snapshot every 60s and survives reboots.
+# Skips the push while the screen is locked.
 #
 # Re-run any time to change the server or rotate the token.
 set -euo pipefail
@@ -21,6 +22,13 @@ report() {
 
   : "${PC_STATUS_URL:?PC_STATUS_URL is not set (export it or add it to $config_file)}"
   : "${PC_STATUS_TOKEN:?PC_STATUS_TOKEN is not set (export it or add it to $config_file)}"
+
+  local screen_locked
+  screen_locked=$(ioreg -n Root -d1 -a 2>/dev/null \
+    | plutil -extract IOConsoleUsers.0.CGSSessionScreenIsLocked raw -o - - 2>/dev/null || true)
+  if [[ "$screen_locked" == "true" ]]; then
+    return 0
+  fi
 
   local hostname os_version boot_epoch uptime_seconds
   hostname=$(scutil --get ComputerName 2>/dev/null || hostname)
