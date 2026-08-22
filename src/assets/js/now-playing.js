@@ -329,7 +329,16 @@ function ljubljanaHour(now) {
   );
 }
 
+function ljubljanaWeekday(now) {
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone: "Europe/Ljubljana",
+    weekday: "short",
+  }).format(now);
+}
+
 function isWorkHours(now) {
+  const weekday = ljubljanaWeekday(now);
+  if (weekday === "Sat" || weekday === "Sun") return false;
   const hour = ljubljanaHour(now);
   return hour >= WORK_HOURS_START && hour < WORK_HOURS_END;
 }
