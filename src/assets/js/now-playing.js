@@ -416,7 +416,7 @@ function deviceStatRow(label, value) {
   return row;
 }
 
-function deviceCard(device) {
+function deviceCard(device, now) {
   const card = document.createElement("div");
   card.className = "now-playing-card";
 
@@ -425,6 +425,11 @@ function deviceCard(device) {
     PRESENCE_DOT_CLASS[device.presence] || "online",
   );
   card.appendChild(header);
+
+  if (device.sessionStartedAt) {
+    const elapsedMs = now - new Date(device.sessionStartedAt).getTime();
+    card.appendChild(deviceStatRow("Online for", formatElapsed(elapsedMs)));
+  }
 
   if (device.cpu?.usagePercent != null) {
     card.appendChild(
@@ -514,7 +519,7 @@ function renderBadges() {
     }),
     {
       online: Boolean(device),
-      element: device ? deviceCard(device) : emptyCard("PC"),
+      element: device ? deviceCard(device, now) : emptyCard("PC"),
     },
   ];
 
