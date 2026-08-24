@@ -266,8 +266,10 @@ function markdownToHtml(markdown) {
 function renderEntryList(section, entries) {
   return entries
     .map(
-      ({ slug, title }) =>
-        `<li><a href="/${section.name}/${slug}">${escapeHtml(title)}</a></li>`,
+      ({ slug, title, hasTitle, created }) =>
+        `<li><a href="/${section.name}/${slug}">${escapeHtml(
+          hasTitle ? title : created,
+        )}</a></li>`,
     )
     .join("\n        ");
 }
@@ -459,6 +461,7 @@ for (const section of SECTIONS) {
     }
 
     const created = meta.created || meta.date;
+    const hasTitle = Boolean(meta.title);
     const title = meta.title || `Log entry #${++unnamedCount}`;
     const content = markdownToHtml(body);
     const html = renderPage(section, {
@@ -475,6 +478,7 @@ for (const section of SECTIONS) {
     entries.push({
       slug,
       title: isDraft ? `[DRAFT] ${title}` : title,
+      hasTitle,
       created,
       category: meta.category,
     });
