@@ -85,8 +85,6 @@ Tags: irc, TypeScript, Sockets, Protocol
 - **Dotfiles** — personal macOS/Linux shell and editor config.
 - **hvalec.com** — this site, a static Jekyll build with zero client-side JavaScript.
 
-[Read the blog](/blog)
-
 [All projects](/projects)
 
 ## Toolkit
@@ -105,4 +103,4 @@ Tags: React Native, TypeScript, React Navigation, MobX, GraphQL, Jest, react-nat
 ## Interests
 {: .section-head}
 
-Mobile development (job and hobby), gaming, hiking, and my dog, [Marli](/dog). For everything that didn't make the cut here, see [the other side of this site](https://staging.mstr.hvalec.com){:target="_blank" rel="noopener noreferrer"}.
+Mobile development (job and hobby), gaming, hiking, and my dog, [Marli](/dog). For more of my writing, see [the blog](/blog); for everything that didn't make the cut here, see [the other side of this site](https://staging.mstr.hvalec.com){:target="_blank" rel="noopener noreferrer"}.
