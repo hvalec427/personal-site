@@ -4,7 +4,7 @@ title: "Žiga Hvalec | Mobile Developer"
 title_suffix: false
 ---
 
-[Email](mailto:zigahvalec@gmail.com){: .email-label} [zigahvalec@gmail.com](mailto:zigahvalec@gmail.com){: .email-plain} [GitHub](https://github.com/hvalec427){:target="_blank" rel="noopener noreferrer"} [LinkedIn](https://www.linkedin.com/in/hvalec/){:target="_blank" rel="noopener noreferrer"} [Download PDF](/assets/ziga-hvalec-cv.pdf){:download="download" .no-print}
+[Email](mailto:zigahvalec@gmail.com){: .email-label} [zigahvalec@gmail.com](mailto:zigahvalec@gmail.com){: .email-plain} [GitHub](https://github.com/hvalec427){:target="_blank" rel="noopener noreferrer"} [LinkedIn](https://www.linkedin.com/in/hvalec/){:target="_blank" rel="noopener noreferrer"} [Download PDF](/assets/ziga-hvalec-cv.pdf){:download="ziga-hvalec-cv.pdf" .no-print}
 {: .contact-line}
 
 I build fast, reliable mobile apps and care about clean, readable code. Six years split between production React Native work and self-hosted side projects — from shipping apps at D.labs to writing an IRC server and a real-time presence protocol from scratch.
@@ -39,7 +39,7 @@ During the summer holidays, I wanted to gain experience. I used database and pro
 
 Tags: C#, Database, SQL, .NET
 
-[Full work history](/work-history)
+[Full work history]({{ "/work-history" | absolute_url }})
 
 ## Independent Projects
 {: .section-head}
@@ -78,7 +78,7 @@ Tags: irc, TypeScript, Sockets, Protocol
 - **Dotfiles** — personal macOS/Linux shell and editor config.
 - **hvalec.com** — this site, a static Jekyll build with zero client-side JavaScript.
 
-[All projects](/projects)
+[All projects]({{ "/projects" | absolute_url }})
 
 ## Toolkit
 {: .section-head}
@@ -96,4 +96,4 @@ Tags: React Native, TypeScript, React Navigation, MobX, GraphQL, Jest, react-nat
 ## Interests
 {: .section-head}
 
-Mobile development (job and hobby), gaming, hiking, and my dog, [Marli](/dog). For more of my writing, see [the blog](/blog); for everything that didn't make the cut here, see [the other side of this site](https://staging.mstr.hvalec.com){:target="_blank" rel="noopener noreferrer"}.
+Mobile development (job and hobby), gaming, hiking, and my dog, [Marli]({{ "/dog" | absolute_url }}). For more of my writing, see [the blog]({{ "/blog" | absolute_url }}); for everything that didn't make the cut here, see [the other side of this site](https://staging.mstr.hvalec.com){:target="_blank" rel="noopener noreferrer"}.

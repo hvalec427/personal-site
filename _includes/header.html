@@ -1,4 +1,4 @@
 <header>
-  <h1 class="cv-name"><a href="{% if page.url == '/' %}/me{% else %}/{% endif %}">Žiga Hvalec</a></h1>
+  <h1 class="cv-name"><a href="{% if page.url == '/' %}{{ '/me' | absolute_url }}{% else %}{{ '/' | absolute_url }}{% endif %}">Žiga Hvalec</a></h1>
   <p class="meta-line">Mobile Developer, Maribor, Slovenia</p>
 </header>
