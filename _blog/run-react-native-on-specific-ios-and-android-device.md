@@ -1,5 +1,6 @@
 ---
 title: Run React Native App on a Specific Device or Simulator
+description: Targeting a specific device or simulator when running a React Native app.
 created: 2026-05-20
 updated: 2026-05-20
 ---

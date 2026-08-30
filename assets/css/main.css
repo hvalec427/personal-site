@@ -140,10 +140,6 @@ ol {
   padding-inline-start: 0;
 }
 
-.blog-list li + li {
-  margin-top: 0.75rem;
-}
-
 .profile-photo {
   max-width: 220px;
 }
@@ -158,4 +154,41 @@ ol {
   width: 150px;
   height: 150px;
   object-fit: cover;
+}
+
+.cv-name {
+  margin: 0 0 0.35rem;
+  font-size: 1.6em;
+}
+
+.meta-line {
+  color: #555;
+  font-size: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0.35rem 0 0.6rem;
+}
+
+.contact-line {
+  padding-bottom: 1.25rem;
+  margin: 0 0 1.5rem;
+  border-bottom: 2px solid #111;
+}
+
+.contact-line a {
+  margin-right: 1rem;
+}
+
+.section-head {
+  margin-top: 2.75rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid #ccc;
+  text-transform: uppercase;
+  font-size: 1em;
+  letter-spacing: 0.08em;
+}
+
+.entry-when {
+  font-size: 0.82em;
+  color: #555;
 }

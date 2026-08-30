@@ -1,5 +1,6 @@
 ---
 title: React Native Pressable Not Working in Modal (Quick Fix)
+description: Fixing gesture components that stop responding inside a React Native Modal.
 created: 2026-03-05
 ---
 

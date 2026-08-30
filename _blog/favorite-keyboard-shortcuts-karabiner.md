@@ -1,5 +1,6 @@
 ---
 title: Favorite Keyboard Shortcuts with Karabiner-Elements
+description: System-level key remappings I use every day with Karabiner-Elements.
 created: 2026-05-23
 ---
 

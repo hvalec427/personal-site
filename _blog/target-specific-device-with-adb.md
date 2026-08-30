@@ -1,5 +1,6 @@
 ---
 title: How to Target a Specific Device with ADB
+description: Using ADB to target one specific device when multiple are connected.
 created: 2026-05-20
 updated: 2026-05-20
 ---

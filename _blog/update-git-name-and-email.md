@@ -1,5 +1,6 @@
 ---
 title: Update git name and email
+description: Checking and updating your git user name and email, globally or per project.
 created: 2026-03-05
 ---
 

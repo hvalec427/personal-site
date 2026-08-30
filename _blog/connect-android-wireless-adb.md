@@ -1,5 +1,6 @@
 ---
 title: Connect Android Device with Wireless Debugging (ADB)
+description: Debug an Android device over Wi-Fi instead of USB.
 created: 2026-03-05
 updated: 2026-03-29
 ---

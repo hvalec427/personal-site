@@ -3,7 +3,8 @@ permalink: /me/
 title: About Me - Žiga Hvalec
 ---
 
-<img src="/assets/images/me/portrait.jpg" alt="Portrait of Žiga Hvalec" class="profile-photo" />
+![Portrait of Žiga Hvalec](/assets/images/me/portrait.jpg)
+{: .profile-photo}
 
 I'm Žiga Hvalec — I build fast, reliable mobile apps and care about clean, readable code. This site collects notes, projects, and writing about mobile development and tooling.
 
