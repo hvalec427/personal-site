@@ -7,3 +7,5 @@ _site/
 vendor/
 
 .env
+
+/assets/ziga-hvalec-cv.pdf

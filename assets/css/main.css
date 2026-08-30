@@ -4,7 +4,7 @@ html {
 
 body {
   box-sizing: border-box;
-  max-width: 700px;
+  max-width: 600px;
   min-height: 100%;
   margin: 0 auto;
   padding: 20px;
@@ -73,7 +73,7 @@ footer {
 
 a {
   color: #b8860b;
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 a:visited {
@@ -82,7 +82,7 @@ a:visited {
 
 a:hover,
 a:focus {
-  text-decoration: underline;
+  color: #111;
 }
 
 ::selection {
@@ -99,7 +99,7 @@ h4 {
 
 p,
 li {
-  max-width: 65ch;
+  text-align: justify;
 }
 
 blockquote {
@@ -180,7 +180,7 @@ ol {
 }
 
 .section-head {
-  margin-top: 2.75rem;
+  margin-top: 1.5rem;
   padding-bottom: 0.3rem;
   border-bottom: 1px solid #ccc;
   text-transform: uppercase;
@@ -191,4 +191,20 @@ ol {
 .entry-when {
   font-size: 0.82em;
   color: #555;
+}
+
+.email-plain {
+  display: none;
+}
+
+@media print {
+  footer,
+  .no-print,
+  .email-label {
+    display: none;
+  }
+
+  .email-plain {
+    display: inline;
+  }
 }
