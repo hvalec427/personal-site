@@ -1,0 +1,17 @@
+---
+layout: default
+---
+<link rel="stylesheet" href="/assets/css/log.css" />
+<article class="log-entry">
+  <div class="log-content">
+    <a href="/blog" class="log-back">&larr; Blog</a>
+    {{ content }}
+  </div>
+  <hr />
+  <div class="log-meta">
+    <span class="log-date-created">Created: {{ page.created }}</span>
+    {% if page.updated and page.updated != page.created %}
+    <span class="log-date-updated">Updated: {{ page.updated }}</span>
+    {% endif %}
+  </div>
+</article>

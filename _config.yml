@@ -1,0 +1,28 @@
+title: Hvalec
+url: "https://hvalec.com"
+markdown: kramdown
+kramdown:
+  auto_ids: true
+
+collections:
+  blog:
+    output: true
+    permalink: /blog/:path/
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+  - scope:
+      path: ""
+      type: blog
+    values:
+      layout: post
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - node_modules
+  - README.md

@@ -1,19 +1,9 @@
 .DS_Store
 
-node_modules/
-dist/
-.env
-
-settings.json
-
-text/assets/
-visual/assets/
-
+_site/
+.jekyll-cache/
+.jekyll-metadata
 .bundle/
 vendor/
 
-/assets/images/photos/
-/assets/images/videos/
-/_photos/
-/_data/photos.yml
-.photos-temp/
+.env
