@@ -183,6 +183,10 @@ ol {
   display: none;
 }
 
+.print-only {
+  display: none;
+}
+
 @media print {
   footer,
   .no-print,
@@ -192,5 +196,9 @@ ol {
 
   .email-plain {
     display: inline;
+  }
+
+  .print-only {
+    display: block;
   }
 }
