@@ -2,14 +2,7 @@
 permalink: /
 title: "Žiga Hvalec | Mobile Developer"
 title_suffix: false
-hide_header: true
 ---
-
-# [Žiga Hvalec](/me)
-{: .cv-name}
-
-*Mobile Developer, Maribor, Slovenia*
-{: .meta-line}
 
 [Email](mailto:zigahvalec@gmail.com){: .email-label} [zigahvalec@gmail.com](mailto:zigahvalec@gmail.com){: .email-plain} [GitHub](https://github.com/hvalec427){:target="_blank" rel="noopener noreferrer"} [LinkedIn](https://www.linkedin.com/in/hvalec/){:target="_blank" rel="noopener noreferrer"} [Download PDF](/assets/ziga-hvalec-cv.pdf){:download="download" .no-print}
 {: .contact-line}
