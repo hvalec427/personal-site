@@ -24,9 +24,17 @@ Requires a Chrome/Chromium binary on the machine (checks `CHROME_PATH`, then `ch
 
 The PDF itself isn't committed — it's generated fresh into `_site/assets/` on every build/deploy, so `assets/ziga-hvalec-cv.pdf` is git-ignored.
 
+## Site URL per environment
+
+`_config.yml` defaults `url` to `http://localhost:3000` for local dev. Staging and production override it by merging an extra config file at build time, so internal links (and the ones printed into the PDF) always point at the right domain instead of the build machine's localhost:
+
+- Staging: `_config_staging.yml` → `https://staging.hvalec.com`
+- Production: `_config_production.yml` → `https://hvalec.com`
+
 ## Deployment (Coolify)
 
-Build Command: `bundle exec jekyll build && ruby scripts/generate-cv-pdf.rb`
+Staging Build Command: `bundle exec jekyll build --config _config.yml,_config_staging.yml && ruby scripts/generate-cv-pdf.rb`
+Production Build Command (once `master` is migrated to Jekyll): `bundle exec jekyll build --config _config.yml,_config_production.yml && ruby scripts/generate-cv-pdf.rb`
 Publish Directory: `/_site`
 
-`nixpacks.toml` adds `chromium` to the build environment so the PDF script has a browser to drive.
+`nixpacks.toml` adds `chromium` (plus `fontconfig`/`dejavu_fonts`) to the build environment so the PDF script has a browser to drive.

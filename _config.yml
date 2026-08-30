@@ -1,5 +1,5 @@
 title: Hvalec
-url: "https://hvalec.com"
+url: "http://localhost:3000"
 markdown: kramdown
 kramdown:
   auto_ids: true
