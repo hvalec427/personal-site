@@ -53,7 +53,7 @@ sleep 0.5 # give WEBrick a moment to bind before Chrome connects
 begin
   ok = system(
     chrome,
-    "--headless",
+    "--headless=new",
     "--disable-gpu",
     "--no-sandbox",
     "--disable-dev-shm-usage",
@@ -65,6 +65,10 @@ begin
 ensure
   server.shutdown
   server_thread.join
+end
+
+unless File.exist?(OUTPUT) && File.size(OUTPUT) > 0
+  abort "Chrome exited cleanly but #{OUTPUT} was never written"
 end
 
 puts "Generated #{OUTPUT}"
