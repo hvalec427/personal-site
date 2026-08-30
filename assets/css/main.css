@@ -201,4 +201,8 @@ ol {
   .print-only {
     display: block;
   }
+
+  a {
+    padding: 0.15em 0;
+  }
 }
