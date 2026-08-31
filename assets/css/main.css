@@ -99,12 +99,8 @@ h1 {
   font-size: 1.9em;
 }
 
+h2,
 h1:not(.cv-name) {
-  font-size: 1.3em;
-  font-weight: 900;
-}
-
-h2 {
   font-size: 1.3em;
   font-weight: 900;
 }
