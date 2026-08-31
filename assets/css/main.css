@@ -7,15 +7,15 @@
 }
 
 html {
-  height: 100%;
+  background: #e8e4db;
 }
 
 body {
   box-sizing: border-box;
   max-width: 600px;
-  min-height: 100%;
-  margin: 0 auto;
-  padding: 20px;
+  min-height: calc(100vh - 48px);
+  margin: 24px auto;
+  padding: 32px;
   background: #fff;
   color: #111;
   font-family: "Cutive Mono", ui-monospace, monospace;
@@ -23,6 +23,8 @@ body {
   line-height: 1.25;
   display: flex;
   flex-direction: column;
+  border: 1px solid #d8d3c6;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
 }
 
 main {
@@ -97,6 +99,11 @@ h1 {
   font-size: 1.9em;
 }
 
+h1:not(.cv-name) {
+  font-size: 1.3em;
+  font-weight: 900;
+}
+
 h2 {
   font-size: 1.3em;
   font-weight: 900;
@@ -104,8 +111,11 @@ h2 {
 
 h3 {
   font-size: 19px;
+  margin-top: 1.5rem;
   margin-bottom: 0;
   font-weight: 900;
+  border-left: 3px solid #b8860b;
+  padding-left: 0.6rem;
 }
 
 h4 {
@@ -174,6 +184,7 @@ ol {
 
 .cv-name {
   margin: 0 0 0.35rem;
+  letter-spacing: 0.02em;
 }
 
 .meta-line {
@@ -194,10 +205,11 @@ ol {
   margin-right: 1rem;
 }
 
-.section-head {
+.section-head,
+h1:not(.cv-name) {
   margin-top: 1.5rem;
   padding-bottom: 0.3rem;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 2px solid #111;
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
@@ -206,6 +218,7 @@ ol {
   font-size: 0.82em;
   color: #555;
   margin-top: 0;
+  margin-left: 1rem;
 }
 
 .email-plain {
@@ -217,6 +230,17 @@ ol {
 }
 
 @media print {
+  html {
+    background: #fff;
+  }
+
+  body {
+    margin: 0 auto;
+    padding: 20px;
+    border: none;
+    box-shadow: none;
+  }
+
   footer,
   .no-print,
   .email-label {
