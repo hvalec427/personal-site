@@ -57,55 +57,43 @@ Tags: C#, Database, SQL, .NET
 [Full work history]({{ "/work-history" | absolute_url }})
 
 ## Independent Projects
-{: .section-head .no-print}
+{: .section-head}
 
 ### Presence
-{: .no-print}
 
 [Live](https://presence.hvalec.com/){:target="_blank" rel="noopener noreferrer"}, [GitHub](https://github.com/hvalec427/thewaitingroom){:target="_blank" rel="noopener noreferrer"}
-{: .entry-when .no-print}
+{: .entry-when}
 
 A drop-in presence widget: add one script tag to any site and it shows how many people are on the page right now, streams everyone's live cursor position, and lets visitors type floating messages to each other. Powers the live cursors on hvalec.com.
-{: .no-print}
 
 Tags: WebSocket, Real-time, Node.js, Express
-{: .no-print}
 
 ### Is It Up Tho
-{: .no-print}
 
 [Live](https://isituptho.hvalec.com){:target="_blank" rel="noopener noreferrer"}
-{: .entry-when .no-print}
+{: .entry-when}
 
 A server-side URL health checker. Enter any public URL and it fetches it from the server, returning the HTTP status code, response time, redirect chain, security headers, server software, cache policy, and a live Puppeteer screenshot. Includes rate limiting and SSRF/DNS-rebinding protection.
-{: .no-print}
 
 Tags: uptime, puppeteer, express, nodejs
-{: .no-print}
 
 ### IRC Server
-{: .no-print}
 
 [Live](https://irc.hvalec.com){:target="_blank" rel="noopener noreferrer"}, [GitHub](https://github.com/hvalec427/irc-server){:target="_blank" rel="noopener noreferrer"}
-{: .entry-when .no-print}
+{: .entry-when}
 
 A fully functional IRC server built from scratch in TypeScript. Supports standard IRC protocol features including channels, private messaging, and operator commands, plus custom AUTH commands for reserving nicks with a password. Built for fun and to learn how IRC works.
-{: .no-print}
 
 Tags: irc, TypeScript, Sockets, Protocol
-{: .no-print}
 
 ### Also shipped
-{: .no-print}
 
 - **App Links Validator** — deep link testing tool for iOS/Android.
 - **Bitrise Doppler Step** — CI/CD secret injection for Bitrise.
 - **Dotfiles** — personal macOS/Linux shell and editor config.
 - **hvalec.com** — this site, a static Jekyll build with zero client-side JavaScript.
-{: .no-print}
 
 [All projects]({{ "/projects" | absolute_url }})
-{: .no-print}
 
 ## Toolkit
 {: .section-head}
