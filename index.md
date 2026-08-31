@@ -4,7 +4,7 @@ title: "Žiga Hvalec | Mobile Developer"
 title_suffix: false
 ---
 
-[Email](mailto:zigahvalec@gmail.com){: .email-label} [zigahvalec@gmail.com](mailto:zigahvalec@gmail.com){: .email-plain} [GitHub](https://github.com/hvalec427){:target="_blank" rel="noopener noreferrer"} [LinkedIn](https://www.linkedin.com/in/hvalec/){:target="_blank" rel="noopener noreferrer"} [Download PDF](/assets/ziga-hvalec-cv.pdf){:download="ziga-hvalec-cv.pdf" .no-print}
+[About](/me){: .no-print} [Email](mailto:zigahvalec@gmail.com){: .email-label} [zigahvalec@gmail.com](mailto:zigahvalec@gmail.com){: .email-plain} [GitHub](https://github.com/hvalec427){:target="_blank" rel="noopener noreferrer"} [LinkedIn](https://www.linkedin.com/in/hvalec/){:target="_blank" rel="noopener noreferrer"} [Download PDF](/assets/ziga-hvalec-cv.pdf){:download="ziga-hvalec-cv.pdf" .no-print}
 {: .contact-line}
 
 React Native developer with six years of experience building mobile apps and self-hosted side projects.
