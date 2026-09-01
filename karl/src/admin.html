@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' https://unpkg.com https://cloud.umami.is https://presence.hvalec.com; style-src 'self' https://unpkg.com 'unsafe-inline'; img-src 'self' data: https://*.basemaps.cartocdn.com; font-src 'self'; connect-src 'self' https://api.open-meteo.com https://api.sunrise-sunset.org https://abacus.jasoncameron.dev https://*.hvalec.com wss://*.hvalec.com https://gateway.umami.is https://unpkg.com; base-uri 'self'; form-action 'self'; object-src 'none';"
+      content="default-src 'self'; script-src 'self' https://unpkg.com https://cloud.umami.is https://presence.hvalec.com; style-src 'self' https://unpkg.com https://fonts.googleapis.com 'unsafe-inline'; img-src 'self' data: https://*.basemaps.cartocdn.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.open-meteo.com https://api.sunrise-sunset.org https://abacus.jasoncameron.dev https://*.hvalec.com wss://*.hvalec.com https://gateway.umami.is https://unpkg.com; base-uri 'self'; form-action 'self'; object-src 'none';"
     />
     <title>Admin | Hvalec</title>
 
@@ -27,23 +27,173 @@
       href="/karl/assets/favicon-16x16.png"
     />
     <link rel="manifest" href="/karl/assets/site.webmanifest" />
-    <link rel="stylesheet" href="/karl/assets/css/main.css" />
-    <script src="/karl/assets/js/theme-toggle.js"></script>
-    <script src="/karl/assets/js/copy-code.js"></script>
-    <script src="/karl/assets/js/api-config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/karl/assets/css/admin.css" />
   </head>
 
-  <body>
-    <!-- include:header -->
+  <body class="spec-sheet">
+    <div class="spec-sheet-header">
+      <span class="spec-sheet-wordmark">Personal Spec Sheet</span>
+      <span class="spec-sheet-badge">ADMIN</span>
+      <div style="flex: 1"></div>
+      <a href="/" class="spec-link">← Site</a>
+    </div>
 
-    <main class="content">
+    <main class="spec-main">
       <noscript><p>This page requires JavaScript.</p></noscript>
-      <div id="admin-panel"></div>
+
+      <div id="admin-tabs" hidden x-data="adminTabs">
+        <div class="spec-tabs">
+          <button
+            type="button"
+            class="spec-tab"
+            :class="{ 'spec-tab-active': tab === 'collections' }"
+            @click="tab = 'collections'"
+          >
+            Collections
+          </button>
+          <button
+            type="button"
+            class="spec-tab"
+            :class="{ 'spec-tab-active': tab === 'watching' }"
+            @click="tab = 'watching'"
+          >
+            Watching
+          </button>
+          <button
+            type="button"
+            class="spec-tab"
+            :class="{ 'spec-tab-active': tab === 'reading' }"
+            @click="tab = 'reading'"
+          >
+            Reading
+          </button>
+          <button
+            type="button"
+            class="spec-tab"
+            :class="{ 'spec-tab-active': tab === 'exercise' }"
+            @click="tab = 'exercise'"
+          >
+            Exercise
+          </button>
+          <button
+            type="button"
+            class="spec-tab"
+            :class="{ 'spec-tab-active': tab === 'habits' }"
+            @click="tab = 'habits'"
+          >
+            Habits
+          </button>
+          <button
+            type="button"
+            class="spec-tab"
+            :class="{ 'spec-tab-active': tab === 'manage' }"
+            @click="tab = 'manage'"
+          >
+            Manage
+          </button>
+        </div>
+
+        <div x-show="tab === 'collections'" class="spec-card">
+          <i class="spec-corner spec-corner-tl">+</i>
+          <i class="spec-corner spec-corner-tr">+</i>
+          <i class="spec-corner spec-corner-bl">+</i>
+          <i class="spec-corner spec-corner-br">+</i>
+          <p class="spec-hint">Coming soon.</p>
+        </div>
+        <div x-show="tab === 'watching'" class="spec-card">
+          <i class="spec-corner spec-corner-tl">+</i>
+          <i class="spec-corner spec-corner-tr">+</i>
+          <i class="spec-corner spec-corner-bl">+</i>
+          <i class="spec-corner spec-corner-br">+</i>
+          <p class="spec-hint">Coming soon.</p>
+        </div>
+        <div x-show="tab === 'reading'" class="spec-card">
+          <i class="spec-corner spec-corner-tl">+</i>
+          <i class="spec-corner spec-corner-tr">+</i>
+          <i class="spec-corner spec-corner-bl">+</i>
+          <i class="spec-corner spec-corner-br">+</i>
+          <p class="spec-hint">Coming soon.</p>
+        </div>
+        <div x-show="tab === 'exercise'" class="spec-card">
+          <i class="spec-corner spec-corner-tl">+</i>
+          <i class="spec-corner spec-corner-tr">+</i>
+          <i class="spec-corner spec-corner-bl">+</i>
+          <i class="spec-corner spec-corner-br">+</i>
+          <p class="spec-hint">Coming soon.</p>
+        </div>
+
+        <div
+          x-show="tab === 'habits'"
+          class="spec-card"
+          x-data="habitsPanel"
+          x-init="load()"
+        >
+          <i class="spec-corner spec-corner-tl">+</i>
+          <i class="spec-corner spec-corner-tr">+</i>
+          <i class="spec-corner spec-corner-bl">+</i>
+          <i class="spec-corner spec-corner-br">+</i>
+          <p class="spec-card-title">Habits</p>
+          <p class="spec-caption">Today — tap to toggle done</p>
+          <div class="spec-row" style="margin-bottom: 16px">
+            <template x-for="h in habits" :key="h.id">
+              <button
+                type="button"
+                class="spec-tab"
+                :class="{ 'spec-tab-active': h.doneToday }"
+                @click="toggle(h)"
+                x-text="(h.doneToday ? '✓ ' : '○ ') + h.name"
+              ></button>
+            </template>
+          </div>
+          <div class="spec-row">
+            <input
+              class="spec-input"
+              type="text"
+              x-model="newName"
+              placeholder="e.g. Stretch before bed"
+              @keydown.enter="add()"
+            />
+            <select class="spec-input" x-model="newCadence">
+              <option value="daily">Daily</option>
+              <option value="weekly">Weekly</option>
+            </select>
+            <button type="button" class="spec-button" @click="add()">
+              Add
+            </button>
+          </div>
+        </div>
+
+        <div x-show="tab === 'manage'" class="spec-card">
+          <i class="spec-corner spec-corner-tl">+</i>
+          <i class="spec-corner spec-corner-tr">+</i>
+          <i class="spec-corner spec-corner-bl">+</i>
+          <i class="spec-corner spec-corner-br">+</i>
+          <p class="spec-hint">Coming soon.</p>
+        </div>
+      </div>
+
+      <div class="spec-card">
+        <i class="spec-corner spec-corner-tl">+</i>
+        <i class="spec-corner spec-corner-tr">+</i>
+        <i class="spec-corner spec-corner-bl">+</i>
+        <i class="spec-corner spec-corner-br">+</i>
+        <div id="admin-panel"></div>
+      </div>
     </main>
 
-    <!-- include:footer -->
-
+    <script src="/karl/assets/js/api-config.js"></script>
     <script src="/karl/assets/js/admin.js"></script>
+    <script defer src="/karl/assets/js/admin-tabs.js"></script>
+    <script
+      defer
+      src="https://unpkg.com/@alpinejs/csp@3.x.x/dist/cdn.min.js"
+    ></script>
 
     <script
       defer

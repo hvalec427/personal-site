@@ -641,6 +641,7 @@
 
   function renderSignedIn(email) {
     container.replaceChildren();
+    document.getElementById("admin-tabs")?.removeAttribute("hidden");
 
     const p = document.createElement("p");
     p.append("Signed in as ");
@@ -702,6 +703,7 @@
     const message =
       ERROR_MESSAGES[error] || "Nothing to see here unless you're me.";
     container.replaceChildren();
+    document.getElementById("admin-tabs")?.setAttribute("hidden", "");
 
     const p = document.createElement("p");
     p.textContent = message;
