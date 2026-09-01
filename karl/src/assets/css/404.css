@@ -1,0 +1,29 @@
+/* Styles specific to the 404 snake game */
+
+.snake404-wrap {
+  width: min(70vw, 320px);
+  max-width: 100vw;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  margin-top: 2em;
+}
+.snake404-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100vw;
+  max-height: 50vw;
+  background: var(--background);
+  border: 2px solid var(--primary);
+  box-sizing: border-box;
+}
+.snake404-help {
+  color: var(--secondary);
+  text-align: center;
+  margin-top: 10px;
+  font-size: 13px;
+}

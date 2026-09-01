@@ -1,6 +1,8 @@
 # personal-site
 
-Static personal website (hvalec.com), built with Jekyll. Fully static, no client-side JavaScript — the professional counterpart to mstr.hvalec.com.
+Static personal website (hvalec.com), built with Jekyll. Fully static, no client-side JavaScript on the main site.
+
+`/karl` is the non-professional counterpart, formerly its own site (mstr.hvalec.com / mstr-site repo). It's a separate Node-based static build living in `karl/` (its own `package.json`, `src/`, `partials/`, `scripts/`) with client-side JS for live widgets (weather, map, presence, now-playing, status badges) and an admin panel. Jekyll excludes `karl/` entirely (see `_config.yml`); it's built independently and its `dist/` output is copied into `_site/karl` as a post-build step. See `karl/README.md` (ported from mstr-site) for its own secrets/build details.
 
 ## Local development
 
@@ -8,6 +10,16 @@ Static personal website (hvalec.com), built with Jekyll. Fully static, no client
 bundle install
 bundle exec jekyll serve
 ```
+
+To build and preview `/karl` locally too:
+
+```
+bundle exec jekyll build
+cd karl && API_BASE_URL=http://localhost:4000 npm run build:static && cd ..
+mkdir -p _site/karl && cp -R karl/dist/. _site/karl/
+```
+
+(`API_BASE_URL` normally comes from Doppler — see `karl/README.md`. The placeholder above is only for previewing pages that don't need the API.)
 
 ## The CV PDF
 
@@ -33,8 +45,10 @@ The PDF itself isn't committed — it's generated fresh into `_site/assets/` on 
 
 ## Deployment (Coolify)
 
-Staging Build Command: `bundle exec jekyll build --config _config.yml,_config_staging.yml && ruby scripts/generate-cv-pdf.rb`
-Production Build Command (once `master` is migrated to Jekyll): `bundle exec jekyll build --config _config.yml,_config_production.yml && ruby scripts/generate-cv-pdf.rb`
+Staging Build Command: `bundle exec jekyll build --config _config.yml,_config_staging.yml && cd karl && npm run build && cd .. && mkdir -p _site/karl && cp -R karl/dist/. _site/karl/ && ruby scripts/generate-cv-pdf.rb`
+Production Build Command (once `master` is migrated to Jekyll): `bundle exec jekyll build --config _config.yml,_config_production.yml && cd karl && npm run build && cd .. && mkdir -p _site/karl && cp -R karl/dist/. _site/karl/ && ruby scripts/generate-cv-pdf.rb`
 Publish Directory: `/_site`
 
-`nixpacks.toml` adds `chromium` (plus `fontconfig`/`dejavu_fonts`) to the build environment so the PDF script has a browser to drive.
+`nixpacks.toml` adds `chromium` (plus `fontconfig`/`dejavu_fonts`) to the build environment so the PDF script has a browser to drive, and `nodejs_22` so `karl`'s build can run.
+
+`karl`'s build (`npm run build` → `karl/scripts/build.js`) needs a `DOPPLER_TOKEN` env var on this Coolify app (service token scoped to the `hvalec-site` Doppler project) to resolve `API_BASE_URL` and any other secrets at build time — see `karl/README.md`.

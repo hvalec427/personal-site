@@ -9,3 +9,7 @@ vendor/
 .env
 
 /assets/ziga-hvalec-cv.pdf
+
+karl/node_modules/
+karl/dist/
+karl/.env

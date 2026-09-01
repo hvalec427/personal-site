@@ -111,4 +111,4 @@ Tags: React Native, TypeScript, React Navigation, MobX, GraphQL, Jest, react-nat
 ## Interests
 {: .section-head}
 
-Mobile development (job and hobby), gaming, hiking, and my dog, [Marli]({{ "/dog" | absolute_url }}). For more of my writing, see [the blog]({{ "/blog" | absolute_url }}); for everything that didn't make the cut here, see [the other side of this site](https://staging.mstr.hvalec.com){:target="_blank" rel="noopener noreferrer"}.
+Mobile development (job and hobby), gaming, hiking, and my dog, [Marli]({{ "/dog" | absolute_url }}). For more of my writing, see [the blog]({{ "/blog" | absolute_url }}); for everything that didn't make the cut here, see [the other side of this site]({{ "/karl" | absolute_url }}).

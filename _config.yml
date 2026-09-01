@@ -26,3 +26,7 @@ exclude:
   - vendor
   - node_modules
   - README.md
+  - karl
+
+keep_files:
+  - karl

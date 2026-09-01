@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /karl/admin
+Disallow: /karl/secret
 
 Sitemap: https://hvalec.com/sitemap.xml

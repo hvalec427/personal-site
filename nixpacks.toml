@@ -1,5 +1,5 @@
 [phases.setup]
-nixPkgs = ["chromium", "fontconfig", "dejavu_fonts"]
+nixPkgs = ["chromium", "fontconfig", "dejavu_fonts", "nodejs_22"]
 
 [variables]
 FONTCONFIG_FILE = "/root/.nix-profile/etc/fonts/fonts.conf"
