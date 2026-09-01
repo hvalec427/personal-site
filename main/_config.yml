@@ -1,5 +1,6 @@
 title: Hvalec
 url: "http://localhost:3000"
+destination: ../dist
 markdown: kramdown
 kramdown:
   auto_ids: true
@@ -25,8 +26,3 @@ exclude:
   - Gemfile.lock
   - vendor
   - node_modules
-  - README.md
-  - karl
-
-keep_files:
-  - karl

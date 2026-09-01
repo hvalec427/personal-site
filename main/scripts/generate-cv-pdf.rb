@@ -1,18 +1,18 @@
 #!/usr/bin/env ruby
-# Renders the built homepage (_site/index.html) to a PDF using headless
+# Renders the built homepage (dist/index.html) to a PDF using headless
 # Chromium, so the downloadable CV is always an exact copy of what's on
-# the site. Run AFTER `jekyll build` — needs _site/ to exist, and writes
-# straight into _site/assets/ since Jekyll already built that directory.
+# the site. Run AFTER `jekyll build` — needs dist/ to exist, and writes
+# straight into dist/assets/ since Jekyll already built that directory.
 #
-# Serves _site/ over local HTTP (rather than pointing Chrome at a file://
+# Serves dist/ over local HTTP (rather than pointing Chrome at a file://
 # URL) because the page's CSS/asset links are root-absolute (e.g.
 # "/assets/css/main.css") — under file://, "/" resolves to the filesystem
 # root, not the site, so the page would lose all styling.
 
 require "webrick"
 
-ROOT = File.expand_path("..", __dir__)
-SITE_DIR = File.join(ROOT, "_site")
+ROOT = File.expand_path("../..", __dir__)
+SITE_DIR = File.join(ROOT, "dist")
 OUTPUT = File.join(SITE_DIR, "assets", "ziga-hvalec-cv.pdf")
 PORT = 4021
 

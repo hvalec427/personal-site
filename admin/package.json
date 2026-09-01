@@ -1,0 +1,19 @@
+{
+  "name": "admin",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Admin panel for hvalec.com, built at /admin. Alpine.js (CSP-safe build), no bundler.",
+  "license": "MIT",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "build:static": "rm -rf dist && mkdir -p dist && cp -R src/. dist/ && node scripts/write-api-config.js",
+    "dev": "concurrently \"nodemon --watch src -e html,css,js --exec 'yarn build'\" \"serve dist -l 3003\"",
+    "secrets": "doppler secrets download --no-file --format env > .env"
+  },
+  "devDependencies": {
+    "@dopplerhq/node-sdk": "^1.3.0",
+    "concurrently": "9.2.1",
+    "nodemon": "3.1.14",
+    "serve": "14.2.6"
+  }
+}

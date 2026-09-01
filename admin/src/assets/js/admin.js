@@ -643,6 +643,9 @@
     container.replaceChildren();
     document.getElementById("admin-tabs")?.removeAttribute("hidden");
 
+    const topSection = document.createElement("div");
+    topSection.className = "connection-section";
+
     const p = document.createElement("p");
     p.append("Signed in as ");
     const strong = document.createElement("strong");
@@ -654,6 +657,8 @@
     button.className = "cv-button";
     button.id = "admin-logout";
     button.textContent = "Log out";
+
+    topSection.append(p, button);
 
     const xboxSection = document.createElement("div");
     xboxSection.className = "connection-section";
@@ -674,8 +679,7 @@
     devicesSection.className = "connection-section";
 
     container.append(
-      p,
-      button,
+      topSection,
       xboxSection,
       spotifySection,
       steamSection,
@@ -705,6 +709,9 @@
     container.replaceChildren();
     document.getElementById("admin-tabs")?.setAttribute("hidden", "");
 
+    const section = document.createElement("div");
+    section.className = "connection-section";
+
     const p = document.createElement("p");
     p.textContent = message;
 
@@ -713,7 +720,8 @@
     link.className = "cv-button";
     link.textContent = "Login with Google";
 
-    container.append(p, link);
+    section.append(p, link);
+    container.append(section);
   }
 
   fetch(`${window.API_BASE_URL}/auth/me`, { credentials: "include" })

@@ -1,54 +1,58 @@
 # personal-site
 
-Static personal website (hvalec.com), built with Jekyll. Fully static, no client-side JavaScript on the main site.
+Static personal website (hvalec.com). Three independent frontend projects, each built on its own, assembled into one shared `dist/` for serving:
 
-`/karl` is the non-professional counterpart, formerly its own site (mstr.hvalec.com / mstr-site repo). It's a separate Node-based static build living in `karl/` (its own `package.json`, `src/`, `partials/`, `scripts/`) with client-side JS for live widgets (weather, map, presence, now-playing, status badges) and an admin panel. Jekyll excludes `karl/` entirely (see `_config.yml`); it's built independently and its `dist/` output is copied into `_site/karl` as a post-build step. See `karl/README.md` (ported from mstr-site) for its own secrets/build details.
+- **`main/`** — the Jekyll site (hvalec.com itself). Fully static, no client-side JavaScript.
+- **`karl/`** — `/karl`, the non-professional counterpart (formerly its own site, mstr.hvalec.com / mstr-site repo). Separate Node-based static build (own `package.json`, `src/`, `partials/`, `scripts/`) with client-side JS for live widgets (weather, map, presence, now-playing, status badges). See `karl/README.md`.
+- **`admin/`** — `/admin`, the admin panel (Spotify/Xbox/Steam/PSN/Discord connections, device tokens, and the growing Habits/Collections/etc. tabs). Alpine.js (the CSP-safe build — see `admin/src/index.html`'s CSP meta tag), no bundler. See `admin/README.md`.
+
+Each project builds into its own `dist/` and knows nothing about the other two — `main/` doesn't exclude or embed `karl/`/`admin/` the way it used to, they're just separate sibling folders. The root `package.json` is purely an orchestrator: it runs each project's own build, then copies `karl/dist` → `dist/karl` and `admin/dist` → `dist/admin`, so the final `dist/` at the repo root is what actually gets served, matching the site's real URL structure (`/`, `/karl`, `/admin`).
 
 ## Local development
 
-```
-bundle install
-bundle exec jekyll serve
-```
-
-To build and preview `/karl` locally too:
+Build everything and check the result:
 
 ```
-bundle exec jekyll build
-cd karl && API_BASE_URL=http://localhost:4000 npm run build:static && cd ..
-mkdir -p _site/karl && cp -R karl/dist/. _site/karl/
+API_BASE_URL=http://localhost:4000 npm run build:dev
+npx serve dist -l 3000
 ```
 
-(`API_BASE_URL` normally comes from Doppler — see `karl/README.md`. The placeholder above is only for previewing pages that don't need the API.)
+(`API_BASE_URL` normally comes from Doppler per-project — see `karl/README.md` / `admin/README.md`. The placeholder above is only for previewing pages that don't need the API.)
+
+To iterate on just one project, work inside it directly (e.g. `cd karl && npm run dev`) — no need to rebuild the other two while doing so. Run the root build again when you want to check how it all fits together.
 
 ## The CV PDF
 
-`assets/ziga-hvalec-cv.pdf` is generated from the built homepage itself — `scripts/generate-cv-pdf.rb` serves `_site/` locally and prints `index.html` to PDF with headless Chromium (the site's own `@media print` rules in `assets/css/main.css` hide the footer and the "Download PDF" link for the print version). There's only one source of content: `index.md`.
+`main/assets/ziga-hvalec-cv.pdf` is generated from the built homepage itself — `main/scripts/generate-cv-pdf.rb` serves the root `dist/` locally and prints `index.html` to PDF with headless Chromium (the site's own `@media print` rules in `main/assets/css/main.css` hide the footer and the "Download PDF" link for the print version). There's only one source of content: `main/index.md`.
 
-It runs automatically on every deploy (see Build Command below). To regenerate it locally after editing `index.md`:
+It runs automatically on every deploy (see Build Command below). To regenerate it locally after editing `main/index.md`:
 
 ```
-bundle exec jekyll build
-ruby scripts/generate-cv-pdf.rb
+npm run build:main:dev
+npm run finalize
 ```
 
 Requires a Chrome/Chromium binary on the machine (checks `CHROME_PATH`, then `chromium`, `chromium-browser`, `google-chrome` on PATH, then the macOS Chrome app bundle).
 
-The PDF itself isn't committed — it's generated fresh into `_site/assets/` on every build/deploy, so `assets/ziga-hvalec-cv.pdf` is git-ignored.
+The PDF itself isn't committed — it's generated fresh into `dist/assets/` on every build/deploy, so it's git-ignored.
 
 ## Site URL per environment
 
-`_config.yml` defaults `url` to `http://localhost:3000` for local dev. Staging and production override it by merging an extra config file at build time, so internal links (and the ones printed into the PDF) always point at the right domain instead of the build machine's localhost:
+`main/_config.yml` defaults `url` to `http://localhost:3000` for local dev. Staging and production override it by merging an extra config file at build time, so internal links (and the ones printed into the PDF) always point at the right domain instead of the build machine's localhost:
 
-- Staging: `_config_staging.yml` → `https://staging.hvalec.com`
-- Production: `_config_production.yml` → `https://hvalec.com`
+- Staging: `main/_config_staging.yml` → `https://staging.hvalec.com`
+- Production: `main/_config_production.yml` → `https://hvalec.com`
 
 ## Deployment (Coolify)
 
-Staging Build Command: `bundle exec jekyll build --config _config.yml,_config_staging.yml && cd karl && npm run build && cd .. && mkdir -p _site/karl && cp -R karl/dist/. _site/karl/ && ruby scripts/generate-cv-pdf.rb`
-Production Build Command (once `master` is migrated to Jekyll): `bundle exec jekyll build --config _config.yml,_config_production.yml && cd karl && npm run build && cd .. && mkdir -p _site/karl && cp -R karl/dist/. _site/karl/ && ruby scripts/generate-cv-pdf.rb`
-Publish Directory: `/_site`
+**Build Command changed with the three-project split — see the note below before updating Coolify.**
 
-`nixpacks.toml` adds `chromium` (plus `fontconfig`/`dejavu_fonts`) to the build environment so the PDF script has a browser to drive, and `nodejs_22` so `karl`'s build can run.
+Staging Build Command: `npm run build:staging`
+Production Build Command: `npm run build`
+Publish Directory: `/dist`
 
-`karl`'s build (`npm run build` → `karl/scripts/build.js`) needs a `DOPPLER_TOKEN` env var on this Coolify app (service token scoped to the `hvalec-site` Doppler project) to resolve `API_BASE_URL` and any other secrets at build time — see `karl/README.md`.
+`nixpacks.toml` adds `chromium` (plus `fontconfig`/`dejavu_fonts`) so the PDF script has a browser to drive, `nodejs_22` so `karl`'s and `admin`'s builds can run, and now explicitly adds `ruby_3_3` + `bundler` — previously nixpacks auto-detected Ruby from a root-level `Gemfile`, but that now lives in `main/`, so auto-detection no longer fires and Ruby has to be requested explicitly.
+
+`karl`'s and `admin`'s builds each need their own `DOPPLER_TOKEN` env var on this Coolify app (service tokens scoped to their own Doppler projects) to resolve `API_BASE_URL` and any other secrets at build time — see `karl/README.md` / `admin/README.md`.
+
+**Action needed:** the Coolify Build Command and Publish Directory for both the staging and production `personal-site` apps still have the old pre-split values and need updating to the ones above — I didn't change them myself since that's live deploy config. `ADMIN_REDIRECT_URL` (a Doppler secret used by `hvalec-api` for the post-login redirect) also needs updating from wherever it currently points (`.../karl/admin`) to `.../admin`, in both the staging and production Doppler configs, or logging into `/admin` will redirect somewhere that no longer exists.

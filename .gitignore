@@ -1,15 +1,19 @@
 .DS_Store
 
+dist/
 _site/
-.jekyll-cache/
-.jekyll-metadata
-.bundle/
-vendor/
 
-.env
+node_modules/
 
-/assets/ziga-hvalec-cv.pdf
+main/.jekyll-cache/
+main/.jekyll-metadata
+main/.bundle/
+main/vendor/
 
-karl/node_modules/
 karl/dist/
 karl/.env
+
+admin/dist/
+admin/.env
+
+.env
