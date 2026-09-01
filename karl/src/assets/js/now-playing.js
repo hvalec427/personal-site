@@ -5,8 +5,8 @@ const CARD_PADDING_X_PX = 16;
 const CARD_CONTENT_WIDTH_PX = CARD_WIDTH_PX - CARD_PADDING_X_PX * 2;
 const TRACK_CONTENT_WIDTH_PX = CARD_CONTENT_WIDTH_PX - 1.3 * 13;
 
-const FONT_BOLD = "600 13px 'Fira Code', monospace";
-const FONT_NORMAL = "13px 'Fira Code', monospace";
+const FONT_BOLD = "600 13px 'Cutive Mono', monospace";
+const FONT_NORMAL = "13px 'Cutive Mono', monospace";
 
 function formatDuration(ms) {
   const totalSeconds = Math.floor(ms / 1000);
@@ -106,39 +106,14 @@ function idlePill(text, online = false) {
   return el;
 }
 
-// Every known source gets a card in the status column at all times, so the
-// column reads as a fixed set of slots rather than a list that only shows up
-// when something happens to be active.
-const SOURCE_LABELS = {
-  discord: "Discord",
-  spotify: "Spotify",
-  xbox: "Xbox",
-  steam: "Steam",
-  psn: "PlayStation",
-};
-const SOURCE_ORDER = ["discord", "spotify", "xbox", "steam", "psn"];
+// Spotify gets its own always-visible widget outside this grid (see
+// spotifyIdleCard); everything else here only appears when actually online,
+// so "Right Now" only lists what's currently true rather than a fixed set of
+// mostly-empty slots.
+const RIGHT_NOW_ORDER = ["discord", "xbox", "steam", "psn"];
 
-function emptyCard(label) {
-  const card = document.createElement("div");
-  card.className = "now-playing-card now-playing-card--empty";
-
-  const header = document.createElement("div");
-  header.className = "now-playing-header now-playing-header--dot";
-
-  const dot = document.createElement("span");
-  dot.className = "status-badge-dot";
-
-  const headerText = document.createElement("span");
-  headerText.textContent = label;
-
-  header.append(dot, headerText);
-  card.appendChild(header);
-
-  return card;
-}
-
-// Matches emptyCard/discordCard's dot + text header — the shared look
-// every now-playing card header uses.
+// Matches discordCard's dot + text header — the shared look every
+// now-playing card header uses.
 function dotHeader(text, dotClass = "") {
   const header = document.createElement("div");
   header.className = "now-playing-header now-playing-header--dot";
@@ -279,6 +254,20 @@ function spotifyCard(status, now) {
   return card;
 }
 
+function spotifyIdleCard() {
+  const card = document.createElement("div");
+  card.className = "now-playing-card now-playing-idle";
+
+  const header = dotHeader("Spotify");
+
+  const text = document.createElement("div");
+  text.className = "now-playing-idle-text";
+  text.textContent = "Nothing playing right now.";
+
+  card.append(header, text);
+  return card;
+}
+
 // Shared active/idle/dnd/offline vocabulary across every presence source
 // (games, Spotify, Discord, PC status) — see hvalec-api/docs/presence-status.md.
 const PRESENCE_LABELS = {
@@ -333,7 +322,6 @@ function renderStatus(status, now) {
   if (status.source === "xbox") return xboxCard(status, now);
   if (status.source === "steam") return steamCard(status, now);
   if (status.source === "psn") return psnCard(status, now);
-  if (status.source === "spotify") return spotifyCard(status, now);
   if (status.source === "discord") return discordCard(status);
   return idlePill(status.title || status.track || "Playing", true);
 }
@@ -475,8 +463,12 @@ let latestDevices = [];
 // whole gesture, not just once a selection already exists.
 let statusBadgesMouseDown = false;
 document.addEventListener("mousedown", (event) => {
-  const container = document.getElementById("status-badges");
-  if (container && container.contains(event.target)) {
+  const rightNow = document.getElementById("status-badges");
+  const spotify = document.getElementById("spotify-now-playing");
+  if (
+    (rightNow && rightNow.contains(event.target)) ||
+    (spotify && spotify.contains(event.target))
+  ) {
     statusBadgesMouseDown = true;
   }
 });
@@ -486,7 +478,9 @@ document.addEventListener("mouseup", () => {
 
 function renderBadges() {
   const container = document.getElementById("status-badges");
-  if (!container) return;
+  const heading = document.getElementById("right-now-heading");
+  const spotifyContainer = document.getElementById("spotify-now-playing");
+  if (!container && !spotifyContainer) return;
 
   if (statusBadgesMouseDown) return;
 
@@ -494,7 +488,8 @@ function renderBadges() {
   if (
     selection &&
     !selection.isCollapsed &&
-    container.contains(selection.anchorNode)
+    ((container && container.contains(selection.anchorNode)) ||
+      (spotifyContainer && spotifyContainer.contains(selection.anchorNode)))
   ) {
     return;
   }
@@ -505,30 +500,25 @@ function renderBadges() {
   );
   const device = pickDevice(latestDevices, now);
 
-  const slots = [
-    ...SOURCE_ORDER.map((source) => {
-      const status = bySource.get(source);
-      const online = status?.presence && status.presence !== "offline";
-      return {
-        online,
-        element: online
-          ? renderStatus(status, now)
-          : emptyCard(SOURCE_LABELS[source]),
-      };
-    }),
-    {
-      online: Boolean(device),
-      element: device ? deviceCard(device, now) : emptyCard("PC"),
-    },
-  ];
+  if (container) {
+    const rendered = RIGHT_NOW_ORDER.map((source) => bySource.get(source))
+      .filter((status) => status?.presence && status.presence !== "offline")
+      .map((status) => renderStatus(status, now));
+    if (device) rendered.push(deviceCard(device, now));
 
-  // Stable sort: online cards float to the top, offline ones sink to the
-  // bottom, and relative order within each group stays as defined above.
-  const rendered = slots
-    .sort((a, b) => Number(b.online) - Number(a.online))
-    .map((slot) => slot.element);
+    reconcileBadges(container, rendered);
+    container.hidden = rendered.length === 0;
+    if (heading) heading.hidden = rendered.length === 0;
+  }
 
-  reconcileBadges(container, rendered);
+  if (spotifyContainer) {
+    const spotifyStatus = bySource.get("spotify");
+    const spotifyOnline =
+      spotifyStatus?.presence && spotifyStatus.presence !== "offline";
+    reconcileBadges(spotifyContainer, [
+      spotifyOnline ? spotifyCard(spotifyStatus, now) : spotifyIdleCard(),
+    ]);
+  }
 }
 
 // container.replaceChildren(...) unconditionally tears down and reinserts

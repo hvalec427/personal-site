@@ -49,17 +49,109 @@
     <script src="/karl/assets/js/now-playing.js" defer></script>
   </head>
 
-  <body class="has-status-column">
+  <body>
     <!-- include:header -->
 
-    <div class="page-layout">
-      <main class="content">
-        <h1 id="the-rest-of-the-site">The rest of the site</h1>
+    <main class="content">
+      <div class="profile-hero">
+          <img
+            class="profile-avatar"
+            src="/karl/assets/images/avatar.jpg"
+            alt="Žiga Hvalec"
+            width="88"
+            height="88"
+          />
+          <div class="profile-hero-info">
+            <h1 class="profile-name" id="the-rest-of-the-site">
+              Žiga Hvalec
+            </h1>
+            <p class="profile-handle">@x.427</p>
+            <p class="profile-bio">
+              Mobile dev by day, dog dad and recipe hoarder by night.
+            </p>
+          </div>
+        </div>
 
         <p>
           Everything that didn't belong on the professional side of
           <a href="/">hvalec.com</a>: hobbies, recipes, and whatever else.
         </p>
+
+        <h2 id="elsewhere-on-the-web">elsewhere on the web</h2>
+
+        <div class="presence-grid">
+          <a
+            class="presence-link"
+            href="https://github.com/hvalec427"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="presence-link-label">GitHub</span>
+            <span class="presence-link-handle">hvalec427</span>
+          </a>
+          <a
+            class="presence-link"
+            href="https://www.linkedin.com/in/hvalec/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="presence-link-label">LinkedIn</span>
+            <span class="presence-link-handle">in/hvalec</span>
+          </a>
+          <a
+            class="presence-link"
+            href="https://open.spotify.com/user/hviga59"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="presence-link-label">Spotify</span>
+            <span class="presence-link-handle">hviga59</span>
+          </a>
+          <a
+            class="presence-link"
+            href="https://steamcommunity.com/profiles/76561198068507235"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="presence-link-label">Steam</span>
+            <span class="presence-link-handle">Goveja zupa</span>
+          </a>
+          <a
+            class="presence-link"
+            href="https://account.xbox.com/en-us/profile?gamertag=II427II"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="presence-link-label">Xbox</span>
+            <span class="presence-link-handle">II427II</span>
+          </a>
+          <a
+            class="presence-link"
+            href="https://psnprofiles.com/Il427lI"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="presence-link-label">PlayStation</span>
+            <span class="presence-link-handle">Il427lI</span>
+          </a>
+          <a
+            class="presence-link"
+            href="https://app.trakt.tv/profile/kekec"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="presence-link-label">Trakt</span>
+            <span class="presence-link-handle">kekec</span>
+          </a>
+        </div>
+
+        <h2 id="currently-listening-to">currently listening to</h2>
+        <div id="spotify-now-playing"></div>
+
+        <h2 id="right-now-heading" hidden>right now</h2>
+        <div class="status-grid" id="status-badges" hidden></div>
+
+        <h2 id="explore">explore</h2>
 
         <ul class="no-dots">
           <ul>
@@ -259,14 +351,7 @@
             </div>
           </div>
         </div>
-      </main>
-
-      <aside
-        class="status-column"
-        id="status-badges"
-        aria-label="Live status"
-      ></aside>
-    </div>
+    </main>
 
     <!-- include:footer -->
 

@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "Cutive Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/cutive-mono-regular.woff2") format("woff2");
+}
+
 :root {
   --background: #f5efe6;
   --primary: #1f2937;
@@ -29,7 +37,7 @@ html {
 html,
 body {
   min-height: 100%;
-  font-family: "Fira Code", monospace;
+  font-family: "Cutive Mono", ui-monospace, monospace;
 }
 
 body {
@@ -44,70 +52,18 @@ body {
   min-height: 100vh;
 }
 
-body.has-status-column {
-  padding-top: 0;
-}
-
 body.no-top-padding {
   padding-top: 0;
 }
 
-.page-layout {
-  position: relative;
-  flex: 1 0 auto;
-}
-
-.status-column {
-  position: absolute;
-  top: 0;
-  left: calc(50% + 350px + var(--card-gap));
-  width: 280px;
-  display: flex;
-  flex-direction: column;
+.status-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: var(--card-gap);
-  margin-top: 2.5rem;
 }
 
-@media (max-width: 1400px) {
-  .page-layout {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--card-gap);
-  }
-
-  .page-layout > .content {
-    max-width: 700px;
-  }
-
-  .status-column {
-    position: static;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    width: 100%;
-    max-width: 700px;
-    margin-top: 0;
-  }
-
-  .status-column > .now-playing-card:not(.now-playing-card--empty) {
-    grid-column: 1 / -1;
-  }
-
-  .status-column:has(
-      .now-playing-card:not(.now-playing-card--empty)
-        ~ .now-playing-card:not(.now-playing-card--empty)
-    )
-    > .now-playing-card:not(.now-playing-card--empty) {
-    grid-column: auto;
-  }
-
-  .status-column
-    > .now-playing-card:not(.now-playing-card--empty):has(
-      ~ .now-playing-card:not(.now-playing-card--empty)
-        ~ .now-playing-card:not(.now-playing-card--empty)
-    ) {
-    grid-column: 1 / -1;
-  }
+.status-grid:has(.now-playing-card:only-child) {
+  grid-template-columns: 1fr;
 }
 
 @media (max-width: 500px) {
@@ -115,7 +71,7 @@ body.no-top-padding {
     flex: 1 1 100%;
   }
 
-  .status-column {
+  .status-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -147,6 +103,90 @@ body.no-top-padding {
 
 .theme-toggle:active {
   transform: scale(0.95);
+}
+
+.profile-hero {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.profile-avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid var(--surface);
+}
+
+.profile-hero-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.profile-name {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary);
+  line-height: 1.25;
+}
+
+.profile-handle {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--secondary);
+}
+
+.profile-bio {
+  margin: 4px 0 0;
+  font-size: 0.9rem;
+  color: var(--primary);
+}
+
+.presence-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--card-gap);
+}
+
+.presence-link {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--surface);
+  border: 1px solid var(--secondary);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: var(--primary);
+}
+
+.presence-link:hover,
+.presence-link:focus-visible {
+  border-color: var(--highlight);
+  color: var(--primary);
+}
+
+.presence-link-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--secondary);
+}
+
+.presence-link:hover .presence-link-label,
+.presence-link:focus-visible .presence-link-label {
+  color: var(--highlight);
+}
+
+.presence-link-handle {
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .cards {
@@ -500,7 +540,6 @@ body > header {
   opacity: 1;
 }
 
-body.has-status-column > header,
 body.no-top-padding > header {
   padding-top: 24px;
 }
@@ -635,7 +674,7 @@ footer {
 }
 
 .content {
-  font-family: "Fira Code", monospace;
+  font-family: "Cutive Mono", ui-monospace, monospace;
   font-size: 1rem;
   line-height: 1.45;
   flex: 1 0 auto;
@@ -797,7 +836,7 @@ a:active {
 }
 
 .content code {
-  font-family: "Fira Code", monospace;
+  font-family: "Cutive Mono", ui-monospace, monospace;
   font-size: 0.9em;
   background: var(--surface);
   padding: 0.15em 0.35em;
@@ -1304,13 +1343,16 @@ ul li + li {
   font-size: 13px;
 }
 
-.now-playing-card--empty {
-  display: flex;
-  align-items: center;
+.now-playing-idle {
+  padding: 20px 16px;
 }
 
-.now-playing-card--empty .now-playing-header {
-  margin-bottom: 0;
+.now-playing-idle .now-playing-header {
+  margin-bottom: 6px;
+}
+
+.now-playing-idle-text {
+  color: var(--secondary);
 }
 
 .now-playing-header {
