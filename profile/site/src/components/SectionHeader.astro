@@ -1,0 +1,16 @@
+---
+interface Props {
+  title: string;
+  tag: string;
+  meta?: string;
+  id?: string;
+}
+const { title, tag, meta, id } = Astro.props;
+---
+<div class="spec-section-header">
+  <h2 class="spec-section-title" id={id}>{title}</h2>
+  <span class="spec-section-tag">{tag}</span>
+  <div class="spec-section-spacer"></div>
+  {meta && <span class="spec-section-meta">{meta}</span>}
+  <slot />
+</div>

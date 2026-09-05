@@ -1,0 +1,30 @@
+---
+import SpecCard from "./SpecCard.astro";
+
+// Wraps any section backed by an endpoint that doesn't exist yet (see
+// future-data.js). Server-renders the empty state; the matching client
+// fetch swaps it for real content if/when the endpoint starts responding.
+//
+// Shares SpecCard with every other "nothing here yet" message on the page
+// so they all read as one family — set card={false} only when the slot
+// already lives inside another SpecCard (e.g. a sidebar card), to avoid
+// nesting one card inside another.
+interface Props {
+  name: string;
+  emptyText: string;
+  contentClass?: string;
+  card?: boolean;
+}
+const { name, emptyText, contentClass = "", card = true } = Astro.props;
+---
+{card ? (
+  <SpecCard>
+    <p class="spec-empty" data-empty={name}>{emptyText}</p>
+    <div data-content={name} class={contentClass} hidden></div>
+  </SpecCard>
+) : (
+  <>
+    <p class="spec-empty" data-empty={name}>{emptyText}</p>
+    <div data-content={name} class={contentClass} hidden></div>
+  </>
+)}

@@ -1,0 +1,384 @@
+---
+import SpecCorners from "../components/SpecCorners.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import RemoteSlot from "../components/RemoteSlot.astro";
+import SpecCard from "../components/SpecCard.astro";
+import "../styles/global.css";
+import { identity, elsewhereLinks, nowCards } from "../lib/identity";
+import { loadVault } from "../lib/shelves";
+import { loadBlogPosts } from "../lib/blog";
+import { loadActivityLog } from "../lib/activity";
+import { loadProjects } from "../lib/projects";
+
+const vault = loadVault();
+const posts = loadBlogPosts();
+const activity = loadActivityLog();
+const projects = loadProjects();
+const year = new Date().getFullYear();
+
+const tickerFacts = [
+  `${vault.length} ITEMS IN THE VAULT`,
+  `${posts.length} POST${posts.length === 1 ? "" : "S"} WRITTEN`,
+  `${projects.length} PROJECT${projects.length === 1 ? "" : "S"} SHIPPED`,
+];
+
+const NAV_LINKS = [
+  ["#now", "Now"],
+  ["#log", "Log"],
+  ["#habits", "Habits"],
+  ["#motion", "Motion"],
+  ["#music", "Music"],
+  ["#screen", "Screen"],
+  ["#paper", "Paper"],
+  ["#play", "Play"],
+  ["#vault", "Vault"],
+  ["#writing", "Writing"],
+  ["#projects", "Projects"],
+  ["#elsewhere", "Elsewhere"],
+];
+
+const CSP = [
+  "default-src 'self'",
+  "script-src 'self' https://cloud.umami.is",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self'",
+  "font-src 'self'",
+  "connect-src 'self' https://api.open-meteo.com https://abacus.jasoncameron.dev https://*.hvalec.com wss://*.hvalec.com https://gateway.umami.is",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "object-src 'none'",
+].join("; ");
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Security-Policy" content={CSP} />
+    <title>{identity.name} | The rest of the site</title>
+    <meta name="description" content={identity.tagline} />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/profile/assets/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/profile/assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/profile/assets/favicon-16x16.png" />
+    <link rel="manifest" href="/profile/assets/site.webmanifest" />
+
+    <script is:inline>
+      // Blocking, synchronous, no 'unsafe-inline' dependency beyond what the
+      // CSP already grants for style — sets the theme before first paint so
+      // there's no flash of the wrong one. Mirrors profile's theme-toggle.js timing.
+      try {
+        const saved = localStorage.getItem("profile-theme");
+        if (saved === "dark") {
+          document.documentElement.dataset.pendingDark = "true";
+        }
+      } catch {}
+    </script>
+    <script is:inline src="/profile/assets/js/api-config.js"></script>
+  </head>
+  <body class="spec-sheet">
+    <div id="spec-theme-root" class="spec-theme-root">
+      <nav class="spec-nav">
+        <div class="spec-nav-inner">
+          <span class="spec-wordmark">Personal Spec Sheet</span>
+          <span class="spec-rev-badge">REV {year}</span>
+          <span class="spec-online-pill is-offline" id="spec-uptime-pill">
+            <span class="spec-dot"></span>
+            <span class="spec-online-label" id="spec-uptime-label">SITE</span>
+          </span>
+          <div class="spec-nav-links">
+            {NAV_LINKS.map(([href, label]) => (
+              <a href={href} class="spec-nav-link">{label}</a>
+            ))}
+            <button type="button" id="spec-theme-toggle" class="spec-theme-toggle">Dark</button>
+          </div>
+        </div>
+      </nav>
+
+      <div class="spec-page">
+        <header class="spec-hero spec-card">
+          <SpecCorners />
+          <div class="spec-hero-grid">
+            <div>
+              <div class="spec-hero-kicker">SUBJECT / UNIT 001 / SELF-OPERATED</div>
+              <h1 class="spec-hero-name">{identity.name}</h1>
+              <p class="spec-hero-tagline">{identity.tagline}</p>
+              <div class="spec-hero-actions">
+                <a href="#elsewhere" class="spec-btn-primary">Find me elsewhere</a>
+                <a href="#vault" class="spec-btn-secondary">Open the vault</a>
+              </div>
+            </div>
+            <div class="spec-hero-avatar-frame">
+              <div class="spec-hero-avatar">
+                <img src={identity.avatar} alt={identity.name} width="196" height="196" />
+              </div>
+              <div class="spec-hero-avatar-caption">FIG 1. THE SUBJECT, UNSMILING</div>
+            </div>
+          </div>
+          <div class="spec-ticker-track">
+            <div class="spec-ticker-inner">
+              {[...tickerFacts, ...tickerFacts].map((fact) => (
+                <>
+                  <span>{fact}</span>
+                  <span>◆</span>
+                </>
+              ))}
+            </div>
+          </div>
+        </header>
+
+        <div class="spec-body">
+          <aside class="spec-sidebar">
+            <div class="spec-card spec-sidebar-card">
+              <SpecCorners />
+              <div class="spec-sidebar-title">STATUS</div>
+              <div class="spec-status-row">
+                <span class="spec-dot"></span>
+                <span class="spec-status-label" data-presence-label>Away</span>
+              </div>
+              <div class="spec-status-pill is-offline" data-presence-pill>
+                <span class="spec-dot"></span>
+                <span class="spec-status-pill-label" data-presence-label>Away</span>
+                <span class="spec-status-pill-spacer"></span>
+                <span class="spec-status-pill-value" id="spec-online-for" hidden></span>
+              </div>
+              <dl class="spec-status-fields">
+                <dt>LOC</dt><dd>{identity.location}</dd>
+                <dt>TIME</dt><dd id="spec-clock">--:--</dd>
+                <dt>WX</dt><dd id="spec-weather">—</dd>
+              </dl>
+            </div>
+
+            <div class="spec-card spec-sidebar-card">
+              <SpecCorners />
+              <div class="spec-sidebar-title">CURRENTLY</div>
+              <p class="spec-empty" id="spec-currently-empty">Nothing playing or reading right now.</p>
+              <div class="spec-currently-list" id="spec-currently-list" hidden></div>
+            </div>
+
+            <div class="spec-card spec-sidebar-card">
+              <SpecCorners />
+              <div class="spec-sidebar-title">TOP ARTISTS · 7 DAYS</div>
+              <RemoteSlot name="top-artists" emptyText="No listening history yet." contentClass="spec-currently-list" card={false} />
+            </div>
+
+            <div class="spec-card spec-sidebar-card">
+              <SpecCorners />
+              <div class="spec-sidebar-title">TOTALS · {year}</div>
+              <div data-content="totals">
+                <div class="spec-totals-grid">
+                  <div class="spec-totals-cell">
+                    <div class="spec-totals-value" data-total="books">—</div>
+                    <div class="spec-totals-label">BOOKS READ</div>
+                  </div>
+                  <div class="spec-totals-cell">
+                    <div class="spec-totals-value" data-total="films">—</div>
+                    <div class="spec-totals-label">FILMS SEEN</div>
+                  </div>
+                  <div class="spec-totals-cell">
+                    <div class="spec-totals-value" data-total="hours">—</div>
+                    <div class="spec-totals-label">HOURS PLAYED</div>
+                  </div>
+                  <div class="spec-totals-cell">
+                    <div class="spec-totals-value" data-total="tracks">—</div>
+                    <div class="spec-totals-label">TRACKS SCROBBLED</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="spec-visitor-strip">
+              <span class="spec-eyebrow">VISITOR NO.</span>
+              <span class="spec-visitor-value" id="spec-visitor-count">#0000000</span>
+            </div>
+          </aside>
+
+          <main class="spec-main">
+            <section id="now">
+              <SectionHeader title="Now" tag="SECT 01 / STATE OF THE SUBJECT" />
+              {nowCards.length === 0 ? (
+                <SpecCard><p class="spec-empty">Nothing logged yet.</p></SpecCard>
+              ) : (
+                <div class="spec-tile-grid">
+                  {nowCards.map((card) => (
+                    <div class="spec-tile">
+                      <div class="spec-eyebrow" style="margin-bottom:9px">{card.heading}</div>
+                      <p style="margin:0;font-size:15px;line-height:1.5">{card.text}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </section>
+
+            <section id="log">
+              <SectionHeader title="Activity Log" tag="SECT 02 / NEWEST FIRST" meta="AUTO-FED" />
+              {activity.length === 0 ? (
+                <SpecCard><p class="spec-empty">Nothing logged yet.</p></SpecCard>
+              ) : (
+                <div>
+                  {activity.map((entry) => (
+                    <div class="spec-log-row">
+                      <span class="spec-log-when">{entry.when}</span>
+                      <span style="font-size:15px">
+                        <span class="spec-log-tag">{entry.tag}</span>
+                        {entry.url ? <a href={entry.url}>{entry.text}</a> : entry.text}
+                      </span>
+                      <span class="spec-log-rating"></span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </section>
+
+            <section id="habits">
+              <SectionHeader title="Habits" tag="SECT 03 / MAINTENANCE LOG" />
+              <RemoteSlot name="habits" emptyText="No habits tracked publicly yet." />
+            </section>
+
+            <section id="motion">
+              <SectionHeader title="Motion Log" tag="SECT 04 / LEGS, VOLUNTARILY" />
+              <RemoteSlot name="motion" emptyText="No runs or hikes logged yet." />
+            </section>
+
+            <section id="music">
+              <SectionHeader title="Latest Music" tag="SECT 05 / SCROBBLE FEED" meta="SRC: LAST.FM" />
+              <RemoteSlot name="music" emptyText="No scrobble history yet." contentClass="spec-media-grid" />
+            </section>
+
+            <section id="screen">
+              <SectionHeader title="Recently Watched" tag="SECT 06 / FILM & TV" />
+              <RemoteSlot name="screen" emptyText="Nothing watched yet." contentClass="spec-media-grid" />
+            </section>
+
+            <section id="paper">
+              <SectionHeader title="Recently Read" tag="SECT 07 / PAPER INTAKE" />
+              <SpecCard><p class="spec-empty">Nothing logged yet — the shelf inventory below in Vault is real, but reading dates aren't tracked yet.</p></SpecCard>
+            </section>
+
+            <section id="play">
+              <SectionHeader title="Recently Played" tag="SECT 08 / TIME SPENT" meta="SRC: STEAM / XBOX / PSN" />
+              <RemoteSlot name="play" emptyText="No playtime history yet." />
+            </section>
+
+            <section id="vault">
+              <SectionHeader title="The Vault" tag="SECT 09 / EVERYTHING OWNED" />
+              <div class="spec-vault-controls">
+                <div class="spec-row" style="display:flex;gap:8px;align-items:center">
+                  <button type="button" class="spec-chip spec-chip-active" data-vault-kind="all">Everything</button>
+                  <button type="button" class="spec-chip" data-vault-kind="book">Books</button>
+                  <button type="button" class="spec-chip" data-vault-kind="game">Games</button>
+                  <button type="button" class="spec-chip" data-vault-kind="album">Albums</button>
+                </div>
+                <div class="spec-row" style="display:flex;gap:8px;align-items:center">
+                  <span class="spec-eyebrow">SORT</span>
+                  <button type="button" class="spec-chip spec-chip-active" data-vault-sort="recent">Recent</button>
+                  <button type="button" class="spec-chip" data-vault-sort="year">Year</button>
+                </div>
+              </div>
+              {vault.length === 0 ? (
+                <SpecCard><p class="spec-empty">Nothing catalogued yet.</p></SpecCard>
+              ) : (
+                <>
+                  <p class="spec-eyebrow" id="spec-vault-count" style="margin-bottom:10px">{vault.length} OF {vault.length} SHOWN</p>
+                  <div class="spec-vault-grid" id="spec-vault-grid">
+                    {vault.map((item) => (
+                      <div data-kind={item.kind} data-year={item.year} data-order={item.order}>
+                        <div class:list={["spec-placeholder", "spec-vault-cover"]} style={`aspect-ratio:${item.kind === "book" ? "2/3" : item.kind === "album" ? "1/1" : "3/4"}`}>
+                          {item.cover && <img src={item.cover} alt={item.title} loading="lazy" />}
+                          <span class="spec-placeholder-label spec-vault-cover-label">{item.kind}</span>
+                          {item.year && <span class="spec-vault-cover-label" style="font:400 9px/1.2 ui-monospace,monospace;color:var(--ss-accent)">{item.year}</span>}
+                        </div>
+                        <div class="spec-vault-title">{item.title}</div>
+                        <div class="spec-vault-meta">{item.meta}</div>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
+            </section>
+
+            <section id="writing">
+              <SectionHeader title="Writing" tag="SECT 10 / FROM MARKDOWN" />
+              {posts.length === 0 ? (
+                <SpecCard><p class="spec-empty">Nothing published yet.</p></SpecCard>
+              ) : (
+                <div>
+                  {posts.map((post) => (
+                    <a href={post.url} class="spec-post-row">
+                      <span class="spec-post-date">{post.date}</span>
+                      <span class="spec-post-title">{post.title}</span>
+                      <span class="spec-post-mins">{post.minutes} MIN</span>
+                    </a>
+                  ))}
+                </div>
+              )}
+            </section>
+
+            <section id="projects">
+              <SectionHeader title="Projects" tag="SECT 11 / THINGS BUILT" />
+              {projects.length === 0 ? (
+                <SpecCard><p class="spec-empty">Nothing listed yet.</p></SpecCard>
+              ) : (
+                <div class="spec-project-grid">
+                  {projects.map((project) => (
+                    <div class="spec-card spec-project-card">
+                      <SpecCorners />
+                      <div class="spec-project-state">{project.state}</div>
+                      <div class="spec-project-name">{project.name}</div>
+                      <p class="spec-project-blurb">{project.blurb}</p>
+                      {project.url && <a href={project.url} class="spec-project-link" target="_blank" rel="noopener noreferrer">Open ↗</a>}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </section>
+
+            <section id="elsewhere">
+              <SectionHeader title="Elsewhere" tag="SECT 12 / OUTBOUND" />
+              <div class="spec-elsewhere-grid">
+                {elsewhereLinks.map((link) => (
+                  <a href={link.url} class="spec-elsewhere-card" target="_blank" rel="noopener noreferrer">
+                    <div class="spec-elsewhere-category">{link.category}</div>
+                    <div class="spec-elsewhere-site">{link.site} ↗</div>
+                    <div class="spec-elsewhere-handle">{link.handle}</div>
+                  </a>
+                ))}
+              </div>
+            </section>
+
+            <section>
+              <div class="spec-badge-row">
+                <span class="spec-badge">BEST VIEWED<br />IN ANY BROWSER</span>
+                <span class="spec-badge">HAND-BUILT<br />NO TEMPLATE</span>
+                <span class="spec-badge">NO COOKIES<br />NO ANALYTICS</span>
+                <span class="spec-badge">POWERED BY<br />SPITE</span>
+                <span class="spec-badge is-solid">CERTIFIED<br />ONLINE TOO MUCH</span>
+              </div>
+              <div class="spec-footer-meta">
+                <span>DRAWN BY HAND · SHEET 1 OF 1 · READ ONLY</span>
+                <span>© {year} — TAKE WHAT YOU LIKE</span>
+              </div>
+            </section>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Applies the pre-paint flag the blocking <head> script set, then
+      // wires the click handler (theme.js) and every hydration script.
+      const root = document.getElementById("spec-theme-root");
+      if (root && document.documentElement.dataset.pendingDark === "true") {
+        root.setAttribute("data-dark", "true");
+        const toggle = document.getElementById("spec-theme-toggle");
+        if (toggle) toggle.textContent = "Light";
+      }
+    </script>
+    <script src="../scripts/theme.js"></script>
+    <script src="../scripts/live-status.js"></script>
+    <script src="../scripts/vault-controls.js"></script>
+    <script src="../scripts/future-data.js"></script>
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="e3adec61-3166-4f84-a957-b6852d70e64b"></script>
+  </body>
+</html>

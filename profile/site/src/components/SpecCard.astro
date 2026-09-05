@@ -1,0 +1,16 @@
+---
+import SpecCorners from "./SpecCorners.astro";
+
+// The one bordered, corner-ticked card shell used everywhere on the page —
+// RemoteSlot's empty/content states, and every plain "nothing here yet"
+// message. Keeping it to a single component is what makes those all read
+// as one family instead of three slightly different boxes.
+interface Props {
+  class?: string;
+}
+const { class: className = "" } = Astro.props;
+---
+<div class:list={["spec-card", "spec-remote-slot", className]}>
+  <SpecCorners />
+  <slot />
+</div>

@@ -5,200 +5,1625 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' https://unpkg.com https://cloud.umami.is https://presence.hvalec.com; style-src 'self' https://unpkg.com https://fonts.googleapis.com 'unsafe-inline'; img-src 'self' data: https://*.basemaps.cartocdn.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.open-meteo.com https://api.sunrise-sunset.org https://abacus.jasoncameron.dev https://*.hvalec.com wss://*.hvalec.com https://gateway.umami.is https://unpkg.com; base-uri 'self'; form-action 'self'; object-src 'none';"
+      content="default-src 'self'; script-src 'self' https://unpkg.com https://cloud.umami.is https://presence.hvalec.com; style-src 'self' https://unpkg.com https://fonts.googleapis.com 'unsafe-inline'; img-src 'self' data: https://*.basemaps.cartocdn.com https://*.r2.dev https://*.r2.cloudflarestorage.com https://image.tmdb.org https://covers.openlibrary.org; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.open-meteo.com https://api.sunrise-sunset.org https://abacus.jasoncameron.dev https://*.hvalec.com wss://*.hvalec.com https://gateway.umami.is https://unpkg.com; base-uri 'self'; form-action 'self'; object-src 'none';"
     />
     <title>Admin | Hvalec</title>
 
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="/karl/assets/apple-touch-icon.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="/karl/assets/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/karl/assets/favicon-16x16.png"
-    />
-    <link rel="manifest" href="/karl/assets/site.webmanifest" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/profile/assets/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/profile/assets/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/profile/assets/favicon-16x16.png" />
+    <link rel="manifest" href="/profile/assets/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/admin/assets/css/admin.css" />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: #f2f2f3;
+        color: #1d1f20;
+        font-family: "Barlow", system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      a {
+        color: #416180;
+        text-decoration: none;
+      }
+      a:hover {
+        color: #1d2d3d;
+      }
+      ::selection {
+        background: #d6ebff;
+      }
+      :focus-visible {
+        outline: 2px solid #5980a6;
+        outline-offset: 2px;
+      }
+      input,
+      textarea {
+        font-family: "Barlow", system-ui, sans-serif;
+      }
+      @keyframes blip {
+        0%,
+        60% {
+          opacity: 1;
+        }
+        61%,
+        100% {
+          opacity: 0.15;
+        }
+      }
+      .corner {
+        position: absolute;
+        font: 400 12px/1 ui-monospace, monospace;
+        font-style: normal;
+        color: #5980a6;
+      }
+      .btn-primary {
+        border: 1px solid #5980a6;
+        background: #5980a6;
+        color: #f2f2f3;
+        font: 600 12px/1 "Barlow", sans-serif;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 12px 18px;
+        border-radius: 2px;
+        cursor: pointer;
+      }
+      .btn-primary:hover {
+        background: #416180;
+        border-color: #416180;
+      }
+      .btn-secondary {
+        border: 1px solid rgba(29, 31, 32, 0.16);
+        background: transparent;
+        color: #1d1f20;
+        font: 600 12px/1 "Barlow", sans-serif;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 12px 18px;
+        border-radius: 2px;
+        cursor: pointer;
+      }
+      .btn-secondary:hover {
+        background: #d6ebff;
+        border-color: #5980a6;
+      }
+      .icon-btn {
+        border: 1px solid rgba(29, 31, 32, 0.16);
+        background: transparent;
+        color: #416180;
+        font: 400 12px/1 ui-monospace, monospace;
+        padding: 9px 10px;
+        border-radius: 2px;
+        cursor: pointer;
+      }
+      .icon-btn:hover {
+        border-color: #5980a6;
+        background: #d6ebff;
+        color: #1d2d3d;
+      }
+      .field-input {
+        width: 100%;
+        border: 1px solid rgba(29, 31, 32, 0.16);
+        background: transparent;
+        color: #1d1f20;
+        font: 400 15px/1 "Barlow", sans-serif;
+        padding: 10px 12px;
+        border-radius: 2px;
+      }
+      .field-input:focus {
+        outline: none;
+        border-color: #5980a6;
+      }
+      .field-input:disabled {
+        background: #e9e9ea;
+        color: #5d5d60;
+        cursor: not-allowed;
+      }
+      /* x-show toggles inline display:none on/off; when it clears that
+         override the element falls back to whatever's declared here (flex),
+         not the tag's block default — so the layout survives show/hide. */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(29, 31, 32, 0.55);
+        z-index: 50;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 48px 24px;
+        overflow-y: auto;
+      }
+      .modal-overlay-center {
+        align-items: center;
+        padding: 24px;
+        z-index: 60;
+      }
+      /* Clickable titles that open the TV/film details popup. */
+      .title-link {
+        cursor: pointer;
+        border: none;
+        background: transparent;
+        padding: 0;
+        color: inherit;
+        font: inherit;
+        text-align: left;
+      }
+      .title-link:hover {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+      .detail-episode {
+        cursor: pointer;
+      }
+      .detail-episode:hover {
+        background: #e9eef3 !important;
+      }
+      .detail-season-btn {
+        border: 1px solid rgba(29, 31, 32, 0.16);
+        background: transparent;
+        color: #1d1f20;
+        font: 600 10px/1 "Barlow", sans-serif;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 8px 11px;
+        border-radius: 2px;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      .detail-season-btn.is-active {
+        border-color: #5980a6;
+        background: #5980a6;
+        color: #f2f2f3;
+      }
+      /* Rendered markdown preview in the blog editor */
+      .blog-preview {
+        font-size: 15px;
+        line-height: 1.6;
+        color: #1d1f20;
+        word-wrap: break-word;
+      }
+      .blog-preview h1,
+      .blog-preview h2,
+      .blog-preview h3 {
+        font-family: "Barlow Condensed", sans-serif;
+        text-transform: uppercase;
+        line-height: 1.05;
+        margin: 18px 0 8px;
+      }
+      .blog-preview h1 {
+        font-size: 28px;
+      }
+      .blog-preview h2 {
+        font-size: 22px;
+      }
+      .blog-preview h3 {
+        font-size: 18px;
+      }
+      .blog-preview p {
+        margin: 0 0 12px;
+      }
+      .blog-preview a {
+        color: #416180;
+      }
+      .blog-preview img {
+        max-width: 100%;
+        height: auto;
+        border: 1px solid rgba(29, 31, 32, 0.16);
+      }
+      .blog-preview pre {
+        background: #e9e9ea;
+        padding: 12px;
+        overflow-x: auto;
+        font: 400 13px/1.5 ui-monospace, monospace;
+      }
+      .blog-preview code {
+        font: 400 13px ui-monospace, monospace;
+        background: #e9e9ea;
+        padding: 1px 4px;
+      }
+      .blog-preview pre code {
+        background: none;
+        padding: 0;
+      }
+      .blog-preview ul,
+      .blog-preview ol {
+        margin: 0 0 12px;
+        padding-left: 22px;
+      }
+      .blog-preview blockquote {
+        border-left: 3px solid #5980a6;
+        margin: 0 0 12px;
+        padding: 4px 0 4px 14px;
+        color: #424244;
+      }
+
+      /* ---- Services / Connections panel (rendered by admin.js) ----
+         admin.js still draws the OAuth panel with these classes; the old
+         admin.css that defined them is no longer loaded, so they live here
+         and mirror the .btn-primary / .btn-secondary / .field-input design. */
+      #admin-panel {
+        font-family: "Barlow", sans-serif;
+        color: #1d1f20;
+      }
+      #admin-panel p {
+        margin: 0;
+        font-family: "Barlow", sans-serif;
+      }
+      .cv-button {
+        font: 600 12px/1 "Barlow", sans-serif;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 12px 18px;
+        border-radius: 2px;
+        border: 1px solid #5980a6;
+        background: #5980a6;
+        color: #f2f2f3;
+        cursor: pointer;
+      }
+      .cv-button:hover,
+      .cv-button:focus {
+        background: #416180;
+        border-color: #416180;
+      }
+      .cv-button-secondary {
+        background: transparent;
+        color: #1d1f20;
+        border: 1px solid rgba(29, 31, 32, 0.16);
+      }
+      .cv-button-secondary:hover,
+      .cv-button-secondary:focus {
+        background: #d6ebff;
+        border-color: #5980a6;
+        color: #1d1f20;
+      }
+      .cv-input {
+        width: 100%;
+        border: 1px solid rgba(29, 31, 32, 0.16);
+        background: transparent;
+        color: #1d1f20;
+        font: 400 15px/1 "Barlow", sans-serif;
+        padding: 10px 12px;
+        border-radius: 2px;
+      }
+      .cv-input:focus {
+        outline: none;
+        border-color: #5980a6;
+      }
+      .connection-section {
+        margin-top: 18px;
+        padding-top: 18px;
+        border-top: 1px solid rgba(29, 31, 32, 0.16);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .connection-section:first-child {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
+      }
+      .connection-status-line {
+        font-size: 14px;
+      }
+      .connection-account-line {
+        color: #5d5d60;
+        font-size: 13px;
+      }
+      .connection-status-date,
+      .connection-hint {
+        color: #5d5d60;
+        font: 400 10px/1.5 ui-monospace, monospace;
+      }
+      .connection-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .device-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+      }
+      .device-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        background: transparent;
+        border: 1px solid rgba(29, 31, 32, 0.16);
+        padding: 10px 14px;
+      }
+      .device-item-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+      }
+      .device-name {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #1d1f20;
+        font-weight: 600;
+        font-size: 14px;
+      }
+      .device-category-badge {
+        background: #e9e9ea;
+        color: #5d5d60;
+        border: 1px solid rgba(29, 31, 32, 0.16);
+        border-radius: 999px;
+        padding: 2px 10px;
+        font-size: 11px;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .device-meta {
+        margin: 2px 0 0;
+        color: #5d5d60;
+        font-size: 12px;
+      }
+      .device-token-box {
+        display: block;
+        background: #e9e9ea;
+        border: 1px solid rgba(29, 31, 32, 0.16);
+        border-radius: 2px;
+        padding: 8px 12px;
+        font: 400 13px/1.4 ui-monospace, monospace;
+        color: #1d1f20;
+        word-break: break-all;
+        margin: 4px 0;
+      }
+    </style>
   </head>
 
-  <body class="spec-sheet">
-    <div class="spec-sheet-header">
-      <span class="spec-sheet-wordmark">Personal Spec Sheet</span>
-      <span class="spec-sheet-badge">ADMIN</span>
-      <div style="flex: 1"></div>
-      <a href="/" class="spec-link">← Site</a>
-    </div>
-
-    <main class="spec-main">
+  <body>
+    <div style="min-height: 100vh; background: #f2f2f3" id="admin-tabs" hidden x-data="adminApp" x-init="init()">
       <noscript><p>This page requires JavaScript.</p></noscript>
 
-      <div id="admin-tabs" hidden x-data="adminTabs">
-        <div class="spec-tabs">
-          <button
-            type="button"
-            class="spec-tab"
-            :class="{ 'spec-tab-active': tab === 'collections' }"
-            @click="tab = 'collections'"
-          >
-            Collections
-          </button>
-          <button
-            type="button"
-            class="spec-tab"
-            :class="{ 'spec-tab-active': tab === 'watching' }"
-            @click="tab = 'watching'"
-          >
-            Watching
-          </button>
-          <button
-            type="button"
-            class="spec-tab"
-            :class="{ 'spec-tab-active': tab === 'reading' }"
-            @click="tab = 'reading'"
-          >
-            Reading
-          </button>
-          <button
-            type="button"
-            class="spec-tab"
-            :class="{ 'spec-tab-active': tab === 'exercise' }"
-            @click="tab = 'exercise'"
-          >
-            Exercise
-          </button>
-          <button
-            type="button"
-            class="spec-tab"
-            :class="{ 'spec-tab-active': tab === 'habits' }"
-            @click="tab = 'habits'"
-          >
-            Habits
-          </button>
-          <button
-            type="button"
-            class="spec-tab"
-            :class="{ 'spec-tab-active': tab === 'manage' }"
-            @click="tab = 'manage'"
-          >
-            Manage
-          </button>
+      <div style="border-bottom: 1px solid rgba(29, 31, 32, 0.16); position: sticky; top: 0; background: #f2f2f3; z-index: 10">
+        <div style="max-width: 1220px; margin: 0 auto; padding: 8px 24px; min-height: 52px; display: flex; align-items: center; gap: 12px 16px; flex-wrap: wrap">
+          <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 19px; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap">Control Room</span>
+          <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.1em; color: #5d5d60; padding: 4px 6px; border: 1px solid rgba(29, 31, 32, 0.16); white-space: nowrap">OPERATOR ONLY</span>
+          <span x-show="error" x-text="error" style="font: 400 10px/1 ui-monospace, monospace; color: #b3542a; white-space: nowrap"></span>
+          <div style="flex: 1"></div>
+          <span x-show="buildTime" title="Build time — confirms you're on the latest deploy" style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; white-space: nowrap" x-text="'BUILD ' + buildLabel()"></span>
+          <a href="/profile" style="font: 600 11px/1 'Barlow', sans-serif; letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap">View profile ↗</a>
         </div>
+      </div>
 
-        <div x-show="tab === 'collections'" class="spec-card">
-          <i class="spec-corner spec-corner-tl">+</i>
-          <i class="spec-corner spec-corner-tr">+</i>
-          <i class="spec-corner spec-corner-bl">+</i>
-          <i class="spec-corner spec-corner-br">+</i>
-          <p class="spec-hint">Coming soon.</p>
-        </div>
-        <div x-show="tab === 'watching'" class="spec-card">
-          <i class="spec-corner spec-corner-tl">+</i>
-          <i class="spec-corner spec-corner-tr">+</i>
-          <i class="spec-corner spec-corner-bl">+</i>
-          <i class="spec-corner spec-corner-br">+</i>
-          <p class="spec-hint">Coming soon.</p>
-        </div>
-        <div x-show="tab === 'reading'" class="spec-card">
-          <i class="spec-corner spec-corner-tl">+</i>
-          <i class="spec-corner spec-corner-tr">+</i>
-          <i class="spec-corner spec-corner-bl">+</i>
-          <i class="spec-corner spec-corner-br">+</i>
-          <p class="spec-hint">Coming soon.</p>
-        </div>
-        <div x-show="tab === 'exercise'" class="spec-card">
-          <i class="spec-corner spec-corner-tl">+</i>
-          <i class="spec-corner spec-corner-tr">+</i>
-          <i class="spec-corner spec-corner-bl">+</i>
-          <i class="spec-corner spec-corner-br">+</i>
-          <p class="spec-hint">Coming soon.</p>
-        </div>
-
-        <div
-          x-show="tab === 'habits'"
-          class="spec-card"
-          x-data="habitsPanel"
-          x-init="load()"
-        >
-          <i class="spec-corner spec-corner-tl">+</i>
-          <i class="spec-corner spec-corner-tr">+</i>
-          <i class="spec-corner spec-corner-bl">+</i>
-          <i class="spec-corner spec-corner-br">+</i>
-          <p class="spec-card-title">Habits</p>
-          <p class="spec-caption">Today — tap to toggle done</p>
-          <div class="spec-row" style="margin-bottom: 16px">
-            <template x-for="h in habits" :key="h.id">
-              <button
-                type="button"
-                class="spec-tab"
-                :class="{ 'spec-tab-active': h.doneToday }"
-                @click="toggle(h)"
-                x-text="(h.doneToday ? '✓ ' : '○ ') + h.name"
-              ></button>
-            </template>
-          </div>
-          <div class="spec-row">
-            <input
-              class="spec-input"
-              type="text"
-              x-model="newName"
-              placeholder="e.g. Stretch before bed"
-              @keydown.enter="add()"
-            />
-            <select class="spec-input" x-model="newCadence">
-              <option value="daily">Daily</option>
-              <option value="weekly">Weekly</option>
-            </select>
-            <button type="button" class="spec-button" @click="add()">
-              Add
+      <div style="max-width: 1220px; margin: 0 auto; padding: 24px 24px 80px; display: grid; grid-template-columns: 236px 1fr; gap: 28px; align-items: start">
+        <aside style="align-self: start; border: 1px solid rgba(29, 31, 32, 0.16)">
+          <template x-for="group in groups" :key="group.label">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 12px 14px; border-bottom: 1px solid rgba(29, 31, 32, 0.16); background: #e9e9ea">
+                <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 15px; letter-spacing: 0.1em; text-transform: uppercase; color: #1d2d3d" x-text="group.label"></span>
+                <span style="font: 400 9px/1 ui-monospace, monospace; letter-spacing: 0.08em; color: #5d5d60; white-space: nowrap" x-text="group.note"></span>
+              </div>
+              <template x-for="(panel, i) in panelsIn(group.label)" :key="panel.id">
+                <button
+                  type="button"
+                  @click="selectPanel(panel.id)"
+                  :style="'display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:none;border-bottom:1px solid rgba(29,31,32,0.16);padding:10px 14px;cursor:pointer;background:' + (activeId === panel.id ? '#5980a6' : 'transparent') + ';color:' + (activeId === panel.id ? '#f2f2f3' : '#1d1f20')"
+                >
+                  <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; width: 20px; flex: none" x-text="i"></span>
+                  <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 17px; letter-spacing: 0.02em; text-transform: uppercase" x-text="panel.label"></span>
+                  <span style="flex: 1"></span>
+                  <span style="font: 400 10px/1 ui-monospace, monospace; opacity: 0.8" x-text="countFor(panel)"></span>
+                </button>
+              </template>
+            </div>
+          </template>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 12px 14px; border-bottom: 1px solid rgba(29, 31, 32, 0.16); background: #e9e9ea">
+              <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 15px; letter-spacing: 0.1em; text-transform: uppercase; color: #1d2d3d">Connections</span>
+              <span style="font: 400 9px/1 ui-monospace, monospace; letter-spacing: 0.08em; color: #5d5d60; white-space: nowrap">linked accounts</span>
+            </div>
+            <button
+              type="button"
+              @click="selectConnections()"
+              :style="'display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:none;border-bottom:1px solid rgba(29,31,32,0.16);padding:10px 14px;cursor:pointer;background:' + (activeId === 'connections' ? '#5980a6' : 'transparent') + ';color:' + (activeId === 'connections' ? '#f2f2f3' : '#1d1f20')"
+            >
+              <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; width: 20px; flex: none">0</span>
+              <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 17px; letter-spacing: 0.02em; text-transform: uppercase">Services</span>
+              <span style="flex: 1"></span>
+              <span style="font: 400 10px/1 ui-monospace, monospace; opacity: 0.8" x-text="servicesCount"></span>
             </button>
           </div>
-        </div>
+        </aside>
 
-        <div x-show="tab === 'manage'" class="spec-card">
-          <i class="spec-corner spec-corner-tl">+</i>
-          <i class="spec-corner spec-corner-tr">+</i>
-          <i class="spec-corner spec-corner-bl">+</i>
-          <i class="spec-corner spec-corner-br">+</i>
-          <p class="spec-hint">Coming soon.</p>
-        </div>
-      </div>
+        <main style="min-width: 0; display: flex; flex-direction: column; gap: 24px">
+          <template x-if="activeId !== 'connections'">
+            <div>
+              <div style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.16em; color: #416180; margin-bottom: 9px" x-text="active && active.kicker"></div>
+              <h1 style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 52px; line-height: 0.9; margin: 0 0 9px; text-transform: uppercase" x-text="active && active.label"></h1>
+              <p style="margin: 0; font-size: 16px; line-height: 1.45; color: #424244; max-width: 62ch" x-text="active && active.blurb"></p>
+            </div>
+          </template>
 
-      <div class="spec-card">
-        <i class="spec-corner spec-corner-tl">+</i>
-        <i class="spec-corner spec-corner-tr">+</i>
-        <i class="spec-corner spec-corner-bl">+</i>
-        <i class="spec-corner spec-corner-br">+</i>
-        <div id="admin-panel"></div>
+          <!-- Settings (identity / dog) — fixed FIELD/VALUE table, same as
+               every other panel's list, just no add/delete. Each row edits
+               through the same popup as everything else (see modal below). -->
+          <template x-if="active && active.kind && active.kind.startsWith('settings:')">
+            <div style="position: relative">
+              <i class="corner" style="top: -6px; left: -6px">+</i>
+              <i class="corner" style="top: -6px; right: -6px">+</i>
+              <i class="corner" style="bottom: -6px; left: -6px">+</i>
+              <i class="corner" style="bottom: -6px; right: -6px">+</i>
+              <div style="border: 1px solid rgba(29, 31, 32, 0.16); overflow-x: auto">
+                <div style="min-width: 420px">
+                  <div style="display: grid; grid-template-columns: 200px 1fr 40px; gap: 14px; align-items: center; padding: 11px 15px; border-bottom: 1px solid rgba(29, 31, 32, 0.16); font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.1em; color: #416180">
+                    <span>FIELD</span><span>VALUE</span><span></span>
+                  </div>
+                <template x-for="f in active.fields" :key="f.key">
+                  <div style="display: grid; grid-template-columns: 200px 1fr 40px; gap: 14px; align-items: center; padding: 13px 15px; border-bottom: 1px solid rgba(29, 31, 32, 0.16)">
+                    <span style="font-weight: 600; font-size: 14px" x-text="f.label"></span>
+                    <span x-show="f.type !== 'cover'" style="font-size: 14px; color: #424244; overflow: hidden; text-overflow: ellipsis; white-space: nowrap" x-text="formData[f.key] || '—'"></span>
+                    <div x-show="f.type === 'cover'" style="display: flex; align-items: center; gap: 8px">
+                      <img x-show="formData[f.key]" :src="coverUrl(f, formData)" style="width: 32px; height: 32px; object-fit: cover; border: 1px solid rgba(29, 31, 32, 0.16)" />
+                      <span x-show="!formData[f.key]" style="font-size: 14px; color: #424244">—</span>
+                    </div>
+                    <button type="button" class="icon-btn" @click="openEditField(f)">✎</button>
+                  </div>
+                </template>
+                </div>
+              </div>
+            </div>
+          </template>
+
+          <!-- Status -->
+          <template x-if="active && active.kind === 'status'">
+            <div style="position: relative; border: 1px solid rgba(29, 31, 32, 0.16); padding: 22px">
+              <i class="corner" style="top: -6px; left: -6px">+</i>
+              <i class="corner" style="top: -6px; right: -6px">+</i>
+              <i class="corner" style="bottom: -6px; left: -6px">+</i>
+              <i class="corner" style="bottom: -6px; right: -6px">+</i>
+              <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 14px">
+                <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.14em; color: #416180; white-space: nowrap">STATUS</span>
+                <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; white-space: nowrap">SAVES IMMEDIATELY</span>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 1px; background: rgba(29, 31, 32, 0.16); border: 1px solid rgba(29, 31, 32, 0.16); margin-bottom: 16px">
+                <template x-for="opt in statusOptions" :key="opt.label">
+                  <button
+                    type="button"
+                    @click="pickStatus(opt)"
+                    :style="'display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:none;padding:13px 15px;cursor:pointer;background:' + (currentStatus && currentStatus.label === opt.label ? '#eef6ff' : '#f2f2f3')"
+                  >
+                    <span :style="'width:9px;height:9px;border-radius:50%;flex:none;background:' + (currentStatus && currentStatus.label === opt.label ? '#5980a6' : 'transparent') + ';border:1px solid #5980a6'"></span>
+                    <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 21px; letter-spacing: 0.02em; text-transform: uppercase" x-text="opt.label"></span>
+                    <span style="flex: 1"></span>
+                    <span style="font: 400 11px/1 ui-monospace, monospace; color: #5d5d60; white-space: nowrap" x-text="opt.hint"></span>
+                  </button>
+                </template>
+              </div>
+              <div style="border-top: 1px solid rgba(29, 31, 32, 0.16); padding-top: 13px; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap">
+                <span style="font: 500 9px/1 ui-monospace, monospace; letter-spacing: 0.1em; color: #416180; border: 1px solid #5980a6; background: #d6ebff; padding: 5px 7px; white-space: nowrap">NOTE</span>
+                <span style="font: 400 10px/1.5 ui-monospace, monospace; color: #5d5d60">A MANUAL STATUS HOLDS FOR TWO HOURS, THEN FALLS BACK TO AUTOMATIC</span>
+              </div>
+            </div>
+          </template>
+
+          <!-- Connected source card (music / play) -->
+          <template x-if="active && active.sources">
+            <div style="position: relative; border: 1px solid rgba(29, 31, 32, 0.16); padding: 24px">
+              <i class="corner" style="top: -6px; left: -6px">+</i>
+              <i class="corner" style="top: -6px; right: -6px">+</i>
+              <i class="corner" style="bottom: -6px; left: -6px">+</i>
+              <i class="corner" style="bottom: -6px; right: -6px">+</i>
+              <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 13px">
+                <span style="width: 7px; height: 7px; background: #5980a6; flex: none; animation: blip 2.4s steps(1) infinite"></span>
+                <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.14em; color: #416180; white-space: nowrap" x-text="'SOURCE · ' + active.sources"></span>
+              </div>
+              <p style="margin: 0 0 14px; font-size: 15px; line-height: 1.5; color: #424244; max-width: 62ch" x-text="active.detail"></p>
+              <p style="margin: 0; font: 400 10px/1.5 ui-monospace, monospace; letter-spacing: 0.08em; color: #5d5d60" x-text="active.footer"></p>
+            </div>
+          </template>
+
+          <!-- Music history (LATEST tracks) -->
+          <template x-if="active && active.id === 'music'">
+            <div style="position: relative; border: 1px solid rgba(29, 31, 32, 0.16)">
+              <i class="corner" style="top: -6px; left: -6px">+</i>
+              <i class="corner" style="top: -6px; right: -6px">+</i>
+              <i class="corner" style="bottom: -6px; left: -6px">+</i>
+              <i class="corner" style="bottom: -6px; right: -6px">+</i>
+              <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 11px 15px; border-bottom: 1px solid rgba(29, 31, 32, 0.16)">
+                <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.14em; color: #416180; white-space: nowrap">LATEST TRACKS</span>
+                <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; white-space: nowrap">FROM SPOTIFY · EACH FEEDS "TRACKS PLAYED"</span>
+              </div>
+              <template x-if="!musicHistory.length">
+                <div style="padding: 16px; font: 400 10px/1.5 ui-monospace, monospace; letter-spacing: 0.1em; color: #5d5d60">NO HISTORY YET — IT FILLS IN AS SPOTIFY PLAYS</div>
+              </template>
+              <template x-for="(m, i) in musicHistory" :key="m.id">
+                <div style="display: grid; grid-template-columns: 28px 1fr auto auto; gap: 14px; align-items: center; padding: 12px 15px; border-bottom: 1px solid rgba(29, 31, 32, 0.16)">
+                  <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60" x-text="i + 1"></span>
+                  <span style="font-weight: 600; font-size: 15px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap" x-text="m.title"></span>
+                  <span style="font: 400 12px/1 'Barlow', sans-serif; color: #5d5d60; white-space: nowrap" x-text="m.artist || '—'"></span>
+                  <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; white-space: nowrap" x-text="histWhen(m.playedAt)"></span>
+                </div>
+              </template>
+            </div>
+          </template>
+
+          <!-- Top artists (Spotify) -->
+          <template x-if="active && active.id === 'music' && topArtists.length">
+            <div style="position: relative; border: 1px solid rgba(29, 31, 32, 0.16)">
+              <i class="corner" style="top: -6px; left: -6px">+</i>
+              <i class="corner" style="top: -6px; right: -6px">+</i>
+              <i class="corner" style="bottom: -6px; left: -6px">+</i>
+              <i class="corner" style="bottom: -6px; right: -6px">+</i>
+              <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 11px 15px; border-bottom: 1px solid rgba(29, 31, 32, 0.16)">
+                <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.14em; color: #416180; white-space: nowrap">TOP ARTISTS</span>
+                <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; white-space: nowrap">FROM SPOTIFY · LAST 4 WEEKS</span>
+              </div>
+              <template x-for="(a, i) in topArtists" :key="a.name">
+                <div style="display: grid; grid-template-columns: 28px 1fr auto; gap: 14px; align-items: center; padding: 12px 15px; border-bottom: 1px solid rgba(29, 31, 32, 0.16)">
+                  <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60" x-text="i + 1"></span>
+                  <span style="font-weight: 600; font-size: 15px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap" x-text="a.name"></span>
+                  <span style="font: 400 12px/1 'Barlow', sans-serif; color: #5d5d60; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px" x-text="(a.genres || [])[0] || ''"></span>
+                </div>
+              </template>
+            </div>
+          </template>
+
+          <!-- Gaming history (recently played sessions) -->
+          <template x-if="active && active.id === 'play'">
+            <div style="position: relative; border: 1px solid rgba(29, 31, 32, 0.16)">
+              <i class="corner" style="top: -6px; left: -6px">+</i>
+              <i class="corner" style="top: -6px; right: -6px">+</i>
+              <i class="corner" style="bottom: -6px; left: -6px">+</i>
+              <i class="corner" style="bottom: -6px; right: -6px">+</i>
+              <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 11px 15px; border-bottom: 1px solid rgba(29, 31, 32, 0.16)">
+                <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.14em; color: #416180; white-space: nowrap">RECENTLY PLAYED</span>
+                <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; white-space: nowrap">XBOX · STEAM · PSN · FEEDS "GAMES PLAYED" &amp; "HOURS PLAYED"</span>
+              </div>
+              <template x-if="!playHistory.length">
+                <div style="padding: 16px; font: 400 10px/1.5 ui-monospace, monospace; letter-spacing: 0.1em; color: #5d5d60">NO HISTORY YET — IT FILLS IN AS SESSIONS ARE DETECTED</div>
+              </template>
+              <template x-for="(g, i) in playHistory" :key="g.id">
+                <div style="display: grid; grid-template-columns: 28px 1fr auto auto auto; gap: 14px; align-items: center; padding: 12px 15px; border-bottom: 1px solid rgba(29, 31, 32, 0.16)">
+                  <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60" x-text="i + 1"></span>
+                  <span style="font-weight: 600; font-size: 15px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap" x-text="g.title"></span>
+                  <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.08em; color: #416180; white-space: nowrap" x-text="(g.source || '').toUpperCase()"></span>
+                  <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; white-space: nowrap" x-text="fmtHours(g.hours)"></span>
+                  <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; white-space: nowrap" x-text="histWhen(g.lastPlayedAt)"></span>
+                </div>
+              </template>
+            </div>
+          </template>
+
+          <template x-if="active && (active.id === 'play' || active.id === 'music')">
+            <span style="font: 400 10px/1.4 ui-monospace, monospace; color: #5d5d60">READ-ONLY · RECORDED AUTOMATICALLY FROM CONNECTED SERVICES · BUILD HABITS FROM THESE IN THE HABITS PANEL</span>
+          </template>
+
+          <!-- Habits -->
+          <template x-if="active && active.kind === 'habits'">
+            <div>
+              <div style="position: relative; border: 1px solid rgba(29, 31, 32, 0.16); padding: 20px">
+                <i class="corner" style="top: -6px; left: -6px">+</i>
+                <i class="corner" style="top: -6px; right: -6px">+</i>
+                <i class="corner" style="bottom: -6px; left: -6px">+</i>
+                <i class="corner" style="bottom: -6px; right: -6px">+</i>
+
+                <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 18px">
+                  <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.14em; color: #416180; white-space: nowrap">MARKING · LAST 7 DAYS</span>
+                  <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; white-space: nowrap">TWO KINDS · ONE YOU TAP, ONE YOU DON'T</span>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 11px; margin-bottom: 11px">
+                  <span style="width: 9px; height: 9px; border: 1px solid #5980a6; background: transparent; flex: none"></span>
+                  <span style="font: 500 11px/1 ui-monospace, monospace; letter-spacing: 0.14em; color: #1d2d3d; white-space: nowrap">BY HAND</span>
+                  <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; white-space: nowrap">TAP ANY DAY TO MARK IT</span>
+                  <span style="flex: 1; height: 1px; background: rgba(29, 31, 32, 0.16)"></span>
+                </div>
+                <template x-if="!manualHabits.length">
+                  <div style="border: 1px dashed rgba(29, 31, 32, 0.24); padding: 15px; font: 400 10px/1.5 ui-monospace, monospace; letter-spacing: 0.1em; color: #5d5d60; margin-bottom: 26px">NOTHING TRACKED BY HAND</div>
+                </template>
+                <div style="display: flex; flex-direction: column; gap: 1px; background: rgba(29, 31, 32, 0.16); border: 1px solid rgba(29, 31, 32, 0.16); margin-bottom: 26px">
+                  <template x-for="h in manualHabits" :key="h.id">
+                    <div style="background: #f2f2f3; padding: 14px 15px; display: flex; flex-direction: column; gap: 10px">
+                      <div style="display: flex; align-items: baseline; gap: 11px; flex-wrap: wrap">
+                        <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 20px; letter-spacing: 0.02em; text-transform: uppercase; line-height: 1" x-text="h.name"></span>
+                        <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; white-space: nowrap" x-text="h.target"></span>
+                        <span style="flex: 1"></span>
+                        <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; white-space: nowrap" x-text="habitRate(h)"></span>
+                        <span
+                          :style="'font:500 9px/1 ui-monospace,monospace;letter-spacing:0.1em;padding:5px 7px;white-space:nowrap;border:1px solid ' + (doneToday(h) ? '#5980a6;background:#5980a6;color:#f2f2f3' : 'rgba(29,31,32,0.16);background:transparent;color:#5d5d60')"
+                          x-text="habitMark(h)"
+                        ></span>
+                      </div>
+                      <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px">
+                        <template x-for="d in last7(h)" :key="d.date">
+                          <button
+                            type="button"
+                            :aria-label="h.name + ' · ' + d.date"
+                            :title="h.name + ' · ' + d.date"
+                            @click="toggleHabitDay(h, d.date)"
+                            :style="'height:26px;padding:0;border-radius:0;cursor:pointer;border:1px solid ' + (d.done ? '#5980a6' : 'rgba(29,31,32,0.16)') + ';background:' + (d.done ? '#5980a6' : 'transparent')"
+                          ></button>
+                        </template>
+                      </div>
+                      <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px">
+                        <template x-for="d in last7(h)" :key="d.date + '-label'">
+                          <span style="font: 400 9px/1 ui-monospace, monospace; color: #5d5d60; text-align: center" x-text="habitDayLabel(d)"></span>
+                        </template>
+                      </div>
+                    </div>
+                  </template>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 11px; margin-bottom: 11px">
+                  <span style="width: 9px; height: 9px; border: 1px solid #5980a6; background: #5980a6; flex: none"></span>
+                  <span style="font: 500 11px/1 ui-monospace, monospace; letter-spacing: 0.14em; color: #1d2d3d; white-space: nowrap">FROM THE DATA</span>
+                  <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60">EVALUATED ON READ FROM LOGGED DATA</span>
+                  <span style="flex: 1; height: 1px; background: rgba(29, 31, 32, 0.16)"></span>
+                </div>
+                <template x-if="!automaticHabits.length">
+                  <div style="border: 1px dashed rgba(29, 31, 32, 0.24); padding: 15px; font: 400 10px/1.5 ui-monospace, monospace; letter-spacing: 0.1em; color: #5d5d60">NO AUTOMATIC HABITS YET — SET A HABIT'S KIND TO AUTOMATIC BELOW AND GIVE IT A METRIC, AN OPERATOR AND A TARGET</div>
+                </template>
+                <div style="display: flex; flex-direction: column; gap: 1px; background: rgba(29, 31, 32, 0.16); border: 1px solid rgba(29, 31, 32, 0.16)">
+                  <template x-for="h in automaticHabits" :key="h.id">
+                    <div style="background: #f2f2f3; padding: 14px 15px; display: flex; flex-direction: column; gap: 10px">
+                      <div style="display: flex; align-items: baseline; gap: 11px; flex-wrap: wrap">
+                        <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 20px; letter-spacing: 0.02em; text-transform: uppercase; line-height: 1" x-text="h.name"></span>
+                        <span style="font: 400 10px/1.3 ui-monospace, monospace; color: #416180" x-text="habitRuleLine(h)"></span>
+                        <span style="flex: 1"></span>
+                        <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; white-space: nowrap" x-text="habitRate(h)"></span>
+                        <span
+                          :style="'font:500 9px/1 ui-monospace,monospace;letter-spacing:0.1em;padding:5px 7px;white-space:nowrap;border:1px solid ' + (doneToday(h) ? '#5980a6;background:#5980a6;color:#f2f2f3' : 'rgba(29,31,32,0.16);background:transparent;color:#5d5d60')"
+                          x-text="habitMark(h)"
+                        ></span>
+                      </div>
+                      <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px">
+                        <template x-for="d in last7(h)" :key="d.date">
+                          <span
+                            :title="h.name + ' · ' + d.date"
+                            :style="'height:26px;display:block;border:1px solid ' + (d.done ? '#5980a6' : 'rgba(29,31,32,0.16)') + ';background:' + (d.done ? '#5980a6' : 'transparent') + ';opacity:0.85'"
+                          ></span>
+                        </template>
+                      </div>
+                      <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px">
+                        <template x-for="d in last7(h)" :key="d.date + '-label'">
+                          <span style="font: 400 9px/1 ui-monospace, monospace; color: #5d5d60; text-align: center" x-text="habitDayLabel(d)"></span>
+                        </template>
+                      </div>
+                    </div>
+                  </template>
+                </div>
+              </div>
+              <div style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.12em; color: #416180; margin-top: 12px">ADD, RENAME OR REMOVE HABITS BELOW</div>
+            </div>
+          </template>
+
+          <!-- Assets library -->
+          <template x-if="active && active.kind === 'assets'">
+            <div style="position: relative; border: 1px solid rgba(29, 31, 32, 0.16); padding: 20px">
+              <i class="corner" style="top: -6px; left: -6px">+</i>
+              <i class="corner" style="top: -6px; right: -6px">+</i>
+              <i class="corner" style="bottom: -6px; left: -6px">+</i>
+              <i class="corner" style="bottom: -6px; right: -6px">+</i>
+              <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 14px">
+                <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.14em; color: #416180; white-space: nowrap">ADD COVERS</span>
+                <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; white-space: nowrap">STORED IN R2</span>
+              </div>
+              <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 16px">
+                <label class="btn-primary" style="cursor: pointer; display: inline-flex; align-items: center">
+                  <span x-text="assetUploading ? 'Uploading…' : 'Upload images'"></span>
+                  <input type="file" accept="image/*" multiple style="display: none" @change="uploadAsset($event.target)" />
+                </label>
+              </div>
+              <div style="display: flex; justify-content: flex-end; border-top: 1px solid rgba(29, 31, 32, 0.16); padding-top: 14px; margin-bottom: 16px">
+                <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; white-space: nowrap" x-text="assets.length + ' IN LIBRARY'"></span>
+              </div>
+              <template x-if="!assets.length">
+                <div style="border: 1px dashed rgba(29, 31, 32, 0.24); padding: 26px; text-align: center; font: 400 10px/1.5 ui-monospace, monospace; letter-spacing: 0.12em; color: #5d5d60">NOTHING IN THE LIBRARY YET — UPLOAD SOMETHING</div>
+              </template>
+              <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 14px">
+                <template x-for="a in assets" :key="a.id">
+                  <div style="min-width: 0">
+                    <div style="position: relative; aspect-ratio: 1/1; border: 1px solid rgba(29, 31, 32, 0.16); overflow: hidden">
+                      <a :href="a.url" target="_blank" rel="noopener" :title="a.url" style="display: block; width: 100%; height: 100%">
+                        <img :src="a.url" style="width: 100%; height: 100%; object-fit: cover; display: block; cursor: pointer" />
+                      </a>
+                      <template x-if="!a.usedBy || !a.usedBy.length">
+                        <button type="button" aria-label="Delete image" @click="askDeleteAsset(a)" style="position: absolute; top: 5px; right: 5px; border: 1px solid rgba(29, 31, 32, 0.4); background: #f2f2f3; color: #1d1f20; font: 400 11px/1 ui-monospace, monospace; padding: 5px 7px; border-radius: 2px; cursor: pointer">✕</button>
+                      </template>
+                      <template x-if="a.usedBy && a.usedBy.length">
+                        <span title="In use — can't delete" style="position: absolute; top: 5px; right: 5px; border: 1px solid rgba(29, 31, 32, 0.24); background: #f2f2f3; color: #5d5d60; font: 400 10px/1 ui-monospace, monospace; padding: 5px 6px; border-radius: 2px">LOCKED</span>
+                      </template>
+                    </div>
+                    <div style="font-weight: 600; font-size: 13px; margin-top: 7px; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap" x-text="a.originalName || a.kind"></div>
+                    <template x-if="a.usedBy && a.usedBy.length">
+                      <div style="margin-top: 4px; display: flex; flex-direction: column; gap: 2px">
+                        <template x-for="u in a.usedBy" :key="u">
+                          <span style="font: 400 9px/1.3 ui-monospace, monospace; color: #5d5d60; overflow: hidden; text-overflow: ellipsis; white-space: nowrap" x-text="u"></span>
+                        </template>
+                      </div>
+                    </template>
+                    <template x-if="!a.usedBy || !a.usedBy.length">
+                      <div style="margin-top: 4px">
+                        <span style="font: 500 9px/1 ui-monospace, monospace; letter-spacing: 0.1em; color: #b3542a; border: 1px solid #b3542a; padding: 3px 5px; white-space: nowrap">UNUSED</span>
+                      </div>
+                    </template>
+                  </div>
+                </template>
+              </div>
+            </div>
+          </template>
+
+          <!-- Continue reading (paper) -->
+          <template x-if="active && active.id === 'paper'">
+            <div style="position: relative; border: 1px solid rgba(29, 31, 32, 0.16); padding: 20px">
+              <i class="corner" style="top: -6px; left: -6px">+</i>
+              <i class="corner" style="top: -6px; right: -6px">+</i>
+              <i class="corner" style="bottom: -6px; left: -6px">+</i>
+              <i class="corner" style="bottom: -6px; right: -6px">+</i>
+              <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 14px">
+                <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.14em; color: #416180; white-space: nowrap">CONTINUE READING</span>
+                <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; white-space: nowrap">UPDATE THE PAGE · FINISH · ABANDON</span>
+              </div>
+              <template x-if="!readingRows.length">
+                <div style="border: 1px dashed rgba(29, 31, 32, 0.24); padding: 18px; font: 400 10px/1.5 ui-monospace, monospace; letter-spacing: 0.12em; color: #5d5d60">NOTHING IN PROGRESS — ADD A BOOK BELOW</div>
+              </template>
+              <div style="display: flex; flex-direction: column; gap: 1px; background: rgba(29, 31, 32, 0.16)">
+                <template x-for="b in readingRows" :key="b.id">
+                  <div style="background: #f2f2f3; padding: 14px 15px; display: flex; flex-direction: column; gap: 11px">
+                    <div style="display: flex; align-items: center; gap: 13px; flex-wrap: wrap">
+                      <button type="button" class="title-link" @click="openBookModal(b)" title="View book details" style="font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 21px; letter-spacing: 0.02em; text-transform: uppercase; line-height: 1" x-text="b.title"></button>
+                      <span style="font: 400 12px/1 'Barlow', sans-serif; color: #5d5d60" x-text="b.author"></span>
+                      <span style="flex: 1"></span>
+                      <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.08em; color: #416180; white-space: nowrap" x-text="readingProgressLabel(b)"></span>
+                    </div>
+                    <div x-show="Number(b.pages) > 0" style="height: 5px; background: #e7e7ea"><div :style="readingBarStyle(b)"></div></div>
+                    <template x-if="!readingStageRate(b)">
+                      <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
+                        <button type="button" @click="openPageModal(b)" style="border: 1px solid rgba(29, 31, 32, 0.16); background: transparent; color: #1d1f20; font: 600 10px/1 'Barlow', sans-serif; letter-spacing: 0.1em; text-transform: uppercase; padding: 9px 12px; border-radius: 2px; cursor: pointer; white-space: nowrap">Update page</button>
+                        <span style="flex: 1"></span>
+                        <button type="button" @click="finishBook(b)" style="border: 1px solid #5980a6; background: #5980a6; color: #f2f2f3; font: 600 10px/1 'Barlow', sans-serif; letter-spacing: 0.1em; text-transform: uppercase; padding: 9px 12px; border-radius: 2px; cursor: pointer; white-space: nowrap">Finished it</button>
+                        <button type="button" @click="abandonBook(b)" style="border: 1px solid rgba(29, 31, 32, 0.16); background: transparent; color: #1d1f20; font: 600 10px/1 'Barlow', sans-serif; letter-spacing: 0.1em; text-transform: uppercase; padding: 9px 12px; border-radius: 2px; cursor: pointer; white-space: nowrap">Abandon it</button>
+                      </div>
+                    </template>
+                    <template x-if="readingStageRate(b)">
+                      <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
+                        <span style="font: 400 9px/1 ui-monospace, monospace; letter-spacing: 0.1em; color: #5d5d60; white-space: nowrap">FINISHED — RATE IT</span>
+                        <template x-for="s in [1, 2, 3, 4, 5]" :key="s">
+                          <button type="button" @click="rateBook(b, s)" style="border: 1px solid rgba(29, 31, 32, 0.16); background: transparent; color: #5980a6; font: 400 12px/1 ui-monospace, monospace; padding: 7px 8px; border-radius: 2px; cursor: pointer">★</button>
+                        </template>
+                        <span style="flex: 1"></span>
+                        <button type="button" @click="backToReading(b)" style="border: 1px solid rgba(29, 31, 32, 0.16); background: transparent; color: #5d5d60; font: 600 9px/1 'Barlow', sans-serif; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 10px; border-radius: 2px; cursor: pointer; white-space: nowrap">Still reading</button>
+                      </div>
+                    </template>
+                  </div>
+                </template>
+              </div>
+            </div>
+          </template>
+
+          <!-- Reading log (books) — one entry per page update -->
+          <template x-if="active && active.id === 'paper'">
+            <div style="position: relative; border: 1px solid rgba(29, 31, 32, 0.16)">
+              <i class="corner" style="top: -6px; left: -6px">+</i>
+              <i class="corner" style="top: -6px; right: -6px">+</i>
+              <i class="corner" style="bottom: -6px; left: -6px">+</i>
+              <i class="corner" style="bottom: -6px; right: -6px">+</i>
+              <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 11px 15px; border-bottom: 1px solid rgba(29, 31, 32, 0.16)">
+                <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.14em; color: #416180; white-space: nowrap">READING LOG</span>
+                <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; white-space: nowrap">EACH UPDATE · NEWEST FIRST</span>
+              </div>
+              <template x-if="!readingEvents.length">
+                <div style="padding: 16px; font: 400 10px/1.5 ui-monospace, monospace; letter-spacing: 0.1em; color: #5d5d60">NOTHING YET — UPDATE A PAGE ABOVE</div>
+              </template>
+              <template x-for="(ev, i) in readingEvents" :key="ev.id">
+                <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; border-bottom: 1px solid rgba(29, 31, 32, 0.16)">
+                  <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; width: 16px; flex: none" x-text="i + 1"></span>
+                  <button type="button" class="title-link" @click="openBookFromEvent(ev)" title="View book details" style="font-weight: 600; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap" x-text="ev.title"></button>
+                  <span style="font: 500 10px/1 ui-monospace, monospace; letter-spacing: 0.08em; color: #416180; border: 1px solid rgba(29, 31, 32, 0.16); padding: 4px 6px; white-space: nowrap" x-text="'PAGE ' + (ev.page || 0) + (ev.pages ? ' / ' + ev.pages : '')"></span>
+                  <span style="flex: 1"></span>
+                  <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; white-space: nowrap" x-text="histWhen(ev.occurredAt)"></span>
+                </div>
+              </template>
+            </div>
+          </template>
+
+          <!-- Continue watching (screen) -->
+          <template x-if="active && active.id === 'screen'">
+            <div style="position: relative; border: 1px solid rgba(29, 31, 32, 0.16); padding: 20px">
+              <i class="corner" style="top: -6px; left: -6px">+</i>
+              <i class="corner" style="top: -6px; right: -6px">+</i>
+              <i class="corner" style="bottom: -6px; left: -6px">+</i>
+              <i class="corner" style="bottom: -6px; right: -6px">+</i>
+              <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 14px">
+                <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.14em; color: #416180; white-space: nowrap">CONTINUE WATCHING</span>
+                <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; white-space: nowrap">TV SHOWS · NEXT EPISODE</span>
+              </div>
+              <template x-if="!watchingTvRows.length">
+                <div style="border: 1px dashed rgba(29, 31, 32, 0.24); padding: 18px; font: 400 10px/1.5 ui-monospace, monospace; letter-spacing: 0.12em; color: #5d5d60">NO TV SHOWS IN PROGRESS — ADD ONE ABOVE</div>
+              </template>
+              <div style="display: flex; flex-direction: column; gap: 1px; background: rgba(29, 31, 32, 0.16)">
+                <template x-for="c in watchingTvRows" :key="c.id">
+                  <div style="background: #f2f2f3; padding: 14px 15px; display: flex; align-items: center; gap: 13px; flex-wrap: wrap">
+                    <button type="button" class="title-link" @click="openDetails(c, 'show')" title="View details" style="font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 21px; letter-spacing: 0.02em; text-transform: uppercase; line-height: 1" x-text="c.title"></button>
+                    <template x-if="c.type === 'TV Show'">
+                      <span style="display: inline-flex; align-items: baseline; gap: 6px; white-space: nowrap">
+                        <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.1em; color: #5d5d60">NEXT</span>
+                        <span style="font: 500 10px/1 ui-monospace, monospace; letter-spacing: 0.1em; color: #416180; border: 1px solid rgba(29, 31, 32, 0.16); padding: 4px 6px" x-text="watchEpisodeLabel(c)"></span>
+                      </span>
+                    </template>
+                    <span style="flex: 1"></span>
+                    <!-- Mark the current episode (server advances the stored
+                         position). The card keeps showing this episode until you
+                         click "Show next episode" or refresh. -->
+                    <template x-if="!watchMarked(c)">
+                      <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center">
+                        <button type="button" @click="markWatching(c)" style="border: 1px solid rgba(29, 31, 32, 0.16); background: transparent; color: #1d1f20; font: 600 10px/1 'Barlow', sans-serif; letter-spacing: 0.1em; text-transform: uppercase; padding: 9px 12px; border-radius: 2px; cursor: pointer; white-space: nowrap">Mark watching</button>
+                        <button type="button" @click="markWatched(c)" style="border: 1px solid #5980a6; background: #5980a6; color: #f2f2f3; font: 600 10px/1 'Barlow', sans-serif; letter-spacing: 0.1em; text-transform: uppercase; padding: 9px 12px; border-radius: 2px; cursor: pointer; white-space: nowrap">Mark watched</button>
+                      </div>
+                    </template>
+                    <template x-if="watchMarked(c)">
+                      <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center">
+                        <span style="font: 400 9px/1 ui-monospace, monospace; letter-spacing: 0.1em; color: #5d5d60; white-space: nowrap">MARKED ✓</span>
+                        <button type="button" @click="showNext(c)" style="border: 1px solid #5980a6; background: #5980a6; color: #f2f2f3; font: 600 10px/1 'Barlow', sans-serif; letter-spacing: 0.1em; text-transform: uppercase; padding: 9px 12px; border-radius: 2px; cursor: pointer; white-space: nowrap">Show next episode →</button>
+                      </div>
+                    </template>
+                  </div>
+                </template>
+              </div>
+            </div>
+          </template>
+
+          <!-- Blog -->
+          <template x-if="active && active.kind === 'blog'">
+            <div>
+              <!-- LIST VIEW -->
+              <template x-if="!blogDraft">
+                <div style="display: flex; flex-direction: column; gap: 16px">
+                  <div style="position: relative; border: 1px solid rgba(29, 31, 32, 0.16)">
+                    <i class="corner" style="top: -6px; left: -6px">+</i>
+                    <i class="corner" style="top: -6px; right: -6px">+</i>
+                    <i class="corner" style="bottom: -6px; left: -6px">+</i>
+                    <i class="corner" style="bottom: -6px; right: -6px">+</i>
+                    <div style="display: grid; grid-template-columns: 120px 1fr 110px 40px 40px; gap: 14px; align-items: center; padding: 11px 15px; border-bottom: 1px solid rgba(29, 31, 32, 0.16); font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.1em; color: #416180">
+                      <span>DATE</span><span>TITLE</span><span>STATUS</span><span></span><span></span>
+                    </div>
+                    <template x-if="!blogPosts.length">
+                      <div style="padding: 18px 15px; font: 400 10px/1.5 ui-monospace, monospace; letter-spacing: 0.1em; color: #5d5d60">NO POSTS YET — WRITE ONE</div>
+                    </template>
+                    <template x-for="p in blogPosts" :key="p.id">
+                      <div style="display: grid; grid-template-columns: 120px 1fr 110px 40px 40px; gap: 14px; align-items: center; padding: 13px 15px; border-bottom: 1px solid rgba(29, 31, 32, 0.16)">
+                        <span style="font: 400 11px/1 ui-monospace, monospace; color: #5d5d60; white-space: nowrap" x-text="p.date || '—'"></span>
+                        <button type="button" @click="editBlogPost(p)" style="text-align: left; border: none; background: transparent; cursor: pointer; min-width: 0; padding: 0">
+                          <span style="display: block; font-weight: 600; font-size: 15px; color: #1d1f20; overflow: hidden; text-overflow: ellipsis; white-space: nowrap" x-text="p.title"></span>
+                          <span style="display: block; font: 400 11px/1.3 'Barlow', sans-serif; color: #5d5d60; overflow: hidden; text-overflow: ellipsis; white-space: nowrap" x-text="p.description || ''"></span>
+                        </button>
+                        <span :style="'font:500 9px/1 ui-monospace,monospace;letter-spacing:0.1em;text-transform:uppercase;padding:5px 7px;white-space:nowrap;justify-self:start;border:1px solid ' + (p.status === 'published' ? '#5980a6;background:#d6ebff;color:#416180' : 'rgba(29,31,32,0.16);background:transparent;color:#5d5d60')" x-text="p.status"></span>
+                        <button type="button" aria-label="Edit" class="icon-btn" @click="editBlogPost(p)">✎</button>
+                        <button type="button" aria-label="Delete" class="icon-btn" @click="askDeleteBlog(p.id)">✕</button>
+                      </div>
+                    </template>
+                  </div>
+                  <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap">
+                    <button type="button" class="btn-primary" @click="newBlogPost()">+ New post</button>
+                    <span style="font: 400 10px/1.4 ui-monospace, monospace; color: #5d5d60; white-space: nowrap" x-text="blogPosts.length + ' posts'"></span>
+                  </div>
+                </div>
+              </template>
+
+              <!-- EDITOR VIEW -->
+              <template x-if="blogDraft">
+                <div style="display: flex; flex-direction: column; gap: 16px">
+                  <div style="display: flex; flex-direction: column; gap: 6px">
+                    <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.12em; color: #416180">TITLE</span>
+                    <input :value="blogDraft.title" @input="onBlogTitle($event.target.value)" class="field-input" style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 22px" placeholder="Post title" />
+                  </div>
+                  <div style="display: grid; grid-template-columns: 1fr 150px 200px; gap: 12px; align-items: end">
+                    <div style="display: flex; flex-direction: column; gap: 6px">
+                      <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.12em; color: #416180">SLUG</span>
+                      <input x-model="blogDraft.slug" class="field-input" placeholder="url-slug" />
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 6px">
+                      <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.12em; color: #416180">DATE</span>
+                      <input x-model="blogDraft.date" class="field-input" placeholder="YYYY-MM-DD" />
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 6px">
+                      <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.12em; color: #416180">STATUS</span>
+                      <div style="display: flex; gap: 8px">
+                        <template x-for="opt in ['draft', 'published']" :key="opt">
+                          <button type="button" @click="blogDraft.status = opt" :style="'border:1px solid ' + (blogDraft.status === opt ? '#5980a6' : 'rgba(29,31,32,0.16)') + ';background:' + (blogDraft.status === opt ? '#5980a6' : 'transparent') + ';color:' + (blogDraft.status === opt ? '#f2f2f3' : '#1d1f20') + ';font:500 11px/1 \'Barlow\',sans-serif;letter-spacing:0.1em;text-transform:uppercase;padding:9px 12px;border-radius:2px;cursor:pointer'" x-text="opt"></button>
+                        </template>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 6px">
+                    <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.12em; color: #416180">DESCRIPTION</span>
+                    <input x-model="blogDraft.description" class="field-input" placeholder="One-line summary, shown in the post list" />
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 6px">
+                    <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.12em; color: #416180">TAGS</span>
+                    <input x-model="blogDraft.tags" class="field-input" placeholder="comma-separated" />
+                  </div>
+
+                  <!-- toolbar (sticky so it stays reachable while scrolling a long post) -->
+                  <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap; border-top: 1px solid rgba(29, 31, 32, 0.16); border-bottom: 1px solid rgba(29, 31, 32, 0.16); padding: 12px 0; position: sticky; top: 52px; background: #f2f2f3; z-index: 5">
+                    <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.14em; color: #416180; margin-right: 4px">BODY</span>
+                    <button type="button" class="btn-secondary" style="padding: 8px 11px; font-weight: 700" @click="insertMd('**', '**')">B</button>
+                    <button type="button" class="btn-secondary" style="padding: 8px 11px; font-style: italic" @click="insertMd('*', '*')">I</button>
+                    <button type="button" class="btn-secondary" style="padding: 8px 11px" @click="insertMd('## ')">H2</button>
+                    <button type="button" class="btn-secondary" style="padding: 8px 11px" @click="openBlogLink()">Link</button>
+                    <button type="button" class="btn-secondary" style="padding: 8px 11px" @click="insertMd('`', '`')">Code</button>
+                    <button type="button" class="btn-secondary" style="padding: 8px 11px" @click="insertMd('\n```\n', '\n```\n')">Block</button>
+                    <button type="button" class="btn-secondary" style="padding: 8px 11px" @click="insertMd('\n> ')">Quote</button>
+                    <button type="button" class="btn-secondary" style="padding: 8px 11px" @click="openBlogImage()">Image</button>
+                    <button type="button" class="btn-secondary" style="padding: 8px 11px" @click="openBlogKramdown()">Kramdown</button>
+                  </div>
+
+                  <!-- split editor / preview -->
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(29, 31, 32, 0.16); border: 1px solid rgba(29, 31, 32, 0.16); min-height: 460px">
+                    <textarea x-ref="blogBody" :value="blogDraft.body" @input="onBlogBody($event.target.value)" spellcheck="true" style="border: none; background: #f2f2f3; color: #1d1f20; font: 400 14px/1.6 ui-monospace, monospace; padding: 16px; resize: none; outline: none; min-height: 460px" placeholder="Write in markdown…"></textarea>
+                    <div class="blog-preview" x-ref="blogPreviewEl" x-init="initPreview($el)" style="background: #f2f2f3; padding: 16px; overflow: auto; min-height: 460px"></div>
+                  </div>
+
+                  <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; border-top: 1px solid rgba(29, 31, 32, 0.16); padding-top: 16px">
+                    <button type="button" class="btn-primary" @click="saveBlog()" x-text="blogSaving ? 'Saving…' : (blogDraft.id ? 'Save post' : 'Create post')"></button>
+                    <button type="button" class="btn-secondary" @click="cancelBlog()">Cancel</button>
+                    <span style="flex: 1"></span>
+                    <template x-if="blogDraft.id">
+                      <button type="button" class="btn-secondary" @click="askDeleteBlog(blogDraft.id)">Delete</button>
+                    </template>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </template>
+
+          <!-- Blog insert-image modal -->
+          <div class="modal-overlay modal-overlay-center" x-show="blogImageModal" style="display: none">
+            <div style="position: relative; width: 100%; max-width: 640px; background: #f2f2f3; border: 1px solid rgba(29, 31, 32, 0.4); padding: 26px">
+              <i class="corner" style="top: -6px; left: -6px">+</i>
+              <i class="corner" style="top: -6px; right: -6px">+</i>
+              <i class="corner" style="bottom: -6px; left: -6px">+</i>
+              <i class="corner" style="bottom: -6px; right: -6px">+</i>
+              <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 18px">
+                <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 26px; line-height: 1; text-transform: uppercase">Insert image</span>
+                <button type="button" aria-label="Close" class="icon-btn" @click="closeBlogImage()">✕</button>
+              </div>
+
+              <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 18px">
+                <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.12em; color: #416180; margin-right: 4px">SIZE</span>
+                <template x-for="opt in blogImageSizes" :key="opt.l">
+                  <button type="button" @click="blogImageSize = opt.v" :style="'border:1px solid ' + (blogImageSize === opt.v ? '#5980a6' : 'rgba(29,31,32,0.16)') + ';background:' + (blogImageSize === opt.v ? '#5980a6' : 'transparent') + ';color:' + (blogImageSize === opt.v ? '#f2f2f3' : '#1d1f20') + ';font:500 11px/1 \'Barlow\',sans-serif;letter-spacing:0.06em;text-transform:uppercase;padding:8px 11px;border-radius:2px;cursor:pointer'" x-text="opt.l"></button>
+                </template>
+              </div>
+
+              <!-- choice -->
+              <template x-if="blogImageMode === 'choice'">
+                <div style="display: flex; gap: 12px; flex-wrap: wrap">
+                  <label class="btn-primary" style="cursor: pointer; display: inline-flex; align-items: center">
+                    <span x-text="blogImageUploading ? 'Uploading…' : 'Upload from computer'"></span>
+                    <input type="file" accept="image/*" style="display: none" @change="uploadBlogImage($event.target)" />
+                  </label>
+                  <button type="button" class="btn-secondary" @click="openBlogGallery()">Choose from gallery</button>
+                </div>
+              </template>
+
+              <!-- gallery -->
+              <template x-if="blogImageMode === 'gallery'">
+                <div>
+                  <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 11px">
+                    <button type="button" class="btn-secondary" style="padding: 8px 11px" @click="blogImageMode = 'choice'">← Back</button>
+                    <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; white-space: nowrap">CLICK AN IMAGE TO INSERT IT</span>
+                  </div>
+                  <input x-model="blogPickerQuery" class="field-input" style="margin-bottom: 11px" type="text" placeholder="search images…" />
+                  <template x-if="!blogLibrary.length">
+                    <p style="font: 400 10px/1.5 ui-monospace, monospace; color: #5d5d60; margin: 0">No images in the library yet — upload one instead.</p>
+                  </template>
+                  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 10px; max-height: 340px; overflow: auto">
+                    <template x-for="a in blogLibrary" :key="a.id">
+                      <button type="button" @click="blogInsertFromLibrary(a)" :title="a.originalName || a.kind" style="border: 1px solid rgba(29, 31, 32, 0.16); background: transparent; padding: 0; cursor: pointer; display: block; min-width: 0">
+                        <img :src="a.url" style="width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block" />
+                        <span style="display: block; font: 400 9px/1.3 ui-monospace, monospace; color: #5d5d60; padding: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap" x-text="a.originalName || a.kind"></span>
+                      </button>
+                    </template>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </div>
+
+          <!-- Blog kramdown helpers modal -->
+          <div class="modal-overlay modal-overlay-center" x-show="blogKramdownModal" style="display: none">
+            <div style="position: relative; width: 100%; max-width: 560px; background: #f2f2f3; border: 1px solid rgba(29, 31, 32, 0.4); padding: 26px">
+              <i class="corner" style="top: -6px; left: -6px">+</i>
+              <i class="corner" style="top: -6px; right: -6px">+</i>
+              <i class="corner" style="bottom: -6px; left: -6px">+</i>
+              <i class="corner" style="bottom: -6px; right: -6px">+</i>
+              <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 8px">
+                <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 26px; line-height: 1; text-transform: uppercase">Kramdown</span>
+                <button type="button" aria-label="Close" class="icon-btn" @click="closeBlogKramdown()">✕</button>
+              </div>
+              <p style="margin: 0 0 18px; font: 400 11px/1.5 ui-monospace, monospace; color: #5d5d60">Inserts a kramdown attribute at the cursor — put it right after the element (image, heading, block) it should style. These render on the public site.</p>
+              <div style="display: flex; flex-direction: column; gap: 1px; background: rgba(29, 31, 32, 0.16); border: 1px solid rgba(29, 31, 32, 0.16)">
+                <template x-for="k in blogKramdown" :key="k.snippet">
+                  <button type="button" @click="insertKramdown(k.snippet)" style="display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; text-align: left; background: #f2f2f3; border: none; padding: 12px 15px; cursor: pointer">
+                    <span style="font-weight: 600; font-size: 14px; min-width: 120px" x-text="k.label"></span>
+                    <span style="font: 400 11px/1 ui-monospace, monospace; color: #416180" x-text="k.snippet"></span>
+                    <span style="flex: 1; min-width: 0; font: 400 11px/1.4 'Barlow', sans-serif; color: #5d5d60" x-text="k.desc"></span>
+                  </button>
+                </template>
+              </div>
+            </div>
+          </div>
+
+          <!-- Blog insert-link modal -->
+          <div class="modal-overlay modal-overlay-center" x-show="blogLinkModal" style="display: none">
+            <div style="position: relative; width: 100%; max-width: 520px; background: #f2f2f3; border: 1px solid rgba(29, 31, 32, 0.4); padding: 26px">
+              <i class="corner" style="top: -6px; left: -6px">+</i>
+              <i class="corner" style="top: -6px; right: -6px">+</i>
+              <i class="corner" style="bottom: -6px; left: -6px">+</i>
+              <i class="corner" style="bottom: -6px; right: -6px">+</i>
+              <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 18px">
+                <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 26px; line-height: 1; text-transform: uppercase">Insert link</span>
+                <button type="button" aria-label="Close" class="icon-btn" @click="closeBlogLink()">✕</button>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 13px; margin-bottom: 20px">
+                <div style="display: flex; flex-direction: column; gap: 6px">
+                  <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.12em; color: #416180">TEXT</span>
+                  <input x-model="blogLinkText" class="field-input" type="text" placeholder="link text" @keydown.enter="insertBlogLink()" />
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 6px">
+                  <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.12em; color: #416180">URL</span>
+                  <input x-model="blogLinkUrl" class="field-input" type="text" placeholder="https://…" @keydown.enter="insertBlogLink()" />
+                </div>
+                <button type="button" @click="blogLinkNewTab = !blogLinkNewTab" style="display: flex; align-items: center; gap: 9px; background: transparent; border: none; padding: 0; cursor: pointer; text-align: left">
+                  <span :style="'width:16px;height:16px;flex:none;border:1px solid ' + (blogLinkNewTab ? '#5980a6' : 'rgba(29,31,32,0.24)') + ';background:' + (blogLinkNewTab ? '#5980a6' : 'transparent') + ';color:#f2f2f3;font:700 11px/14px ui-monospace,monospace;text-align:center;border-radius:2px'" x-text="blogLinkNewTab ? '✓' : ''"></span>
+                  <span style="font: 400 13px/1 'Barlow', sans-serif; color: #1d1f20">Open in new tab</span>
+                </button>
+              </div>
+              <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; border-top: 1px solid rgba(29, 31, 32, 0.16); padding-top: 18px">
+                <button type="button" class="btn-primary" @click="insertBlogLink()">Insert link</button>
+                <button type="button" class="btn-secondary" @click="closeBlogLink()">Cancel</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Blog delete confirm -->
+          <div class="modal-overlay modal-overlay-center" x-show="blogDeleteId" style="display: none">
+            <div style="position: relative; width: 100%; max-width: 440px; background: #f2f2f3; border: 1px solid rgba(29, 31, 32, 0.4); padding: 24px">
+              <i class="corner" style="top: -6px; left: -6px">+</i>
+              <i class="corner" style="top: -6px; right: -6px">+</i>
+              <i class="corner" style="bottom: -6px; left: -6px">+</i>
+              <i class="corner" style="bottom: -6px; right: -6px">+</i>
+              <div style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.14em; color: #416180; margin-bottom: 10px; text-transform: uppercase">DELETE POST</div>
+              <div style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 30px; line-height: 1.02; text-transform: uppercase; margin-bottom: 10px">Delete this post?</div>
+              <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; border-top: 1px solid rgba(29, 31, 32, 0.16); padding-top: 18px">
+                <button type="button" class="btn-primary" @click="confirmDeleteBlog()">Delete post</button>
+                <button type="button" class="btn-secondary" @click="cancelDeleteBlog()">Keep it</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Standalone add button for panels that hide the plain list (e.g. TV & film) -->
+          <template x-if="active && active.hideList">
+            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap">
+              <button type="button" class="btn-primary" @click="openCreate()">+ Add entry</button>
+              <span style="font: 400 10px/1.4 ui-monospace, monospace; color: #5d5d60; white-space: nowrap" x-text="visibleRows.length + ' entries'"></span>
+            </div>
+          </template>
+
+          <!-- Generic list -->
+          <template x-if="active && active.fields && !active.kind.startsWith('settings:') && !active.hideList">
+            <div style="display: flex; flex-direction: column; gap: 16px">
+              <div style="position: relative">
+                <i class="corner" style="top: -6px; left: -6px">+</i>
+                <i class="corner" style="top: -6px; right: -6px">+</i>
+                <i class="corner" style="bottom: -6px; left: -6px">+</i>
+                <i class="corner" style="bottom: -6px; right: -6px">+</i>
+                <div style="border: 1px solid rgba(29, 31, 32, 0.16); overflow-x: auto">
+                  <div style="min-width: 480px">
+                    <div :style="'display:grid;grid-template-columns:' + listGrid() + ';gap:14px;align-items:center;padding:11px 15px;border-bottom:1px solid rgba(29,31,32,0.16);font:400 10px/1 ui-monospace,monospace;letter-spacing:0.1em;color:#416180'">
+                    <template x-if="coverField">
+                      <span style="white-space: nowrap">COVER</span>
+                    </template>
+                    <template x-for="col in active.columns || []" :key="col">
+                      <span x-text="col" style="white-space: nowrap; text-transform: uppercase"></span>
+                    </template>
+                    <span></span>
+                    <span></span>
+                  </div>
+                  <template x-if="!visibleRows.length">
+                    <div style="padding: 18px 15px; font: 400 10px/1.5 ui-monospace, monospace; letter-spacing: 0.1em; color: #5d5d60">NOTHING HERE YET</div>
+                  </template>
+                  <template x-for="row in visibleRows" :key="row.id">
+                    <div :style="'display:grid;grid-template-columns:' + listGrid() + ';gap:14px;align-items:center;padding:13px 15px;border-bottom:1px solid rgba(29,31,32,0.16)' + (row.id === vaultHighlightId ? ';background:#d6ebff' : '')">
+                      <template x-if="coverField">
+                        <span style="width: 44px; height: 44px; border: 1px solid rgba(29, 31, 32, 0.16); background: #e9e9ea; overflow: hidden; display: block">
+                          <img x-show="coverUrl(coverField, row)" :src="coverUrl(coverField, row)" style="width: 100%; height: 100%; object-fit: cover; display: block" />
+                        </span>
+                      </template>
+                      <template x-for="col in active.columns || []" :key="col">
+                        <span x-text="row[col]" style="font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap"></span>
+                      </template>
+                      <button type="button" class="icon-btn" @click="openEdit(row)">✎</button>
+                      <button type="button" class="icon-btn" @click="askDelete(row.id)">✕</button>
+                    </div>
+                  </template>
+                  </div>
+                </div>
+              </div>
+              <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap">
+                <button type="button" class="btn-primary" @click="openCreate()">+ Add entry</button>
+                <span style="font: 400 10px/1.4 ui-monospace, monospace; color: #5d5d60; white-space: nowrap" x-text="visibleRows.length + ' entries'"></span>
+              </div>
+            </div>
+          </template>
+
+          <!-- Recent activity feed (panels flagged recent: true) — newest first,
+               like the music/gaming history feeds -->
+          <template x-if="active && active.recent">
+            <div style="position: relative; border: 1px solid rgba(29, 31, 32, 0.16)">
+              <i class="corner" style="top: -6px; left: -6px">+</i>
+              <i class="corner" style="top: -6px; right: -6px">+</i>
+              <i class="corner" style="bottom: -6px; left: -6px">+</i>
+              <i class="corner" style="bottom: -6px; right: -6px">+</i>
+              <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 11px 15px; border-bottom: 1px solid rgba(29, 31, 32, 0.16)">
+                <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.14em; color: #416180; white-space: nowrap">RECENT</span>
+                <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; white-space: nowrap">NEWEST FIRST</span>
+              </div>
+              <template x-if="!recentRows.length">
+                <div style="padding: 16px; font: 400 10px/1.5 ui-monospace, monospace; letter-spacing: 0.1em; color: #5d5d60">NOTHING YET</div>
+              </template>
+              <template x-for="(r, i) in recentRows" :key="r.id">
+                <div :class="active.id === 'paper' ? 'detail-episode' : ''" @click="active.id === 'paper' && openBookModal(r)" :style="'display:flex;align-items:center;gap:14px;padding:12px 15px;border-bottom:1px solid rgba(29,31,32,0.16)' + (active.id === 'paper' ? ';cursor:pointer' : '')">
+                  <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; width: 16px; flex: none" x-text="i + 1"></span>
+                  <template x-for="col in active.columns" :key="col">
+                    <span style="font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap" x-text="r[col]"></span>
+                  </template>
+                  <span style="flex: 1"></span>
+                  <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; white-space: nowrap" x-text="histWhen(r.updatedAt)"></span>
+                </div>
+              </template>
+            </div>
+          </template>
+
+          <!-- Watch log (TV & film) — each episode/movie marked watched or watching -->
+          <template x-if="active && active.id === 'screen'">
+            <div style="position: relative; border: 1px solid rgba(29, 31, 32, 0.16)">
+              <i class="corner" style="top: -6px; left: -6px">+</i>
+              <i class="corner" style="top: -6px; right: -6px">+</i>
+              <i class="corner" style="bottom: -6px; left: -6px">+</i>
+              <i class="corner" style="bottom: -6px; right: -6px">+</i>
+              <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 11px 15px; border-bottom: 1px solid rgba(29, 31, 32, 0.16)">
+                <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.14em; color: #416180; white-space: nowrap">WATCH LOG</span>
+                <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; white-space: nowrap">EACH MARK · NEWEST FIRST</span>
+              </div>
+              <template x-if="!screenEvents.length">
+                <div style="padding: 16px; font: 400 10px/1.5 ui-monospace, monospace; letter-spacing: 0.1em; color: #5d5d60">NOTHING YET — MARK SOMETHING ABOVE</div>
+              </template>
+              <template x-for="(ev, i) in screenEvents" :key="ev.id">
+                <div style="display: flex; flex-direction: column; gap: 5px; padding: 12px 15px; border-bottom: 1px solid rgba(29, 31, 32, 0.16)">
+                  <div style="display: flex; align-items: center; gap: 12px">
+                    <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; width: 16px; flex: none" x-text="i + 1"></span>
+                    <button type="button" class="title-link" @click="openDetails(ev, 'show')" title="View show details" style="font-weight: 600; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap" x-text="ev.title"></button>
+                    <span x-show="isTvShow(ev)" style="font: 500 10px/1 ui-monospace, monospace; letter-spacing: 0.08em; color: #416180; border: 1px solid rgba(29, 31, 32, 0.16); padding: 4px 6px; white-space: nowrap" x-text="eventEpisodeLabel(ev)"></span>
+                    <button type="button" x-show="isTvShow(ev) && ev.meta && ev.meta.episodeTitle" class="title-link" @click="openDetails(ev, 'episode')" title="View episode details" style="font: 500 12px/1.2 'Barlow', sans-serif; color: #1d1f20; overflow: hidden; text-overflow: ellipsis; white-space: nowrap" x-text="ev.meta && ev.meta.episodeTitle"></button>
+                    <span x-show="watchMetaLine(ev)" style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; white-space: nowrap" x-text="watchMetaLine(ev)"></span>
+                    <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.08em; color: #5d5d60; text-transform: uppercase; white-space: nowrap" x-text="ev.action"></span>
+                    <span style="flex: 1"></span>
+                    <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; white-space: nowrap" x-text="histWhen(ev.occurredAt)"></span>
+                  </div>
+                  <span x-show="eventCastLine(ev)" style="font: 400 11px/1.3 'Barlow', sans-serif; color: #5d5d60; padding-left: 28px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap" x-text="eventCastLine(ev)"></span>
+                </div>
+              </template>
+            </div>
+          </template>
+
+          <!-- Connections (existing OAuth panel, untouched) -->
+          <div style="position: relative; border: 1px solid rgba(29, 31, 32, 0.16); padding: 22px" x-show="activeId === 'connections'">
+            <i class="corner" style="top: -6px; left: -6px">+</i>
+            <i class="corner" style="top: -6px; right: -6px">+</i>
+            <i class="corner" style="bottom: -6px; left: -6px">+</i>
+            <i class="corner" style="bottom: -6px; right: -6px">+</i>
+            <div id="admin-panel"></div>
+          </div>
+
+          <!-- Create/edit modal -->
+          <div class="modal-overlay" x-show="modalOpen" style="display: none">
+            <div style="position: relative; width: 100%; max-width: 620px; background: #f2f2f3; border: 1px solid rgba(29, 31, 32, 0.4); padding: 26px">
+              <i class="corner" style="top: -6px; left: -6px">+</i>
+              <i class="corner" style="top: -6px; right: -6px">+</i>
+              <i class="corner" style="bottom: -6px; left: -6px">+</i>
+              <i class="corner" style="bottom: -6px; right: -6px">+</i>
+
+              <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 18px">
+                <span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 30px; line-height: 1; text-transform: uppercase" x-text="modalTitle()"></span>
+                <button type="button" aria-label="Close" class="icon-btn" @click="closeModal()">✕</button>
+              </div>
+
+              <template x-if="active && active.searchKind">
+                <div style="border: 1px solid rgba(29, 31, 32, 0.16); padding: 16px; margin-bottom: 20px">
+                  <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 11px">
+                    <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.14em; color: #416180; white-space: nowrap">LOOKUP</span>
+                    <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60; white-space: nowrap">OPTIONAL — PREFILLS THE FIELDS</span>
+                  </div>
+                  <div style="display: flex; gap: 9px; align-items: center; flex-wrap: wrap">
+                    <input class="field-input" style="flex: 1; min-width: 200px" type="text" x-model="query" placeholder="search…" @keydown.enter="runSearch()" />
+                    <button type="button" class="btn-secondary" style="padding: 11px 14px" @click="runSearch()" x-text="searching ? 'Searching…' : 'Search'"></button>
+                  </div>
+                  <p x-show="searchError" x-text="searchError" style="font: 400 10px/1.4 ui-monospace, monospace; color: #b3542a; margin: 9px 0 0"></p>
+                  <div style="display: flex; flex-direction: column; gap: 1px; background: rgba(29, 31, 32, 0.16); margin-top: 12px">
+                    <template x-for="group in searchResults" :key="group.source">
+                      <div style="background: #f2f2f3">
+                        <div style="padding: 8px 13px; font: 400 9px/1 ui-monospace, monospace; letter-spacing: 0.1em; color: #416180" x-text="group.label + ' (' + group.results.length + ')'"></div>
+                        <template x-for="r in group.results" :key="r.sourceId || r.title">
+                          <button type="button" @click="useResult(r)" style="display: flex; align-items: center; gap: 11px; width: 100%; text-align: left; padding: 10px 13px; cursor: pointer; border: none; color: #1d1f20; background: transparent">
+                            <span style="font-weight: 600; font-size: 14px" x-text="r.title"></span>
+                            <span style="font-size: 12px; color: #5d5d60" x-text="r.author || r.artist || r.year || ''"></span>
+                            <span style="flex: 1"></span>
+                            <span style="font: 500 10px/1 ui-monospace, monospace; letter-spacing: 0.1em; color: #416180; white-space: nowrap">USE →</span>
+                          </button>
+                        </template>
+                      </div>
+                    </template>
+                  </div>
+                </div>
+              </template>
+
+              <div style="display: flex; flex-direction: column; gap: 13px; margin-bottom: 22px">
+                <template x-for="f in modalFields || []" :key="f.key">
+                  <div x-show="fieldVisible(f)" style="display: flex; flex-direction: column; gap: 6px">
+                    <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.12em; color: #416180">
+                      <span x-text="f.label"></span>
+                      <span x-show="fieldLocked(f)" style="color: #5d5d60; letter-spacing: 0.06em"> · FROM YOUR VAULT</span>
+                    </span>
+
+                    <input x-show="f.type === 'text'" class="field-input" type="text" :placeholder="f.placeholder || ''" x-model="draft[f.key]" :disabled="fieldLocked(f)" />
+                    <input x-show="f.type === 'number'" class="field-input" type="number" x-model.number="draft[f.key]" :disabled="fieldLocked(f)" />
+                    <input x-show="f.type === 'date'" class="field-input" type="text" placeholder="YYYY-MM-DD" x-model="draft[f.key]" :disabled="fieldLocked(f)" />
+                    <textarea x-show="f.type === 'longtext'" class="field-input" rows="5" style="resize: vertical" x-model="draft[f.key]" :disabled="fieldLocked(f)"></textarea>
+
+                    <div x-show="f.type === 'list'">
+                      <input class="field-input" type="text" :list="'dl-' + f.key" :placeholder="f.placeholder || ''" x-model="draft[f.key]" />
+                      <datalist :id="'dl-' + f.key">
+                        <template x-for="opt in f.options" :key="opt">
+                          <option :value="opt"></option>
+                        </template>
+                      </datalist>
+                    </div>
+
+                    <div x-show="f.type === 'enum'" style="display: flex; gap: 8px; flex-wrap: wrap">
+                      <template x-for="opt in f.options" :key="opt">
+                        <button
+                          type="button"
+                          @click="draft[f.key] = opt"
+                          :style="'border:1px solid ' + (draft[f.key] === opt ? '#5980a6' : 'rgba(29,31,32,0.16)') + ';background:' + (draft[f.key] === opt ? '#5980a6' : 'transparent') + ';color:' + (draft[f.key] === opt ? '#f2f2f3' : '#1d1f20') + ';font:500 11px/1 \'Barlow\',sans-serif;letter-spacing:0.1em;text-transform:uppercase;padding:9px 12px;border-radius:2px;cursor:pointer'"
+                          x-text="opt"
+                        ></button>
+                      </template>
+                    </div>
+
+                    <select x-show="f.type === 'select'" class="field-input" x-model="draft[f.key]">
+                      <option value="">—</option>
+                      <template x-for="opt in f.options" :key="opt">
+                        <option :value="opt" x-text="opt"></option>
+                      </template>
+                    </select>
+
+                    <div x-show="f.type === 'links'" style="display: flex; flex-direction: column; gap: 8px">
+                      <template x-for="(lk, i) in linkRows" :key="i">
+                        <div style="display: flex; gap: 8px; align-items: center">
+                          <input class="field-input" style="flex: 1" type="text" placeholder="label" x-model="lk.label" />
+                          <input class="field-input" style="flex: 1.4" type="text" placeholder="https://…" x-model="lk.url" />
+                          <button type="button" class="icon-btn" @click="removeLinkRow(i)">✕</button>
+                        </div>
+                      </template>
+                      <button type="button" class="btn-secondary" style="align-self: flex-start; padding: 9px 12px" @click="addLinkRow()">+ Add link</button>
+                    </div>
+
+                    <div x-show="f.type === 'cover'">
+                      <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap">
+                        <img x-show="draft[f.key]" :src="coverUrl(f, draft)" style="width: 64px; height: 64px; object-fit: cover; border: 1px solid rgba(29, 31, 32, 0.16)" />
+                        <button type="button" x-show="draft[f.key]" class="btn-secondary" @click="removeCover(f)">Remove</button>
+                        <label class="btn-secondary" style="cursor: pointer; display: inline-block">
+                          Upload
+                          <input type="file" accept="image/*" style="display: none" @change="uploadCover(f, $event.target)" />
+                        </label>
+                        <button type="button" class="btn-secondary" @click="togglePicker()" x-text="pickerOpen ? 'Close library' : 'Choose from library'"></button>
+                      </div>
+                      <div x-show="pickerOpen" style="border: 1px solid rgba(29, 31, 32, 0.16); padding: 12px; margin-top: 10px">
+                        <input class="field-input" style="margin-bottom: 11px" type="text" x-model="pickerQuery" placeholder="search photos…" />
+                        <template x-if="!filteredLibrary.length">
+                          <p style="font: 400 10px/1.5 ui-monospace, monospace; color: #5d5d60; margin: 0">Nothing in the library yet — upload one instead.</p>
+                        </template>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); gap: 9px">
+                          <template x-for="m in filteredLibrary" :key="m.id">
+                            <button type="button" @click="pickFromLibrary(f, m)" style="border: 1px solid rgba(29, 31, 32, 0.16); background: transparent; padding: 0; cursor: pointer; display: block; min-width: 0">
+                              <img :src="m.url" style="width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block" />
+                              <span style="display: block; font: 400 9px/1.3 ui-monospace, monospace; color: #5d5d60; padding: 5px 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap" x-text="m.originalName || m.kind"></span>
+                            </button>
+                          </template>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </template>
+              </div>
+
+              <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; border-top: 1px solid rgba(29, 31, 32, 0.16); padding-top: 18px">
+                <button type="button" class="btn-primary" @click="saveModal()">Save</button>
+                <button type="button" class="btn-secondary" @click="closeModal()">Cancel</button>
+                <span x-show="saveError" x-text="saveError" style="font: 400 10px/1.4 ui-monospace, monospace; color: #b3542a"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Delete confirm -->
+          <div class="modal-overlay modal-overlay-center" x-show="deleteId" style="display: none">
+            <div style="position: relative; width: 100%; max-width: 440px; background: #f2f2f3; border: 1px solid rgba(29, 31, 32, 0.4); padding: 24px">
+              <i class="corner" style="top: -6px; left: -6px">+</i>
+              <i class="corner" style="top: -6px; right: -6px">+</i>
+              <i class="corner" style="bottom: -6px; left: -6px">+</i>
+              <i class="corner" style="bottom: -6px; right: -6px">+</i>
+              <div style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.14em; color: #416180; margin-bottom: 10px; text-transform: uppercase">DELETE ENTRY</div>
+              <div style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 30px; line-height: 1.02; text-transform: uppercase; margin-bottom: 10px">Delete this entry?</div>
+              <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; border-top: 1px solid rgba(29, 31, 32, 0.16); padding-top: 18px">
+                <button type="button" class="btn-primary" @click="confirmDelete()">Delete entry</button>
+                <button type="button" class="btn-secondary" @click="cancelDelete()">Keep it</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Delete image confirm (unused assets only) -->
+          <div class="modal-overlay modal-overlay-center" x-show="assetDeleteTarget" style="display: none">
+            <div style="position: relative; width: 100%; max-width: 460px; background: #f2f2f3; border: 1px solid rgba(29, 31, 32, 0.4); padding: 24px">
+              <i class="corner" style="top: -6px; left: -6px">+</i>
+              <i class="corner" style="top: -6px; right: -6px">+</i>
+              <i class="corner" style="bottom: -6px; left: -6px">+</i>
+              <i class="corner" style="bottom: -6px; right: -6px">+</i>
+              <div style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.14em; color: #416180; margin-bottom: 10px; text-transform: uppercase">DELETE IMAGE</div>
+              <div style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 30px; line-height: 1.02; text-transform: uppercase; margin-bottom: 10px" x-text="'Delete ' + (assetDeleteTarget ? (assetDeleteTarget.originalName || assetDeleteTarget.kind) : '') + '?'"></div>
+              <p style="margin: 0 0 20px; font-size: 15px; line-height: 1.45; color: #424244; text-wrap: pretty">This image isn't used anywhere, so it's safe to remove. This permanently deletes it from storage.</p>
+              <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; border-top: 1px solid rgba(29, 31, 32, 0.16); padding-top: 18px">
+                <button type="button" class="btn-primary" @click="confirmDeleteAsset()">Delete image</button>
+                <button type="button" class="btn-secondary" @click="cancelDeleteAsset()">Keep it</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- TV/film details popup -->
+          <div class="modal-overlay" x-show="detailOpen" style="display: none" @keydown.escape.window="closeDetails()" @click.self="closeDetails()">
+            <div style="position: relative; width: 100%; max-width: 640px; background: #f2f2f3; border: 1px solid rgba(29, 31, 32, 0.4); padding: 26px">
+              <i class="corner" style="top: -6px; left: -6px">+</i>
+              <i class="corner" style="top: -6px; right: -6px">+</i>
+              <i class="corner" style="bottom: -6px; left: -6px">+</i>
+              <i class="corner" style="bottom: -6px; right: -6px">+</i>
+
+              <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 16px">
+                <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.14em; color: #416180; white-space: nowrap" x-text="detailFocus === 'episode' ? 'EPISODE' : ((detailRow && detailRow.type === 'TV Show') ? 'TV SHOW' : 'MOVIE')"></span>
+                <button type="button" aria-label="Close" class="icon-btn" @click="closeDetails()">✕</button>
+              </div>
+
+              <template x-if="detailLoading">
+                <div style="font: 400 10px/1.5 ui-monospace, monospace; letter-spacing: 0.1em; color: #5d5d60">LOADING FROM TMDB…</div>
+              </template>
+              <template x-if="detailError && !detailLoading">
+                <div style="font: 400 10px/1.5 ui-monospace, monospace; letter-spacing: 0.1em; color: #b3542a" x-text="detailError"></div>
+              </template>
+
+              <!-- ========== EPISODE-FOCUSED VIEW (from a watch-log episode) ========== -->
+              <template x-if="detail && !detailLoading && detailFocus === 'episode' && detailEpisodeObj">
+                <div style="display: flex; flex-direction: column; gap: 16px">
+                  <!-- which show + link back to it -->
+                  <div style="display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap">
+                    <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.1em; color: #5d5d60; text-transform: uppercase" x-text="detail.title + ' · S' + detailSeason + ' · E' + String(detailEpisodeObj.episode).padStart(2, '0')"></span>
+                  </div>
+                  <!-- episode headline -->
+                  <div>
+                    <div style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 30px; line-height: 1.02; text-transform: uppercase" x-text="detailEpisodeObj.name || ('Episode ' + detailEpisodeObj.episode)"></div>
+                    <div style="margin-top: 6px; display: flex; gap: 12px; flex-wrap: wrap; font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.08em; color: #5d5d60">
+                      <span x-show="detailEpisodeObj.airDate" x-text="detailEpisodeObj.airDate"></span>
+                      <span x-show="fmtRuntime(detailEpisodeObj.runtimeMin)" x-text="fmtRuntime(detailEpisodeObj.runtimeMin)"></span>
+                      <span x-show="ratingLine(detailEpisodeObj.rating)" style="color: #416180" x-text="ratingLine(detailEpisodeObj.rating)"></span>
+                    </div>
+                  </div>
+                  <!-- episode description -->
+                  <p x-show="detailEpisodeObj.overview" style="margin: 0; font-size: 15px; line-height: 1.5; color: #424244; text-wrap: pretty" x-text="detailEpisodeObj.overview"></p>
+                  <p x-show="!detailEpisodeObj.overview" style="margin: 0; font: 400 10px/1.4 ui-monospace, monospace; color: #5d5d60">No description for this episode.</p>
+                  <!-- episode characters: guest stars, then the show regulars -->
+                  <div x-show="detailEpisodeObj.guestCast && detailEpisodeObj.guestCast.length">
+                    <div style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.14em; color: #416180; margin-bottom: 8px">GUEST CHARACTERS</div>
+                    <div style="display: flex; flex-direction: column; gap: 3px">
+                      <template x-for="(c, i) in castList(detailEpisodeObj.guestCast, 8)" :key="i">
+                        <span style="font: 400 12px/1.4 'Barlow', sans-serif; color: #1d1f20" x-text="c"></span>
+                      </template>
+                    </div>
+                  </div>
+                  <div x-show="detail.cast && detail.cast.length">
+                    <div style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.14em; color: #416180; margin-bottom: 8px">SERIES REGULARS</div>
+                    <div style="display: flex; flex-direction: column; gap: 3px">
+                      <template x-for="(c, i) in castList(detail.cast, 8)" :key="i">
+                        <span style="font: 400 12px/1.4 'Barlow', sans-serif; color: #1d1f20" x-text="c"></span>
+                      </template>
+                    </div>
+                  </div>
+                  <!-- link to the whole show -->
+                  <div style="border-top: 1px solid rgba(29, 31, 32, 0.16); padding-top: 16px">
+                    <button type="button" class="btn-secondary" @click="showFullShow()" x-text="'View ' + detail.title + ' →'"></button>
+                  </div>
+                </div>
+              </template>
+
+              <!-- ========== MOVIE / FULL-SHOW VIEW ========== -->
+              <template x-if="detail && !detailLoading && detailFocus === 'show'">
+                <div style="display: flex; flex-direction: column; gap: 16px">
+                  <!-- headline: title + year · length · rating -->
+                  <div>
+                    <div style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 30px; line-height: 1.02; text-transform: uppercase" x-text="detail.title"></div>
+                    <div style="margin-top: 6px; display: flex; gap: 12px; flex-wrap: wrap; font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.08em; color: #5d5d60">
+                      <span x-show="detail.year" x-text="detail.year"></span>
+                      <span x-show="fmtRuntime(detail.runtimeMin)" x-text="fmtRuntime(detail.runtimeMin) + (detail.kind === 'tv' ? ' / EP' : '')"></span>
+                      <span x-show="ratingLine(detail.rating)" style="color: #416180" x-text="ratingLine(detail.rating)"></span>
+                    </div>
+                  </div>
+
+                  <!-- description -->
+                  <p x-show="detail.overview" style="margin: 0; font-size: 15px; line-height: 1.5; color: #424244; text-wrap: pretty" x-text="detail.overview"></p>
+
+                  <!-- characters -->
+                  <div x-show="detail.cast && detail.cast.length">
+                    <div style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.14em; color: #416180; margin-bottom: 8px" x-text="detail.kind === 'tv' ? 'MAIN CAST' : 'CHARACTERS'"></div>
+                    <div style="display: flex; flex-direction: column; gap: 3px">
+                      <template x-for="(c, i) in castList(detail.cast, 12)" :key="i">
+                        <span style="font: 400 12px/1.4 'Barlow', sans-serif; color: #1d1f20" x-text="c"></span>
+                      </template>
+                    </div>
+                  </div>
+
+                  <!-- TV: seasons → episodes → per-episode details -->
+                  <template x-if="detail.kind === 'tv' && detail.seasons && detail.seasons.length">
+                    <div style="border-top: 1px solid rgba(29, 31, 32, 0.16); padding-top: 16px">
+                      <div style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.14em; color: #416180; margin-bottom: 10px">SEASONS</div>
+                      <div style="display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 14px">
+                        <template x-for="s in detail.seasons" :key="s.seasonNumber">
+                          <button type="button" class="detail-season-btn" :class="detailSeason === s.seasonNumber ? 'is-active' : ''" @click="selectDetailSeason(s.seasonNumber)" x-text="'S' + s.seasonNumber"></button>
+                        </template>
+                      </div>
+
+                      <template x-if="detailSeasonLoading">
+                        <div style="font: 400 10px/1.5 ui-monospace, monospace; letter-spacing: 0.1em; color: #5d5d60">LOADING EPISODES…</div>
+                      </template>
+
+                      <template x-if="detailSeasonData && !detailSeasonLoading">
+                        <div style="display: flex; flex-direction: column; gap: 1px; background: rgba(29, 31, 32, 0.16); border: 1px solid rgba(29, 31, 32, 0.16); max-height: 340px; overflow-y: auto">
+                          <template x-if="!detailSeasonData.episodes.length">
+                            <div style="background: #f2f2f3; padding: 14px; font: 400 10px/1.5 ui-monospace, monospace; color: #5d5d60">NO EPISODES LISTED</div>
+                          </template>
+                          <template x-for="ep in detailSeasonData.episodes" :key="ep.episode">
+                            <!-- click an episode → opens that episode's own view -->
+                            <div class="detail-episode" @click="openEpisodeDetail(ep)" style="background: #f2f2f3; display: flex; align-items: center; gap: 11px; padding: 11px 13px">
+                              <span style="font: 600 12px/1 ui-monospace, monospace; color: #416180; white-space: nowrap; flex: none" x-text="'E' + String(ep.episode).padStart(2, '0')"></span>
+                              <span style="font-weight: 600; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap" x-text="ep.name || ('Episode ' + ep.episode)"></span>
+                              <span style="flex: 1"></span>
+                              <span x-show="ratingLine(ep.rating)" style="font: 400 10px/1 ui-monospace, monospace; color: #416180; white-space: nowrap" x-text="ratingLine(ep.rating)"></span>
+                              <span style="font: 400 13px/1 ui-monospace, monospace; color: #5d5d60; flex: none">→</span>
+                            </div>
+                          </template>
+                        </div>
+                      </template>
+                    </div>
+                  </template>
+                </div>
+              </template>
+            </div>
+          </div>
+
+          <!-- Book INFO popup (Continue Reading title / Reading Log entry) -->
+          <div class="modal-overlay" x-show="bookModalOpen" style="display: none" @keydown.escape.window="closeBookModal()" @click.self="closeBookModal()">
+            <template x-if="bookModalRow">
+              <div style="position: relative; width: 100%; max-width: 560px; background: #f2f2f3; border: 1px solid rgba(29, 31, 32, 0.4); padding: 26px">
+                <i class="corner" style="top: -6px; left: -6px">+</i>
+                <i class="corner" style="top: -6px; right: -6px">+</i>
+                <i class="corner" style="bottom: -6px; left: -6px">+</i>
+                <i class="corner" style="bottom: -6px; right: -6px">+</i>
+
+                <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 16px">
+                  <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.14em; color: #416180; white-space: nowrap">BOOK</span>
+                  <button type="button" aria-label="Close" class="icon-btn" @click="closeBookModal()">✕</button>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 16px">
+                  <div>
+                    <div style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 30px; line-height: 1.02; text-transform: uppercase" x-text="bookModalRow.title"></div>
+                    <div style="margin-top: 6px; display: flex; gap: 12px; flex-wrap: wrap; font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.08em; color: #5d5d60">
+                      <span x-show="bookModalRow.author" x-text="bookModalRow.author"></span>
+                      <span x-show="bookModalRow.status" style="color: #416180" x-text="(bookModalRow.status || '').toUpperCase()"></span>
+                      <span x-text="readingProgressLabel(bookModalRow)"></span>
+                      <span x-show="bookModalRow.rating" style="color: #5980a6" x-text="bookModalRow.rating"></span>
+                    </div>
+                  </div>
+                  <div x-show="Number(bookModalRow.pages) > 0" style="height: 5px; background: #e7e7ea"><div :style="readingBarStyle(bookModalRow)"></div></div>
+                  <p x-show="bookModalRow.verdict" style="margin: 0; font-size: 14px; line-height: 1.5; color: #424244; text-wrap: pretty" x-text="bookModalRow.verdict"></p>
+
+                  <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; border-top: 1px solid rgba(29, 31, 32, 0.16); padding-top: 18px">
+                    <template x-if="bookVaultChecked && bookVaultMatch">
+                      <button type="button" class="btn-primary" @click="goToVault()">Go to vault →</button>
+                    </template>
+                    <template x-if="bookVaultChecked && !bookVaultMatch">
+                      <button type="button" class="btn-primary" @click="editBook(bookModalRow)">Edit book</button>
+                    </template>
+                    <span x-show="!bookVaultChecked" style="font: 400 10px/1.4 ui-monospace, monospace; color: #5d5d60">Checking vault…</span>
+                    <span style="flex: 1"></span>
+                    <button type="button" class="btn-secondary" @click="closeBookModal()">Close</button>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
+
+          <!-- Page-update popup (current page only — total lives in vault/edit) -->
+          <div class="modal-overlay" x-show="pageModalOpen" style="display: none" @keydown.escape.window="closePageModal()" @click.self="closePageModal()">
+            <template x-if="pageModalRow">
+              <div style="position: relative; width: 100%; max-width: 480px; background: #f2f2f3; border: 1px solid rgba(29, 31, 32, 0.4); padding: 26px">
+                <i class="corner" style="top: -6px; left: -6px">+</i>
+                <i class="corner" style="top: -6px; right: -6px">+</i>
+                <i class="corner" style="bottom: -6px; left: -6px">+</i>
+                <i class="corner" style="bottom: -6px; right: -6px">+</i>
+
+                <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 16px">
+                  <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.14em; color: #416180; white-space: nowrap">UPDATE PAGE</span>
+                  <button type="button" aria-label="Close" class="icon-btn" @click="closePageModal()">✕</button>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 14px">
+                  <div style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 24px; line-height: 1.02; text-transform: uppercase" x-text="pageModalRow.title"></div>
+                  <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px">
+                    <span style="font: 400 10px/1 ui-monospace, monospace; letter-spacing: 0.14em; color: #416180">PROGRESS</span>
+                    <span style="font: 400 10px/1 ui-monospace, monospace; color: #5d5d60" x-text="'PAGE ' + (Number(pageDraft) || 0) + (Number(pageModalRow.pages) > 0 ? ' / ' + pageModalRow.pages : '')"></span>
+                  </div>
+                  <div x-show="Number(pageModalRow.pages) > 0" style="height: 6px; background: #e7e7ea">
+                    <div :style="'height:100%;background:#5980a6;width:' + Math.max(0, Math.min(100, Math.round(((Number(pageDraft)||0) / (Number(pageModalRow.pages)||1)) * 100))) + '%'"></div>
+                  </div>
+                  <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap">
+                    <button type="button" @click="pageBump(10)" style="border: 1px solid rgba(29, 31, 32, 0.16); background: transparent; color: #1d1f20; font: 600 10px/1 'Barlow', sans-serif; letter-spacing: 0.1em; text-transform: uppercase; padding: 9px 12px; border-radius: 2px; cursor: pointer; white-space: nowrap">+10 pages</button>
+                    <button type="button" @click="pageBump(30)" style="border: 1px solid rgba(29, 31, 32, 0.16); background: transparent; color: #1d1f20; font: 600 10px/1 'Barlow', sans-serif; letter-spacing: 0.1em; text-transform: uppercase; padding: 9px 12px; border-radius: 2px; cursor: pointer; white-space: nowrap">+30 pages</button>
+                    <span style="display: flex; align-items: center; gap: 7px">
+                      <span style="font: 400 9px/1 ui-monospace, monospace; letter-spacing: 0.1em; color: #5d5d60; white-space: nowrap">ON PAGE</span>
+                      <input x-model.number="pageDraft" inputmode="numeric" style="width: 74px; border: 1px solid #5980a6; background: transparent; color: #1d1f20; font: 400 15px/1 ui-monospace, monospace; text-align: center; padding: 9px 6px; border-radius: 2px" />
+                    </span>
+                  </div>
+                  <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; border-top: 1px solid rgba(29, 31, 32, 0.16); padding-top: 18px">
+                    <button type="button" class="btn-primary" @click="savePage()">Save</button>
+                    <button type="button" class="btn-secondary" @click="closePageModal()">Cancel</button>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
+
+          <div style="border-top: 1px solid rgba(29, 31, 32, 0.16); padding-top: 14px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap">
+            <a href="/profile" style="font: 400 10px/1.4 ui-monospace, monospace">VIEW PROFILE ↗</a>
+          </div>
+        </main>
       </div>
-    </main>
+    </div>
 
     <script src="/admin/assets/js/api-config.js"></script>
+    <script defer src="/admin/assets/js/marked.min.js"></script>
     <script src="/admin/assets/js/admin.js"></script>
-    <script defer src="/admin/assets/js/admin-tabs.js"></script>
-    <script
-      defer
-      src="https://unpkg.com/@alpinejs/csp@3.x.x/dist/cdn.min.js"
-    ></script>
+    <script defer src="/admin/assets/js/admin-app.js"></script>
+    <script defer src="https://unpkg.com/@alpinejs/csp@3.x.x/dist/cdn.min.js"></script>
 
-    <script
-      defer
-      src="https://cloud.umami.is/script.js"
-      data-website-id="e3adec61-3166-4f84-a957-b6852d70e64b"
-    ></script>
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="e3adec61-3166-4f84-a957-b6852d70e64b"></script>
   </body>
 </html>

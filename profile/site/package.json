@@ -1,0 +1,15 @@
+{
+  "name": "profile-site",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "description": "Astro-rendered /profile homepage (Personal Spec Sheet). Statically prerendered for a fast, read-only first paint; live data (presence, weather, clock) hydrates client-side same as the rest of profile.",
+  "scripts": {
+    "dev": "astro dev --port 3004",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^4.16.0"
+  }
+}

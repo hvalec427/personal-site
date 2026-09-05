@@ -2,13 +2,13 @@
 
 Design source: https://claude.ai/design/p/6852d099-2d72-4399-b625-889be466492b?file=Profile.dc.html&via=share
 
-Target: `/karl` (mstr.hvalec.com), backed by the separate `hvalec-api` service.
+Target: `/profile` (mstr.hvalec.com), backed by the separate `hvalec-api` service.
 
 ## Existing building blocks (already in place)
 
 - `hvalec-api`: Express + flat JSON persistence (`data/persistent/*.json`), no DB. Already has full OAuth integrations for **Spotify, Steam, Xbox, PSN, Discord**, a Google-login-gated `/admin`, and a token-authed push pattern (`requirePcToken` → `POST /pc-status`) for trusted external sources.
-- `karl/src/shelves/`: static markdown tables — `books.md`, `games.md`, `music.md`.
-- `karl/src/logs/`: dated activity-log entries.
+- `profile/src/shelves/`: static markdown tables — `books.md`, `games.md`, `music.md`.
+- `profile/src/logs/`: dated activity-log entries.
 - `_blog/`: existing blog posts (Writing section source).
 
 Everything below reuses these patterns rather than introducing new ones (no new DB, no new auth style) unless noted.
@@ -42,7 +42,7 @@ Everything below reuses these patterns rather than introducing new ones (no new 
 **Decision:** no database — extend the existing static `books.md`.
 
 - [ ] Add frontmatter/columns to `books.md`: date read, rating.
-- [ ] Build-time script (in `karl/scripts/build-content.js`) to parse the "read" entries into the Recently Read widget.
+- [ ] Build-time script (in `profile/scripts/build-content.js`) to parse the "read" entries into the Recently Read widget.
 - [ ] No backend changes needed.
 
 **Estimate:** 0.5 day
@@ -101,8 +101,15 @@ Everything below reuses these patterns rather than introducing new ones (no new 
 
 ## 10. Building the actual page
 
-- [ ] Port the design's layout, ticker, mood picker, theme toggle, and vault filter/sort into `karl`'s existing vanilla-JS static-site pattern (matching `now-playing.js` style — no framework).
-- [ ] Wire each section to its real data source from the items above.
+**Update:** built with Astro instead (`profile/site/`, prerendered/static output), not the vanilla-JS pattern originally planned here — the page needed to be fast and SSR-capable, which the old no-framework approach didn't give a clean path to. Layout, ticker, theme toggle, and vault filter/sort are done. Data wiring below reflects what's actually real vs. still empty-state:
+
+- [x] Port the design's layout, ticker, theme toggle, and vault filter/sort. (No mood picker — replaced with a real presence-derived status. No habit-cell click-to-mark — the public page is read-only, so habit state is view-only where it exists at all.)
+- [x] Vault — wired to the real `books.md`/`games.md`/`music.md` shelves.
+- [x] Writing + Activity Log — wired to real `main/_blog/` posts.
+- [x] Projects — wired to real `main/projects.md`.
+- [x] Elsewhere — wired to real handles already used on the old homepage.
+- [x] Now/Currently/status/weather/visitor count — wired to the existing `/status`, open-meteo, and abacus endpoints, same as the old homepage's widgets.
+- [ ] Habits, Motion, Music history, Screens, Play, Paper, aggregate Totals — still no real backend (see sections above); each renders an honest empty state and a real fetch call to its future endpoint (see `profile/site/src/scripts/future-data.js`) that lights up automatically once that endpoint exists.
 
 **Estimate:** 1–2 days
 

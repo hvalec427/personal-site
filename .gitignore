@@ -10,8 +10,9 @@ main/.jekyll-metadata
 main/.bundle/
 main/vendor/
 
-karl/dist/
-karl/.env
+profile/dist/
+profile/.env
+profile/site/dist/
 
 admin/dist/
 admin/.env

@@ -1,15 +1,15 @@
 {
   "name": "hvalec-site",
   "private": true,
-  "description": "Orchestrates three independent frontend projects (main/, karl/, admin/) into one shared dist/. Each project builds and can be worked on entirely on its own — this just assembles them.",
+  "description": "Orchestrates three independent frontend projects (main/, profile/, admin/) into one shared dist/. Each project builds and can be worked on entirely on its own — this just assembles them.",
   "scripts": {
-    "build": "npm run build:main:production && npm run build:karl && npm run build:admin && npm run finalize",
-    "build:staging": "npm run build:main:staging && npm run build:karl && npm run build:admin && npm run finalize",
-    "build:dev": "npm run build:main:dev && npm run build:karl && npm run build:admin",
+    "build": "npm run build:main:production && npm run build:profile && npm run build:admin && npm run finalize",
+    "build:staging": "npm run build:main:staging && npm run build:profile && npm run build:admin && npm run finalize",
+    "build:dev": "npm run build:main:dev && npm run build:profile && npm run build:admin",
     "build:main:production": "cd main && bundle install && bundle exec jekyll build --config _config.yml,_config_production.yml",
     "build:main:staging": "cd main && bundle install && bundle exec jekyll build --config _config.yml,_config_staging.yml",
     "build:main:dev": "cd main && bundle install && bundle exec jekyll build",
-    "build:karl": "cd karl && npm run build && cd .. && mkdir -p dist/karl && cp -R karl/dist/. dist/karl/",
+    "build:profile": "cd profile && npm run build && cd .. && mkdir -p dist/profile && cp -R profile/dist/. dist/profile/",
     "build:admin": "cd admin && npm run build && cd .. && mkdir -p dist/admin && cp -R admin/dist/. dist/admin/",
     "finalize": "ruby main/scripts/generate-cv-pdf.rb"
   }
