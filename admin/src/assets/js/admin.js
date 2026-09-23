@@ -641,10 +641,6 @@
 
   function renderSignedIn(email) {
     container.replaceChildren();
-    document.getElementById("admin-tabs")?.removeAttribute("hidden");
-
-    const topSection = document.createElement("div");
-    topSection.className = "connection-section";
 
     const p = document.createElement("p");
     p.append("Signed in as ");
@@ -657,8 +653,6 @@
     button.className = "cv-button";
     button.id = "admin-logout";
     button.textContent = "Log out";
-
-    topSection.append(p, button);
 
     const xboxSection = document.createElement("div");
     xboxSection.className = "connection-section";
@@ -679,7 +673,8 @@
     devicesSection.className = "connection-section";
 
     container.append(
-      topSection,
+      p,
+      button,
       xboxSection,
       spotifySection,
       steamSection,
@@ -707,10 +702,6 @@
     const message =
       ERROR_MESSAGES[error] || "Nothing to see here unless you're me.";
     container.replaceChildren();
-    document.getElementById("admin-tabs")?.setAttribute("hidden", "");
-
-    const section = document.createElement("div");
-    section.className = "connection-section";
 
     const p = document.createElement("p");
     p.textContent = message;
@@ -720,8 +711,7 @@
     link.className = "cv-button";
     link.textContent = "Login with Google";
 
-    section.append(p, link);
-    container.append(section);
+    container.append(p, link);
   }
 
   fetch(`${window.API_BASE_URL}/auth/me`, { credentials: "include" })
