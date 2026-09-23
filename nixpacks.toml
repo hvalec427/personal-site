@@ -1,8 +1,10 @@
 [phases.setup]
-# ruby_3_3 + bundler are explicit here (rather than relying on nixpacks'
-# automatic Ruby-provider detection) because Gemfile now lives in main/,
-# not the repo root, so auto-detection won't find it.
-nixPkgs = ["chromium", "fontconfig", "dejavu_fonts", "nodejs_22", "ruby_3_3", "bundler"]
+# ruby_3_3 is explicit here (rather than relying on nixpacks' automatic
+# Ruby-provider detection) because Gemfile now lives in main/, not the repo
+# root, so auto-detection won't find it. bundler is NOT listed separately:
+# ruby_3_3 already ships a bin/bundler, and adding the standalone bundler
+# package collides with it during nix-env install.
+nixPkgs = ["chromium", "fontconfig", "dejavu_fonts", "nodejs_22", "ruby_3_3"]
 
 [variables]
 FONTCONFIG_FILE = "/root/.nix-profile/etc/fonts/fonts.conf"
