@@ -8,7 +8,12 @@
 # `yarn build`, but nixpacks only auto-provisions yarn when it detects a
 # yarn.lock — this repo uses npm (package-lock.json), so yarn is otherwise
 # missing and the install step fails with "yarn: command not found".
-nixPkgs = ["chromium", "fontconfig", "dejavu_fonts", "nodejs_22", "ruby_3_3", "yarn"]
+# gcc/gnumake/pkg-config/openssl are the C toolchain Jekyll's `bundle install`
+# needs to compile native gems (bigdecimal, json, eventmachine, http_parser.rb).
+# Without them the build dies with "gcc: not found" / "You have to install
+# development tools first"; eventmachine also needs openssl+pkg-config for
+# -lcrypto. Precompiled gems (ffi, google-protobuf) install fine regardless.
+nixPkgs = ["chromium", "fontconfig", "dejavu_fonts", "nodejs_22", "ruby_3_3", "yarn", "gcc", "gnumake", "pkg-config", "openssl"]
 
 [variables]
 FONTCONFIG_FILE = "/root/.nix-profile/etc/fonts/fonts.conf"
