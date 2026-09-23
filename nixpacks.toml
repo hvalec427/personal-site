@@ -4,7 +4,11 @@
 # root, so auto-detection won't find it. bundler is NOT listed separately:
 # ruby_3_3 already ships a bin/bundler, and adding the standalone bundler
 # package collides with it during nix-env install.
-nixPkgs = ["chromium", "fontconfig", "dejavu_fonts", "nodejs_22", "ruby_3_3"]
+# yarn is explicit because Coolify's install/build commands are `yarn` /
+# `yarn build`, but nixpacks only auto-provisions yarn when it detects a
+# yarn.lock — this repo uses npm (package-lock.json), so yarn is otherwise
+# missing and the install step fails with "yarn: command not found".
+nixPkgs = ["chromium", "fontconfig", "dejavu_fonts", "nodejs_22", "ruby_3_3", "yarn"]
 
 [variables]
 FONTCONFIG_FILE = "/root/.nix-profile/etc/fonts/fonts.conf"
