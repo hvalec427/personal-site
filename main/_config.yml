@@ -1,5 +1,6 @@
 title: Hvalec
 url: "http://localhost:3000"
+commonplace_url: "http://localhost:5173/"
 destination: ../dist
 markdown: kramdown
 kramdown:
