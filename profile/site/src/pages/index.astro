@@ -1,48 +1,18 @@
 ---
-// Placeholder landing page — the profile homepage is a work in progress.
+// /profile now lives at commonplace.hvalec.com — send old links there.
+const target = "https://commonplace.hvalec.com/";
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Coming soon | Hvalec</title>
-    <style>
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-      }
-      html,
-      body {
-        margin: 0;
-        min-height: 100%;
-      }
-      body {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #f5efe6;
-        color: #1f2937;
-        font-family: ui-monospace, "Cutive Mono", monospace;
-        padding: 20px;
-      }
-      main {
-        text-align: center;
-      }
-      h1 {
-        font-size: clamp(1.8rem, 6vw, 3rem);
-        font-weight: 400;
-        margin: 0;
-        letter-spacing: 0.02em;
-      }
-    </style>
+    <meta name="robots" content="noindex" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={target} />
+    <title>Hvalec</title>
   </head>
   <body>
-    <main>
-      <h1>Coming soon</h1>
-    </main>
+    <a href={target}>commonplace.hvalec.com</a>
   </body>
 </html>
