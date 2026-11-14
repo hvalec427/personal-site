@@ -38,21 +38,17 @@ The PDF itself isn't committed — it's generated fresh into `dist/assets/` on e
 
 ## Site URL per environment
 
-`main/_config.yml` defaults `url` to `http://localhost:3000` for local dev. Staging and production override it by merging an extra config file at build time, so internal links (and the ones printed into the PDF) always point at the right domain instead of the build machine's localhost:
-
-- Staging: `main/_config_staging.yml` → `https://staging.hvalec.com`
-- Production: `main/_config_production.yml` → `https://hvalec.com`
+`main/_config.yml` defaults `url` to `http://localhost:3000` for local dev. Production overrides it by merging `main/_config_production.yml` (`https://hvalec.com`) at build time, so internal links (and the ones printed into the PDF) always point at the right domain instead of the build machine's localhost.
 
 ## Deployment (Coolify)
 
 **Build Command changed with the three-project split — see the note below before updating Coolify.**
 
-Staging Build Command: `npm run build:staging`
-Production Build Command: `npm run build`
+Build Command: `npm run build`
 Publish Directory: `/dist`
 
 `nixpacks.toml` adds `chromium` (plus `fontconfig`/`dejavu_fonts`) so the PDF script has a browser to drive, `nodejs_22` so `profile`'s and `admin`'s builds can run, and now explicitly adds `ruby_3_3` + `bundler` — previously nixpacks auto-detected Ruby from a root-level `Gemfile`, but that now lives in `main/`, so auto-detection no longer fires and Ruby has to be requested explicitly.
 
 `profile`'s and `admin`'s builds each need their own `DOPPLER_TOKEN` env var on this Coolify app (service tokens scoped to their own Doppler projects) to resolve `API_BASE_URL` and any other secrets at build time — see `profile/README.md` / `admin/README.md`.
 
-**Action needed:** the Coolify Build Command and Publish Directory for both the staging and production `personal-site` apps still have the old pre-split values and need updating to the ones above — I didn't change them myself since that's live deploy config. `ADMIN_REDIRECT_URL` (a Doppler secret used by `hvalec-api` for the post-login redirect) also needs updating from wherever it currently points (`.../karl/admin`, the old pre-split path — unaffected by the later `karl/` → `profile/` rename since that value lives in Doppler, not this repo) to `.../admin`, in both the staging and production Doppler configs, or logging into `/admin` will redirect somewhere that no longer exists.
+**Action needed:** the Coolify Build Command and Publish Directory for the production `personal-site` app still have the old pre-split values and need updating to the ones above — I didn't change them myself since that's live deploy config. `ADMIN_REDIRECT_URL` (a Doppler secret used by `hvalec-api` for the post-login redirect) also needs updating from wherever it currently points (`.../karl/admin`, the old pre-split path — unaffected by the later `karl/` → `profile/` rename since that value lives in Doppler, not this repo) to `.../admin`, in the production Doppler config, or logging into `/admin` will redirect somewhere that no longer exists.

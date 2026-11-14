@@ -137,17 +137,15 @@ install() {
   echo
   echo "Which server should this Mac report to?"
   echo "  1) production   (https://api.hvalec.com)"
-  echo "  2) staging      (https://staging-api.hvalec.com)"
-  echo "  3) local dev    (http://localhost:3001)"
-  echo "  4) custom URL"
-  read -rp "Choice [1-4]: " choice
+  echo "  2) local dev    (http://localhost:3001)"
+  echo "  3) custom URL"
+  read -rp "Choice [1-3]: " choice
 
   local url env_name
   case "$choice" in
     1) url="https://api.hvalec.com"; env_name="prod" ;;
-    2) url="https://staging-api.hvalec.com"; env_name="staging" ;;
-    3) url="http://localhost:3001"; env_name="local" ;;
-    4)
+    2) url="http://localhost:3001"; env_name="local" ;;
+    3)
       read -rp "Server URL (e.g. https://api.example.com): " url
       env_name="custom"
       ;;

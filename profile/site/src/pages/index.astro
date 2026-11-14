@@ -1,6 +1,6 @@
 ---
 // /profile now lives at commonplace — send old links there. The profile build
-// is identical across envs, so the target is picked from the hostname at
+// is identical for dev and prod, so the target is picked from the hostname at
 // runtime; the meta refresh is the no-JS fallback (production).
 const target = "https://commonplace.hvalec.com/";
 ---
@@ -16,9 +16,7 @@ const target = "https://commonplace.hvalec.com/";
         var target =
           host === "localhost" || host === "127.0.0.1"
             ? "http://localhost:5173/"
-            : host.indexOf("staging") === 0
-              ? "https://staging-commonplace.hvalec.com/"
-              : "https://commonplace.hvalec.com/";
+            : "https://commonplace.hvalec.com/";
         location.replace(target);
       })();
     </script>

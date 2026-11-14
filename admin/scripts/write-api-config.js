@@ -29,7 +29,7 @@ writeFileSync(
 );
 
 // Same reasoning as profile's copy of this script: the page's CSP hardcodes
-// connect-src to *.hvalec.com, which only covers the API in prod/staging by
+// connect-src to *.hvalec.com, which only covers the API in prod by
 // coincidence. Local dev needs the actual API_BASE_URL origin added too.
 patchCspConnectSrc(join(ROOT, "dist"), new URL(apiBaseUrl).origin);
 cacheBustAssets(join(ROOT, "dist"), buildMs);

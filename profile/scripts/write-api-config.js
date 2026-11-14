@@ -22,11 +22,10 @@ writeFileSync(
 );
 
 // Every page's CSP hardcodes connect-src to *.hvalec.com, which only covers
-// the API in prod/staging by coincidence (api.hvalec.com and
-// staging-api.hvalec.com both match that wildcard). It doesn't cover local
-// dev, where API_BASE_URL points at localhost — so instead of special-casing
-// "local," derive the API's actual origin from the same env var everywhere
-// and add it explicitly. Redundant with the wildcard in prod/staging
+// the API in prod by coincidence (api.hvalec.com matches that wildcard). It
+// doesn't cover local dev, where API_BASE_URL points at localhost — so instead
+// of special-casing "local," derive the API's actual origin from the same env
+// var everywhere and add it explicitly. Redundant with the wildcard in prod
 // (harmless), required in local dev. The wildcard itself stays — it also
 // covers uptime.hvalec.com (see site-stats.js), unrelated to the API.
 patchCspConnectSrc(join(ROOT, "dist"), new URL(apiBaseUrl).origin);
