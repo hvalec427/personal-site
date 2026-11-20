@@ -64,7 +64,7 @@ Introducing Drizzle (lightweight, SQL-shaped, TypeScript-optional) rather than h
 - `education` — title, school, from_date, to_date, location, note
 - `places` — from_date, to_date, city, country, with_whom
 - `photos` — asset_id, caption, subject ('profile' | 'dog')
-- `elsewhere` — category, site, handle, url (replaces the hardcoded list in `profile/site/src/lib/identity.ts`)
+- `elsewhere` — category, site, handle, url (replaces the hardcoded list formerly in `profile/site/src/lib/identity.ts` (removed; see git history))
 
 **Dog subsite (new — no frontend yet either, per "build everything")**
 - `dog_details` — single row: name, birth_date, breed, last_vet_visit, photo_asset_id, photo_caption, status
