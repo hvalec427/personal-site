@@ -1,6 +1,7 @@
 import { writeFileSync, readFileSync, readdirSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
+import { addOriginToConnectSrc } from "./csp.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
@@ -12,6 +13,21 @@ const apiBaseUrl = process.env.API_BASE_URL;
 if (!apiBaseUrl) {
   console.error(
     "API_BASE_URL is not set. Run `npm run secrets` locally, or check DOPPLER_TOKEN in Coolify.",
+  );
+  process.exit(1);
+}
+
+// A scheme-less value like "localhost:3001" parses with "localhost:" as the
+// scheme, giving an origin of "null" — which would silently land in the CSP.
+let apiOrigin;
+try {
+  apiOrigin = new URL(apiBaseUrl).origin;
+} catch {
+  apiOrigin = "null";
+}
+if (apiOrigin === "null") {
+  console.error(
+    `API_BASE_URL (${JSON.stringify(apiBaseUrl)}) has no valid origin — include the scheme, e.g. http://localhost:3001.`,
   );
   process.exit(1);
 }
@@ -31,7 +47,7 @@ writeFileSync(
 // Same reasoning as profile's copy of this script: the page's CSP hardcodes
 // connect-src to *.hvalec.com, which only covers the API in prod by
 // coincidence. Local dev needs the actual API_BASE_URL origin added too.
-patchCspConnectSrc(join(ROOT, "dist"), new URL(apiBaseUrl).origin);
+patchCspConnectSrc(join(ROOT, "dist"), apiOrigin);
 cacheBustAssets(join(ROOT, "dist"), buildMs);
 
 // Append ?v=<buildMs> to every local /admin/assets/*.js|css reference so a
@@ -60,11 +76,7 @@ function patchCspConnectSrc(dir, origin) {
     }
     if (!entry.name.endsWith(".html")) continue;
     const html = readFileSync(full, "utf8");
-    if (!html.includes("connect-src") || html.includes(origin)) continue;
-    const patched = html.replace(
-      /connect-src([^;]*);/,
-      (_, sources) => `connect-src${sources} ${origin};`,
-    );
+    const patched = addOriginToConnectSrc(html, origin);
     if (patched !== html) writeFileSync(full, patched);
   }
 }
