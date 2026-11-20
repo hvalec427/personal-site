@@ -1,5 +1,7 @@
 # Personal Spec Sheet — Implementation Plan
 
+> **Superseded.** /profile now redirects to commonplace.hvalec.com; the Astro spec-sheet page (profile/site/) was removed. The old design is in git history (`git show b2bdf7b^:profile/site/...`).
+
 Design source: https://claude.ai/design/p/6852d099-2d72-4399-b625-889be466492b?file=Profile.dc.html&via=share
 
 Target: `/profile` (mstr.hvalec.com), backed by the separate `hvalec-api` service.
