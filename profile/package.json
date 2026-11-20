@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "node scripts/build.js",
-    "build:static": "rm -rf dist && mkdir -p dist && cp -R src/. dist/ && node scripts/build-content.js && node scripts/write-deploy-time.js && node scripts/write-api-config.js && node scripts/build-homepage.js",
+    "build:static": "rm -rf dist && mkdir -p dist && cp -R src/. dist/ && node scripts/build-content.js && node scripts/write-deploy-time.js && node scripts/write-api-config.js",
     "dev": "concurrently \"nodemon --watch src --watch partials -e html,css,js,md --exec 'yarn build'\" \"serve dist -l 3002\"",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
