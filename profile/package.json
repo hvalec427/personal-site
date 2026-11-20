@@ -12,7 +12,7 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
-    "prepare": "husky",
+    "prepare": "cd .. && husky profile/.husky",
     "secrets": "doppler secrets download --no-file --format env > .env",
     "test": "node --test \"scripts/**/*.test.js\""
   },

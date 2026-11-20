@@ -1,0 +1,1 @@
+cd profile && npx --no -- lint-staged
