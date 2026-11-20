@@ -16,6 +16,21 @@ if (!apiBaseUrl) {
   process.exit(1);
 }
 
+// A scheme-less value like "localhost:3001" parses with "localhost:" as the
+// scheme, giving an origin of "null" — which would silently land in the CSP.
+let apiOrigin;
+try {
+  apiOrigin = new URL(apiBaseUrl).origin;
+} catch {
+  apiOrigin = "null";
+}
+if (apiOrigin === "null") {
+  console.error(
+    `API_BASE_URL (${JSON.stringify(apiBaseUrl)}) has no valid origin — include the scheme, e.g. http://localhost:3001.`,
+  );
+  process.exit(1);
+}
+
 // Stamped into every build so (a) the UI can show which build is live — no
 // more guessing whether you're looking at the latest — and (b) every local
 // asset URL gets a ?v=<buildMs> below, forcing the browser to refetch JS/CSS
@@ -31,7 +46,7 @@ writeFileSync(
 // Same reasoning as profile's copy of this script: the page's CSP hardcodes
 // connect-src to *.hvalec.com, which only covers the API in prod by
 // coincidence. Local dev needs the actual API_BASE_URL origin added too.
-patchCspConnectSrc(join(ROOT, "dist"), new URL(apiBaseUrl).origin);
+patchCspConnectSrc(join(ROOT, "dist"), apiOrigin);
 cacheBustAssets(join(ROOT, "dist"), buildMs);
 
 // Append ?v=<buildMs> to every local /admin/assets/*.js|css reference so a
