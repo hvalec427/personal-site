@@ -18,6 +18,8 @@ import { fileURLToPath } from "node:url";
 
 const SCRIPT = join(dirname(fileURLToPath(import.meta.url)), "write-api-config.js");
 
+const CSP_HELPER = join(dirname(SCRIPT), "csp.js");
+
 const CSP =
   "default-src 'self'; script-src 'self' https://cloud.umami.is; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://cdn.discordapp.com; font-src 'self'; connect-src 'self' https://*.hvalec.com wss://*.hvalec.com https://gateway.umami.is; base-uri 'self'; form-action 'self'; object-src 'none';";
 
@@ -60,6 +62,7 @@ function setup() {
   mkdirSync(join(tmp, "dist/assets/js"), { recursive: true });
   mkdirSync(join(tmp, "dist/sub"));
   copyFileSync(SCRIPT, join(tmp, "scripts/write-api-config.js"));
+  copyFileSync(CSP_HELPER, join(tmp, "scripts/csp.js"));
   writeFileSync(join(tmp, "package.json"), JSON.stringify({ type: "module" }));
   writeFileSync(join(tmp, "dist/index.html"), INDEX_HTML);
   writeFileSync(join(tmp, "dist/sub/page.html"), SUB_HTML);
