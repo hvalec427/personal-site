@@ -42,6 +42,10 @@ npm run dev
 
 Serves `dist/` on `:3002` and rebuilds on changes to `src/`/`partials/`.
 
+## Git hooks
+
+Running `yarn` (or `npm install`) in `profile/` installs a husky pre-commit hook (`prepare` runs `husky` from the git root, pointing at `profile/.husky`). It runs `lint-staged` (eslint + prettier) on staged `profile/` files. Set `HUSKY=0` to skip it.
+
 ## Build
 
 `npm run build` (`scripts/build.js`) checks for a `DOPPLER_TOKEN` environment variable: if it's set (only true in Coolify, never locally), it fetches secrets from Doppler via `@dopplerhq/node-sdk` and injects them for the build only, then runs the real static build (`build:static`), which bakes the resolved value into `dist/assets/js/api-config.js`. If `DOPPLER_TOKEN` isn't set (local dev), it's a zero-overhead passthrough straight to `build:static`.
