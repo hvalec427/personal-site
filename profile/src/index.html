@@ -1,16 +1,11 @@
----
-// /profile now lives at commonplace — send old links there. The profile build
-// is identical for dev and prod, so the target is picked from the hostname at
-// runtime; the meta refresh is the no-JS fallback (production).
-const target = "https://commonplace.hvalec.com/";
----
-
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="robots" content="noindex" />
-    <script is:inline>
+    <!-- /profile now lives at commonplace. The target is picked from the hostname at runtime
+         (the build is the same for dev and prod). The meta refresh is the no-JS fallback (production). -->
+    <script>
       (function () {
         var host = location.hostname;
         var target =
@@ -20,11 +15,14 @@ const target = "https://commonplace.hvalec.com/";
         location.replace(target);
       })();
     </script>
-    <meta http-equiv="refresh" content={`0; url=${target}`} />
-    <link rel="canonical" href={target} />
+    <meta
+      http-equiv="refresh"
+      content="0; url=https://commonplace.hvalec.com/"
+    />
+    <link rel="canonical" href="https://commonplace.hvalec.com/" />
     <title>Hvalec</title>
   </head>
   <body>
-    <a href={target}>commonplace.hvalec.com</a>
+    <a href="https://commonplace.hvalec.com/">commonplace.hvalec.com</a>
   </body>
 </html>
