@@ -16,6 +16,24 @@ if (!apiBaseUrl) {
   process.exit(1);
 }
 
+// A scheme-less value like "localhost:3001" parses with "localhost:" as the
+// scheme and an origin of "null", which would land in the CSP verbatim; a
+// value like "api.hvalec.com" doesn't parse at all. Fail before writing
+// anything either way.
+let apiOrigin = "null";
+try {
+  apiOrigin = new URL(apiBaseUrl).origin;
+} catch {
+  // falls through to the check below
+}
+if (apiOrigin === "null") {
+  const value = JSON.stringify(apiBaseUrl);
+  console.error(
+    `API_BASE_URL ${value} has no valid origin — include the scheme, e.g. http://localhost:3001.`,
+  );
+  process.exit(1);
+}
+
 writeFileSync(
   join(ROOT, "dist/assets/js/api-config.js"),
   `window.API_BASE_URL = ${JSON.stringify(apiBaseUrl)};\n`,
@@ -28,7 +46,7 @@ writeFileSync(
 // var everywhere and add it explicitly. Redundant with the wildcard in prod
 // (harmless), required in local dev. The wildcard itself stays — it also
 // covers uptime.hvalec.com (see site-stats.js), unrelated to the API.
-patchCspConnectSrc(join(ROOT, "dist"), new URL(apiBaseUrl).origin);
+patchCspConnectSrc(join(ROOT, "dist"), apiOrigin);
 
 function patchCspConnectSrc(dir, origin) {
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
