@@ -2,7 +2,7 @@
 
 The admin panel for hvalec.com, served at `/admin`. A self-contained, bundler-free static build (plain HTML/CSS/JS) living inside the `personal-site` repo, alongside `main/` (Jekyll) and `profile/` as independent sibling projects. See the root `README.md` for how the three builds are combined.
 
-Handles the Spotify/Xbox/Steam/PSN/Discord connection flows and device tokens (imperative vanilla JS, `src/assets/js/admin.js` — talks to `hvalec-api`), plus a growing set of tabs (Habits, and eventually Collections/Watching/Reading/Exercise/Manage) built with [Alpine.js](https://alpinejs.dev). Specifically the **CSP-safe build** (`@alpinejs/csp`, loaded in `src/index.html`) — this page's Content-Security-Policy has no `unsafe-eval`, which the default Alpine build requires. That means `x-data` must reference a component registered ahead of time via `Alpine.data(...)` (see `src/assets/js/admin-tabs.js`) rather than an inline object literal or function call — inline `x-data="{ ... }"` will throw a CSP violation at runtime, not at build time, so it's easy to miss until you actually open the page.
+Handles the Spotify/Xbox/Steam/PSN/Discord connection flows and device tokens, in vanilla JS (`src/assets/js/admin.js`, rendering into `#admin-panel` in `src/index.html`; talks to `hvalec-api`). The page has a strict Content-Security-Policy meta tag in `src/index.html` (no `unsafe-eval`, scripts only from `'self'` and Umami), so new scripts must be same-origin files.
 
 ## Secrets (Doppler)
 

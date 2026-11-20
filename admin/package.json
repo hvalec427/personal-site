@@ -2,7 +2,7 @@
   "name": "admin",
   "version": "1.0.0",
   "type": "module",
-  "description": "Admin panel for hvalec.com, built at /admin. Alpine.js (CSP-safe build), no bundler.",
+  "description": "Admin panel for hvalec.com, built at /admin. Vanilla JS, no bundler.",
   "license": "MIT",
   "scripts": {
     "build": "node scripts/build.js",
