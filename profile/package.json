@@ -12,7 +12,7 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
-    "prepare": "husky",
+    "prepare": "cd .. && husky profile/.husky",
     "secrets": "doppler secrets download --no-file --format env > .env",
     "test": "node --test \"scripts/**/*.test.js\""
   },
@@ -22,6 +22,7 @@
     "concurrently": "9.2.1",
     "eslint": "9.0.0",
     "eslint-config-prettier": "9.0.0",
+    "globals": "14.0.0",
     "husky": "9.1.7",
     "lint-staged": "16.4.0",
     "nodemon": "3.1.14",

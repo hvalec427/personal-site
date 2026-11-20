@@ -1,6 +1,7 @@
 import { writeFileSync, readFileSync, readdirSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
+import { addOriginToConnectSrc } from "./csp.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
@@ -57,11 +58,7 @@ function patchCspConnectSrc(dir, origin) {
     }
     if (!entry.name.endsWith(".html")) continue;
     const html = readFileSync(full, "utf8");
-    if (!html.includes("connect-src") || html.includes(origin)) continue;
-    const patched = html.replace(
-      /connect-src([^;]*);/,
-      (_, sources) => `connect-src${sources} ${origin};`,
-    );
+    const patched = addOriginToConnectSrc(html, origin);
     if (patched !== html) writeFileSync(full, patched);
   }
 }

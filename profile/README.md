@@ -4,7 +4,7 @@ The non-professional section of hvalec.com, served at `/profile`. Formerly its o
 
 The admin panel (Spotify/Xbox/Steam/PSN/Discord connections, device tokens) used to live here as `admin.html` — it's since moved to its own `admin/` project, served at `/admin` rather than `/profile/admin`. Nothing in this project references it anymore.
 
-`/profile` itself is a static redirect (`src/index.html`) to https://commonplace.hvalec.com/. Everything else (`logs/`, `recipes/`, `shelves/`, `changelog.html`, `uses.html`, `secret.html`, `404.html`) is the bundler-free static build.
+`/profile` itself is a static redirect (`src/index.html`) to https://commonplace.hvalec.com/ (`http://localhost:5173/` when served from localhost), with a meta-refresh fallback. Everything else (`logs/`, `recipes/`, `shelves/`, `changelog.html`, `uses.html`, `secret.html`, `404.html`) is the bundler-free static build, still built and served at its old URLs.
 
 ## Secrets (Doppler)
 
@@ -41,6 +41,10 @@ npm run dev
 ```
 
 Serves `dist/` on `:3002` and rebuilds on changes to `src/`/`partials/`.
+
+## Git hooks
+
+Running `yarn` (or `npm install`) in `profile/` installs a husky pre-commit hook (`prepare` runs `husky` from the git root, pointing at `profile/.husky`). It runs `lint-staged` (eslint + prettier) on staged `profile/` files. Set `HUSKY=0` to skip it.
 
 ## Build
 
