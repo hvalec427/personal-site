@@ -11,13 +11,17 @@ import {
   writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 // The script resolves ROOT from its own location and runs on import, so each
 // test copies it into a throwaway tree (tmp/scripts + tmp/dist) and runs it
 // as a child process — the real dist/ is never touched.
 const SCRIPT = fileURLToPath(new URL("./write-api-config.js", import.meta.url));
+const SCRIPTS_DIR = dirname(SCRIPT);
+// Local modules write-api-config.js imports. csp.js arrives with ZIGA-4; the
+// existence filter keeps this working on either side of that merge.
+const HELPERS = ["csp.js"].filter((f) => existsSync(join(SCRIPTS_DIR, f)));
 
 const csp = (connectSrc) =>
   `<!doctype html><html><head><meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src ${connectSrc}; object-src 'none';"></head><body></body></html>\n`;
@@ -35,6 +39,10 @@ beforeEach(() => {
   writeFileSync(join(tmp, "package.json"), JSON.stringify({ type: "module" }));
   mkdirSync(join(tmp, "scripts"));
   copyFileSync(SCRIPT, join(tmp, "scripts/write-api-config.js"));
+  // Helper modules the script imports (./csp.js) must sit next to the copy.
+  for (const helper of HELPERS) {
+    copyFileSync(join(SCRIPTS_DIR, helper), join(tmp, "scripts", helper));
+  }
   mkdirSync(join(tmp, "dist/assets/js"), { recursive: true });
   mkdirSync(join(tmp, "dist/nested"));
   for (const [name, html] of Object.entries(FIXTURES)) {
