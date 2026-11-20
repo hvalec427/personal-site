@@ -8,6 +8,7 @@
     "build": "node scripts/build.js",
     "build:static": "rm -rf dist && mkdir -p dist && cp -R src/. dist/ && node scripts/write-api-config.js",
     "dev": "concurrently \"nodemon --watch src -e html,css,js --exec 'yarn build'\" \"serve dist -l 3003\"",
+    "test": "node --test scripts/*.test.js",
     "secrets": "doppler secrets download --no-file --format env > .env"
   },
   "devDependencies": {
