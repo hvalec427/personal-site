@@ -17,7 +17,7 @@ API_BASE_URL=http://localhost:4000 npm run build:dev
 npx serve dist -l 3000
 ```
 
-(`API_BASE_URL` normally comes from Doppler per-project — see `profile/README.md` / `admin/README.md`. The placeholder above is only for previewing pages that don't need the API.)
+(Only `admin`'s build needs `API_BASE_URL`; it normally comes from Doppler — see `admin/README.md`. The placeholder above is only for previewing pages that don't need the API. `main` and `profile` need no secrets.)
 
 To iterate on just one project, work inside it directly (e.g. `cd profile && npm run dev`) — no need to rebuild the other two while doing so. Run the root build again when you want to check how it all fits together.
 
@@ -49,6 +49,6 @@ Publish Directory: `/dist`
 
 `nixpacks.toml` adds `chromium` (plus `fontconfig`/`dejavu_fonts`) so the PDF script has a browser to drive, `nodejs_22` so `profile`'s and `admin`'s builds can run, and now explicitly adds `ruby_3_3` + `bundler` — previously nixpacks auto-detected Ruby from a root-level `Gemfile`, but that now lives in `main/`, so auto-detection no longer fires and Ruby has to be requested explicitly.
 
-`profile`'s and `admin`'s builds each need their own `DOPPLER_TOKEN` env var on this Coolify app (service tokens scoped to their own Doppler projects) to resolve `API_BASE_URL` and any other secrets at build time — see `profile/README.md` / `admin/README.md`.
+Only `admin`'s build needs a `DOPPLER_TOKEN` env var on this Coolify app, to resolve `API_BASE_URL` at build time — see `admin/README.md`. `profile` no longer uses Doppler, so its old `DOPPLER_TOKEN` is unused and can be retired by the owner. `profile` does need `DEPLOY_ENV=production` set on this Coolify app, or its draft posts get published — see `profile/README.md`.
 
 **Action needed:** the Coolify Build Command and Publish Directory for the production `personal-site` app still have the old pre-split values and need updating to the ones above — I didn't change them myself since that's live deploy config. `ADMIN_REDIRECT_URL` (a Doppler secret used by `hvalec-api` for the post-login redirect) also needs updating from wherever it currently points (`.../karl/admin`, the old pre-split path — unaffected by the later `karl/` → `profile/` rename since that value lives in Doppler, not this repo) to `.../admin`, in the production Doppler config, or logging into `/admin` will redirect somewhere that no longer exists.
