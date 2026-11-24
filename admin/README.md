@@ -6,7 +6,7 @@ Handles the Spotify/Xbox/Steam/PSN/Discord connection flows and device tokens, i
 
 ## Secrets (Doppler)
 
-The only non-hardcoded config value is `API_BASE_URL` (which `hvalec-api` instance the page talks to) — the same value `profile` uses, since both are just frontends for the same backend. Stored in Doppler, project **hvalec-site**.
+The only non-hardcoded config value is `API_BASE_URL` (which `hvalec-api` instance the page talks to). Stored in Doppler, project **hvalec-site**.
 
 1. Install the Doppler CLI:
    ```
