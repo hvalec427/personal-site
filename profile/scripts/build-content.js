@@ -142,7 +142,8 @@ function renderTable(tableLines) {
   if (coverIndex !== -1) {
     rows.forEach((row) => {
       if (!row[coverIndex]) {
-        row[coverIndex] = "![No cover available](/profile/assets/images/no-cover.svg)";
+        row[coverIndex] =
+          "![No cover available](/profile/assets/images/no-cover.svg)";
       }
     });
   }
