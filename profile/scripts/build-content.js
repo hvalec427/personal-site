@@ -142,7 +142,8 @@ function renderTable(tableLines) {
   if (coverIndex !== -1) {
     rows.forEach((row) => {
       if (!row[coverIndex]) {
-        row[coverIndex] = "![No cover available](/profile/assets/images/no-cover.svg)";
+        row[coverIndex] =
+          "![No cover available](/profile/assets/images/no-cover.svg)";
       }
     });
   }
@@ -390,39 +391,27 @@ function renderStandalonePage({ title, description, content }) {
 const PAGES = [
   {
     name: "shelves/books",
+    label: "Books",
     src: join(ROOT, "src/shelves/books.md"),
     dist: join(ROOT, "dist/shelves/books"),
   },
   {
     name: "shelves/music",
+    label: "Music",
     src: join(ROOT, "src/shelves/music.md"),
     dist: join(ROOT, "dist/shelves/music"),
   },
   {
     name: "shelves/games",
+    label: "Games",
     src: join(ROOT, "src/shelves/games.md"),
     dist: join(ROOT, "dist/shelves/games"),
   },
 ];
 
-const SHELVES_LINKS = [
-  { href: "/profile/shelves/books", label: "Books" },
-  { href: "/profile/shelves/music", label: "Music" },
-  { href: "/profile/shelves/games", label: "Games" },
-];
-
-mkdirSync(join(ROOT, "dist/shelves"), { recursive: true });
-writeFileSync(
-  join(ROOT, "dist/shelves/index.html"),
-  renderStandalonePage({
-    title: "Shelves",
-    description: "Books, music, and games I own.",
-    content: `<ul>\n${SHELVES_LINKS.map(
-      ({ href, label }) => `  <li><a href="${href}">${label}</a></li>`,
-    ).join("\n")}\n</ul>`,
-  }),
-);
-console.info("  built: shelves/index.html");
+// Only shelves that were actually built get a link, so a draft skipped in
+// production never shows up (or 404s) on the shelves index.
+const shelfLinks = [];
 
 for (const page of PAGES) {
   const raw = readFileSync(page.src, "utf8");
@@ -445,7 +434,24 @@ for (const page of PAGES) {
   mkdirSync(page.dist, { recursive: true });
   writeFileSync(join(page.dist, "index.html"), html);
   console.info(`  built: ${page.name}/index.html${isDraft ? " (draft)" : ""}`);
+  shelfLinks.push({
+    href: `/profile/${page.name}`,
+    label: isDraft ? `[DRAFT] ${page.label}` : page.label,
+  });
 }
+
+mkdirSync(join(ROOT, "dist/shelves"), { recursive: true });
+writeFileSync(
+  join(ROOT, "dist/shelves/index.html"),
+  renderStandalonePage({
+    title: "Shelves",
+    description: "Books, music, and games I own.",
+    content: `<ul>\n${shelfLinks
+      .map(({ href, label }) => `  <li><a href="${href}">${label}</a></li>`)
+      .join("\n")}\n</ul>`,
+  }),
+);
+console.info("  built: shelves/index.html");
 
 for (const section of SECTIONS) {
   mkdirSync(section.dist, { recursive: true });
