@@ -6,34 +6,6 @@ The admin panel (Spotify/Xbox/Steam/PSN/Discord connections, device tokens) used
 
 `/profile` itself is a static redirect (`src/index.html`) to https://commonplace.hvalec.com/ (`http://localhost:5173/` when served from localhost), with a meta-refresh fallback. Everything else (`logs/`, `recipes/`, `shelves/`, `changelog.html`, `uses.html`, `secret.html`, `404.html`) is the bundler-free static build, still built and served at its old URLs.
 
-## Secrets (Doppler)
-
-The only non-hardcoded config value is `API_BASE_URL` (which `hvalec-api` instance the site talks to). It's stored in Doppler, project **hvalec-site**, not committed here.
-
-1. Install the Doppler CLI:
-   ```
-   brew install dopplerhq/cli/doppler
-   ```
-2. Log in (opens a browser to authenticate):
-   ```
-   doppler login
-   ```
-3. Link this directory to the Doppler project/config (run once, from `profile/`):
-   ```
-   doppler setup
-   ```
-   Pick project `hvalec-site` and whichever config you're working against (e.g. `development_personal`).
-4. Pull the value into a local `.env`:
-   ```
-   npm run secrets
-   ```
-
-`.env` is gitignored. Note the build (`npm run build`) reads `API_BASE_URL` from the shell environment, not from `.env` directly — either `source .env` first, or run the build through Doppler instead:
-
-```
-doppler run -- npm run build
-```
-
 ## Local dev
 
 ```
@@ -48,6 +20,8 @@ Running `yarn` (or `npm install`) in `profile/` installs a husky pre-commit hook
 
 ## Build
 
-`npm run build` (`scripts/build.js`) checks for a `DOPPLER_TOKEN` environment variable: if it's set (only true in Coolify, never locally), it fetches secrets from Doppler via `@dopplerhq/node-sdk` and injects them for the build only, then runs the real static build (`build:static`), which bakes the resolved value into `dist/assets/js/api-config.js`. If `DOPPLER_TOKEN` isn't set (local dev), it's a zero-overhead passthrough straight to `build:static`.
+`npm run build` copies `src/` into `dist/`, then runs `scripts/build-content.js` (partials and markdown content) and `scripts/write-deploy-time.js` (commit hash from Coolify's `SOURCE_COMMIT`). It needs no secrets and no Doppler.
+
+**`DEPLOY_ENV=production` must be set as a Coolify environment variable on the profile app (available at build time), or draft posts get published.** Locally it's unset, so drafts are shown with a "Draft" notice.
 
 All paths in the built output are rooted at `/profile` (asset links, internal nav, the header logo, etc.) since this build's output gets copied into `dist/profile` by the root orchestrator (see root `package.json`), not served from the domain root.
