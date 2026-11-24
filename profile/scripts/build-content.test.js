@@ -229,3 +229,39 @@ test("unclosed frontmatter is treated as no meta (not a draft)", () => {
   assert.ok(!read("shelves/music/index.html").includes("hidden in production"));
   assert.ok(exists("shelves/music.md"));
 });
+
+test("production: shelves index has no link to a draft shelf", () => {
+  const res = run({ DEPLOY_ENV: "production" });
+  assert.equal(res.status, 0, res.stderr);
+  const index = read("shelves/index.html");
+  assert.ok(!index.includes("/profile/shelves/books"), "links draft shelf");
+  assert.ok(!index.includes(">Books<"), "lists draft shelf");
+  assert.ok(index.includes('<a href="/profile/shelves/music">Music</a>'));
+  assert.ok(index.includes('<a href="/profile/shelves/games">Games</a>'));
+});
+
+test("non-production: shelves index lists a draft shelf with [DRAFT]", () => {
+  const res = run({});
+  assert.equal(res.status, 0, res.stderr);
+  const index = read("shelves/index.html");
+  assert.ok(
+    index.includes('<a href="/profile/shelves/books">[DRAFT] Books</a>'),
+  );
+  assert.ok(index.includes('<a href="/profile/shelves/music">Music</a>'));
+  assert.ok(index.includes('<a href="/profile/shelves/games">Games</a>'));
+});
+
+test("production without draft shelves: index lists all in order", () => {
+  writeSrc("shelves/books.md", md({ title: "Books" }, "Books."));
+  copySrc();
+  const res = run({ DEPLOY_ENV: "production" });
+  assert.equal(res.status, 0, res.stderr);
+  const hrefs = [
+    ...read("shelves/index.html").matchAll(/href="(\/profile\/shelves\/\w+)"/g),
+  ].map((m) => m[1]);
+  assert.deepEqual(hrefs, [
+    "/profile/shelves/books",
+    "/profile/shelves/music",
+    "/profile/shelves/games",
+  ]);
+});
