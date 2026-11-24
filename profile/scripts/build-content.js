@@ -469,6 +469,12 @@ for (const section of SECTIONS) {
     }
 
     const created = meta.created || meta.date;
+    if (!created) {
+      console.error(
+        `build-content: ${section.name}/${file} has no "created:" or "date:" in its frontmatter`,
+      );
+      process.exit(1);
+    }
     const hasTitle = Boolean(meta.title);
     const title = meta.title || `Log entry #${++unnamedCount}`;
     const content = markdownToHtml(body);
